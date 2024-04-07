@@ -26,7 +26,7 @@ import { Component } from '@angular/core';
 })
 export class AuthComponent {
   showSlider: boolean = true;
-  sliderType: string = 'slider';
+  sliderType: string = 'banner';
   isRoundBanner: boolean = false;
 
   constructor(

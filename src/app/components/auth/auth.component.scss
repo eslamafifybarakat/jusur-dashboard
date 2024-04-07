@@ -9,11 +9,10 @@
     }
   }
   .bg-form {
-    background-color: var(--bg-main-color);
-    // background-image: url(../../../assets/images/auth/auth-bg-top.svg);
-    background-repeat: no-repeat;
-    background-position: top right;
-    background-size: 60%;
+    background: linear-gradient(270deg, #0a2527 0%, #287676 100%);
+    &:dir(rtl) {
+      background: linear-gradient(90deg, #0a2527 0%, #287676 100%);
+    }
     min-height: 100vh;
     .min-h {
       min-height: 100vh;
