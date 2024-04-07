@@ -9,7 +9,7 @@
       padding: 10px 15px !important;
       font-size: 15px;
       line-height: 2;
-      color: #000;
+      color: #32475cde;
       border-radius: 10px;
       &:hover {
         background-color: #fafafa;
@@ -26,5 +26,13 @@
   }
   .user-name {
     max-width: 11rem;
+  }
+  &:dir(rtl) {
+    .text-start {
+      text-align: right !important;
+    }
+  }
+  hr {
+    border-color: #32475c;
   }
 }

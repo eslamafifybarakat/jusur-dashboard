@@ -12,23 +12,59 @@
       </div>
       <i class="pi pi-angle-down fs-8 mt-1"></i>
     </button>
-    <ul class="dropdown-menu border-0 shadow p-3 user-info-menu" aria-labelledby="dropdownMenuButton1">
-      <ng-container *ngFor="let item of userInfoList">
+    <ul class="dropdown-menu border-0 shadow user-info-menu p-0" aria-labelledby="dropdownMenuButton1">
+      <div class="p-3 fs-6 text-start">
+        <p class="mb-2">ياسر</p>
+        <p class="text-muted-color mb-0">المسئول</p>
+      </div>
+      <hr class="my-0">
+      <ul class="p-1">
         <li class="nav-item">
-          <ng-container *ngIf="(item?.routerLink == 'logout'); else elseRoute">
-            <a class="nav-link d-flex align-items-center gap-2 logout-text" (click)="logOut()">
-              <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(item.icon)"></div>
-              <span class="lh-0">{{ item?.text | translate }}</span>
-            </a>
-          </ng-container>
-          <ng-template #elseRoute>
-            <a class="nav-link d-flex align-items-center gap-2" [routerLink]="item?.routerLink">
-              <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(item.icon)"></div>
-              <span class="lh-0">{{ item?.text | translate }}</span>
-            </a>
-          </ng-template>
+          <a class="nav-link d-flex align-items-center gap-2">
+            <span>
+              <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M9 0.833496C8.0935 0.833496 7.20736 1.1023 6.45364 1.60593C5.69991 2.10955 5.11245 2.82537 4.76555 3.66286C4.41865 4.50036 4.32789 5.42191 4.50473 6.31099C4.68158 7.20007 5.1181 8.01675 5.75909 8.65774C6.40008 9.29873 7.21676 9.73525 8.10584 9.9121C8.99492 10.0889 9.91647 9.99818 10.754 9.65128C11.5915 9.30438 12.3073 8.71692 12.8109 7.96319C13.3145 7.20947 13.5833 6.32333 13.5833 5.41683C13.5833 4.20125 13.1004 3.03547 12.2409 2.17592C11.3814 1.31638 10.2156 0.833496 9 0.833496ZM9 8.16683C8.4561 8.16683 7.92442 8.00555 7.47218 7.70337C7.01995 7.4012 6.66747 6.97171 6.45933 6.46921C6.25119 5.96671 6.19673 5.41378 6.30284 4.88033C6.40895 4.34688 6.67086 3.85688 7.05546 3.47229C7.44005 3.08769 7.93005 2.82578 8.4635 2.71967C8.99695 2.61356 9.54988 2.66802 10.0524 2.87616C10.5549 3.0843 10.9844 3.43678 11.2865 3.88901C11.5887 4.34125 11.75 4.87293 11.75 5.41683C11.75 6.14618 11.4603 6.84565 10.9445 7.36137C10.4288 7.8771 9.72935 8.16683 9 8.16683ZM17.25 18.2502V17.3335C17.25 15.6317 16.574 13.9996 15.3706 12.7962C14.1672 11.5929 12.5351 10.9168 10.8333 10.9168H7.16667C5.46486 10.9168 3.83276 11.5929 2.6294 12.7962C1.42604 13.9996 0.75 15.6317 0.75 17.3335V18.2502H2.58333V17.3335C2.58333 16.1179 3.06622 14.9521 3.92576 14.0926C4.7853 13.233 5.95109 12.7502 7.16667 12.7502H10.8333C12.0489 12.7502 13.2147 13.233 14.0742 14.0926C14.9338 14.9521 15.4167 16.1179 15.4167 17.3335V18.2502H17.25Z"
+                  fill="#32475C" fill-opacity="0.87" />
+              </svg>
+            </span>
+            {{'userInfo.my_profile'|translate}}
+          </a>
         </li>
-      </ng-container>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-2 fs-6" href="mailto:yasser@gmail.com">
+            <span>
+              <i class="pi pi-envelope"></i>
+            </span>
+            {{email}}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-2 fs-6" href="tel:+966295768795">
+            <span>
+              <i class="pi pi-phone"></i>
+            </span>
+            {{phone}}
+          </a>
+        </li>
+      </ul>
+      <hr class="my-0">
+      <li class="nav-item m-1">
+        <a class="nav-link d-flex align-items-center gap-2 logout-text" (click)="logOut()">
+          <span>
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g opacity="0.87">
+                <path d="M14.6673 11.9166V10.0833H6.41732V7.33325L1.83398 10.9999L6.41732 14.6666V11.9166H14.6673Z"
+                  fill="currentColor" fill-opacity="0.87" />
+                <path
+                  d="M18.3333 2.75H10.0833C9.07225 2.75 8.25 3.57225 8.25 4.58333V8.25H10.0833V4.58333H18.3333V17.4167H10.0833V13.75H8.25V17.4167C8.25 18.4278 9.07225 19.25 10.0833 19.25H18.3333C19.3444 19.25 20.1667 18.4278 20.1667 17.4167V4.58333C20.1667 3.57225 19.3444 2.75 18.3333 2.75Z"
+                  fill="currentColor" fill-opacity="0.87" />
+              </g>
+            </svg>
+          </span>
+          {{'general.logout'|translate}}
+        </a>
+      </li>
     </ul>
   </div>
 </div>

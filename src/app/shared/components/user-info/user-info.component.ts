@@ -6,14 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router, RouterModule } from '@angular/router';
 import { keys } from '../../configs/localstorage-key';
 import { TranslateModule } from '@ngx-translate/core';
-import { userInfoMenu } from './user-info-menu-list';
 import { ConfirmationService } from 'primeng/api';
-interface MenuItem {
-  id?: string;
-  text: string;
-  icon: string;
-  routerLink?: string;
-}
 @Component({
   standalone: true,
   imports: [TranslateModule, CommonModule, RouterModule],
@@ -23,7 +16,8 @@ interface MenuItem {
 })
 export class UserInfoComponent {
   currentLanguage: string;
-  userInfoList: MenuItem[] = userInfoMenu;
+  phone: string = '+(966)295768795';
+  email: string = 'yasser@gmail.com';
 
   constructor(
     private confirmationService: ConfirmationService,
