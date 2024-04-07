@@ -24,7 +24,7 @@
           </button>
         </div>
       </div>
-      <ng-container *ngIf="isLoading; else noLoading">
+      <ng-container *ngIf="isLoadingClientDetails; else noLoading">
         <div class="mt-4">
           <skeleton [type]="'editClient'"></skeleton>
         </div>
@@ -281,7 +281,7 @@
       </ng-template>
     </form>
     <div class="global-card mt-4 p-4">
-      <records></records>
+      <records [clientId]="clientId"></records>
     </div>
   </div>
 </div>

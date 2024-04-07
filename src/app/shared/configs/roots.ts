@@ -27,12 +27,13 @@ export const roots = {
     },
     clients: {
       getClients: 'Client/AllClients',
+      getSingleClient: 'Client/GetSingleClient',
       addClient: 'Client/AddClient',
       editClient: '/Client/UpdateClient',
       deleteClients: '/deleteClients',
     },
     records: {
-      getRecords: '/getRecords',
+      getRecords: 'ClientHistory/AllClientHistorys',
       addRecords: '/addRecords',
       editRecords: '/editRecords',
       IsRecordNumberAvailable: "/RecordNumber",

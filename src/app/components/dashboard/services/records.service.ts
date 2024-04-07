@@ -14,7 +14,7 @@ export class RecordsService {
     private http: HttpClient
   ) { }
 
-  getRecordsList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any): Observable<any> {
+  getRecordsList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any,client_id?:number | string): Observable<any> {
     let params = new HttpParams();
     if (page) {
       params = params?.append("page", page);
@@ -30,6 +30,9 @@ export class RecordsService {
     }
     if (conditions && conditions?.length > 0) {
       params = params?.append("conditions", JSON?.stringify(conditions));
+    }
+    if (client_id) {
+      params = params?.append("client_id", client_id);
     }
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.records.getRecords}`, { params: params })
   }

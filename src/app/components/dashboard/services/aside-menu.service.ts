@@ -37,8 +37,8 @@ export class AsideMenuService {
 </g></svg>`,
         routerLink: '/Dashboard/Statistics',
         state: false, //Opened Or Closed
-        // permission: this.checkPermissionService.hasPermission('Pages.Statistics'),
-        permission: true,
+        permission: this.checkPermissionService.hasPermission('Pages.Statistics'),
+        // permission: true,
       },
       {
         id: 'clients',

@@ -18,7 +18,7 @@ import { MetaDetails, MetadataService } from './../../../services/generic/metada
 import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
 import { AlertsService } from './../../../services/generic/alerts.service';
 import { PublicService } from './../../../services/generic/public.service';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { RecordsService } from '../services/records.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
@@ -43,6 +43,8 @@ import { Router } from '@angular/router';
 })
 export class RecordsComponent {
   private subscriptions: Subscription[] = [];
+
+  @Input() clientId: number | string;
 
   dataStyleType: string = 'list';
 
@@ -99,7 +101,7 @@ export class RecordsComponent {
       { field: 'recordNumber', header: 'dashboard.tableHeader.recordNumber', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordNumber'), type: 'numeric', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
       { field: 'endDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
     ];
-    this.getAllRecords();
+    this.getAllRecords(false, this.clientId);
     this.searchSubject
       .pipe(
         debounceTime(500) // Throttle time in milliseconds (1 seconds)
@@ -125,9 +127,9 @@ export class RecordsComponent {
   }
 
   // Start Records List Functions
-  getAllRecords(isFiltering?: boolean): void {
+  getAllRecords(isFiltering?: boolean, clientId?: number | string): void {
     isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingRecordsList = true;
-    this.recordsService?.getRecordsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null)
+    this.recordsService?.getRecordsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null, clientId)
       .pipe(
         tap((res: RecordsListApiResponse) => this.processRecordsListResponse(res)),
         catchError(err => this.handleError(err)),
