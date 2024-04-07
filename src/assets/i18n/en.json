@@ -163,6 +163,9 @@
     }
   },
   "auth": {
+    "welcomeBack":"Welcome back, we missed you",
+    "start":"Start",
+    "logInToGetPermissions":"Log in to get the permissions you want",
     "logout": "Logout",
     "startRecruitment": "Start your recruitment journey now",
     "joinMasdar": "Join the Al Masdar International Recruitment platform to be able to obtain the workers allocated to you",

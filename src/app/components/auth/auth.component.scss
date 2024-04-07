@@ -35,7 +35,7 @@
     width: 3rem;
   }
   .form-h {
-    min-height: calc(100vh - 6.7rem);
+    min-height: 100vh;
   }
   .form-btn {
     background-color: var(--bg-main-color);
@@ -43,15 +43,6 @@
     color: var(--text-white-color);
     height: 3.7rem;
     border-radius: var(--border-input-radius);
-  }
-  .footer-logo {
-    width: 9rem;
-  }
-  .social-icon {
-    width: 31px;
-    min-width: 31px;
-    height: 31px;
-    background-color: #0c293533;
   }
 }
 @media (max-width: 576px) {
