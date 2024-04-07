@@ -37,14 +37,10 @@ export class ClientsService {
     return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.clients.addClient}`, data);
   }
   editClient(data: any, id: number | string): Observable<any> {
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.clients.editClient}/6`, data);
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.clients.editClient}/${id}`, data);
   }
   getClientById(id: any): Observable<any> {
-    let params = new HttpParams();
-    if (id) {
-      params = params?.append("client_id", id);
-    }
-    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.clients.getClients}`, { params: params });
+    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.clients.getSingleClient}/${id}`);
   }
   deleteClientById(id: number, data: any): Observable<any> {
     let params = new HttpParams();

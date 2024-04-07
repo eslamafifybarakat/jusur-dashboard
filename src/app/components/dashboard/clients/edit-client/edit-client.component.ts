@@ -47,8 +47,8 @@ export class EditClientComponent {
   private subscriptions: Subscription[] = [];
 
   clientId: number;
-  isLoading: boolean = false;
-  details: any;
+  isLoadingClientDetails: boolean = false;
+  clientDetails: any;
 
   isFullNameReadOnly: boolean = true;
   isNationalIdentityReadOnly: boolean = true;
@@ -148,16 +148,16 @@ export class EditClientComponent {
 
   // }
   patchValue(): void {
-    let convertPhoneNumber: any = parseInt(this.details?.phoneNumber);
-    let convertNationalIdentity: any = parseInt(this.details?.identity);
-    let convertBirthDate: any = new Date(this.details?.birthDate);
+    let convertPhoneNumber: any = parseInt(this.clientDetails?.phoneNumber);
+    let convertNationalIdentity: any = parseInt(this.clientDetails?.identity);
+    let convertBirthDate: any = new Date(this.clientDetails?.birthDate);
 
     this.editClientForm?.patchValue({
-      fullName: this.details?.name,
+      fullName: this.clientDetails?.name,
       nationalIdentity: convertNationalIdentity,
       phoneNumber: convertPhoneNumber,
       birthDate: convertBirthDate,
-      email: this.details?.email
+      email: this.clientDetails?.email
     })
   }
   editInput(name: string): void {
@@ -180,7 +180,7 @@ export class EditClientComponent {
 
   // Start Get Client By Id
   getClientById(id: number | string): void {
-    this.isLoading = true;
+    this.isLoadingClientDetails = true;
     let subscribeGetClient: Subscription = this.clientsService?.getClientById(id).pipe(
       tap(res => this.handleGetClientSuccess(res)),
       catchError(err => this.handleError(err))
@@ -189,10 +189,11 @@ export class EditClientComponent {
   }
   private handleGetClientSuccess(response: any): void {
     if (response?.success) {
-      this.details = response.result.items[0];
+      this.clientDetails = response.result;
       this.patchValue();
-      this.isLoading = false;
+      this.isLoadingClientDetails = false;
     } else {
+      this.isLoadingClientDetails = false;
       this.handleError(response?.message);
     }
   }
@@ -227,7 +228,7 @@ export class EditClientComponent {
     if (!this.formControls?.nationalIdentity?.valid) {
       return; // Exit early if National Identity is not valid
     }
-    if (this.editClientForm.value.nationalIdentity == this.details.identity) {
+    if (this.editClientForm.value.nationalIdentity == this.clientDetails.identity) {
       return;
     }
     const identity: number | string = this.editClientForm?.value?.nationalIdentity;
@@ -261,7 +262,7 @@ export class EditClientComponent {
     if (!this.formControls?.email?.valid) {
       return; // Exit early if email is not valid
     }
-    if (this.editClientForm.value.email == this.details.email) {
+    if (this.editClientForm.value.email == this.clientDetails.email) {
       return;
     }
     const email: string = this.editClientForm?.value?.email;
@@ -296,7 +297,7 @@ export class EditClientComponent {
     if (!this.formControls?.phoneNumber?.valid) {
       return; // Exit early if phoneNumber is not valid
     }
-    if (this.editClientForm.value.phoneNumber == this.details.phoneNumber) {
+    if (this.editClientForm.value.phoneNumber == this.clientDetails.phoneNumber) {
       return;
     }
     const phone: number | string = this.editClientForm?.value?.phoneNumber;
@@ -378,6 +379,7 @@ export class EditClientComponent {
     this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
   }
   private handleError(err: any): any {
+    this.isLoadingClientDetails = false;
     this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
   }
   private setMessage(message: string, type: string): void {
