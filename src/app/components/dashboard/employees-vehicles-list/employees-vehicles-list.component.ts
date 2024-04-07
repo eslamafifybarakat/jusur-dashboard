@@ -98,6 +98,7 @@ export class EmployeesVehiclesListComponent {
   showTabItems(type: string): void {
     this.list = 0;
     this.tabType = type;
+    this.dataStyleType = 'list';
   }
 
   // Toggle data style table or card
