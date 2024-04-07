@@ -1,0 +1,93 @@
+<footer class="footer">
+  <div id="footer" class="position-relative">
+    <div class="bg-footer">
+      <div class="container">
+        <div class="row py-4 pb-lg-4 pb-0">
+          <div class="col-lg-4 col-md-6 col-sm-6 mb-lg-0 mb-4">
+            <div class="border-right">
+              <h5 class="text-white-color fw-bold">
+                {{'footer.contactUs' | translate}}
+              </h5>
+              <ul class="d-flex align-items-center gap-3 all-social mt-3 p-0">
+                <li>
+                  <a [href]="facebookLink" target="_blank" aria-label="facebook" title="facebook">
+                    <i class="pi pi-facebook fs-5 text-white-color"></i>
+                  </a>
+                </li>
+                <li>
+                  <a [href]="'https://wa.me/' + whatsappLink" target="_blank" aria-label="whatsapp" title="whatsapp">
+                    <i class="pi pi-whatsapp fs-5 text-white-color"></i>
+                  </a>
+                </li>
+                <li>
+                  <a [href]="instagramLink" target="_blank" aria-label="instagram" title="instagram">
+                    <i class="pi pi-instagram fs-5 text-white-color"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6 mb-lg-0 mb-4">
+            <div class="border-right">
+              <h5 class="text-white-color fw-bold">
+                {{'footer.subscribeNewsletter' | translate}}
+              </h5>
+              <div class="my-3 pe-4">
+                <div class="input-group bg-white-color rounded-pill py-1">
+                  <input type="text" class="form-control border-0 bg-transparent"
+                    placeholder="{{'footer.emailAddress' | translate}}" aria-label="Username"
+                    aria-describedby="basic-addon1">
+                  <span class="input-group-text border-0 bg-transparent" id="basic-addon1">
+                    <button class="text-uppercase rounded-pill px-3 py-1 join-btn text-white-color border-0">
+                      {{'footer.join' | translate}}
+                    </button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6 mb-lg-0 mb-4">
+            <div class="">
+              <h5 class="text-white-color fw-bold">{{'footer.download' | translate}}</h5>
+              <ul class="d-flex gap-3 flex-wrap p-0 mt-3">
+                <li>
+                  <a class="text-white-color" title="google-play">
+                    <img src="assets/images/footer/google-play.png" class="app-img" alt="google-play">
+                  </a>
+                </li>
+                <li>
+                  <a class="text-white-color" title="app-store">
+                    <img src="assets/images/footer/app-store.png" class="app-img" alt="app-store">
+                  </a>
+                </li>
+                <li>
+                  <a class="text-white-color" title="appgallery">
+                    <img src="assets/images/footer/appgallery.png" class="app-img" alt="appgallery">
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="py-3 d-flex justify-content-between flex-wrap gap-2">
+          <p class="mb-0 text-white-color">
+            {{'footer.allRight' | translate}}
+          </p>
+          <ul class="d-flex gap-3 flex-wrap p-0">
+            <li>
+              <a class="text-white-color" title="terms" [routerLink]="'terms'">
+                {{'footer.terms' | translate}}
+              </a>
+            </li>
+            <li>
+              <a class="text-white-color" title="privacy" [routerLink]="'privacy'">
+                {{'footer.privacy' | translate}}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

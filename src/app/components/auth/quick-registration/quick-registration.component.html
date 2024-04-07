@@ -1,0 +1,107 @@
+<div id="register" class="auth-form">
+  <div class="d-flex justify-content-end mb-md-4 mb-2">
+    <a class="lang-item">
+      <language-selector></language-selector>
+    </a>
+  </div>
+  <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap mb-3">
+    <img src="assets/images/logo/logo.webp" class="form-logo mb-2 pointer" alt="logo" [routerLink]="['/']">
+  </div>
+  <div>
+    <h1 class="fs-2 text-center mb-3 text-main-color">
+      {{'auth.startRecruitment' | translate}}
+    </h1>
+    <p class="mt-2 text-center lh-sm description fs-8">
+      {{'auth.joinMasdar' | translate}}
+    </p>
+  </div>
+  <!-- Social -->
+  <div class="row justify-content-center pt-sm-4 pt-2">
+    <div class="col-lg-9">
+      <div>
+        <div class="social mb-3 d-flex justify-content-center align-items-center facebook gap-2 text-white-color">
+          <span class="scaleX-rtl">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M23.5 12.0699C23.5 5.7186 18.3513 0.56988 12 0.56988C5.64872 0.56988 0.5 5.7186 0.5 12.0699C0.5 17.8099 4.70538 22.5674 10.2031 23.4302V15.3941H7.2832V12.0699H10.2031V9.53629C10.2031 6.6541 11.92 5.06207 14.5468 5.06207C15.805 5.06207 17.1211 5.28668 17.1211 5.28668V8.11675H15.671C14.2424 8.11675 13.7969 9.00322 13.7969 9.91266V12.0699H16.9863L16.4765 15.3941H13.7969V23.4302C19.2946 22.5674 23.5 17.8099 23.5 12.0699Z"
+                fill="white" />
+            </svg>
+          </span>
+          <span>
+            {{'auth.registerWithFace'|translate}}
+          </span>
+        </div>
+        <div class="social mb-3 d-flex justify-content-center align-items-center google gap-2">
+          <span class="scaleX-rtl">
+            <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M22.54 11.7615C22.54 10.946 22.4668 10.1619 22.3309 9.40918H11.5V13.8576H17.6891C17.4225 15.2951 16.6123 16.513 15.3943 17.3285V20.214H19.1109C21.2855 18.2119 22.54 15.2637 22.54 11.7615Z"
+                fill="#4285F4" />
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M11.4995 23.0001C14.6045 23.0001 17.2077 21.9703 19.1104 20.2139L15.3938 17.3285C14.364 18.0185 13.0467 18.4262 11.4995 18.4262C8.50425 18.4262 5.96902 16.4032 5.0647 13.6851H1.22266V16.6646C3.11493 20.423 7.00402 23.0001 11.4995 23.0001Z"
+                fill="#34A853" />
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M5.06523 13.685C4.83523 12.995 4.70455 12.2579 4.70455 11.5C4.70455 10.742 4.83523 10.005 5.06523 9.31499V6.33545H1.22318C0.444318 7.88795 0 9.64431 0 11.5C0 13.3557 0.444318 15.112 1.22318 16.6645L5.06523 13.685Z"
+                fill="#FBBC05" />
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M11.4995 4.57386C13.1879 4.57386 14.7038 5.15409 15.8956 6.29364L19.194 2.99523C17.2024 1.13955 14.5992 0 11.4995 0C7.00402 0 3.11493 2.57705 1.22266 6.33545L5.0647 9.315C5.96902 6.59682 8.50425 4.57386 11.4995 4.57386Z"
+                fill="#EA4335" />
+            </svg>
+          </span>
+          <span>
+            {{'auth.registerWithGoogle'|translate}}
+          </span>
+        </div>
+        <div class="social mb-3 d-flex justify-content-center align-items-center gap-2 apple text-white-color">
+          <span class="scaleX-rtl">
+            <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M19.2798 18.424C18.932 19.2275 18.5203 19.9672 18.0433 20.6472C17.393 21.5743 16.8606 22.216 16.4503 22.5724C15.8143 23.1573 15.1329 23.4568 14.4031 23.4739C13.8792 23.4739 13.2475 23.3248 12.5121 23.0224C11.7742 22.7214 11.0962 22.5724 10.4762 22.5724C9.82598 22.5724 9.12861 22.7214 8.3827 23.0224C7.63565 23.3248 7.03383 23.4824 6.5737 23.498C5.87393 23.5278 5.17643 23.2197 4.4802 22.5724C4.03583 22.1848 3.48002 21.5204 2.81417 20.5791C2.09977 19.5739 1.51244 18.4084 1.05231 17.0795C0.55953 15.6442 0.3125 14.2543 0.3125 12.9087C0.3125 11.3673 0.645564 10.0379 1.31269 8.92385C1.83698 8.029 2.53449 7.32312 3.40747 6.80493C4.28045 6.28674 5.2237 6.02267 6.23951 6.00578C6.79532 6.00578 7.5242 6.1777 8.42998 6.51559C9.33319 6.85462 9.91315 7.02655 10.1674 7.02655C10.3575 7.02655 11.0018 6.82552 12.094 6.42473C13.1268 6.05305 13.9985 5.89916 14.7126 5.95978C16.6477 6.11595 18.1015 6.87876 19.0683 8.25303C17.3377 9.30163 16.4816 10.7703 16.4986 12.6544C16.5142 14.122 17.0466 15.3432 18.0929 16.3129C18.5671 16.7629 19.0967 17.1107 19.6859 17.3578C19.5581 17.7283 19.4232 18.0832 19.2798 18.424ZM14.8418 0.960131C14.8418 2.11039 14.4216 3.18439 13.5839 4.17847C12.5731 5.36023 11.3505 6.04311 10.0246 5.93536C10.0077 5.79736 9.9979 5.65213 9.9979 5.49951C9.9979 4.39526 10.4786 3.21349 11.3323 2.24724C11.7585 1.75801 12.3005 1.35122 12.9579 1.02671C13.6138 0.707053 14.2342 0.530273 14.8177 0.5C14.8347 0.653772 14.8418 0.807554 14.8418 0.960116V0.960131Z"
+                fill="white" />
+            </svg>
+          </span>
+          <span>
+            {{'auth.registerWithApple'|translate}}
+          </span>
+        </div>
+        <div class="social d-flex justify-content-center align-items-center email gap-2 text-white-color"
+          [routerLink]="['/Auth/Create-account']">
+          <span class="scaleX-rtl">
+            <svg width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M19.833 25.2918H8.16634C3.90801 25.2918 1.45801 22.8418 1.45801 18.5835V10.4168C1.45801 6.1585 3.90801 3.7085 8.16634 3.7085H19.833C24.0913 3.7085 26.5413 6.1585 26.5413 10.4168V18.5835C26.5413 22.8418 24.0913 25.2918 19.833 25.2918ZM8.16634 5.4585C4.82967 5.4585 3.20801 7.08016 3.20801 10.4168V18.5835C3.20801 21.9202 4.82967 23.5418 8.16634 23.5418H19.833C23.1697 23.5418 24.7913 21.9202 24.7913 18.5835V10.4168C24.7913 7.08016 23.1697 5.4585 19.833 5.4585H8.16634Z"
+                fill="white" />
+              <path
+                d="M13.9996 15.515C13.0196 15.515 12.0279 15.2116 11.2696 14.5933L7.61791 11.6766C7.24458 11.3733 7.17458 10.825 7.47792 10.4516C7.78125 10.0783 8.32959 10.0083 8.70292 10.3116L12.3546 13.2283C13.2412 13.94 14.7462 13.94 15.6329 13.2283L19.2846 10.3116C19.6579 10.0083 20.2179 10.0666 20.5096 10.4516C20.8129 10.825 20.7546 11.385 20.3696 11.6766L16.7179 14.5933C15.9712 15.2116 14.9796 15.515 13.9996 15.515Z"
+                fill="white" />
+            </svg>
+          </span>
+          <span>
+            {{'auth.registerWithEmail'|translate}}
+          </span>
+        </div>
+      </div>
+      <div class="mt-5 fs-8 text-center w-75 m-auto">
+        <span class="mb-0 text-muted-color">
+          {{'auth.continuing'|translate}}
+        </span>
+        <a class="text-main-color">
+          {{'auth.policies'|translate}}
+        </a>
+        <span class="mb-0 text-muted-color">
+          {{'auth.useInternational'|translate}}
+        </span>
+      </div>
+      <div class="mt-4 fs-8 d-flex justify-content-center align-items-center gap-1 flex-wrap text-center">
+        <p class="mb-0 text-muted-color">
+          {{'auth.haveAccount'|translate}}
+        </p>
+        <a class="text-main-color" [routerLink]="['/Auth/Login']">
+          {{'auth.login'|translate}}
+        </a>
+      </div>
+    </div>
+  </div>
+  <div>
+  </div>
+</div>

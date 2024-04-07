@@ -1,0 +1,48 @@
+{
+  "titles": {
+    "projectName": "Structure",
+    "error500": "服务器错误",
+    "login": "登录",
+    "signUp": "注册"
+  },
+  "nav": {
+    "home": "首页",
+    "services": {
+      "title": "服务",
+      "items": {
+        "offices": "办公室",
+        "sponsorshipTransfer": "赞助转移"
+      }
+    },
+    "aboutStructure": {
+      "title": "关于",
+      "items": {
+        "policies": "政策",
+        "journey": "旅程"
+      }
+    },
+    "support": {
+      "title": "支持",
+      "items": {
+        "contactUs": "联系我们",
+        "faqs": "常见问题"
+      }
+    }
+  },
+  "footer": {
+    "allRight": "版权所有 © 2022。",
+    "contactUs":"联系我们",
+    "subscribeNewsletter":"Subscribe Newsletter",
+    "terms": "条款和条件",
+    "privacy": "隐私政策",
+    "websiteMap": "网站地图",
+    "emailAddress": "电子邮件地址",
+    "join": "加入",
+    "download": "下载我们的手机应用"
+  },
+  "errors": {
+    "backToHome": "回到首页",
+    "serverError": "发生服务器错误",
+    "pageNotFound": "页面未找到"
+  }
+}

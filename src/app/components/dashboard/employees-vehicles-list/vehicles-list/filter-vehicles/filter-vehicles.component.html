@@ -1,0 +1,89 @@
+<div id="modal-form">
+  <form [formGroup]="modalForm" (ngSubmit)="submit()" aria-label="filter-vehicle-form">
+    <div class="form-content">
+      <div class="row m-0">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="operatingCard" class="mb-2 required">{{'labels.operatingCard'|translate}}</label>
+            <input type="text" class="form-control" formControlName="operatingCard"
+              (input)="publicService?.clearValidationErrors(formControls?.operatingCard)"
+              [class.border-red]="formControls?.operatingCard?.invalid && (formControls?.operatingCard?.dirty || formControls?.operatingCard?.touched)"
+              placeholder="{{'placeholders.operatingCard'|translate}}">
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.operatingCard?.invalid && (formControls?.operatingCard?.dirty || formControls?.operatingCard?.touched)">
+                <ng-container *ngIf="formControls?.operatingCard?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="endDate" class="mb-2 required">{{'labels.endDate'|translate}}</label>
+            <div
+              [class.border-red]="formControls?.endDate?.invalid && (formControls?.endDate?.dirty || formControls?.endDate?.touched)"
+              class="endDate">
+              <p-calendar formControlName="endDate" appendTo="body" [showIcon]="true" inputId="icon"
+                [readonlyInput]="true" [styleClass]="'date-picker'"
+                placeholder="{{'placeholders.dateFormat'|translate}}" [showButtonBar]="true"
+                [todayButtonStyleClass]="'d-none'" dateFormat="dd/mm/yy" hourFormat="12"></p-calendar>
+            </div>
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.endDate?.invalid && (formControls?.endDate?.dirty || formControls?.endDate?.touched)">
+                <ng-container *ngIf="formControls?.endDate?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="insuranceExpiryDate" class="mb-2 required">{{'labels.insuranceExpiryDate'|translate}}</label>
+            <div
+              [class.border-red]="formControls?.insuranceExpiryDate?.invalid && (formControls?.insuranceExpiryDate?.dirty || formControls?.insuranceExpiryDate?.touched)"
+              class="insuranceExpiryDate">
+              <p-calendar formControlName="insuranceExpiryDate" appendTo="body" [showIcon]="true" inputId="icon"
+                [readonlyInput]="true" [styleClass]="'date-picker'"
+                placeholder="{{'placeholders.dateFormat'|translate}}" [showButtonBar]="true"
+                [todayButtonStyleClass]="'d-none'" dateFormat="dd/mm/yy" hourFormat="12"></p-calendar>
+            </div>
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.insuranceExpiryDate?.invalid && (formControls?.insuranceExpiryDate?.dirty || formControls?.insuranceExpiryDate?.touched)">
+                <ng-container *ngIf="formControls?.insuranceExpiryDate?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end gap-3">
+      <button type="button" (click)="cancel()"
+        class="btn btn-outline-main d-flex align-items-center justify-content-center gap-2  fs-5-1 mt-3">
+        <span>
+          {{'general.cancel'|translate}}
+        </span>
+        <i class="pi pi-times"></i>
+      </button>
+      <button type="submit"
+        class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2  fs-5-1 mt-3">
+        <span>
+          {{'general.filter'|translate}}
+        </span>
+        <i class="pi pi-filter"></i>
+      </button>
+    </div>
+  </form>
+</div>

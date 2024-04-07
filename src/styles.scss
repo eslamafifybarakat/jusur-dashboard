@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "bootstrap/scss/bootstrap";
+@import "primeicons/primeicons.css";
+@import "styles/scrollbar.scss";
+@import "styles/variables.scss";
+@import "styles/global-rules.scss";
+@import "styles/colors-classes.scss";
+@import "styles/form-field.scss";
+@import "styles/p-toast.scss";
+@import "styles/p-dialog.scss";
+
+// @import "tailwindcss/base";
+// @import "tailwindcss/components";
+// @import "tailwindcss/utilities";
+
+[dir="rtl"] {
+  @import "styles/rtl/cust-style-rtl.scss";
+}

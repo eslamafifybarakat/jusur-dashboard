@@ -1,0 +1,19 @@
+.btn {
+  height: 2.9rem;
+  padding: 1rem;
+  border-radius: 10px;
+}
+.btn-solid-main {
+  background-color: var(--bg-main-color);
+  border-color: var(--bg-main-color);
+  color: var(--text-white-color);
+}
+.btn-outline-main {
+  background-color: transparent;
+  border-color: var(--bg-main-color);
+  color: var(--text-main-color);
+}
+.form-content {
+  max-height: 63vh;
+  overflow: auto;
+}

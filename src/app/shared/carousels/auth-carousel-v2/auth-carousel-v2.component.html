@@ -1,0 +1,28 @@
+<div id="auth-slider">
+  <ng-container *ngIf="authSlider?.length>1; else noSlider">
+    <p-carousel [value]="authSlider" [numVisible]="1" [numScroll]="1" [autoplayInterval]="7000">
+      <ng-template let-slide pTemplate="item">
+        <div class="pt-5">
+          <!-- <div class="slide-img">
+            <img class="w-100 h-100" [src]="slide.imgUrl" alt="slide">
+          </div> -->
+          <div class="text-white-color">
+            <h5 class="fs-5-2 mb-3">{{slide?.title}}</h5>
+            <small class="w-75 m-auto lh-sm d-block description">{{slide?.description}}</small>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </ng-container>
+  <ng-template #noSlider>
+    <div *ngFor="let slide of authSlider">
+      <div class="slide-img">
+        <img class="w-100 h-100" [src]="slide.imgUrl" alt="slide">
+      </div>
+      <div class="text-white-color">
+        <h5 class="fs-5-2 mb-3 mt-4">{{slide?.title}}</h5>
+        <small class="w-75 m-auto lh-sm d-block">{{slide?.description}}</small>
+      </div>
+    </div>
+  </ng-template>
+</div>

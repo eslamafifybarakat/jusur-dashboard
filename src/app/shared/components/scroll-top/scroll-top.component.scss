@@ -1,0 +1,40 @@
+#scroll {
+  right: 3.2rem;
+  bottom: 48px;
+  z-index: 555;
+  transition: all 0.5s ease-in-out;
+  .scroll-arrow {
+    width: 65px;
+    height: 65px;
+    background-color: var(--bg-main-color);
+    border-radius: 50%;
+    .pi {
+      color: #ffff;
+    }
+  }
+  .shadow-sm {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
+  }
+  #progress {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    place-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+    display: grid;
+    cursor: pointer;
+    background-color: var(--bg-white-color) !important;
+    .pi {
+      color: var(--text-main-color);
+    }
+  }
+  #progress-value {
+    display: block;
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    background-color: var(--scroll-bg);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+  }
+}

@@ -1,0 +1,450 @@
+input[type]::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder,
+select::-webkit-input-placeholder,
+select.form-control.has-value {
+  font-size: 0.9rem;
+  color: var(--placeholder-input-color) !important;
+}
+
+input[type]:-moz-placeholder,
+textarea:-moz-placeholder,
+select:-moz-placeholder,
+select.form-control.has-value {
+  /* Firefox 18- */
+  color: var(--placeholder-input-color);
+  font-size: 0.9rem;
+}
+
+input[type]::-moz-placeholder,
+textarea::-moz-placeholder,
+select::-moz-placeholder,
+select.form-control.has-value {
+  /* Firefox 19+ */
+  color: var(--placeholder-input-color);
+  font-size: 0.9rem;
+}
+
+input[type]:-ms-input-placeholder,
+textarea:-ms-input-placeholder,
+select:-ms-input-placeholder,
+select.form-control.has-value {
+  color: var(--placeholder-input-color);
+  font-size: 0.9rem;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--bg-input-color) inset !important;
+}
+
+.form-check-input[type="checkbox"]:focus {
+  box-shadow: none;
+}
+
+.form-check-input[type="checkbox"]:focus-visible {
+  box-shadow: none;
+}
+
+.form-check-input:checked {
+  background-color: var(--bg-main-color);
+  border-color: var(--text-main-color);
+}
+label {
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
+}
+.auth-form {
+  .form-control,
+  .form-control:focus,
+  .form-control:focus-visible,
+  .form-select,
+  .form-select:focus,
+  .form-select:focus-visible,
+  .ng-select.ng-select-single .ng-select-container,
+  .p-inputmask,
+  .p-password-input,
+  .p-calendar-w-btn .p-inputtext,
+  .p-dropdown {
+    box-shadow: none !important;
+    outline: none !important;
+    background-color: var(--bg-input-color);
+    border-color: var(--border-input-color);
+    border-width: 2px;
+    height: 3.7rem;
+    border-radius: var(--border-input-radius);
+    padding: 1rem;
+  }
+  .p-dropdown {
+    line-height: 0;
+    width: 100%;
+  }
+}
+.modal-form {
+  p-dropdown .p-inputtext {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.p-inputtext,
+.p-password {
+  width: 100%;
+}
+.p-mask .p-inputmask {
+  border-radius: var(--border-input-radius) !important;
+}
+
+.form-check .form-check-input {
+  border-radius: 50% !important;
+  transform: scale(1.1);
+
+  &:checked {
+    background-color: #77a13b !important;
+    border-color: #77a13b !important;
+  }
+
+  &:focus {
+    border-color: var(--text-desc-color);
+  }
+}
+
+.form-control-left {
+  border-left: 0;
+}
+
+.input-group {
+  .input-group-text {
+    background-color: var(--bg-input-color);
+    border-color: var(--border-input-color);
+    border-radius: var(--border-input-radius);
+
+    .eyeIcon {
+      color: var(--text-desc-color);
+    }
+  }
+
+  .input-group-text-left {
+    border-radius: var(--border-input-radius) 0 0 var(--border-input-radius) !important;
+    border-right: transparent !important;
+  }
+
+  .input-group-text-right {
+    border-radius: 0 var(--border-input-radius) var(--border-input-radius) 0 !important;
+    border-left: transparent !important;
+  }
+
+  .form-control-single,
+  .form-control-single:focus,
+  .form-control-single:focus-within,
+  .form-control-single:focus-visible {
+    border-right: transparent;
+  }
+}
+
+.form-control.is-valid,
+.was-validated .form-control:valid {
+  // background-image: url(../../assets/image/form/valid.svg) !important;
+  border: none;
+}
+
+.border-green {
+  border: 1px solid #198754 !important;
+  border-radius: 0.625rem !important;
+
+  .ng-select-container {
+    border: 0 !important;
+  }
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: transparent;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.required::after {
+  content: "*";
+  color: #dc3545;
+}
+
+.p-checkbox .p-checkbox-box {
+  box-shadow: none;
+}
+.p-checkbox .p-checkbox-box.p-highlight {
+  background-color: var(--bg-main-color);
+  border-color: var(--bg-main-color) !important;
+}
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+  border-color: #ced4da !important;
+}
+.p-checkbox .p-checkbox-box.p-highlight:hover {
+  border-color: var(--bg-main-color) !important;
+}
+.border-red {
+  .p-inputtext {
+    border: 0;
+  }
+}
+.p-dropdown-panel {
+  // padding-top: 1rem;
+  padding-bottom: 0.5rem;
+}
+.p-dropdown {
+  box-shadow: none;
+  border-color: #ced4da;
+  .p-dropdown-item {
+    margin: 0 0.5rem 0.5rem 0.5rem;
+  }
+  // &:hover {
+  // }
+  // border-color: var(--border-input-color);
+}
+
+.p-dropdown {
+  width: 100%;
+}
+.p-dropdown-label {
+  display: flex;
+  align-items: center;
+}
+.p-multiselect {
+  line-height: 0;
+  width: 100%;
+  border-radius: var(--border-input-radius);
+}
+.p-dropdown-items {
+  padding: 0;
+  .p-dropdown-item {
+    border-radius: 10px;
+    margin: 0 0.5rem 0.5rem 0.5rem;
+    &:hover,
+    &.p-highlight {
+      background-color: #eee;
+      color: var(--bg-dark-color);
+    }
+  }
+}
+.p-dropdown .p-dropdown-clear-icon {
+  &:dir(rtl) {
+    left: 3rem !important;
+    right: inherit !important;
+    .p-input-icon-right > .p-icon-wrapper,
+    .p-input-icon-right > i:last-of-type {
+      left: 0.75rem !important;
+      right: inherit;
+    }
+  }
+}
+.p-input-icon-right {
+  &:dir(rtl) {
+    & > .p-icon-wrapper,
+    & > i:last-of-type {
+      left: 0.75rem !important;
+      right: inherit;
+    }
+  }
+}
+.p-multiselect-panel {
+  .p-multiselect-items .p-multiselect-item {
+    margin-bottom: 0.5rem;
+    border-radius: 10px;
+    &.p-highlight.p-focus,
+    &.p-highlight {
+      color: var(--text-dark-color);
+      background-color: #359a9c1a;
+    }
+  }
+  &:dir(rtl) {
+    .p-checkbox {
+      margin-left: 0.5rem;
+      margin-right: inherit;
+    }
+  }
+}
+.p-multiselect {
+  line-height: 2;
+  width: 100%;
+  height: 3.7rem;
+  .p-multiselect-label-container {
+    padding: 0;
+  }
+  .p-multiselect-label {
+    display: flex;
+    align-items: center;
+  }
+  .p-multiselect-token {
+    height: 2rem;
+  }
+  &:dir(rtl) {
+    .p-multiselect-clear-icon {
+      left: 3rem;
+      right: inherit;
+    }
+    .p-multiselect-token {
+      margin-left: 0.5rem !important;
+      margin-right: inherit !important;
+    }
+    .p-multiselect-token-icon {
+      margin-right: 0.5rem;
+      margin-left: inherit;
+    }
+  }
+}
+#modal-form {
+  .form-control,
+  .form-control:focus,
+  .form-control:focus-visible,
+  .form-select,
+  .form-select:focus,
+  .form-select:focus-visible,
+  .ng-select.ng-select-single .ng-select-container,
+  .p-inputmask,
+  .p-password-input,
+  .p-calendar-w-btn .p-inputtext,
+  .p-dropdown {
+    box-shadow: none !important;
+    outline: none !important;
+    background-color: var(--bg-white-color);
+    border-color: #ced4da;
+    height: 3.6rem;
+    border-radius: var(--border-input-radius);
+    // padding: 1rem;
+  }
+}
+.date-picker {
+  &.p-calendar {
+    flex-direction: row-reverse;
+    width: 100%;
+    .p-datepicker-trigger {
+      padding: 0;
+      background-color: transparent;
+      color: var(--text-main-color);
+      border-color: #ced4da;
+      border-right: 0;
+      border-radius: var(--border-input-radius) 0 0 var(--border-input-radius);
+    }
+    .p-inputtext {
+      border-left: 0;
+      border-radius: 0 var(--border-input-radius) var(--border-input-radius) 0 !important;
+      padding-left: 0;
+    }
+    &:dir(rtl) {
+      .p-datepicker-trigger {
+        border-left: 0;
+        border-right: 1px solid #ced4da;
+        border-radius: 0 var(--border-input-radius) var(--border-input-radius) 0;
+      }
+      .p-inputtext {
+        border-right: 0;
+        border-left: 1px solid #ced4da;
+        border-radius: var(--border-input-radius) 0 0 var(--border-input-radius) !important;
+        padding-right: 0 !important;
+        padding-left: initial;
+      }
+    }
+  }
+}
+.p-datepicker {
+  table td > span.p-highlight,
+  .p-yearpicker .p-yearpicker-year.p-highlight {
+    color: var(--text-main-color);
+    background-color: #359a9c1f;
+  }
+}
+.p-datepicker-prev,
+.p-datepicker-next {
+  border-radius: 50%;
+}
+.p-datepicker-buttonbar {
+  button {
+    border-color: var(--bg-main-color);
+    color: var(--text-main-color);
+    border-radius: 8px;
+    background-color: transparent;
+  }
+}
+.p-datepicker-month:hover,
+.p-datepicker-year:hover {
+  color: inherit;
+}
+.p-column-filter-buttonbar {
+  .p-button-sm {
+    background-color: var(--bg-main-color);
+    border-color: var(--bg-main-color);
+    color: var(--text-white-color);
+    border-radius: 8px;
+  }
+  .p-button-outlined {
+    border-color: var(--bg-main-color);
+    color: var(--text-main-color);
+    border-radius: 8px;
+    background-color: transparent;
+  }
+}
+.p-column-filter-overlay-menu .p-column-filter-operator,
+.p-dropdown-panel .p-dropdown-header {
+  background-color: #359a9c21;
+}
+.input-number {
+  &.input-group {
+    background: #ffffffb2;
+    border: 1px solid var(--second-border-color);
+    border-radius: 10px;
+    .form-control {
+      height: 2.9rem;
+      margin: 0 !important;
+    }
+    .input-group-text {
+      background-color: transparent !important;
+      position: relative;
+      &:before {
+        content: "";
+        position: absolute;
+        height: 55%;
+        width: 1px;
+        right: 1px;
+        background: #8c95a34d;
+      }
+      &:dir(rtl) {
+        &:before {
+          left: 2px;
+          right: inherit;
+        }
+      }
+      &:last-child {
+        &::before {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.form-control.is-valid,
+.was-validated .form-control:valid {
+  background-image: url(../assets/images/auth/valid.svg);
+  border: 1px solid var(--second-border-color);
+}
+body:dir(rtl) {
+  .form-control.is-valid,
+  .was-validated .form-control:valid {
+    padding-left: calc(1.5em + 0.75rem);
+    padding-right: 0.7rem;
+    background-position: left calc(0.375em + 0.1875rem) center;
+  }
+}
+
+.border-red {
+  border: 1px solid #dc3545 !important;
+  border-radius: var(--border-input-radius);
+  .ng-select-container {
+    border: 0 !important;
+  }
+  .p-dropdown,
+  .form-control {
+    border: 0 !important;
+  }
+}

@@ -1,0 +1,227 @@
+.navbar-mobile {
+  height: 4.4rem;
+  background-color: #1b2940;
+  .menu-icon {
+    height: 26px;
+    width: 32px;
+    border: 0;
+    background-color: transparent;
+    .line {
+      height: 4px;
+      width: 50%;
+      border-radius: 10px;
+      background: var(--bg-white-color);
+    }
+    .line2 {
+      width: 100%;
+    }
+    .line3 {
+      width: 75%;
+    }
+  }
+}
+:host::ng-deep {
+  .p-sidebar {
+    border-radius: 10px;
+    margin: 10px;
+    height: calc(100% - 20px);
+    overflow: hidden;
+  }
+  .p-sidebar-right {
+    border-radius: 5px 0 0 5px !important;
+  }
+  .p-sidebar-header,
+  .p-sidebar-footer {
+    display: none !important;
+  }
+  .p-sidebar-content {
+    background: linear-gradient(
+      180deg,
+      rgba(215, 230, 240, 0.95) 0%,
+      rgba(215, 230, 240, 0) 100%
+    );
+    background-image: url(./../../../../assets//images/navbar/sidebar-bg.svg);
+    background-position: left;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+  .overlay {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.28) 0%,
+      rgb(255 255 255 / 84%) 90.65%
+    );
+    z-index: 0;
+  }
+}
+.sidebar-header {
+  padding: 1.5rem 0;
+}
+.navbar-mobile {
+  height: 4.4rem;
+  .menu-icon {
+    height: 26px;
+    width: 32px;
+    border: 0;
+    background-color: transparent;
+    .line {
+      height: 4px;
+      width: 50%;
+      border-radius: 10px;
+      background:var(--bg-white-color);
+    }
+    .line2 {
+      width: 100%;
+    }
+    .line3 {
+      width: 75%;
+    }
+  }
+}
+:host::ng-deep {
+  .p-sidebar {
+    border-radius: 10px;
+    margin: 10px;
+    height: calc(100% - 20px);
+    overflow: hidden;
+  }
+  .p-sidebar-right {
+    border-radius: 5px 0 0 5px !important;
+  }
+  .p-sidebar-header,
+  .p-sidebar-footer {
+    display: none !important;
+  }
+  .p-sidebar-content {
+    background: linear-gradient(
+      180deg,
+      rgba(215, 230, 240, 0.95) 0%,
+      rgba(215, 230, 240, 0) 100%
+    );
+    background-image: url(./../../../../assets//images/navbar/sidebar-bg.svg);
+    background-position: left;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+  .overlay {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.28) 0%,
+      rgb(255 255 255 / 84%) 90.65%
+    );
+    z-index: 0;
+  }
+}
+.sidebar-header {
+  padding: 1.5rem 0;
+}
+.logo {
+  width: 5.2rem;
+  height: 3rem;
+  border-radius: 3rem;
+}
+.close {
+  width: 27px;
+  height: 27px;
+}
+.nav-logo {
+  width: 6rem;
+  height: 2rem;
+}
+.nav-link {
+  padding: 0.85rem;
+  font-size: 1.05rem;
+  line-height: 1;
+  display: block;
+  border-radius: 5px;
+  margin-bottom: 0.6rem;
+  // color: var(--text-white-color) !important;
+  &.active {
+    color: var(--text-white-color) !important;
+    background-color: var(--bg-main-color) !important;
+  }
+}
+.btn {
+  min-width: 7rem;
+  border: 1px solid var(--text-main-color) !important;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  font-size: 1rem;
+  z-index: 1;
+}
+.btn-solid-main {
+  background-color: var(--bg-main-color);
+  color: var(--text-white-color);
+}
+.btn-outline-main {
+  color: var(--text-white-color) !important;
+  border-color: var(--text-white-color) !important;
+}
+:host::ng-deep {
+  @media (max-width: 456px) {
+    .p-sidebar {
+      width: 17rem !important;
+      .nav-link {
+        padding: 0.8rem;
+        font-size: 0.95rem;
+      }
+    }
+  }
+}
+
+.close {
+  width: 27px;
+  height: 27px;
+}
+.nav-logo {
+  width: 6rem;
+  height: 2rem;
+}
+.nav-link {
+  padding: 0.85rem;
+  font-size: 1.05rem;
+  line-height: 1;
+  display: block;
+  border-radius: 5px;
+  margin-bottom: 0.6rem;
+  // color: var(--text-white-color) !important;
+  &.active {
+    color: var(--text-white-color) !important;
+    background-color: var(--bg-main-color) !important;
+  }
+}
+.btn {
+  min-width: 7rem;
+  border: 1px solid var(--text-main-color) !important;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  font-size: 1rem;
+  z-index: 1;
+}
+.btn-solid-main {
+  background-color: var(--bg-main-color);
+  color: var(--text-white-color);
+}
+.btn-outline-main {
+  color: var(--text-white-color) !important;
+  border-color: var(--text-white-color) !important;
+}
+:host::ng-deep {
+  @media (max-width: 456px) {
+    .p-sidebar {
+      width: 17rem !important;
+      .nav-link {
+        padding: 0.8rem;
+        font-size: 0.95rem;
+      }
+    }
+  }
+}

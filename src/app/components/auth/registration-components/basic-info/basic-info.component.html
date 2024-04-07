@@ -1,0 +1,65 @@
+<div id="basic-info" class="auth-form">
+  <form [formGroup]="basicInfoForm" (ngSubmit)="continue()" class="pt-3">
+    <div>
+      <div class="mb-3">
+        <input type="text" id="phoneNumber" class="form-control" formControlName="phoneNumber"
+          placeholder="{{'labels.phoneNumber'|translate}}"
+          [class.border-red]="(formControls?.phoneNumber?.touched||formControls?.phoneNumber?.dirty)&&formControls?.phoneNumber?.invalid"
+          (input)="publicService?.clearValidationErrors(formControls?.phoneNumber)">
+        <div class="mt-1">
+          <ng-container
+            *ngIf="formControls?.phoneNumber?.invalid && (formControls?.phoneNumber?.dirty || formControls?.phoneNumber?.touched)">
+            <ng-container *ngIf="formControls?.phoneNumber?.errors?.required">
+              <span class="text-danger fs-8-1">
+                {{'validations.requiredField'|translate}}
+              </span>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+      <div class="mb-3">
+        <span class="p-input-icon-right select-loading d-block">
+          <div
+            [class.border-red]="formControls?.city?.invalid && (formControls?.city?.dirty || formControls?.city?.touched)">
+            <p-dropdown [options]="cities" formControlName="city" optionLabel="name" [filter]="true"
+              [dropdownIcon]="'fas fa-caret-down'" [virtualScroll]="true" filterBy="name" appendTo="body"
+              scrollHeight="150px" emptyMessage="nodata" [showClear]="true"
+              filterPlaceholder="{{'placeholders.search'|translate}}" placeholder="{{'labels.city'|translate}}">
+            </p-dropdown>
+          </div>
+          <ng-container *ngIf="isLoadingCities">
+            <i class="pi pi-spin pi-spinner"></i>
+          </ng-container>
+        </span>
+        <ng-container *ngIf="formControls?.city?.invalid && (formControls?.city?.dirty || formControls?.city?.touched)">
+          <div class="mt-1">
+            <span class="text-danger fs-8-1">
+              {{"validations.requiredField"|translate}}
+            </span>
+          </div>
+        </ng-container>
+      </div>
+      <div class="mb-3">
+        <input type="text" id="postNumber" class="form-control" formControlName="postNumber"
+          placeholder="{{'labels.postNumber'|translate}}"
+          [class.border-red]="(formControls?.postNumber?.touched||formControls?.postNumber?.dirty)&&formControls?.postNumber?.invalid"
+          (input)="publicService?.clearValidationErrors(formControls?.postNumber)">
+        <div class="mt-1">
+          <ng-container
+            *ngIf="formControls?.postNumber?.invalid && (formControls?.postNumber?.dirty || formControls?.postNumber?.touched)">
+            <ng-container *ngIf="formControls?.postNumber?.errors?.required">
+              <span class="text-danger fs-8-1">
+                {{'validations.requiredField'|translate}}
+              </span>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn w-100 btn-solid-main form-btn mt-4">
+      <span>
+        {{'auth.registerNow'|translate}}
+      </span>
+    </button>
+  </form>
+</div>

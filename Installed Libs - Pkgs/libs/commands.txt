@@ -1,0 +1,62 @@
+Bootstrap: (Compatible Version 5.3.1 )
+   install=> npm install bootstrap
+   uninstall=> npm uninstall bootstrap
+   site link => https://getbootstrap.com/docs/5.2/getting-started/introduction/
+
+   we must install jquery => npm i jquery
+
+   angular.json => {
+    "styles": [
+       "node_modules/bootstrap/scss/bootstrap.scss",
+    ]
+    "scripts": [
+      "./node_modules/jquery/dist/jquery.min.js",
+      "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js", //for dropdown
+    ]
+   }
+-----------------------------------------------------------------------------------------
+
+Primeng: (Compatible Version 16.3.1 )
+   install=> npm install primeng  +  npm install primeicons
+   uninstall=> npm uninstall primeng  +  npm uninstall primeicons
+   site link => https://primeng.org/
+
+   angular.json => {
+   "styles": [
+    "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+    "node_modules/primeng/resources/primeng.min.css",
+  ]}
+
+  style.scss => @import "primeicons/primeicons.css";
+-----------------------------------------------------------------------------------------
+
+Angular Material: (Compatible Version 16.2.2 )(Uninstalled Now)
+   install=> ng add @angular/material
+   uninstall=> npm uninstall @angular/material
+   site link => https://material.angular.io/components/categories
+
+    angular.json => {
+   "styles": [
+     "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+   ]
+    }
+    index.html =>  <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    appModule => BrowserAnimationsModule
+
+
+-----------------------------------------------------------------------------------------
+
+Angular Bowered Bootstrap: (Compatible Version 15.1.1 )(Uninstalled Now)
+   install=> ng add @ng-bootstrap/ng-bootstrap
+   uninstall=> npm uninstall ng-bootstrap/ng-bootstrap
+   site link => https://ng-bootstrap.github.io/#/components/accordion/overview
+
+==> when install this done
+- Add bootstrap, @popperjs/core and @ng-bootstrap/ng-bootstrap          dependencies from npm
+- Install the @angular/localize polyfill
+- add  => @import 'bootstrap/scss/bootstrap'; in style.scss
+- add NgbModule in app module
+

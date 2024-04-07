@@ -1,0 +1,69 @@
+.footer-vector {
+  height: 4rem;
+  filter: invert(9%) sepia(100%) saturate(4754%) hue-rotate(297deg)
+    brightness(93%) contrast(104%);
+}
+#footer {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #1B2940;
+  .logo {
+    width: 5.2rem;
+    height: 3rem;
+  }
+  .border-right {
+    border-right: 1px solid #ccc;
+    height: 100%;
+  }
+  .footer-title:after {
+    position: absolute;
+    content: "";
+    height: 2px;
+    width: 3rem;
+    background-color: #1B2940;
+    top: -13px;
+    left: 0;
+  }
+  .container {
+    z-index: 1 !important;
+  }
+  .bg-footer {
+    background-color: #1B2940;
+  }
+  .join-btn {
+    background-color: #1B2940;
+  }
+  .app-img {
+    width: 100px;
+  }
+}
+:host::ng-deep {
+  hr {
+    border-color: #ffe6d880 !important;
+  }
+}
+@media (max-width: 1200px) {
+  #footer {
+    padding-bottom: 4rem !important;
+  }
+}
+@media (max-width: 991px) {
+  #footer {
+    padding-bottom: 3.1rem !important;
+    padding-top: 1.5rem !important;
+    .ps-md-5 {
+      padding: 0 !important;
+    }
+  }
+}
+@media (max-width: 992px) and (min-width: 576px) {
+  .border-right.second-border {
+    border-right: none !important;
+  }
+}
+@media (max-width: 575px) {
+  .border-right {
+    border-bottom: 1px solid #ccc;
+    border-right: 0 !important;
+  }
+}

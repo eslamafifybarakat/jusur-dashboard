@@ -1,0 +1,5 @@
+/
+/home
+/places
+/places/list
+/places/details/

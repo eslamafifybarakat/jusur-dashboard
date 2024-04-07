@@ -1,0 +1,80 @@
+#auth-slider {
+  // background-image: url(../../../assets/images/auth/slider-bg.svg);
+  background-position: 22% 70%;
+  background-repeat: no-repeat;
+  .slide-img {
+    height: 24rem;
+    img {
+      object-fit: fill;
+    }
+  }
+  .description {
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 4;
+    height: 8rem;
+  }
+}
+:host::ng-deep {
+  #auth-slider {
+    .p-carousel {
+      .p-carousel-indicators {
+        top: 0;
+        position: absolute;
+        padding: 0;
+        width: 100%;
+        .p-carousel-indicator {
+          width: 31%;
+          button {
+            width: 100%;
+            height: 1px;
+            opacity: 30%;
+          }
+          &.p-highlight button {
+            background-color: var(--bg-white-color);
+            opacity: 1;
+          }
+        }
+      }
+      .p-carousel-content {
+        position: relative;
+        overflow: hidden;
+        .p-carousel-prev,
+        .p-carousel-next {
+          position: absolute;
+          bottom: -4px;
+          color: var(--text-white-color);
+          &:hover {
+            background-color: transparent;
+          }
+        }
+        .p-carousel-prev {
+          left: 0%;
+        }
+        .p-carousel-next {
+          right: 0%;
+        }
+        .p-icon {
+          width: 20px;
+        }
+      }
+    }
+    &:dir(rtl) {
+      .p-carousel {
+        direction: ltr;
+        // .p-carousel-content {
+        //   .p-carousel-prev {
+        //     right: 31%;
+        //     left: inherit;
+        //   }
+        //   .p-carousel-next {
+        //     left: 31%;
+        //     right: inherit;
+        //   }
+        // }
+      }
+    }
+  }
+}

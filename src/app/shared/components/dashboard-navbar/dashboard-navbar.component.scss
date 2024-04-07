@@ -1,0 +1,35 @@
+.navbar {
+  border-radius: 10px;
+  .bars-btn {
+    border: 2px solid var(--bg-main-color);
+    border-radius: 6px;
+    width: 2.5rem;
+    height: 2rem;
+  }
+}
+:host::ng-deep {
+  .p-sidebar {
+    box-shadow: none;
+    background-color: transparent;
+    .p-sidebar-close {
+      z-index: 130;
+      background-color: #fff;
+      border-radius: 9px;
+      scale: 0.75;
+    }
+    .p-sidebar-content {
+      padding: 0;
+    }
+    .p-sidebar-footer {
+      display: none;
+    }
+  }
+}
+@media (max-width: 576px) {
+  .bars-btn {
+    width: 2rem !important;
+  }
+  .fs-5 {
+    font-size: 1.15rem !important;
+  }
+}

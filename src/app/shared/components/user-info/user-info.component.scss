@@ -1,0 +1,30 @@
+.user-info-dropdown {
+  .user-info-menu {
+    width: 16rem;
+    border-radius: 12px;
+    top: 3.6rem !important;
+  }
+  .nav-item {
+    .nav-link {
+      padding: 10px 15px !important;
+      font-size: 15px;
+      line-height: 2;
+      color: #000;
+      border-radius: 10px;
+      &:hover {
+        background-color: #fafafa;
+      }
+    }
+    &:hover {
+      .logout-text {
+        color: #ff5879 !important;
+      }
+    }
+  }
+  .logout-text {
+    color: #ff5879 !important;
+  }
+  .user-name {
+    max-width: 11rem;
+  }
+}

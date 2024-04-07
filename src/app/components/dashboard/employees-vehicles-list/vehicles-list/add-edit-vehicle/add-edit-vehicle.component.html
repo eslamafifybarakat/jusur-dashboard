@@ -1,0 +1,120 @@
+<div id="modal-form">
+  <form [formGroup]="modalForm" (ngSubmit)="submit()" aria-label="add-vehicle-form">
+    <div class="form-content">
+      <div class="row m-0">
+        <div class="col-xl-6">
+          <div class="row">
+            <div class="col-xl-12 col-md-6">
+              <div class="mb-3">
+                <label for="operatingCard" class="mb-2 required">{{'labels.operatingCard'|translate}}</label>
+                <input type="text" class="form-control" formControlName="operatingCard"
+                  (input)="publicService?.clearValidationErrors(formControls?.operatingCard)"
+                  [class.border-red]="formControls?.operatingCard?.invalid && (formControls?.operatingCard?.dirty || formControls?.operatingCard?.touched)"
+                  placeholder="{{'placeholders.operatingCard'|translate}}">
+                <div class="mt-2">
+                  <ng-container
+                    *ngIf="formControls?.operatingCard?.invalid && (formControls?.operatingCard?.dirty || formControls?.operatingCard?.touched)">
+                    <ng-container *ngIf="formControls?.operatingCard?.errors?.['required']">
+                      <span class="text-danger fs-8">
+                        {{'validations.requiredField'|translate}}
+                      </span>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-12 col-md-6">
+              <div class="mb-3">
+                <label for="endDate" class="mb-2 required">{{'labels.endDate'|translate}}</label>
+                <div
+                  [class.border-red]="formControls?.endDate?.invalid && (formControls?.endDate?.dirty || formControls?.endDate?.touched)"
+                  class="endDate">
+                  <p-calendar formControlName="endDate" appendTo="body" [showIcon]="true" inputId="icon"
+                    [readonlyInput]="true" [styleClass]="'date-picker'"
+                    placeholder="{{'placeholders.dateFormat'|translate}}" [showButtonBar]="true"
+                    [todayButtonStyleClass]="'d-none'" dateFormat="dd/mm/yy" hourFormat="12"></p-calendar>
+                </div>
+                <div class="mt-2">
+                  <ng-container
+                    *ngIf="formControls?.endDate?.invalid && (formControls?.endDate?.dirty || formControls?.endDate?.touched)">
+                    <ng-container *ngIf="formControls?.endDate?.errors?.['required']">
+                      <span class="text-danger fs-8">
+                        {{'validations.requiredField'|translate}}
+                      </span>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-12 col-md-6">
+              <div class="mb-3">
+                <label for="insuranceExpiryDate"
+                  class="mb-2 required">{{'labels.insuranceExpiryDate'|translate}}</label>
+                <div
+                  [class.border-red]="formControls?.insuranceExpiryDate?.invalid && (formControls?.insuranceExpiryDate?.dirty || formControls?.insuranceExpiryDate?.touched)"
+                  class="insuranceExpiryDate">
+                  <p-calendar formControlName="insuranceExpiryDate" appendTo="body" [showIcon]="true" inputId="icon"
+                    [readonlyInput]="true" [styleClass]="'date-picker'"
+                    placeholder="{{'placeholders.dateFormat'|translate}}" [showButtonBar]="true"
+                    [todayButtonStyleClass]="'d-none'" dateFormat="dd/mm/yy" hourFormat="12"></p-calendar>
+                </div>
+                <div class="mt-2">
+                  <ng-container
+                    *ngIf="formControls?.insuranceExpiryDate?.invalid && (formControls?.insuranceExpiryDate?.dirty || formControls?.insuranceExpiryDate?.touched)">
+                    <ng-container *ngIf="formControls?.insuranceExpiryDate?.errors?.['required']">
+                      <span class="text-danger fs-8">
+                        {{'validations.requiredField'|translate}}
+                      </span>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6">
+          <div class="mb-3">
+            <label for="formPhoto" class="mb-2 required">{{'labels.formPhoto'|translate}}</label>
+            <div class="global-card p-3">
+              <p class="text-capitalize">{{'placeholders.formPhoto'|translate}}</p>
+              <app-file-upload (uploadHandler)="uploadFormPhoto($event)" [isEdit]="isEdit"
+                [imageSrc]="formPhoto"></app-file-upload>
+            </div>
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.formPhoto?.invalid && (formControls?.formPhoto?.dirty || formControls?.formPhoto?.touched)">
+                <ng-container *ngIf="formControls?.formPhoto?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end gap-3 flex-wrap mt-4">
+      <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
+        <ng-container *ngIf="isEdit; else noEdit">
+          <span>
+            {{'general.edit'|translate}}
+          </span>
+          <i class="pi pi-pencil"></i>
+        </ng-container>
+        <ng-template #noEdit>
+          <span>
+            {{'general.save'|translate}}
+          </span>
+          <i class="pi pi-save"></i>
+        </ng-template>
+      </button>
+      <button type="button" class="btn btn-outline-main d-flex align-items-center gap-2" (click)="cancel()">
+        <span>
+          {{'general.cancel'|translate}}
+        </span>
+        <i class="pi pi-times"></i>
+      </button>
+    </div>
+  </form>
+</div>

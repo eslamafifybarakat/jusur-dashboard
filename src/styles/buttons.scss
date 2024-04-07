@@ -1,0 +1,91 @@
+.btn-solid-main {
+  min-width: 7rem;
+  color: var(--text-white-color) !important;
+  background-color: var(--bg-main-color) !important;
+  border-color: var(--text-main-color) !important;
+  border-radius: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  z-index: 1;
+}
+
+.btn-solid-main:hover,
+.btn-solid-main:focus {
+  color: var(--text-white-color) !important;
+}
+
+.btn-outline-main,
+.btn-outline-main:hover,
+.btn-outline-main:focus,
+.btn-outline-main:focus-visible,
+.btn-outline-main:active {
+  min-width: 7rem;
+  color: var(--text-main-color) !important;
+  background-color: transparent;
+  border-color: var(--text-main-color) !important;
+  border-radius: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  z-index: 1;
+}
+
+.btn-solid-second {
+  min-width: 7rem;
+  color: var(--text-white-color);
+  background-color: var(--text-secondary-color);
+  border-color: var(--text-secondary-color);
+  border-radius: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  z-index: 1;
+  transition: all 0.4s ease-in-out;
+}
+
+.btn-outline-second {
+  color: var(--text-second-color);
+  background-color: var(--text-white-color);
+  border-color: var(--text-second-color);
+  border-radius: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  z-index: 1;
+}
+
+.btn-solid-secondary,
+.btn-solid-secondary:hover,
+.btn-solid-secondary:focus {
+  min-width: 7rem;
+  color: var(--text-white-color);
+  background-color: var(--bg-main-color);
+  border-radius: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  z-index: 1;
+}
+
+.btn-outline-secondary {
+  color: var(--text-secondary-color);
+  background-color: var(--text-white-color);
+  border-color: var(--text-secondary-color);
+  border-radius: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  z-index: 1;
+}
+
+.btn:disabled,
+.btn:disabled:hover {
+  opacity: 0.65;
+}

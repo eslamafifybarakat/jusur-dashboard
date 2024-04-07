@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-lg bg-white-color justify-content-between m-3 px-3">
+  <span class="navbar-brand m-0 d-flex gap-2 align-items-center">
+    <button class="bars-btn bg-transparent d-md-none d-flex justify-content-center align-items-center"
+      (click)="openSidebar()">
+      <i class="pi pi-bars fs-5-1 text-main-color"></i>
+    </button>
+    <p class="mb-0 fw-500 fs-5">
+      {{'dashboard.hello'|translate}} Ahmed
+    </p>
+  </span>
+  <ul class="d-flex align-items-center gap-md-5 gap-sm-4 gap-3 p-0">
+    <li>
+      <language-selector></language-selector>
+    </li>
+    <li>
+      <user-info></user-info>
+    </li>
+  </ul>
+</nav>
+<p-sidebar [(visible)]="showSidebar" [baseZIndex]="10000">
+  <aside-menu></aside-menu>
+</p-sidebar>

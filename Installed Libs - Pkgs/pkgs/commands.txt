@@ -1,0 +1,95 @@
+ngx-owl-carousel-o: (16.0.0 ) (Uninstalled Now)
+   install=> npm install ngx-owl-carousel-o
+   uninstall=> npm uninstall ngx-owl-carousel-o
+   site link => https://www.npmjs.com/package/ngx-owl-carousel-o
+ ---------------------------------------------------------------------------
+
+swiper: (8.4.7 ) (Uninstalled Now)
+   install=> npm install swiper@8
+   uninstall=> npm uninstall swiper
+   site link => https://swiperjs.com/get-started#install-from-npm
+ ---------------------------------------------------------------------------
+ ngx star rating: (2.1.0) (Uninstalled Now)
+   install=> npm i ngx-star-rating@2.1.0
+   uninstall=> npm uninstall ngx-star-rating
+   site link => https://www.npmjs.com/package/ngx-star-rating
+ ---------------------------------------------------------------------------
+ @angular/google-maps: (Uninstalled Now)
+   install=> npm i @angular/google-maps
+   uninstall=> npm uninstall @angular/google-maps
+   site link => https://www.npmjs.com/package/@angular/google-maps
+
+  ---------------------------------------------------------------------------
+ @angular/google-maps: (Uninstalled Now)
+   install=> npm install @amcharts/amcharts5 @amcharts/amcharts4-geodata
+   uninstall=> npm uninstall @amcharts/amcharts5 @amcharts/amcharts4-geodata
+   site link => https://www.amcharts.com/demos/rotate-globe-to-a-selected-country
+ ---------------------------------------------------------------------------
+
+ngx-clipboard: (Uninstalled Now)
+install =>npm i ngx-clipboard
+ uninstall=> npm uninstall ngx-clipboard
+
+--------------------------------------------------------------
+
+ngx-slick-carousel: (Uninstalled Now)
+ install=>- npm i ngx-slick-carousel
+          - npm install slick-carousel
+
+ uninstall=> - npm uninstall ngx-slick-carousel
+             - npm uninstall slick-carousel
+
+in angular.json =>{
+  style=>
+  "node_modules/slick-carousel/slick/slick.scss",
+  "node_modules/slick-carousel/slick/slick-theme.scss",
+
+  js=>"node_modules/slick-carousel/slick/slick.min.js",
+}
+
+ site link => https://www.npmjs.com/package/ngx-slick-carousel
+---------------------------------------------------------------
+
+ngx-spinner: (Uninstalled Now)
+install =>npm i ngx-spinner
+ uninstall=> 
+
+--------------------------------------------------------------
+
+@angular/fire firebase@9.16.0:
+install =>npm install @angular/fire firebase@9.16.0 --legacy-peer-deps --force
+ uninstall=> npm uninstall @angular/fire firebase@9.16.0 --legacy-peer-deps --force
+
+--------------------------------------------------------------
+Aos: (Compatible Version 2.3.4) (Uninstalled Now)
+   install=> npm install aos@2.3.4
+            npm i --save-dev @types/aos
+
+   uninstall=> npm uninstall npm install aos
+   site link =>https://michalsnik.github.io/aos/
+angular.json =>{
+ style=> "./node_modules/aos/dist/aos.css",
+  js=> "node_modules/aos/dist/aos.js"
+}
+
+--------------------------
+Openai: (Uninstalled Now)
+install =>npm install --save openai --force
+ uninstall=> npm uninstall --save openai --force
+--------------------------
+
+- ngx-intl-tel-input (Uninstalled Now)
+install => npm install intl-tel-input@17.0.3
+          npm install google-libphonenumber
+          ng add ngx-bootstrap
+          npm install ngx-intl-tel-input@3.2.0 --legacy-peer-deps
+-------------------------
+ng-circle-progress (Uninstalled Now)
+install =>npm i ng-circle-progress@1.7.1 --legacy-peer-deps
+---------------
+NgxStarRating (Uninstalled Now)
+install =>npm i ngx-star-rating@2.1.0 --legacy-peer-deps
+-----------------
+ng-click-outside (Uninstalled Now)
+npm i ng-click-outside --legacy-peer-deps
+npm uninstall ngx-spinner

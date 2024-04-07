@@ -1,0 +1,22 @@
+.btn-solid-main:focus,
+.btn-solid-main:active {
+  background-color: var(--bg-main-color);
+  border-color: var(--bg-main-color);
+  color: var(--text-white-color);
+}
+.btn-solid-main {
+  background-color: var(--bg-main-color);
+  border-color: var(--bg-main-color);
+  color: var(--text-white-color);
+  height: 3rem;
+  border-radius: var(--border-input-radius);
+  width: 50%;
+}
+@media (max-width: 576px) {
+  .fs-2 {
+    font-size: 1.2rem !important;
+  }
+  .btn-solid-main {
+    width: 100%;
+  }
+}

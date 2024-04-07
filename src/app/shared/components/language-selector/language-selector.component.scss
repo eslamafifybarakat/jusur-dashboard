@@ -1,0 +1,31 @@
+.dropdown-language {
+  .main-flag {
+    width: 28px;
+    min-width: 28px;
+    height: 28px;
+    object-fit: cover;
+    box-shadow: 0 0.125rem 0.65rem rgba(0, 0, 0, 0.075) !important;
+  }
+  .nav-item .nav-link {
+    padding: 8px 10px !important;
+    border-radius: 9px;
+    cursor: pointer;
+    &:hover {
+      background-color: #dcdcdc36 !important;
+    }
+  }
+  .dropdown-menu {
+    top: 2.5rem;
+    border-radius: 12px;
+    .flag {
+      width: 25px;
+      min-width: 25px;
+      height: 25px;
+      object-fit: cover;
+      box-shadow: 0 0.125rem 0.65rem rgba(0, 0, 0, 0.075) !important;
+    }
+  }
+  // .dropdown-toggle::after {
+  //   display: none !important;
+  // }
+}

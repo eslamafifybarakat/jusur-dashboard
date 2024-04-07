@@ -1,0 +1,287 @@
+<div id="edit-client">
+  <div class="container-fluid ">
+    <form [formGroup]="editClientForm" id="modal-form" aria-label="client-details-form" (ngSubmit)="submit()">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <h4 class="mb-0 text-capitalize">
+          {{'dashboard.customers.customerDataDetails'|translate}}
+        </h4>
+        <div class="d-flex gap-3 flex-lg-nowrap flex-wrap">
+          <button type="submit" class="btn btn-solid-main d-flex align-items-center gap-2 me-auto">
+            <svg width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M0.5625 19.3125H22.4375V20.875H0.5625V19.3125ZM18.8438 6.03125C19.4688 5.40625 19.4688 4.46875 18.8438 3.84375L16.0312 1.03125C15.4062 0.40625 14.4688 0.40625 13.8438 1.03125L2.125 12.75V17.75H7.125L18.8438 6.03125ZM14.9375 2.125L17.75 4.9375L15.4062 7.28125L12.5938 4.46875L14.9375 2.125ZM3.6875 16.1875V13.375L11.5 5.5625L14.3125 8.375L6.5 16.1875H3.6875Z"
+                fill="white" />
+            </svg>
+            <span>
+              {{'general.edit'|translate}}
+            </span>
+          </button>
+          <button class="btn btn-outline-main d-flex align-items-center gap-2 me-auto">
+            <i class="pi pi-times-circle"></i>
+            <span>
+              {{'general.cancel'|translate}}
+            </span>
+          </button>
+        </div>
+      </div>
+      <ng-container *ngIf="isLoading; else noLoading">
+        <div class="mt-4">
+          <skeleton [type]="'editClient'"></skeleton>
+        </div>
+      </ng-container>
+      <ng-template #noLoading>
+        <div class="global-card mt-4 p-4 pb-3">
+          <div class="row">
+            <div class="col-lg-4 col-md-6">
+              <div class="mb-3">
+                <label for="fullName" class="mb-2 required">
+                  {{'labels.fullName'|translate}}
+                </label>
+                <div class="input-group bg-white-color d-flex flex-nowrap"
+                  [class.border-red]="formControls?.fullName?.invalid && (formControls?.fullName?.dirty || formControls?.fullName?.touched)">
+                  <input type="text" class="form-control" [class.prevent-click]="isFullNameReadOnly"
+                    formControlName="fullName" autocomplete="cc-name" [min]="0"
+                    (input)="publicService?.clearValidationErrors(formControls?.fullName)"
+                    placeholder="{{'placeholders.fullName'|translate}}">
+                  <span class="input-group-text bg-white-color p-1" id="basic-addon1">
+                    <a *ngIf="isFullNameReadOnly" class="edit-input d-flex justify-content-center align-items-center"
+                      (click)="editInput('fullName')">
+                      <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                          fill="#359A9C" />
+                      </svg>
+                    </a>
+                  </span>
+                </div>
+                <div class="mt-2">
+                  <ng-container
+                    *ngIf="formControls?.fullName?.invalid && (formControls?.fullName?.dirty || formControls?.fullName?.touched)">
+                    <ng-container *ngIf="formControls?.fullName?.errors?.['required']">
+                      <span class="text-danger fs-8">
+                        {{'validations.requiredField'|translate}}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngIf="formControls?.fullName?.errors?.['minlength']">
+                      <span class="text-danger fs-8 d-block">
+                        {{'validations.nameLength'|translate}}
+                      </span>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="mb-3">
+                <label for="phoneNumber" class="mb-2 required">
+                  {{'labels.phoneNumber'|translate}}
+                </label>
+                <div class="input-number input-group bg-white-color d-flex flex-nowrap"
+                  [class.border-red]="formControls?.phoneNumber?.invalid && (formControls?.phoneNumber?.dirty || formControls?.phoneNumber?.touched)">
+                  <span class="input-group-text border-0 fs-6-1 " id="basic-addon1">
+                    +966
+                  </span>
+                  <span class="p-input-icon-right w-100">
+                    <input MaxDigits type="text" class="form-control border-0"
+                      [class.prevent-click]="isPhoneNumberReadOnly" formControlName="phoneNumber" autocomplete="cc-name"
+                      [min]="0" (input)="publicService?.clearValidationErrors(formControls?.phoneNumber)"
+                      placeholder="{{'placeholders.phoneNumber'|translate}}" (blur)="checkPhoneAvailable()"
+                      (keyup)="onKeyUpEvent('phoneNumber')" [class.disabled]="isLoadingCheckPhone"
+                      [class.is-valid]="!isLoadingCheckPhone &&!phoneNotAvailable && formControls?.phoneNumber?.valid && (formControls?.phoneNumber?.dirty || formControls?.phoneNumber?.touched)">
+                    <ng-container *ngIf="isLoadingCheckPhone">
+                      <i class="pi pi-spin pi-spinner"></i>
+                    </ng-container>
+                  </span>
+                  <span class="input-group-text bg-white-color p-1 border-0" id="basic-addon1">
+                    <a *ngIf="isPhoneNumberReadOnly" class="edit-input d-flex justify-content-center align-items-center"
+                      (click)="editInput('phoneNumber')">
+                      <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                          fill="#359A9C" />
+                      </svg>
+                    </a>
+                  </span>
+                </div>
+                <div class="mt-2">
+                  <ng-container
+                    *ngIf="formControls?.phoneNumber?.invalid && (formControls?.phoneNumber?.dirty || formControls?.phoneNumber?.touched)">
+                    <ng-container *ngIf="formControls?.phoneNumber?.errors?.['required']">
+                      <span class="text-danger fs-8">
+                        {{'validations.requiredField'|translate}}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngIf="formControls?.phoneNumber?.errors?.['pattern']">
+                      <span class="text-danger fs-8 d-block">
+                        {{'validations.phoneNotCorrect'|translate}}
+                      </span>
+                    </ng-container>
+                  </ng-container>
+                  <ng-container *ngIf="phoneNotAvailable">
+                    <span class="text-danger fs-8 d-block">
+                      {{'labels.phoneNumber'|translate}}<span class="text-main-color fw-bold px-1">
+                        {{editClientForm.value.phoneNumber}}</span>
+                      {{'auth.isUsedBefore'|translate}}
+                    </span>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="mb-3">
+                <label for="birthDate" class="mb-2 required">
+                  {{'labels.birthDate'|translate}}
+                </label>
+                <div
+                  [class.border-red]="formControls?.birthDate?.invalid && (formControls?.birthDate?.dirty || formControls?.birthDate?.touched)"
+                  class="birthDate">
+                  <div class="input-group bg-white-color d-flex flex-nowrap">
+                    <p-calendar [maxDate]="maxDate" [class.prevent-click]="isBirthDateReadOnly" class="w-100"
+                      formControlName="birthDate" appendTo="body" [showIcon]="true" inputId="icon"
+                      [readonlyInput]="true" [styleClass]="'date-picker'" placeholder="yyyy/mm/dd"
+                      [showButtonBar]="true" [todayButtonStyleClass]="'d-none'" dateFormat="yy/mm/dd"
+                      hourFormat="12"></p-calendar>
+                    <span class="input-group-text bg-white-color p-1" id="basic-addon1">
+                      <a *ngIf="isBirthDateReadOnly" class="edit-input d-flex justify-content-center align-items-center"
+                        (click)="editInput('birthDate')">
+                        <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                            fill="#359A9C" />
+                        </svg>
+                      </a>
+                    </span>
+                  </div>
+                </div>
+                <div class="mt-2">
+                  <ng-container
+                    *ngIf="formControls?.birthDate?.invalid && (formControls?.birthDate?.dirty || formControls?.birthDate?.touched)">
+                    <ng-container *ngIf="formControls?.birthDate?.errors?.['required']">
+                      <span class="text-danger fs-8">
+                        {{'validations.requiredField'|translate}}
+                      </span>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="mb-3">
+                <label for="nationalIdentity" class="mb-2 required">
+                  {{'labels.id'|translate}}
+                </label>
+                <div class="input-group bg-white-color d-flex flex-nowrap"
+                  [class.border-red]="formControls?.nationalIdentity?.invalid && (formControls?.nationalIdentity?.dirty || formControls?.nationalIdentity?.touched)">
+                  <span class="p-input-icon-right w-100">
+                    <input MaxDigits [maxNumber]="10" type="number" class="form-control"
+                      [class.prevent-click]="isNationalIdentityReadOnly" formControlName="nationalIdentity"
+                      (input)="publicService?.clearValidationErrors(formControls?.nationalIdentity)"
+                      [class.border-red]="formControls?.nationalIdentity?.invalid && (formControls?.nationalIdentity?.dirty || formControls?.nationalIdentity?.touched)"
+                      [class.is-valid]="!isLoadingCheckNationalIdentity &&!nationalIdentityNotAvailable && formControls?.nationalIdentity?.valid && (formControls?.nationalIdentity?.dirty || formControls?.nationalIdentity?.touched)"
+                      placeholder="{{'placeholders.id'|translate}}" (blur)="checkNationalIdentityAvailable()"
+                      (keyup)="onKeyUpEvent('nationalIdentity')" [class.disabled]="isLoadingCheckNationalIdentity">
+                    <ng-container *ngIf="isLoadingCheckNationalIdentity">
+                      <i class="pi pi-spin pi-spinner"></i>
+                    </ng-container>
+                  </span>
+                  <span class="input-group-text bg-white-color p-1" id="basic-addon1">
+                    <a *ngIf="isNationalIdentityReadOnly"
+                      class="edit-input d-flex justify-content-center align-items-center"
+                      (click)="editInput('nationalIdentity')">
+                      <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                          fill="#359A9C" />
+                      </svg>
+                    </a>
+                  </span>
+                </div>
+                <div class="mt-2">
+                  <ng-container
+                    *ngIf="formControls?.nationalIdentity?.invalid && (formControls?.nationalIdentity?.dirty || formControls?.nationalIdentity?.touched)">
+                    <ng-container *ngIf="formControls?.nationalIdentity?.errors?.['required']">
+                      <span class="text-danger fs-8">
+                        {{'validations.requiredField'|translate}}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngIf="formControls?.nationalIdentity?.errors?.['pattern']">
+                      <span class="text-danger fs-8 d-block">
+                        {{'validations.idLength'|translate}}
+                      </span>
+                    </ng-container>
+                  </ng-container>
+                  <ng-container *ngIf="nationalIdentityNotAvailable">
+                    <span class="text-danger fs-8 d-block">
+                      {{'labels.id'|translate}}<span class="text-main-color fw-bold px-1">
+                        {{editClientForm.value.nationalIdentity}}</span>
+                      {{'auth.isUsedBefore'|translate}}
+                    </span>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="mb-3">
+                <label for="email" class="mb-2 required">
+                  {{'labels.email'|translate}}
+                </label>
+                <div class="input-group bg-white-color d-flex flex-nowrap"
+                  [class.border-red]="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)">
+                  <span class="p-input-icon-right w-100">
+                    <input type="email" class="form-control" formControlName="email" autocomplete="cc-name"
+                      [class.disabled]="isLoadingCheckEmail" [class.prevent-click]="isEmailReadOnly"
+                      (input)="publicService?.clearValidationErrors(formControls?.email)"
+                      [class.border-red]="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)"
+                      [class.is-valid]="!isLoadingCheckEmail &&!emailNotAvailable && formControls?.email?.valid && (formControls?.email?.dirty || formControls?.email?.touched)"
+                      placeholder="{{'placeholders.email'|translate}}" (blur)="checkEmailAvailable()"
+                      (keyup)="onKeyUpEvent('email')">
+                    <ng-container *ngIf="isLoadingCheckEmail">
+                      <i class="pi pi-spin pi-spinner"></i>
+                    </ng-container>
+                  </span>
+                  <span class="input-group-text bg-white-color p-1" id="basic-addon1">
+                    <a *ngIf="isEmailReadOnly" class="edit-input d-flex justify-content-center align-items-center"
+                      (click)="editInput('email')">
+                      <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                          fill="#359A9C" />
+                      </svg>
+                    </a>
+                  </span>
+                </div>
+                <div class="mt-2">
+                  <ng-container
+                    *ngIf="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)">
+                    <ng-container *ngIf="formControls?.email?.errors?.['required']">
+                      <span class="text-danger fs-8">
+                        {{'validations.requiredField'|translate}}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngIf="formControls?.email?.errors?.['pattern']">
+                      <span class="text-danger fs-8 d-block">
+                        {{'validations.emailNotCorrect'|translate}}
+                      </span>
+                    </ng-container>
+                  </ng-container>
+                  <ng-container *ngIf="emailNotAvailable">
+                    <span class="text-danger fs-8 d-block">
+                      {{'labels.email'|translate}}<span class="text-main-color fw-bold px-1">
+                        {{editClientForm.value.email}}</span>
+                      {{'auth.isUsedBefore'|translate}}
+                    </span>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <upload-multi-files [index]="imgIndex" [filesNames]="filesNames"
+            (uploadHandler)="uploadFiles($event)"></upload-multi-files> -->
+        </div>
+      </ng-template>
+    </form>
+    <div class="global-card mt-4 p-4">
+      <records></records>
+    </div>
+  </div>
+</div>

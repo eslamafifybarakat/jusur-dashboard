@@ -1,0 +1,25 @@
+#personal-info {
+  .form-btn {
+    background-color: var(--bg-main-color);
+    border-color: var(--bg-main-color);
+    color: var(--text-white-color);
+    height: 3.7rem;
+    border-radius: var(--border-input-radius);
+  }
+  .check-icon {
+    width: 16px;
+    min-width: 16px;
+    height: 16px;
+    background-color: #d6d6d6;
+    .pi {
+      font-size: 10px;
+    }
+    &.active {
+      background-color: #c8e6c9;
+      .pi {
+        color: #4caf50;
+        font-weight: bold;
+      }
+    }
+  }
+}

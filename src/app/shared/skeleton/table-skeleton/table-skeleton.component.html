@@ -1,0 +1,9 @@
+<p-table [value]="[9,9,9,9,9,9]">
+  <ng-template pTemplate="body" let-item>
+    <tr>
+      <ng-container *ngFor="let item of [9,9,9,8,8,8]">
+        <td><p-skeleton width="50%" height="1.3rem" borderRadius="6px"></p-skeleton></td>
+      </ng-container>
+    </tr>
+  </ng-template>
+</p-table>

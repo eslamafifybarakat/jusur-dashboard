@@ -1,0 +1,57 @@
+<nav class="d-flex position-fixed w-100 bottom-0 bg-white-color bottom-navigation shadow-lg">
+  <ul class="gap-2 d-flex justify-content-evenly w-100 p-0">
+    <li class=" nav-item">
+      <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="35" height="35"
+          title="home" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+          <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+          <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+        </svg>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/places']" routerLinkActive="active">
+        <svg xmlns=" http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-current-location" width="35"
+          title="places" height="35" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill=" none"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+          <path d="M12 12m-8 0a8 8 0 1 0 16 0a8 8 0 1 0 -16 0" />
+          <path d="M12 2l0 2" />
+          <path d="M12 20l0 2" />
+          <path d="M20 12l2 0" />
+          <path d="M2 12l2 0" />
+        </svg>
+      </a>
+    </li>
+    <li class="nav-item d-flex position-relative">
+      <a class="nav-link camel d-flex justify-content-center align-items-center rounded-circle" (click)="startTrip()"
+        title="camel-logo">
+        <img src="assets/images/navbar/camel.gif" width="55px" height="55px" alt="image">
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" (click)="explore()" title="saudi">
+        <img src="assets/images/navbar/saudi.svg" alt="saudi" width="30px">
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/stores']" routerLinkActive="active">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-building-circus" width="35"
+          title="stores" height="35" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M4 11h16" />
+          <path d="M12 6.5c0 1 -5 4.5 -8 4.5" />
+          <path d="M12 6.5c0 1 5 4.5 8 4.5" />
+          <path d="M6 11c-.333 5.333 -1 8.667 -2 10h4c1 0 4 -4 4 -9v-1" />
+          <path d="M18 11c.333 5.333 1 8.667 2 10h-4c-1 0 -4 -4 -4 -9v-1" />
+          <path d="M12 7v-4l2 1h-2" />
+        </svg>
+      </a>
+    </li>
+  </ul>
+</nav>

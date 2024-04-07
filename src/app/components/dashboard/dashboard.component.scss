@@ -1,0 +1,42 @@
+#dashboard {
+  .main {
+    min-height: calc(100vh - 120px) !important;
+    transition: all 0.5s ease !important;
+  }
+  .dash {
+    width: calc(100% - 7.375rem);
+    margin-left: 7.375rem;
+    transition: all 0.5s ease;
+  }
+  .dash-trimmed {
+    width: calc(100% - 17.5625rem);
+    margin-left: 17.5625rem;
+  }
+  .dash-md-screen {
+    width: calc(100% - 7.375rem);
+    margin-left: 7.375rem;
+  }
+  &:dir(rtl) {
+    .dash {
+      margin-right: 7.375rem;
+      margin-left: inherit;
+    }
+    .dash-trimmed {
+      margin-right: 17.5625rem;
+      margin-left: inherit;
+    }
+    .dash-md-screen {
+      margin-right: 7.375rem;
+      margin-left: inherit;
+    }
+  }
+}
+@media (max-width: 767px) {
+  .dash {
+    margin: 0 !important;
+    width: 100% !important;
+  }
+  aside-menu {
+    display: none;
+  }
+}

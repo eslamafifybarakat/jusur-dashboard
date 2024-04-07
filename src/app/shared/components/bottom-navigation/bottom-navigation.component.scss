@@ -1,0 +1,20 @@
+.bottom-navigation {
+  border-radius: 10px 10px 0 0;
+  padding: 13px 0;
+  z-index: 3;
+  .nav-link {
+    color: #9fa3af;
+    &.active {
+      color: var(--text-main-color);
+    }
+  }
+  .camel {
+    cursor: pointer;
+    width: 58px;
+    height: 58px;
+    margin-top: -2rem;
+    background-color: var(--bg-second-color);
+    position: relative;
+    box-shadow: 0px 4px 24px 0px #A1D12D;
+  }
+}

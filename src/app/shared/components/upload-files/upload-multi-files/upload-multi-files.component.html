@@ -1,0 +1,63 @@
+<div class="uploader row w-100 d-flex justify-content-center align-items-center m-auto"
+  [class.justify-content-between]="showFile">
+  <!-- Upload Img  -->
+  <label class="w-100 d-flex align-items-center justify-content-center" ondragover="return false;"
+    [class.loaded]="loaded" (dragenter)="handleDragEnter()" (dragleave)="handleDragLeave()" (drop)="handleDrop($event)">
+    <input #inputFile type="file" name="file" [accept]="accept" (change)="handleInputChange($event)" hidden />
+
+    <div class="d-flex justify-content-center text-center py-3" *ngIf="!isLoading">
+      <a class="fw-bold text-dark-color d-flex flex-column align-items-center">
+        <div class="d-flex justify-content-center mb-2">
+          <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M23.1438 19.357H20.5724V16.7856C20.5724 16.5582 20.4821 16.3402 20.3214 16.1795C20.1606 16.0187 19.9426 15.9285 19.7153 15.9285C19.488 15.9285 19.2699 16.0187 19.1092 16.1795C18.9484 16.3402 18.8581 16.5582 18.8581 16.7856V19.357H16.2868C16.0594 19.357 15.8414 19.4472 15.6807 19.608C15.5199 19.7687 15.4297 19.9867 15.4297 20.2141C15.4297 20.4414 15.5199 20.6594 15.6807 20.8202C15.8414 20.9809 16.0594 21.0713 16.2868 21.0713H18.8581V23.6426C18.8581 23.8699 18.9484 24.0879 19.1092 24.2487C19.2699 24.4094 19.488 24.4998 19.7153 24.4998C19.9426 24.4998 20.1606 24.4094 20.3214 24.2487C20.4821 24.0879 20.5724 23.8699 20.5724 23.6426V21.0713H23.1438C23.3711 21.0713 23.5892 20.9809 23.7499 20.8202C23.9107 20.6594 24.0009 20.4414 24.0009 20.2141C24.0009 19.9867 23.9107 19.7687 23.7499 19.608C23.5892 19.4472 23.3711 19.357 23.1438 19.357Z"
+              fill="#359a9c" />
+            <path
+              d="M12.857 19.3566H2.57139C2.34406 19.3566 2.12605 19.2663 1.9653 19.1055C1.80457 18.9448 1.71426 18.7268 1.71426 18.4994V3.07115C1.71426 2.84382 1.80457 2.62581 1.9653 2.46506C2.12605 2.30432 2.34406 2.21402 2.57139 2.21402H17.9997C18.2271 2.21402 18.4451 2.30432 18.6058 2.46506C18.7666 2.62581 18.8568 2.84382 18.8568 3.07115V13.3567C18.8568 13.584 18.9472 13.802 19.1079 13.9628C19.2687 14.1235 19.4867 14.2138 19.714 14.2138C19.9413 14.2138 20.1594 14.1235 20.3201 13.9628C20.4808 13.802 20.5711 13.584 20.5711 13.3567V3.07115C20.5711 2.38917 20.3002 1.73513 19.8179 1.2529C19.3358 0.770669 18.6817 0.499756 17.9997 0.499756H2.57139C1.88941 0.499756 1.23538 0.770669 0.753143 1.2529C0.270914 1.73513 0 2.38917 0 3.07115V18.4994C0 19.1814 0.270914 19.8355 0.753143 20.3177C1.23538 20.8 1.88941 21.0709 2.57139 21.0709H12.857C13.0843 21.0709 13.3023 20.9806 13.4631 20.8198C13.6238 20.6591 13.714 20.441 13.714 20.2137C13.714 19.9864 13.6238 19.7684 13.4631 19.6077C13.3023 19.447 13.0843 19.3566 12.857 19.3566Z"
+              fill="#359a9c" />
+            <path
+              d="M7.71509 8.21411C8.89854 8.21411 9.85791 7.25474 9.85791 6.07129C9.85791 4.88784 8.89854 3.92847 7.71509 3.92847C6.53164 3.92847 5.57227 4.88784 5.57227 6.07129C5.57227 7.25474 6.53164 8.21411 7.71509 8.21411Z"
+              fill="#359a9c" />
+            <path
+              d="M4.53343 11.0329L3.42773 12.1472V17.6414H17.1418V12.1472L13.4647 8.46154C13.3851 8.38121 13.2903 8.31744 13.1858 8.27393C13.0813 8.23041 12.9693 8.20801 12.8562 8.20801C12.743 8.20801 12.631 8.23041 12.5265 8.27393C12.4221 8.31744 12.3273 8.38121 12.2476 8.46154L7.71339 13.0043L5.75056 11.0329C5.67088 10.9526 5.57608 10.8888 5.47163 10.8453C5.36718 10.8018 5.25515 10.7794 5.142 10.7794C5.02885 10.7794 4.91682 10.8018 4.81237 10.8453C4.70792 10.8888 4.61312 10.9526 4.53343 11.0329Z"
+              fill="#359a9c" />
+          </svg>
+        </div>
+        <p class="fw-500 mb-0">{{"general.clickToUpload"|translate}}</p>
+        <small class="text-desc-color">{{"general.supports"|translate}}
+          {{supports}}
+        </small>
+      </a>
+    </div>
+  </label>
+  <!-- Loading -->
+  <ng-container *ngIf="showFile && isLoading">
+    <div class="w-100">
+      <p-skeleton size="2rem" styleClass="mb-2 mx-auto"></p-skeleton>
+      <p-skeleton width="80%" styleClass="mb-2 mx-auto"></p-skeleton>
+      <p-skeleton width="40%" styleClass="mb-2 mx-auto"></p-skeleton>
+    </div>
+  </ng-container>
+</div>
+<ng-container *ngIf="filesNames.length>0">
+  <div class="uploaded-files p-2 border rounded-4 mt-3">
+    <div class="files-h p-1">
+      <ng-container *ngFor="let item of filesNames;let i=index">
+        <div class="d-flex justify-content-between align-items-center gap-4 p-2"
+          [class.border-bottom]="i<filesNames.length-1">
+          <div class="d-flex align-items-center gap-3 text-truncate">
+            <img class="fit-object-cover file-img shadow-sm" [src]="filesSrc[i]?.img"
+              onerror="src='assets/images/notFound/noUser.svg'" alt="provider image" />
+            <div class="text-truncate">
+              <p class="fw-500 mb-1">{{item?.name}}</p>
+              <p class="mb-0 text-desc-color fs-8">{{item?.size}}</p>
+            </div>
+          </div>
+          <a class="text-danger d-flex justify-content-center align-items-center" (click)="removeImgFile(item)">
+            <i class="pi pi-trash"></i>
+          </a>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>

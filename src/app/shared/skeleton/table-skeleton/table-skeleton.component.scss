@@ -1,0 +1,33 @@
+:host::ng-deep {
+  .p-datatable-table {
+    border-collapse: separate;
+    border-spacing: 0 15px !important;
+  }
+
+  .p-datatable-tbody > tr > td {
+    border-color: rgba(140, 149, 163, 0.21);
+    border-width: 1px 0 !important;
+    padding: 1rem;
+    height: 4rem;
+    &:first-child {
+      border-width: 1px 0px 1px 1px !important;
+      border-top-left-radius: var(--border-radius-card);
+      border-bottom-left-radius: var(--border-radius-card);
+    }
+    &:last-child {
+      border-width: 1px 1px 1px 0px !important;
+      border-top-right-radius: var(--border-radius-card);
+      border-bottom-right-radius: var(--border-radius-card);
+    }
+    &:dir(rtl) {
+      &:first-child {
+        border-width: 1px 1px 1px 0px !important;
+        border-radius: 0 var(--border-radius-card) var(--border-radius-card) 0;
+      }
+      &:last-child {
+        border-width: 1px 0px 1px 1px !important;
+        border-radius: var(--border-radius-card) 0 0 var(--border-radius-card);
+      }
+    }
+  }
+}

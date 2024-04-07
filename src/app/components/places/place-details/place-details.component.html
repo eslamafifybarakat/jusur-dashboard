@@ -1,0 +1,79 @@
+<div id="place-details">
+  <div class="container mx-auto py-md-5 py-5">
+    <ng-container *ngIf="isLoadingPlaceDetails">
+      loading ...
+    </ng-container>
+    <ng-container *ngIf="!isLoadingPlaceDetails">
+      <div id="short-info" class="d-flex align-items-center justify-content-between w-100 bg-white-color">
+        <div class="main-info">
+          Main Info
+        </div>
+        <div class="action-buttons">
+          Action Buttons
+        </div>
+      </div>
+
+      <div id="images-gallery" class="mt-2 bg-white-color">
+        Images Gallery
+      </div>
+
+      <div id="details-tabs" class="mt-2 bg-white-color">
+        <div class="tabs-titles mb-4 mt-lg-0 mt-4">
+          <div class="view d-flex justify-content-between">
+            <div class="views d-flex gap-3">
+              <a (click)="showInformationTab()" class="box d-flex gap-2" [ngClass]="InformationView ? 'active' : null"
+                title="Information">
+                <i class="bi bi-grid-3x3-gap-fill"></i>
+                <p class="m-0 d-none d-lg-block">
+                  Information
+                </p>
+              </a>
+              <a (click)="showFeaturesTab()" class="box d-flex gap-2" [ngClass]="featuresView ? 'active' : null"
+                title="Features">
+                <i class="bi bi-list-columns-reverse"></i>
+                <p class="m-0 d-none d-lg-block">
+                  Features
+                </p>
+              </a>
+              <a (click)="showMapTab()" class="box d-flex gap-2" [ngClass]="mapView ? 'active' : null" title="Map">
+                <i class="bi bi-map"></i>
+                <p class="m-0 d-none d-lg-block">
+                  Map
+                </p>
+              </a>
+              <a (click)="showChatGptTab()" class="box d-flex gap-2" [ngClass]="chatGptView ? 'active' : null"
+                title="Chat">
+                <i class="bi bi-chat-icon"></i>
+                <p class="m-0 d-none d-lg-block">
+                  Chat
+                </p>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="tabs-content">
+          <ng-container *ngIf="InformationView">
+            <div class="view-data">
+              Information Content
+            </div>
+          </ng-container>
+          <ng-container *ngIf="featuresView">
+            <div class="view-data">
+              Features Content
+            </div>
+          </ng-container>
+          <ng-container *ngIf="mapView">
+            <div class="view-data">
+              Map Content
+            </div>
+          </ng-container>
+          <ng-container *ngIf="chatGptView">
+            <div class="view-data">
+              Chat Content
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="error d-flex justify-content-center align-items-center position-relative">
+  <div class="overlay position-absolute"></div>
+  <div>
+    <h2 class="title">
+      <ng-container *ngIf="currentLanguage=='en'||currentLanguage=='ru'||currentLanguage=='zh'">
+        <span>4</span>
+        <span>0</span>
+        <span>4</span>
+      </ng-container>
+      <ng-container *ngIf="currentLanguage=='ar'">
+        <span>٤</span>
+        <span>٠</span>
+        <span>٤</span>
+      </ng-container>
+    </h2>
+    <div class="text-center mt-2">
+      <p class="fs-3 mb-4">{{'errors.pageNotFound'|translate}}</p>
+      <a class="backToHome text-capitalize d-flex align-items-center justify-content-center gap-2 fs-5-1 m-auto"
+        title="back to home" [routerLink]="'/home'">
+        <i class="pi pi-home"></i>
+        {{'errors.backToHome'|translate}}
+      </a>
+    </div>
+  </div>
+</div>

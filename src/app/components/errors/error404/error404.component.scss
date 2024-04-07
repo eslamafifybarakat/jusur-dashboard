@@ -1,0 +1,69 @@
+:host::ng-deep {
+  .error {
+    min-height: 100vh;
+    background-color: #fafafa;
+    // background-image: url(../../../../../assets/images/restaurants/background.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    .title2 {
+      font-size: 180px;
+    }
+    .title {
+      font-family: montserrat, sans-serif;
+      font-size: 250px;
+      font-weight: 900;
+      margin: -15px;
+      color: #262626;
+      text-transform: uppercase;
+      letter-spacing: -40px;
+      & > span {
+        text-shadow: -8px 0 0 #fff;
+      }
+    }
+    .backToHome {
+      position: relative;
+      z-index: 1;
+      min-width: 5rem;
+      width: 14rem;
+      background-color: #8b008b;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 0 30px 30px 15px;
+    }
+    .overlay {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      // background-color: #8b008b93;
+      background-color: #e8e8e8b0;
+      z-index: 0;
+    }
+    .title,
+    p,
+    a {
+      position: relative;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .error .title {
+    font-size: 200px !important;
+    letter-spacing: -20px !important;
+  }
+  .title2 {
+    font-size: 150px !important;
+  }
+}
+
+@media (max-width: 565px) {
+  .error .title {
+    font-size: 150px !important;
+    letter-spacing: -20px !important;
+  }
+  .error .title2 {
+    font-size: 130px !important;
+  }
+}

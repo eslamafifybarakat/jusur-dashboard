@@ -1,0 +1,43 @@
+.general-dropdown .dropdown-menu {
+  left: 0 !important;
+  right: inherit !important;
+}
+
+// Scroll Top
+#scroll {
+  left: 3.2rem !important;
+  right: inherit !important;
+}
+.footer {
+  .border-right {
+    border-left: 1px solid #ccc;
+    border-right: 0 !important;
+    .me-4 {
+      margin-left: 1.5rem !important;
+      margin-right: 0 !important;
+    }
+    .pe-4 {
+      padding-left: 1.5rem !important;
+      padding-right: 0 !important;
+    }
+  }
+  .footer-title:after {
+    right: 0;
+  }
+}
+@media (max-width: 992px) and (min-width: 576px) {
+  .footer .border-right.second-border {
+    border-left: none !important;
+  }
+}
+@media (max-width: 575px) {
+  .footer .border-right {
+    border-bottom: 1px solid #ccc;
+    border-left: 0 !important;
+  }
+}
+.p-datepicker:not(.p-datepicker-inline) .p-datepicker-header {
+  svg {
+    transform: scaleX(-1);
+  }
+}

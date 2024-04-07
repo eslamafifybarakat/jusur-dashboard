@@ -1,0 +1,146 @@
+<div id="personal-info" class="auth-form">
+  <div class="pt-3">
+    <form [formGroup]="personalInfoForm" (ngSubmit)="continue()" aria-label="Personal Info">
+      <div class="mb-3">
+        <input type="text" id="fullName" class="form-control" formControlName="fullName"
+          placeholder="{{'labels.fullName'|translate}}"
+          [class.border-red]="(formControls?.fullName?.touched||formControls?.fullName?.dirty)&&formControls?.fullName?.invalid"
+          (input)="publicService?.clearValidationErrors(formControls?.fullName)">
+        <ng-container
+          *ngIf="formControls?.fullName?.invalid && (formControls?.fullName?.dirty || formControls?.fullName?.touched)">
+          <div class="mt-1">
+            <ng-container *ngIf="formControls?.fullName?.errors?.required">
+              <span class="text-danger fs-8-1">
+                {{'validations.fullName'|translate}}
+              </span>
+            </ng-container>
+            <ng-container *ngIf="formControls?.fullName?.errors?.minlength">
+              <span class="text-danger fs-8-1">
+                {{'validations.fullNameLength'|translate}}
+              </span>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+      <div class="mb-3">
+        <span class="p-input-icon-right w-100">
+          <input type="text" id="email" class="form-control" formControlName="email"
+            placeholder="{{'labels.email'|translate}}"
+            [class.border-red]="(formControls?.email?.touched||formControls?.email?.dirty)&&formControls?.email?.invalid || isEmailFound"
+            (input)="publicService?.clearValidationErrors(formControls?.email)"
+            (blur)="formControls?.email?.valid?isEmailAvailable(this.personalInfoForm?.value?.email):''"
+            (keyup)="onKeyUpEvent('email')">
+          <ng-container *ngIf="isCheckEmail">
+            <i class="pi pi-spin pi-spinner"></i>
+          </ng-container>
+        </span>
+        <div class="mt-1">
+          <ng-container
+            *ngIf="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)">
+            <ng-container *ngIf="formControls?.email?.errors?.required">
+              <span class="text-danger fs-8-1">
+                {{'validations.email'|translate}}
+              </span>
+            </ng-container>
+            <ng-container *ngIf="formControls?.email?.errors?.pattern">
+              <span class="text-danger fs-8-1">
+                {{'validations.emailNotCorrect'|translate}}
+              </span>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="isEmailFound">
+            <span class="text-danger fs-8-1 d-block">
+              {{'labels.email'|translate}} <span
+                class="form-label text-main-color fw-bold px-1">{{personalInfoForm?.value?.email}}</span>
+              {{'auth.isUsedBefore'|translate}}
+            </span>
+          </ng-container>
+        </div>
+      </div>
+      <div class="mb-3">
+        <div>
+          <div class="rounded-input p-mask"
+            [class.border-red]="formControls?.password?.invalid && (formControls?.password?.dirty || formControls?.password?.touched)">
+            <p-password [toggleMask]="true" id="p-password" formControlName="password"
+              placeholder="{{'labels.password'|translate}}" [attr.autocomplete]="'current-password'" [feedback]="false">
+            </p-password>
+          </div>
+          <ng-container
+            *ngIf="formControls?.password?.invalid && (formControls?.password?.dirty || formControls?.password?.touched)">
+            <div class="mt-1">
+              <ng-container *ngIf="formControls?.password?.errors?.required">
+                <span class="text-danger fs-8-1">
+                  {{'validations.password'|translate}}
+                </span>
+              </ng-container>
+              <ng-container *ngIf="formControls?.password?.errors?.pattern">
+                <span class="text-danger fs-8-1">
+                  {{'validations.passwordPattern'|translate}}
+                </span>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="mb-3">
+        <div class="rounded-input p-mask"
+          [class.border-red]="formControls?.confirmPassword?.invalid && (formControls?.confirmPassword?.dirty || formControls?.confirmPassword?.touched)">
+          <p-password [toggleMask]="true" id="p-password" formControlName="confirmPassword"
+            placeholder="{{'labels.confirmPassword'|translate}}" [attr.autocomplete]="'current-password'"
+            [feedback]="false">
+          </p-password>
+        </div>
+        <ng-container
+          *ngIf="formControls?.confirmPassword?.invalid && (formControls?.confirmPassword?.dirty || formControls?.confirmPassword?.touched)">
+          <div class="mt-1">
+            <ng-container *ngIf="formControls?.confirmPassword?.errors?.required">
+              <span class="text-danger fs-8-1">
+                {{'validations.confirmPassword'|translate}}
+              </span>
+            </ng-container>
+            <ng-container *ngIf="formControls?.confirmPassword?.errors?.pattern">
+              <span class="text-danger fs-8-1">
+                {{'validations.passwordPattern'|translate}}
+              </span>
+            </ng-container>
+            <ng-container *ngIf="formControls?.confirmPassword?.errors?.ConfirmPassword">
+              <span class="text-danger fs-8-1">
+                {{'validations.notMatch'|translate}}
+              </span>
+            </ng-container>
+          </div>
+        </ng-container>
+        <div class="row mt-3">
+          <ng-container *ngFor="let item of passwordPatterns">
+            <div class="col-md-6 mb-3">
+              <div class="d-flex gap-1 align-items-start">
+                <div class="check-icon rounded-circle d-flex justify-content-center align-items-center"
+                  [class.active]="passwordFormField?.value?.match(item.value)">
+                  <i class="pi pi-check"></i>
+                </div>
+                <p class="mb-0 fs-8-1 text-muted-color">
+                  {{item?.title|translate}}
+                </p>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <button type="submit" class="btn w-100 btn-solid-main form-btn mt-4">
+        <span>
+          {{'auth.next'|translate}}
+        </span>
+      </button>
+    </form>
+    <div class="mt-5">
+      <p class="d-flex justify-content-center align-items-center m-0 fs-8">
+        <span>
+          {{'auth.haveAccount'|translate}}
+        </span>
+        <a class="text-main-color ps-1 pointer" [routerLink]="['/Auth/Login']">
+          {{'auth.login'|translate}}
+        </a>
+      </p>
+    </div>
+  </div>
+</div>

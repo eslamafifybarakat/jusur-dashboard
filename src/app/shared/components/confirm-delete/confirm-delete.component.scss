@@ -1,0 +1,13 @@
+.form-control {
+  height: 2.8rem !important;
+}
+.btn {
+  height: 2.4rem;
+  padding: 0;
+  min-width: 5rem;
+}
+.cancel,
+.cancel:focus {
+  background-color: #8c95a342;
+  border-color: #8c95a342;
+}

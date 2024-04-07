@@ -1,0 +1,12 @@
+<div class="px-1">
+  <ng-container *ngIf="demo=='Expired'; else elseTemplate">
+    <span class="text-danger">
+      00:00
+    </span>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <span class="text-success">
+      {{demo}}
+    </span>
+  </ng-template>
+</div>

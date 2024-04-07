@@ -1,0 +1,34 @@
+<div class="user-info-dropdown general-dropdown">
+  <div class="dropdown">
+    <button class="dropdown-toggle lang-flag btn p-0 d-flex align-items-start gap-4 border-0" type="button"
+      data-bs-toggle="dropdown" aria-expanded="false">
+      <div class="text-start">
+        <p class="mb-0 text-capitalize">
+          ahmed
+        </p>
+        <p class="mb-0 text-muted-color">
+          CEO
+        </p>
+      </div>
+      <i class="pi pi-angle-down fs-8 mt-1"></i>
+    </button>
+    <ul class="dropdown-menu border-0 shadow p-3 user-info-menu" aria-labelledby="dropdownMenuButton1">
+      <ng-container *ngFor="let item of userInfoList">
+        <li class="nav-item">
+          <ng-container *ngIf="(item?.routerLink == 'logout'); else elseRoute">
+            <a class="nav-link d-flex align-items-center gap-2 logout-text" (click)="logOut()">
+              <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(item.icon)"></div>
+              <span class="lh-0">{{ item?.text | translate }}</span>
+            </a>
+          </ng-container>
+          <ng-template #elseRoute>
+            <a class="nav-link d-flex align-items-center gap-2" [routerLink]="item?.routerLink">
+              <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(item.icon)"></div>
+              <span class="lh-0">{{ item?.text | translate }}</span>
+            </a>
+          </ng-template>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</div>

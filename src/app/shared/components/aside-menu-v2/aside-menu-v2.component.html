@@ -1,0 +1,88 @@
+<aside class="aside-menu position-fixed py-3" [class.toggle-aside]="showSideMenu"
+  [ngClass]="collapsed ? 'aside-nav-collapsed' : ''">
+  <div class="logo-container d-flex justify-content-center p-3">
+    <button class="logo bg-transparent border-0 justify-content-center align-items-center">
+      <img src="assets/images/logo/white-logo.svg" class="w-100" alt="logo">
+    </button>
+    <ng-container *ngIf="showCollapseBtn">
+      <button
+        class="collapse-arrow text-main-color border-0 position-absolute d-flex justify-content-center align-items-center"
+        (click)="toggleCollapse()">
+        <i class="pi" [ngClass]="rotated?'pi-angle-double-left':'pi-angle-double-right'"></i>
+      </button>
+    </ng-container>
+  </div>
+  <ul class="aside-nav pt-3 d-flex align-items-center flex-column">
+    <ng-container *ngFor="let item of menuListItems;let i=index">
+      <ng-container *ngIf="item?.permission">
+        <ng-container *ngIf="item?.children?.length > 0; else childSide">
+          <li class="aside-nav-item position-relative w-100 my-2">
+            <a class="aside-nav-link position-relative d-flex align-items-center text-white-color"
+              [class.justify-content-center]="!collapsed" [id]="item?.id"
+              (click)="item?.id=='logout'?logout():handelClick(item)" (click)="!collapsed?toggleCollapse():''">
+              <i class="aside-nav-link-icon text-center fs-5 fa {{ item?.icon }}" [pTooltip]="!collapsed?item?.text:''"
+                tooltipPosition="left"></i>
+              <ng-container *ngIf="collapsed">
+                <span class="aside-nav-link-text ms-3 text-truncate">{{item?.text}}</span>
+              </ng-container>
+              <ng-container *ngIf="collapsed && item?.children && item?.children?.length > 0 ">
+                <i class="fas fa-angle-down angle position-absolute fs-4-1"
+                  [ngClass]="item?.state?'toggle-icon':''"></i>
+              </ng-container>
+            </a>
+
+            <ng-container *ngIf="collapsed && item?.children && item?.children?.length > 0 && item?.state">
+              <ul class="sub-nav">
+                <ng-container *ngFor="let i of item?.children">
+                  <li class="sub-nav-item ms-2 my-3 d-flex align-items-center">
+                    <ng-container *ngIf="collapsed && item?.children && item?.children?.length > 0">
+                      <a class="sub-nav-link" [routerLink]="[i.routerLink]" [routerLinkActive]="['active']">
+                        <i class=" fa fa-circle me-3"></i>
+                        <ng-container *ngIf="collapsed">
+                          <span>{{i.text}}</span>
+                        </ng-container>
+                      </a>
+                    </ng-container>
+                  </li>
+                </ng-container>
+              </ul>
+            </ng-container>
+          </li>
+        </ng-container>
+        <ng-template #childSide>
+          <li *ngIf="item.id!='logout'" class="aside-nav-item position-relative w-100 my-2"
+            [routerLink]="[item.routerLink]" [routerLinkActive]="['active']">
+            <a class="aside-nav-link position-relative d-flex align-items-center gap-3 text-white-color" [id]="item?.id"
+              [class.justify-content-center]="!collapsed" (click)="item?.id=='logout'?logout():handelClick(item)">
+              <div *ngIf="!collapsed" [pTooltip]="item.text|translate" tooltipPosition="left"
+                [innerHTML]="sanitizer.bypassSecurityTrustHtml(item.icon)"></div>
+              <div *ngIf="collapsed" [innerHTML]="sanitizer.bypassSecurityTrustHtml(item.icon)"></div>
+              <ng-container *ngIf="collapsed">
+                <span class="aside-nav-link-text text-truncate">{{item?.text|translate}}</span>
+              </ng-container>
+              <ng-container *ngIf="collapsed && item.children && item.children.length > 0 ">
+                <i class="fas fa-angle-down angle position-absolute fs-5" [ngClass]="item.state?'toggle-icon':''"></i>
+              </ng-container>
+            </a>
+          </li>
+          <li *ngIf="item.id=='logout'" class="aside-nav-item position-relative w-100 my-2">
+            <a class="aside-nav-link position-relative d-flex align-items-center gap-3 text-white-color" [id]="item?.id"
+              [class.justify-content-center]="!collapsed" (click)="logout()">
+              <div *ngIf="!collapsed" [pTooltip]="item.text|translate" tooltipPosition="left"
+                [innerHTML]="sanitizer.bypassSecurityTrustHtml(item.icon)"></div>
+              <div *ngIf="collapsed" [innerHTML]="sanitizer.bypassSecurityTrustHtml(item.icon)"></div>
+              <ng-container *ngIf="collapsed">
+                <span class="aside-nav-link-text text-truncate">{{item?.text|translate}}</span>
+              </ng-container>
+              <ng-container *ngIf="collapsed && item.children && item.children.length > 0 ">
+                <i class="fas fa-angle-down angle position-absolute fs-5" [ngClass]="item.state?'toggle-icon':''"></i>
+              </ng-container>
+            </a>
+          </li>
+        </ng-template>
+      </ng-container>
+    </ng-container>
+  </ul>
+</aside>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

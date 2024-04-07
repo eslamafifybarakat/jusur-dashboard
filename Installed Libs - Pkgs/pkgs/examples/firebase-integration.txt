@@ -1,0 +1,62 @@
+@angular/fire firebase@9.16.0:
+install =>npm install @angular/fire firebase@9.16.0 --legacy-peer-deps --force
+ uninstall=> npm uninstall @angular/fire firebase@9.16.0 --legacy-peer-deps --force
+
+ in app.module.ts:
+ imports: [
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    .......
+ ]
+
+  providers: [AngularFireAuth,....]
+
+  AuthFirebaseService.ts:
+  import { environment } from './../../../environments/environment';
+import { Injectable } from '@angular/core';
+
+import 'firebase/compat/auth';
+import { initializeApp } from "firebase/app";
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { signInWithPopup, GoogleAuthProvider, TwitterAuthProvider, initializeAuth, browserSessionPersistence, browserPopupRedirectResolver } from "firebase/auth";
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthFirebaseService {
+  GoogleProvider: GoogleAuthProvider;
+  TwitterProvider: TwitterAuthProvider;
+  auth: any;
+
+  constructor(
+    public afAuth: AngularFireAuth
+  ) {
+    const firebaseApp = initializeApp(environment.firebaseConfig);
+    this.auth = initializeAuth(firebaseApp, {
+      persistence: browserSessionPersistence,
+      popupRedirectResolver: browserPopupRedirectResolver,
+    });
+
+    this.GoogleProvider = new GoogleAuthProvider();
+    this.TwitterProvider = new TwitterAuthProvider();
+  }
+
+  // Sign in with Google
+  GoogleAuth() {
+    signInWithPopup(this.auth, this.GoogleProvider).then((result) => {
+      console.log(result);
+    }).catch((error) => {
+      console.error("Error during sign in: ", error.message);
+    });
+  }
+
+  // Sign in with Twitter
+  TwitterAuth() {
+    signInWithPopup(this.auth, this.TwitterProvider).then((result) => {
+      console.log(result);
+    }).catch((error) => {
+      console.error("Error during sign in: ", error.message);
+    });
+  }
+
+}

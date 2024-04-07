@@ -1,0 +1,119 @@
+::-webkit-scrollbar-thumb {
+  background: transparent !important;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(255 255 255 / 61%) !important;
+  border-radius: 10px;
+}
+::-webkit-scrollbar {
+  width: 0.3 5rem;
+}
+
+.aside-menu {
+  transition: all 0.5s ease !important;
+  z-index: 120;
+  bottom: 0;
+  width: 6rem;
+  height: calc(100vh - 5rem);
+  background: linear-gradient(
+    90deg,
+    rgba(10, 37, 39, 0.92) -35.03%,
+    #287676 100%
+  );
+  &.aside-nav-collapsed {
+    width: 16.5625rem;
+  }
+  .logo-container {
+    .logo {
+      width: 12rem;
+      height: 3rem;
+    }
+    .collapse-arrow {
+      margin-left: auto;
+      width: 1.9rem;
+      height: 1.9rem;
+      border-radius: 0.525rem;
+      top: 2rem;
+      right: -13px;
+      z-index: 5;
+      background-color: #ddeeee;
+      box-shadow: 0px 3px 10px 0px #00000036;
+      transition: all 0.5s ease-in-out;
+      .fas {
+        transition: all 0.5s ease-in-out;
+      }
+      &:dir(rtl) {
+        right: inherit;
+        left: -13px;
+      }
+    }
+  }
+  .aside-nav {
+    padding: 0.938rem;
+    margin: 0;
+    height: calc(100% - 2.65rem);
+    cursor: pointer;
+    overflow-y: auto;
+    .aside-nav-item {
+      .aside-nav-link {
+        height: 3rem;
+        transition: all 0.3s ease;
+        border-radius: 9px;
+        padding: 1rem;
+        &.active {
+          background-color: var(--bg-white-color);
+          position: relative;
+          color: var(--text-main-color) !important;
+        }
+
+        .aside-nav-link-text {
+          font-size: 1.1rem;
+        }
+        .angle {
+          right: 1rem;
+          transition: all 0.3s ease;
+        }
+        &:dir(rtl) {
+          left: 1rem;
+          right: inherit;
+        }
+      }
+    }
+    .aside-nav-item:hover {
+      .aside-nav-link {
+        background-color: var(--bg-white-color) !important;
+        color: var(--text-main-color) !important;
+      }
+    }
+  }
+  .sub-nav {
+    transition: all 0.3s ease;
+    .fa {
+      font-size: 0.6rem;
+    }
+    .sub-nav-item {
+      .sub-nav-link {
+        color: #ccc !important;
+        &.active {
+          color: var(--text-white-color) !important;
+        }
+      }
+      &:hover {
+        .sub-nav-link {
+          display: block;
+          color: var(--text-white-color) !important;
+          width: 100%;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+
+  .toggle-icon {
+    transform: rotate(180deg);
+  }
+  .toggle-aside {
+    transform: translateX(-18.5rem);
+  }
+}

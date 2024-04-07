@@ -1,0 +1,18 @@
+<div class="confirm-delete">
+  <div class="d-flex align-items-center gap-2 mb-3">
+    <i class="fas fa-triangle-exclamation fs-5 text-warning"></i>
+    <p class="mb-0">{{'general.confirm_delete_qu'|translate}} <span class="text-danger">{{name}}</span>
+      <span class="scaleX-rtl d-inline-block mx-1">?</span>
+    </p>
+  </div>
+  <ng-container *ngIf="enableConfirm">
+    <input type="text" placeholder="Enter name to delete" [(ngModel)]="inputName
+    " class="form-control">
+  </ng-container>
+
+  <div class="d-flex justify-content-end gap-2 mt-4">
+    <button class="btn cancel" (click)="cancel()">{{'general.no'|translate}}</button>
+    <button class="btn  bg-danger border-0 text-white-color" (click)="confirm()"
+      [disabled]="name!=inputName && enableConfirm">{{'general.yes'|translate}}</button>
+  </div>
+</div>

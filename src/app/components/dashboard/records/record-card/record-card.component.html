@@ -1,0 +1,39 @@
+<div class="global-card p-3 h-100 d-flex flex-column justify-content-between" id="record-card">
+  <div>
+    <div>
+      <p class="text-muted-color mb-0 fs-5-2">
+        {{'dashboard.tableHeader.recordName'|translate}}
+      </p>
+      <p class="mb-0 fs-5-2">
+        {{item?.recordName||'--'}}
+      </p>
+    </div>
+    <div class="mt-3">
+      <p class="text-muted-color mb-0 fs-5-2">
+        {{'dashboard.tableHeader.recordNumber'|translate}}
+      </p>
+      <p class="mb-0 fs-5-2">
+        {{item?.recordNumber||'--'}}
+      </p>
+    </div>
+    <div class="mt-3">
+      <p class="text-muted-color mb-0 fs-5-2">
+        {{'dashboard.tableHeader.endDate'|translate}}
+      </p>
+      <p class="mb-0 fs-5-2">
+        {{item?.endDate | date: 'd MMMM y':'':currentLanguage}}
+      </p>
+    </div>
+  </div>
+  <div>
+    <hr>
+    <div class="d-flex justify-content-end gap-3 flex-wrap">
+      <button class="details-btn d-flex align-items-center justify-content-center">
+        {{'general.details'|translate}}
+      </button>
+      <button (click)="editItem(item)" class="details-btn d-flex align-items-center justify-content-center">
+        {{'general.edit'|translate}}
+      </button>
+    </div>
+  </div>
+</div>

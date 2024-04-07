@@ -1,0 +1,63 @@
+.uploader {
+  background: #8c95a317;
+  border: 2px dashed #8c95a399;
+  border-radius: var(--border-radius-card);
+  min-height: 100px;
+  .loaded {
+    height: 90px;
+    width: 90px;
+    border-radius: var(--dashboard-border-radius) !important;
+  }
+  .badge-btn {
+    border-radius: 11px;
+    height: 2.6rem;
+    border: none;
+    padding: 0.9rem;
+  }
+  .badge-info {
+    background-color: #ddeeee;
+  }
+  .badge-danger {
+    background: #e5555530;
+  }
+}
+:host::ng-deep {
+  p-image {
+    width: 70px;
+    min-width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .p-image-preview-indicator {
+    height: 70px;
+  }
+  .p-image {
+    width: 70px;
+    min-width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    & > img {
+      width: 70px;
+      min-width: 70px;
+      height: 70px;
+      border-radius: 8px;
+    }
+  }
+}
+.uploaded-files {
+  .files-h {
+    max-height: 13rem;
+    overflow: auto;
+    &::-webkit-scrollbar-thumb {
+      background: var(--bg-main-color);
+      border-radius: 10px;
+    }
+  }
+  .file-img {
+    width: 45px;
+    min-width: 45px;
+    height: 45px;
+    border-radius: 8px;
+  }
+}

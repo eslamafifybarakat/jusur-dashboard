@@ -1,0 +1,45 @@
+<nav class="navbar-mobile w-100 shadow-sm d-flex align-items-center">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <button class="menu-icon bg-transparent border-0" (click)="openSidebar()">
+        <!-- Menu icon lines -->
+        <button class="menu-icon bg-transparent border-0" (click)="openSidebar()">
+          <div class="line mb-1"></div>
+          <div class="line line2 mb-1"></div>
+          <div class="line line3"></div>
+        </button>
+      </button>
+      <language-selector></language-selector>
+    </div>
+  </div>
+</nav>
+
+<p-sidebar [(visible)]="displayMenu" [position]="currentLanguage == 'ar' ? 'right' : 'left'">
+  <div class="overlay position-absolute"></div>
+  <div class="position-relative">
+    <div class="d-flex align-items-center justify-content-end my-4">
+      <a class="close d-flex justify-content-center align-items-center rounded-circle text-white-color" title="close"
+        (click)="closeSidebar()">
+        <i class="pi pi-times fs-8"></i>
+      </a>
+    </div>
+    <div class="d-flex flex-column align-items-center justify-content-center gap-2">
+      <a class="log" (click)="closeSidebar()" [routerLink]="['/home']" title="logo">
+        <img src="assets/images/logo/logo.webp" alt="logo" class="logo">
+      </a>
+    </div>
+    <div class="mt-5 relative">
+      <ul class="p-0">
+        <ng-container *ngFor="let item of navItems">
+          <li class="nav-item" *ngIf="!item.logout || isUserLoggedIn">
+            <a class="nav-link text-white-color d-flex gap-2" (click)="item.logout ? logOut() : closeSidebar()"
+              [routerLink]="item.route" routerLinkActive="active">
+              <!-- <svg-icon [src]="'assets/icons/' + item.icon + '.svg'"></svg-icon> -->
+              {{ item.label | translate }}
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</p-sidebar>

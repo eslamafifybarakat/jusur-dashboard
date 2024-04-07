@@ -1,0 +1,65 @@
+#edit-client {
+  .btn {
+    height: 2.9rem;
+    padding: 1rem;
+    border-radius: 10px;
+  }
+  .btn-solid-main {
+    background-color: var(--bg-main-color);
+    border: 1px solid var(--bg-main-color);
+    color: var(--text-white-color);
+  }
+  .btn-outline-main {
+    background-color: transparent;
+    border: 1px solid var(--bg-main-color);
+    color: var(--text-main-color);
+  }
+  .header {
+    padding: 0.8rem;
+  }
+  .prevent-click {
+    pointer-events: none;
+  }
+}
+:host::ng-deep {
+  #edit-client {
+    .input-group {
+      .form-control,
+      .p-calendar-w-btn .p-inputtext {
+        height: 3rem !important;
+        border-right: 0;
+        color: #696969;
+        border-radius: var(--border-input-radius) 0 0 var(--border-input-radius);
+      }
+      .p-calendar-w-btn .p-inputtext {
+        border-left: 0;
+        border-radius: 0 !important;
+      }
+      .input-group-text {
+        border: 1px solid var(--second-border-color);
+        border-left: 0;
+      }
+      .edit-input {
+        width: 2.4rem;
+        min-width: 2.4rem;
+        height: 2.4rem;
+        border-radius: 10px;
+        background-color: #eaeaea;
+      }
+      &:dir(rtl) {
+        .form-control {
+          border-right: 1px solid var(--second-border-color);
+          border-left: 0;
+          border-radius: 0 var(--border-input-radius) var(--border-input-radius)
+            0;
+        }
+        .input-group-text {
+          border-left: 1px solid var(--second-border-color);
+          border-right: 0;
+          border-radius: var(--border-input-radius) 0 0
+            var(--border-input-radius);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+#auth-slider {
+  // background-image: url(../../../assets/images/auth/slider-bg.svg);
+  background-position: 22% 70%;
+  background-repeat: no-repeat;
+  .slide-img {
+    height: 24rem;
+    img {
+      object-fit: fill;
+    }
+  }
+}
+:host::ng-deep {
+  #auth-slider {
+    .p-carousel {
+      .p-carousel-indicators {
+        padding-bottom: 0;
+        .p-carousel-indicator {
+          button {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            opacity: 30%;
+          }
+          &.p-highlight button {
+            background-color: var(--bg-white-color);
+            opacity: 1;
+          }
+        }
+      }
+      .p-carousel-content {
+        position: relative;
+        overflow: hidden;
+        .p-carousel-prev,
+        .p-carousel-next {
+          position: absolute;
+          bottom: -4px;
+          color: var(--text-white-color);
+          &:hover {
+            background-color: transparent;
+          }
+        }
+        .p-carousel-prev {
+          left: 31%;
+        }
+        .p-carousel-next {
+          right: 31%;
+        }
+        .p-icon {
+          width: 10px;
+        }
+      }
+    }
+    &:dir(rtl) {
+      .p-carousel {
+        direction: ltr;
+        // .p-carousel-content {
+        //   .p-carousel-prev {
+        //     right: 31%;
+        //     left: inherit;
+        //   }
+        //   .p-carousel-next {
+        //     left: 31%;
+        //     right: inherit;
+        //   }
+        // }
+      }
+    }
+  }
+}
