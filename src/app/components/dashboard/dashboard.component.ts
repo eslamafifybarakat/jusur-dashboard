@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 import { DashboardNavbarComponent } from './../../shared/components/dashboard-navbar/dashboard-navbar.component';
 import { AsideMenuComponent } from './../../shared/components/aside-menu/aside-menu.component';
 import { FooterComponent } from './../../shared/components/footer/footer.component';
-import { AlertsService } from './../../services/generic/alerts.service';
 
 @Component({
   standalone: true,
@@ -31,14 +30,9 @@ export class DashboardComponent {
   toggleSideMenu: boolean = false;
 
   constructor(
-    private alertsService: AlertsService
   ) { }
 
   ngOnInit(): void {
-    this.alertsService?.openToast('success', 'success', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
-    this.alertsService?.openToast('info', 'info', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
-    this.alertsService?.openToast('warn', 'warn', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
-    this.alertsService?.openToast('error', 'error', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
   }
 
   //  Method to handle the side menu collapse on screens

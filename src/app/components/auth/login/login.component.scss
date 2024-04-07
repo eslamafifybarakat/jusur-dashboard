@@ -2,9 +2,6 @@
   .form-logo {
     width: 3rem;
   }
-  hr {
-    border-width: 2px;
-  }
   .form-btn {
     background-color: var(--bg-main-color);
     border-color: var(--bg-main-color);
@@ -12,20 +9,8 @@
     height: 3.7rem;
     border-radius: var(--border-input-radius);
   }
-  .social {
-    width: 4rem;
-    height: 3rem;
-    border-radius: 10px;
-    &.apple {
-      background-color: #111;
-    }
-    &.google {
-      background-color: #fff;
-      box-shadow: 0px 2px 3px 0px #0000002b;
-    }
-    &.facebook {
-      background-color: #1877f2;
-    }
+  .permission {
+    color: #565656;
   }
 }
 @media (max-width: 587px) {

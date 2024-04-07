@@ -72,6 +72,10 @@ label {
     height: 3.7rem;
     border-radius: var(--border-input-radius);
     padding: 1rem;
+    font-family: "Poppins", sans-serif;
+    &:dir(rtl) {
+      font-family: "Cairo", sans-serif;
+    }
   }
   .p-dropdown {
     line-height: 0;
