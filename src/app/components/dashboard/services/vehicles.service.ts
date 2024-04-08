@@ -14,7 +14,7 @@ export class VehiclesService {
     private http: HttpClient
   ) { }
 
-  getVehiclesList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any): Observable<any> {
+  getVehiclesList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any, clientHistory_id?: string | number): Observable<any> {
     let params = new HttpParams();
     if (page) {
       params = params?.append("page", page);
@@ -30,6 +30,9 @@ export class VehiclesService {
     }
     if (conditions && conditions?.length > 0) {
       params = params?.append("conditions", JSON?.stringify(conditions));
+    }
+    if (clientHistory_id) {
+      params = params?.append("clientHistory_id", 3);
     }
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.vehicles.getVehicles}`, { params: params })
   }

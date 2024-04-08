@@ -32,7 +32,7 @@ export class EmployeesService {
       params = params?.append("conditions", JSON?.stringify(conditions));
     }
     if (clientHistory_id) {
-      params = params?.append("clientHistory_id", 3);
+      params = params?.append("clientHistory_id", clientHistory_id);
     }
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.employees.getEmployees}`, { params: params })
   }

@@ -93,45 +93,45 @@ export class VehiclesListComponent {
   }
 
   ngOnInit(): void {
+    this.initializeTableHeaders();
+    this.setupSubscriptions();
+    this.getAllVehicles(false, this.recordId);
+  }
+  private initializeTableHeaders(): void {
     this.tableHeaders = [
-      { field: 'operatingCard', header: 'dashboard.tableHeader.operatingCard', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.operatingCard'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
-      { field: 'endDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
+      { field: 'workPermitCard', header: 'dashboard.tableHeader.operatingCard', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.operatingCard'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
+      { field: 'expiryDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
       { field: 'insuranceExpiryDate', header: 'dashboard.tableHeader.insuranceExpiryDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.insuranceExpiryDate'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
-      { field: 'formPhoto', header: 'dashboard.tableHeader.formPhoto', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.formPhoto'), type: 'img' },
+      { field: 'formImage', header: 'dashboard.tableHeader.formPhoto', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.formPhoto'), type: 'img' },
     ];
-    this.getAllVehicles();
-    this.searchSubject
-      .pipe(
-        debounceTime(500) // Throttle time in milliseconds (1 seconds)
-      )
-      .subscribe(event => {
-        this.searchHandler(event);
-      });
+  }
+  private setupSubscriptions(): void {
+    this.searchSubject.pipe(debounceTime(500)).subscribe(event => this.searchHandler(event));
     this.publicService.toggleFilterVehicleDataType.subscribe((res: any) => {
       if (res) {
         this.changeDateStyle(res);
       }
-    })
-    this.publicService.addVehicleItem.subscribe((res: any) => {
+    });
+    this.publicService.addVehicleItem.subscribe(res => {
       if (res) {
         this.addEditItem();
       }
-    })
-    this.publicService.resetVehiclesData.subscribe((res: any) => {
+    });
+    this.publicService.resetVehiclesData.subscribe(res => {
       if (res) {
         this.clearTable();
       }
-    })
-    this.publicService.searchVehiclesData.subscribe((res: any) => {
+    });
+    this.publicService.searchVehiclesData.subscribe(res => {
       if (res) {
         this.searchHandler(res);
       }
-    })
-    this.publicService.filterVehiclesData.subscribe((res: any) => {
+    });
+    this.publicService.filterVehiclesData.subscribe(res => {
       if (res) {
         this.filterItem();
       }
-    })
+    });
   }
   private updateMetaTagsForSEO(): void {
     let metaData: MetaDetails = {
@@ -141,7 +141,6 @@ export class VehiclesListComponent {
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
-
   // Toggle data style table or card
   changeDateStyle(type: string): void {
     this.clearTable();
@@ -149,9 +148,9 @@ export class VehiclesListComponent {
   }
 
   // Start Vehicles List Functions
-  getAllVehicles(isFiltering?: boolean): void {
+  getAllVehicles(isFiltering?: boolean, recordId?: number | string): void {
     isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingVehiclesList = true;
-    this.vehiclesService?.getVehiclesList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null)
+    this.vehiclesService?.getVehiclesList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null, recordId)
       .pipe(
         tap((res: VehiclesListApiResponse) => this.processVehiclesListResponse(res)),
         catchError(err => this.handleError(err)),
@@ -161,6 +160,7 @@ export class VehiclesListComponent {
   private processVehiclesListResponse(response: any): void {
     if (response) {
       this.vehiclesCount = response?.result?.totalCount;
+      this.publicService.VehicleLength.next(this.vehiclesCount);
       this.pagesCount = Math.ceil(this.vehiclesCount / this.perPage);
       this.vehiclesList = response?.result?.items;
     } else {
@@ -176,17 +176,6 @@ export class VehiclesListComponent {
     setTimeout(() => {
       this.enableSortFilter = true;
     }, 200);
-    this.setDummyData();
-  }
-  private setDummyData(): void {
-    this.vehiclesList = [
-      { operatingCard: "operating card 1", endDate: new Date(), insuranceExpiryDate: new Date(), formPhoto: 'assets/images/home/sidebar-bg.webp' },
-      { operatingCard: "operating card 1", endDate: new Date(), insuranceExpiryDate: new Date(), formPhoto: 'assets/images/home/sidebar-bg.webp' },
-      { operatingCard: "operating card 1", endDate: new Date(), insuranceExpiryDate: new Date(), formPhoto: 'assets/images/home/sidebar-bg.webp' },
-      { operatingCard: "operating card 1", endDate: new Date(), insuranceExpiryDate: new Date(), formPhoto: 'assets/images/home/sidebar-bg.webp' }, { operatingCard: "operating card 1", endDate: new Date(), insuranceExpiryDate: new Date(), formPhoto: 'assets/images/home/sidebar-bg.webp' },
-    ];
-    this.publicService.employeesLength.next(this.vehiclesCount);
-    this.vehiclesCount = 3225;
   }
   // End Start Vehicles List Functions
 
@@ -216,7 +205,6 @@ export class VehiclesListComponent {
   // Vehicle Details
   itemDetails(item?: any): void {
   }
-
   // Add Or Edit Vehicle
   addEditItem(item?: any, type?: any): void {
     const ref = this.dialogService?.open(AddEditVehicleComponent, {
@@ -237,7 +225,6 @@ export class VehiclesListComponent {
       }
     });
   }
-
   // Filter Vehicle
   filterItem(): void {
     const ref = this.dialogService?.open(FilterVehiclesComponent, {
@@ -257,8 +244,7 @@ export class VehiclesListComponent {
       }
     });
   }
-
-  //Start Delete Vehicle
+  //Start Delete Vehicle Functions
   deleteItem(item: any): void {
     if (!item?.confirmed) {
       return;
@@ -295,7 +281,7 @@ export class VehiclesListComponent {
     const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
     this.alertsService.openToast('error', 'error', errorMessage);
   }
-  //End Delete Vehicle
+  //End Delete Vehicle Functions
 
   // Clear Table
   clearTable(): void {
@@ -307,7 +293,6 @@ export class VehiclesListComponent {
     // this.publicService?.changePageSub?.next({ page: this.page });
     this.getAllVehicles();
   }
-
   // Sort Table
   sortItems(event: any): void {
     if (event?.order == 1) {
@@ -324,7 +309,6 @@ export class VehiclesListComponent {
       this.getAllVehicles();
     }
   }
-
   // filter Table
   filterItems(event: any): void {
     this.filtersArray = [];

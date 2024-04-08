@@ -44,7 +44,7 @@ export const roots = {
       addEditEmployee: '/addEditEmployee'
     },
     vehicles: {
-      getVehicles: '/getVehicles',
+      getVehicles: 'Car/AllCars',
       addEditVehicle: '/addEditVehicle'
     }
   }
