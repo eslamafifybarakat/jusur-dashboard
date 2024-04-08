@@ -13,11 +13,11 @@ export interface MetaDetails {
 })
 export class MetadataService {
   private readonly imageBaseUrl = environment.imageBaseUrl;
-  private readonly defaultURL = 'https://structure.net/';
+  private readonly defaultURL = 'https://jusur-dashboard.net/';
   private readonly defaultTitle = 'Structure';
   private readonly defaultDescription = 'Structure Site Description';
   private readonly defaultImage =
-    'https://avatars.githubusercontent.com/u/52158422?s=48&v=4';
+    'https://ik.imagekit.io/2cvha6t2l9/Logo.jpeg?updatedAt=1712577283111';
 
   constructor(private titleService: Title, private metaService: Meta) { }
 

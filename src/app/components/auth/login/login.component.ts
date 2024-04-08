@@ -67,12 +67,12 @@ export class LoginComponent {
     let metaData: MetaDetails = {
       title: 'تسجيل الدخول',
       description: 'تسجيل الدخول',
-      image: 'https://avatars.githubusercontent.com/u/52158422?s=48&v=4'
+      image: 'https://ik.imagekit.io/2cvha6t2l9/Logo.jpeg?updatedAt=1712577283111'
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
 
-   // Start Login Functions
+  // Start Login Functions
   loginNow(): void {
     if (this.loginForm?.valid) {
       this.publicService.showGlobalLoader.next(true);
@@ -99,7 +99,7 @@ export class LoginComponent {
       this.handleError(res?.error?.message || this.publicService.translateTextFromJson('general.errorOccur'));
     }
   }
-   // End Login Functions
+  // End Login Functions
 
   // Start Current User Information Functions
   private getCurrentUserInformation(): void {
@@ -131,7 +131,7 @@ export class LoginComponent {
   private setErrorMessage(message: string): void {
     this.alertsService.openToast('error', 'error', message);
     this.publicService.showGlobalLoader.next(false);
-      this.router.navigate(['/Dashboard']);
+    this.router.navigate(['/Dashboard']);
   }
 
   ngOnDestroy(): void {

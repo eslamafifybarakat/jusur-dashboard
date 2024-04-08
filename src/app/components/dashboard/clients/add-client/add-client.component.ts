@@ -106,7 +106,7 @@ export class AddClientComponent {
     let metaData: MetaDetails = {
       title: 'العملاء',
       description: 'العملاء',
-      image: 'https://avatars.githubusercontent.com/u/52158422?s=48&v=4'
+      image: 'https://ik.imagekit.io/2cvha6t2l9/Logo.jpeg?updatedAt=1712577283111'
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
