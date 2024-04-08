@@ -41,7 +41,8 @@ export const roots = {
     },
     employees: {
       getEmployees: 'Employee/AllEmployees',
-      addEditEmployee: '/addEditEmployee'
+      addEmployee: 'Employee/AddEmployee',
+      editEmployee: 'Employee/UpdateEmployee'
     },
     vehicles: {
       getVehicles: 'Car/AllCars',

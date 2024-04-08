@@ -57,6 +57,19 @@ export class AddEditEmployeeComponent {
       this.patchValue(data);
     }
   }
+  patchValue(data: any): void {
+    let convertedResidencyNumber: any = parseInt(data?.item?.details?.identity);
+    let convertedEndDate: any = new Date(data?.item?.details?.expiryDate);
+    this.employeeId = data?.item?.details?.id;
+    this.modalForm.patchValue({
+      fullName: data?.item?.details?.name,
+      residencyNumber: convertedResidencyNumber,
+      endDate: convertedEndDate,
+      healthCertificate: data?.item?.details?.healthCertificate
+    });
+    this.residencePhoto = data?.item?.details?.residencePhoto;
+    this.formControls.residencePhoto.setValue(this.residencePhoto);
+  }
 
   modalForm = this.fb?.group(
     {
@@ -91,20 +104,7 @@ export class AddEditEmployeeComponent {
     this.residencePhotoFile = event.file;
     this.formControls.residencePhoto.setValue(this.residencePhotoFile);
   }
-
-  patchValue(data: any): void {
-    this.employeeId = data.item.id;
-    this.modalForm.patchValue({
-      fullName: data?.item?.fullName,
-      residencyNumber: data?.item?.residencyNumber,
-      endDate: data?.item?.endDate,
-      healthCertificate: data?.item?.healthCertificate
-    });
-    this.residencePhoto = data?.item?.residencePhoto;
-    this.formControls.residencePhoto.setValue(this.residencePhoto);
-  }
-
-  // Start Add Or Edit Employee
+  // Start Add Or Edit Employee Functions
   submit(): void {
     if (this.modalForm?.valid) {
       const formData = this.extractFormData();
@@ -118,16 +118,25 @@ export class AddEditEmployeeComponent {
     if (this.isEdit) {
       formData.append('id', this.employeeId);
     }
-    formData.append('fullName', this.modalForm?.value?.fullName);
-    formData.append('residencyNumber', this.modalForm?.value?.residencyNumber);
-    formData.append('endDate', this.modalForm?.value?.endDate);
+    formData.append('name', this.modalForm?.value?.fullName);
+    formData.append('identity', this.modalForm?.value?.residencyNumber);
+    formData.append('expiryDate', this.modalForm?.value?.endDate);
     formData.append('healthCertificate', this.modalForm?.value?.healthCertificate);
-    formData.append('residencePhoto', this.residencePhotoFile);
-    return formData;
+    formData.append('iqamaImage', 'https://example.com/iqama.jpg');
+
+    let dataObj: any = {
+      "name": this.modalForm?.value?.fullName,
+      "iqamaImage": "https://example.com/iqama.jpg",
+      "healthCertificate": "https://example.com/certificate.pdf",
+      "expiryDate": this.modalForm?.value?.endDate,
+      "identity": this.modalForm?.value?.residencyNumber?.toString(),
+      "clientHistory_id": this.config?.data?.item?.recordId
+    };
+    return dataObj;
   }
   private addEditEmployee(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);
-    let subscribeAddEditEmployee: Subscription = this.employeesService?.addEditEmployee(formData).pipe(
+    let subscribeAddEditEmployee: Subscription = this.employeesService?.addEditEmployee(formData,this.config?.data?.item?.details?.id).pipe(
       tap(res => this.handleAddEditEmployeeSuccess(res)),
       catchError(err => this.handleError(err))
     ).subscribe();
@@ -142,7 +151,7 @@ export class AddEditEmployeeComponent {
       this.handleError(response?.message);
     }
   }
-  // End Add Or Edit Employee
+  // End Add Or Edit Employee Functions
 
   cancel(): void {
     this.ref?.close({ listChanged: false });

@@ -96,7 +96,7 @@ export class EmployeesListComponent {
   ngOnInit(): void {
     this.initializeTableHeaders();
     this.setupSubscriptions();
-    this.getAllEmployees(false, this.recordId);
+    this.getAllEmployees();
   }
   private initializeTableHeaders(): void {
     this.tableHeaders = [
@@ -192,9 +192,9 @@ export class EmployeesListComponent {
   }
 
   // Start Employees List Functions
-  getAllEmployees(isFiltering?: boolean, recordId?: number | string): void {
+  getAllEmployees(isFiltering?: boolean): void {
     isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingEmployeesList = true;
-    this.employeesService?.getEmployeesList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null, recordId)
+    this.employeesService?.getEmployeesList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null, this.recordId)
       .pipe(
         tap((res: EmployeesListApiResponse) => this.processEmployeesListResponse(res)),
         catchError(err => this.handleError(err)),
@@ -272,7 +272,10 @@ export class EmployeesListComponent {
   addEditEmployeeItem(item?: any, type?: any): void {
     const ref = this.dialogService?.open(AddEditEmployeeComponent, {
       data: {
-        item,
+        item:{
+          recordId:this.recordId,
+          details:item
+        },
         type: type == 'edit' ? 'edit' : 'add'
       },
       header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.employees.editEmployee') : this.publicService?.translateTextFromJson('dashboard.employees.addEmployee'),
@@ -284,7 +287,6 @@ export class EmployeesListComponent {
       if (res?.listChanged) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
-        this.getAllEmployees();
       }
     });
   }
