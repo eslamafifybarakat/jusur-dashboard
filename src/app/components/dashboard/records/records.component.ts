@@ -170,6 +170,7 @@ export class RecordsComponent {
   }
   clearSearch(search: any): void {
     search.value = null;
+    this.searchKeyword = null;
     this.getAllRecords(true);
   }
   // End Search
@@ -200,7 +201,7 @@ export class RecordsComponent {
   }
   // Edit Record
   editItem(item: any): void {
-    this.router.navigate(['Dashboard/Clients/Record-Details',item?.id]);
+    this.router.navigate(['Dashboard/Clients/Record-Details', item?.id]);
   }
 
   // Filter Record

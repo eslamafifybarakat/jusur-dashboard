@@ -235,6 +235,7 @@ export class ClientsListComponent {
   }
   clearSearch(search: any): void {
     search.value = null;
+    this.searchKeyword = null;
     this.getAllClients(true);
   }
   // End Search

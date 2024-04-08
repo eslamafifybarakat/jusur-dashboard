@@ -241,6 +241,7 @@ export class EmployeesListComponent {
   }
   clearSearch(search: any): void {
     search.value = null;
+    this.searchKeyword = null;
     this.getAllEmployees(true);
   }
   // End Search
@@ -272,9 +273,9 @@ export class EmployeesListComponent {
   addEditEmployeeItem(item?: any, type?: any): void {
     const ref = this.dialogService?.open(AddEditEmployeeComponent, {
       data: {
-        item:{
-          recordId:this.recordId,
-          details:item
+        item: {
+          recordId: this.recordId,
+          details: item
         },
         type: type == 'edit' ? 'edit' : 'add'
       },
