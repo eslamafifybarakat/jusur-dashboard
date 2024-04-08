@@ -3,8 +3,8 @@
     <button class="dropdown-toggle lang-flag btn p-0 d-flex align-items-start gap-4 border-0" type="button"
       data-bs-toggle="dropdown" aria-expanded="false">
       <div class="text-start">
-        <p class="mb-0 text-capitalize">
-          ahmed
+        <p class="mb-0 text-capitalize title">
+          {{userData?.name||''}}
         </p>
         <p class="mb-0 text-muted-color">
           CEO
@@ -14,8 +14,8 @@
     </button>
     <ul class="dropdown-menu border-0 shadow user-info-menu p-0" aria-labelledby="dropdownMenuButton1">
       <div class="p-3 fs-6 text-start">
-        <p class="mb-2">ياسر</p>
-        <p class="text-muted-color mb-0">المسئول</p>
+        <p class="mb-2">{{userData?.name||''}}</p>
+        <p class="text-muted-color mb-0">CEO</p>
       </div>
       <hr class="my-0">
       <ul class="p-1">

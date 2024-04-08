@@ -18,6 +18,7 @@ export class UserInfoComponent {
   currentLanguage: string;
   phone: string = '+(966)295768795';
   email: string = 'yasser@gmail.com';
+  userData: any;
 
   constructor(
     private confirmationService: ConfirmationService,
@@ -31,6 +32,11 @@ export class UserInfoComponent {
     if (isPlatformBrowser(this.platformId)) {
       this.currentLanguage = window?.localStorage?.getItem(keys?.language);
     }
+    this.getUserData();
+  }
+
+  getUserData(): void {
+    this.userData = this.authService.getUserLoginDataLocally();
   }
   logOut(): void {
     this.confirmationService?.confirm({
@@ -41,6 +47,5 @@ export class UserInfoComponent {
         this.authService.signOut();
       }
     });
-
   }
 }

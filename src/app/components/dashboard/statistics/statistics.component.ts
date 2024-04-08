@@ -1,6 +1,7 @@
+import { AuthService } from './../../../services/authentication/auth.service';
+import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   standalone: true,
@@ -10,5 +11,16 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./statistics.component.scss']
 })
 export class StatisticsComponent {
-  userName: string = "Yasser, project manager";
+  userData: any;
+
+  constructor(
+    private authService: AuthService
+  ) { }
+
+  ngOnInit(): void {
+    this.getUserData();
+  }
+  getUserData(): void {
+    this.userData = this.authService.getUserLoginDataLocally();
+  }
 }

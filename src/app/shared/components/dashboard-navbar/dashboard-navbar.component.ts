@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/authentication/auth.service';
 // Modules
 import { TranslateModule } from '@ngx-translate/core';
 import { SidebarModule } from 'primeng/sidebar';
@@ -30,7 +31,17 @@ import { UserInfoComponent } from '../user-info/user-info.component';
 })
 export class DashboardNavbarComponent {
   showSidebar: boolean = false;
+  userData: any;
 
+  constructor(
+    private authService: AuthService
+  ) { }
+  ngOnInit(): void {
+    this.getUserData();
+  }
+  getUserData(): void {
+    this.userData = this.authService.getUserLoginDataLocally();
+  }
   openSidebar(): void {
     this.showSidebar = true;
   }

@@ -4,7 +4,7 @@
       <div class="col-lg-4 col-md-6">
         <div>
           <h1 class="fs-4-1 text-capitalize">{{'dashboard.statistics.hi'|translate}}
-            <span class="px-1">{{userName}}</span>
+            <span class="px-1">{{userData?.name||''}}</span>
             <span>{{'dashboard.statistics.welcomeBack'|translate}}</span>
           </h1>
           <p class="mt-3">{{'dashboard.statistics.pageIsDesigned'|translate}}</p>
@@ -17,7 +17,7 @@
               <i class="pi pi-star-fill text-dark-color"></i>
             </div>
             <h5 class="fs-5 mt-3 text-capitalize">{{'dashboard.statistics.congratulations'|translate}} <span
-                class="px-1">{{userName}}</span>
+                class="px-1">{{userData?.name||''}}</span>
             </h5>
             <p class="mt-1">{{'dashboard.statistics.youHavePermission'|translate}}</p>
 
@@ -30,6 +30,9 @@
           <h2 class="fs-5-2">
             {{'dashboard.statistics.totalRevenue'|translate}}
           </h2>
+          <div>
+            <img src="assets/images/dashboard/statistics/1.svg" alt="statistics" class="w-100">
+          </div>
         </div>
         <div class="row mt-4">
           <div class="col-md-6">
@@ -37,6 +40,9 @@
               <h2 class="fs-5-2">
                 {{'dashboard.statistics.GoalVReality'|translate}}
               </h2>
+              <div class="mt-4">
+                <img src="assets/images/dashboard/statistics/2.svg" alt="statistics" class="w-100">
+              </div>
             </div>
           </div>
           <div class="col-md-6">
@@ -44,6 +50,9 @@
               <h2 class="fs-5-2">
                 {{'dashboard.statistics.customerSatisfactio'|translate}}
               </h2>
+              <div>
+                <img src="assets/images/dashboard/statistics/3.svg" alt="statistics" class="w-100">
+              </div>
             </div>
           </div>
         </div>
