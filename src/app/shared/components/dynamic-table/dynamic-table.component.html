@@ -9,8 +9,8 @@
       <ng-template pTemplate="caption" *ngIf="showHeader">
         <div class="caption d-flex justify-content-between align-items-center flex-wrap gap-3">
           <div class="d-flex align-items-center gap-3 dropdown-arrow">
-            <p-dropdown #dropdown [options]="rowsPerPageOptions" (onChange)="paginatorOption($event)"
-              (onHide)="hide()"></p-dropdown>
+            <p-dropdown [dropdownIcon]="'fas fa-caret-down'" #dropdown [options]="rowsPerPageOptions"
+              (onChange)="paginatorOption($event)" (onHide)="hide()"></p-dropdown>
           </div>
           <ng-container *ngIf="showSearch">
             <span class="p-input-icon-right">
@@ -35,9 +35,10 @@
                 tooltipPosition="topfoo" pTooltip="{{'general.reset'|translate}}" (click)="clear(dt1)">
               </button>
             </ng-container>
-            <p-multiSelect #colVisible [(ngModel)]="selectedColumns" [options]="tableHeaders" optionLabel="header"
-              appendTo="body" selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}"
-              placeholder="Choose Columns" pTooltip="Column Visibility" tooltipPosition="top"></p-multiSelect>
+            <p-multiSelect [dropdownIcon]="'fas fa-caret-down'" #colVisible [(ngModel)]="selectedColumns"
+              [options]="tableHeaders" optionLabel="header" appendTo="body" selectedItemsLabel="{0} columns selected"
+              [style]="{'min-width': '200px'}" placeholder="Choose Columns" pTooltip="Column Visibility"
+              tooltipPosition="top"></p-multiSelect>
             <!-- <a pTooltip="print" tooltipPosition="top">
                 <img src="assets/images/icons/print.svg" class="action-btn" alt="">
               </a>
@@ -108,7 +109,8 @@
                             </div>
                           </ng-template>
                           <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-multiSelect [ngModel]="value" [options]="col?.list=='driverStatus'?driverStatusList:''"
+                            <p-multiSelect [dropdownIcon]="'fas fa-caret-down'" [ngModel]="value"
+                              [options]="col?.list=='driverStatus'?driverStatusList:''"
                               placeholder="{{col?.placeholder}}" (onChange)="filter($event.value)" optionLabel="name">
                               <ng-template let-option pTemplate="item">
                                 <div class="p-multiselect-representative-option">
@@ -124,8 +126,8 @@
                         <p-columnFilter class="statusDropdown" field="status" matchMode="equals" display="menu"
                           [showAddButton]="false">
                           <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)"
-                              placeholder="Any" []>
+                            <p-dropdown [dropdownIcon]="'fas fa-caret-down'" [ngModel]="value" [options]="statuses"
+                              (onChange)="filter($event.value)" placeholder="Any" []>
                               <ng-template let-option pTemplate="item">
                                 <span [class]="'item-badge status-' + option.value">{{option.value}}</span>
                               </ng-template>
@@ -145,11 +147,11 @@
                           <ul class="dropdown-menu filter p-4 w-100 border-0 mt-2" [class.show]="collapse">
                             <div>
                               <div class="mb-4">
-                                <p-dropdown [options]="timeList" (onChange)="collapse=true" optionLabel="name"
-                                  [filter]="true" [virtualScroll]="true" [(ngModel)]="operator"
-                                  [virtualScrollItemSize]="38" filterBy="name" scrollHeight="200px"
-                                  emptyMessage="{{'general.no_result_found'|translate}}" [showClear]="false"
-                                  placeholder="{{'placeholder.time'|translate}}" appendTo="body">
+                                <p-dropdown [dropdownIcon]="'fas fa-caret-down'" [options]="timeList"
+                                  (onChange)="collapse=true" optionLabel="name" [filter]="true" [virtualScroll]="true"
+                                  [(ngModel)]="operator" [virtualScrollItemSize]="38" filterBy="name"
+                                  scrollHeight="200px" emptyMessage="{{'general.no_result_found'|translate}}"
+                                  [showClear]="false" placeholder="{{'placeholder.time'|translate}}" appendTo="body">
                                 </p-dropdown>
                               </div>
                               <div class="mb-4">
@@ -179,11 +181,11 @@
                           <ul class="dropdown-menu filter p-4 w-100 border-0 mt-2" [class.show]="collapseEnd">
                             <div>
                               <div class="mb-4">
-                                <p-dropdown [options]="timeList" (onChange)="collapse=true" optionLabel="name"
-                                  [filter]="true" [virtualScroll]="true" [(ngModel)]="operatorEnd"
-                                  [virtualScrollItemSize]="38" filterBy="name" scrollHeight="200px"
-                                  emptyMessage="{{'general.no_result_found'|translate}}" [showClear]="false"
-                                  placeholder="{{'placeholder.time'|translate}}" appendTo="body">
+                                <p-dropdown [dropdownIcon]="'fas fa-caret-down'" [options]="timeList"
+                                  (onChange)="collapse=true" optionLabel="name" [filter]="true" [virtualScroll]="true"
+                                  [(ngModel)]="operatorEnd" [virtualScrollItemSize]="38" filterBy="name"
+                                  scrollHeight="200px" emptyMessage="{{'general.no_result_found'|translate}}"
+                                  [showClear]="false" placeholder="{{'placeholder.time'|translate}}" appendTo="body">
                                 </p-dropdown>
                               </div>
                               <div class="mb-4">
@@ -509,8 +511,9 @@
                           </div>
                         </ng-template>
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                          <p-multiSelect [ngModel]="value" [options]="col?.list=='driverStatus'?driverStatusList:''"
-                            placeholder="{{col?.placeholder}}" (onChange)="filter($event.value)" optionLabel="name">
+                          <p-multiSelect [dropdownIcon]="'fas fa-caret-down'" [ngModel]="value"
+                            [options]="col?.list=='driverStatus'?driverStatusList:''" placeholder="{{col?.placeholder}}"
+                            (onChange)="filter($event.value)" optionLabel="name">
                             <ng-template let-option pTemplate="item">
                               <ng-container *ngIf="col?.status; else noStatus">
                                 <div [class]="'item-badge status-' + option?.value"
@@ -533,8 +536,8 @@
                     <ng-container *ngIf="col?.type=='status'">
                       <p-columnFilter field="status" matchMode="equals" display="menu" [showAddButton]="false">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                          <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)"
-                            placeholder="Any">
+                          <p-dropdown [dropdownIcon]="'fas fa-caret-down'" [ngModel]="value" [options]="statuses"
+                            (onChange)="filter($event.value)" placeholder="Any">
                             <ng-template let-option pTemplate="item">
                               <span [class]="'item-badge status-' + option.value">{{option.label}}</span>
                             </ng-template>
@@ -789,8 +792,8 @@
     <p-paginator #paginator [rows]="paginatorRows" [totalRecords]="results" [showPageLinks]="true" [pageLinkSize]="3"
       (onPageChange)="paginate($event)"></p-paginator>
     <div class="d-flex align-items-center gap-3">
-      <p-dropdown #dropdown [options]="rowsPerPageOptions" (onChange)="paginatorOption($event)"
-        (onHide)="hide()"></p-dropdown>
+      <p-dropdown [dropdownIcon]="'fas fa-caret-down'" #dropdown [options]="rowsPerPageOptions"
+        (onChange)="paginatorOption($event)" (onHide)="hide()"></p-dropdown>
     </div>
   </div>
 </ng-container>
