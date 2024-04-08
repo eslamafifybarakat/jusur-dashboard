@@ -24,7 +24,7 @@ export const clientsChildrenRoutes: any[] = [
     pathMatch: 'full'
   },
   {
-    path: 'Record-Details',
+    path: 'Record-Details/:id',
     component: RecordDetailsComponent,
     pathMatch: 'full'
   },

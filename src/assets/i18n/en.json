@@ -239,6 +239,7 @@
     "phoneNumber": "Phone Number",
     "postNumber": "Post Number",
     "id": "National Identity",
+    "RecordNum": "Record Number",
     "birthDate": "Birth Date",
     "medicalInsuranceDate": "Medical insurance expiration date",
     "medicalInsuranceNumber": "Medical insurance number",

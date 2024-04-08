@@ -14,7 +14,7 @@ export class RecordsService {
     private http: HttpClient
   ) { }
 
-  getRecordsList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any,client_id?:number | string): Observable<any> {
+  getRecordsList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any, client_id?: number | string, clientHistory_id?: number | string): Observable<any> {
     let params = new HttpParams();
     if (page) {
       params = params?.append("page", page);
@@ -34,16 +34,29 @@ export class RecordsService {
     if (client_id) {
       params = params?.append("client_id", client_id);
     }
-    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.records.getRecords}`, { params: params })
+    if (clientHistory_id) {
+      params = params?.append("clientHistory_id", clientHistory_id);
+    }
+    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.records.getRecords}`, { params: params });
   }
-  getRecordByClientId(id: any): Observable<any> {
-    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.records.getRecords}/${id}`)
+  getSingleHistory(clientHistory_id: any): Observable<any> {
+    let params = new HttpParams();
+    params = params?.append("client_id", 1);
+    if (clientHistory_id) {
+      params = params?.append("clientHistory_id", clientHistory_id);
+    }
+    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.records.getRecords}`, { params: params });
+    // return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.records.getSingleHistory}/${id}`);
   }
   addRecord(data: any): Observable<any> {
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.records.addRecords}`, data)
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.records.addRecords}`, data);
   }
-  editRecord(data: any): Observable<any> {
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.records.editRecords}`, data)
+  editRecord(data: any,id:any): Observable<any> {
+    let params = new HttpParams();
+    if (id) {
+      params = params?.append("id", id);
+    }
+    return this.http?.put(`${this.baseUrl}/${roots?.dashboard?.records.editRecords}`, data,{ params: params });
   }
   deleteRecordById(id: number, data: any): Observable<any> {
     let params = new HttpParams();
@@ -51,8 +64,5 @@ export class RecordsService {
       params = params.append("name", data?.name);
     }
     return this.http.delete<any>(`${this.baseUrl}${roots?.dashboard.records}/delete/` + id, { params: params });
-  }
-  IsRecordNumberAvailable(data: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl + roots.dashboard.records.IsRecordNumberAvailable, data);
   }
 }

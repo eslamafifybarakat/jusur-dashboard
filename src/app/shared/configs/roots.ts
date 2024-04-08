@@ -23,7 +23,8 @@ export const roots = {
     availability: {
       IsNationalIdentityAvailable: "Client/IsIdentityAvailable",
       IsEmailAvailable: "Client/IsEmailAvailable",
-      IsPhoneAvailable: "Client/IsPhoneNumberAvailable"
+      IsPhoneAvailable: "Client/IsPhoneNumberAvailable",
+      IsRecordNumberAvailable: "ClientHistory/IsNumberAvailable",
     },
     clients: {
       getClients: 'Client/AllClients',
@@ -34,9 +35,9 @@ export const roots = {
     },
     records: {
       getRecords: 'ClientHistory/AllClientHistorys',
-      addRecords: '/addRecords',
-      editRecords: '/editRecords',
-      IsRecordNumberAvailable: "/RecordNumber",
+      getSingleHistory: 'ClientHistory/GetSingleHistory',
+      addRecords: 'ClientHistory/AddClientHistory',
+      editRecords: 'ClientHistory/UpdateClientHistory'
     },
     employees: {
       getEmployees: '/getEmployees',

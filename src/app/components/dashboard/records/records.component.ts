@@ -97,20 +97,19 @@ export class RecordsComponent {
 
   ngOnInit(): void {
     this.tableHeaders = [
-      { field: 'recordName', header: 'dashboard.tableHeader.recordName', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordName'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
-      { field: 'recordNumber', header: 'dashboard.tableHeader.recordNumber', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordNumber'), type: 'numeric', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
-      { field: 'endDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
+      { field: 'name', header: 'dashboard.tableHeader.recordName', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordName'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
+      { field: 'number', header: 'dashboard.tableHeader.recordNumber', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordNumber'), type: 'numeric', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
+      { field: 'expireDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
     ];
-    this.getAllRecords(false, this.clientId);
-    this.searchSubject
-      .pipe(
-        debounceTime(500) // Throttle time in milliseconds (1 seconds)
-      )
-      .subscribe(event => {
-        this.searchHandler(event);
-      });
+    this.loadPageData();
   }
 
+  loadPageData(): void {
+    this.updateMetaTagsForSEO();
+    this.getAllRecords(false, this.clientId);
+    this.searchSubject.pipe(debounceTime(500)) // Throttle time in milliseconds (1 seconds)
+      .subscribe(event => { this.searchHandler(event); });
+  }
   private updateMetaTagsForSEO(): void {
     let metaData: MetaDetails = {
       title: 'السجلات',
@@ -151,21 +150,6 @@ export class RecordsComponent {
     this.isLoadingSearch = false;
     this.enableSortFilter = false;
     this.publicService.showSearchLoader.next(false);
-    setTimeout(() => {
-      this.enableSortFilter = true;
-    }, 200);
-    this.setDummyData();
-  }
-  private setDummyData(): void {
-    this.recordsList = [
-      { recordName: "Commercial register 1", recordNumber: '1', endDate: new Date() },
-      { recordName: "Commercial register 2", recordNumber: '2', endDate: new Date() },
-      { recordName: "Commercial register 3", recordNumber: '3', endDate: new Date() },
-      { recordName: "Commercial register 4", recordNumber: '4', endDate: new Date() },
-      { recordName: "Commercial register 5", recordNumber: '5', endDate: new Date() },
-      { recordName: "Commercial register 6", recordNumber: '6', endDate: new Date() }
-    ];
-    this.recordsCount = 3225;
   }
   // End Records List Functions
 
@@ -193,12 +177,13 @@ export class RecordsComponent {
   // Record Details
   itemDetails(item?: any): void {
   }
-
-  // Add Details
+  // Add Record
   addItem(item?: any, type?: any): void {
     const ref = this.dialogService?.open(AddRecordComponent, {
       data: {
-        item,
+        item: {
+          id: this.clientId
+        },
         type: type == 'edit' ? 'edit' : 'add'
       },
       header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.records.editRecord') : this.publicService?.translateTextFromJson('dashboard.records.addRecord'),
@@ -210,9 +195,12 @@ export class RecordsComponent {
       if (res?.listChanged) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
-        this.getAllRecords();
       }
     });
+  }
+  // Edit Record
+  editItem(item: any): void {
+    this.router.navigate(['Dashboard/Clients/Record-Details',item?.id]);
   }
 
   // Filter Record
@@ -233,11 +221,6 @@ export class RecordsComponent {
         this.getAllRecords(true);
       }
     });
-  }
-
-  // Edit Record
-  editItem(item: any): void {
-    this.router.navigate(['Dashboard/Clients/Record-Details']);
   }
 
   //Start Delete Record

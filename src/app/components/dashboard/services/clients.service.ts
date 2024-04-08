@@ -37,7 +37,7 @@ export class ClientsService {
     return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.clients.addClient}`, data);
   }
   editClient(data: any, id: number | string): Observable<any> {
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.clients.editClient}/${id}`, data);
+    return this.http?.put(`${this.baseUrl}/${roots?.dashboard?.clients.editClient}/${id}`, data);
   }
   getClientById(id: any): Observable<any> {
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.clients.getSingleClient}/${id}`);

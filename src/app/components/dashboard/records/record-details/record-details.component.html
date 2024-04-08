@@ -18,7 +18,7 @@
           </button>
         </div>
       </div>
-      <ng-container *ngIf="isLoading; else noLoading">
+      <ng-container *ngIf="isLoadingRecordDetails; else noLoading">
         <div class="mt-4">
           <skeleton [type]="'recordDetails'"></skeleton>
         </div>
@@ -34,7 +34,9 @@
               </div>
               <div class="p-3">
                 <div class="mb-3">
-                  <label for="recordName" class="mb-2 required">{{'labels.recordName'|translate}}</label>
+                  <label for="recordName" class="mb-2 required">
+                    {{'labels.recordName'|translate}}
+                  </label>
                   <div class="input-group bg-white-color d-flex flex-nowrap">
                     <input type="text" class="form-control" [class.prevent-click]="isRecordNameReadOnly"
                       formControlName="recordName" autocomplete="cc-name" [min]="0"
@@ -66,7 +68,9 @@
                 </div>
                 <div class="mb-3">
                   <label for="registrationNumber"
-                    class="mb-2 required">{{'labels.registrationNumber'|translate}}</label>
+                    class="mb-2 required">
+                    {{'labels.registrationNumber'|translate}}
+                  </label>
                   <div class="input-group bg-white-color d-flex flex-nowrap">
                     <span class="p-input-icon-right w-100">
                       <input type="text" class="form-control" [class.prevent-click]="isRegistrationNumberReadOnly"
@@ -112,7 +116,9 @@
                   </div>
                 </div>
                 <div class="mb-4">
-                  <label for="recordDate" class="mb-2 required">{{'labels.recordDate'|translate}}</label>
+                  <label for="recordDate" class="mb-2 required">
+                    {{'labels.recordDate'|translate}}
+                  </label>
                   <div
                     [class.border-red]="formControls?.recordDate?.invalid && (formControls?.recordDate?.dirty || formControls?.recordDate?.touched)"
                     class="recordDate">
@@ -161,7 +167,9 @@
               </div>
               <div class="p-3">
                 <div class="mb-3">
-                  <label for="licenseNumber" class="mb-2 required">{{'labels.licenseNumber'|translate}}</label>
+                  <label for="licenseNumber" class="mb-2">
+                    {{'labels.licenseNumber'|translate}}
+                  </label>
                   <div class="input-group bg-white-color d-flex flex-nowrap">
                     <input type="text" class="form-control" [class.prevent-click]="isLicenseNumberReadOnly"
                       formControlName="licenseNumber" autocomplete="cc-name" [min]="0"
@@ -192,7 +200,7 @@
                   </div>
                 </div>
                 <div class="mb-4">
-                  <label for="licenseDate" class="mb-2 required">{{'labels.licenseDate'|translate}}</label>
+                  <label for="licenseDate" class="mb-2">{{'labels.licenseDate'|translate}}</label>
                   <div
                     [class.border-red]="formControls?.licenseDate?.invalid && (formControls?.licenseDate?.dirty || formControls?.licenseDate?.touched)">
                     <div class="input-group bg-white-color d-flex flex-nowrap">
@@ -240,7 +248,7 @@
               </div>
               <div class="p-3">
                 <div class="mb-3">
-                  <label for="certificateNumber" class="mb-2 required">{{'labels.certificateNumber'|translate}}</label>
+                  <label for="certificateNumber" class="mb-2">{{'labels.certificateNumber'|translate}}</label>
                   <div class="input-group bg-white-color d-flex flex-nowrap">
                     <input type="text" class="form-control" [class.prevent-click]="isCertificateNumberReadOnly"
                       formControlName="certificateNumber" autocomplete="cc-name" [min]="0"
@@ -271,7 +279,7 @@
                   </div>
                 </div>
                 <div class="mb-4">
-                  <label for="certificateDate" class="mb-2 required">{{'labels.certificateDate'|translate}}</label>
+                  <label for="certificateDate" class="mb-2">{{'labels.certificateDate'|translate}}</label>
                   <div
                     [class.border-red]="formControls?.certificateDate?.invalid && (formControls?.certificateDate?.dirty || formControls?.certificateDate?.touched)">
                     <div class="input-group bg-white-color d-flex flex-nowrap">
@@ -320,7 +328,7 @@
               <div class="p-3">
                 <div class="mb-3">
                   <label for="medicalInsuranceNumber"
-                    class="mb-2 required">{{'labels.medicalInsuranceNumber'|translate}}</label>
+                    class="mb-2">{{'labels.medicalInsuranceNumber'|translate}}</label>
                   <div class="input-group bg-white-color d-flex flex-nowrap">
                     <input type="text" class="form-control" [class.prevent-click]="isMedicalInsuranceNumberReadOnly"
                       formControlName="medicalInsuranceNumber" autocomplete="cc-name" [min]="0"
@@ -352,7 +360,7 @@
                 </div>
                 <div class="">
                   <label for="medicalInsuranceDate"
-                    class="mb-2 required">{{'labels.medicalInsuranceDate'|translate}}</label>
+                    class="mb-2">{{'labels.medicalInsuranceDate'|translate}}</label>
                   <div
                     [class.border-red]="formControls?.medicalInsuranceDate?.invalid && (formControls?.medicalInsuranceDate?.dirty || formControls?.medicalInsuranceDate?.touched)">
                     <div class="input-group bg-white-color d-flex flex-nowrap">
@@ -396,7 +404,7 @@
               </div>
               <div class="p-3">
                 <div class="mb-3">
-                  <label for="businessLicense" class="mb-2 required">{{'labels.businessLicense'|translate}}</label>
+                  <label for="businessLicense" class="mb-2">{{'labels.businessLicense'|translate}}</label>
                   <div class="input-group bg-white-color d-flex flex-nowrap">
                     <input type="text" class="form-control" [class.prevent-click]="isBusinessLicenseReadOnly"
                       formControlName="businessLicense" autocomplete="cc-name" [min]="0"
@@ -428,7 +436,9 @@
                 </div>
                 <div>
                   <label for="businessLicenseNumber"
-                    class="mb-2 required">{{'labels.businessLicenseNumber'|translate}}</label>
+                    class="mb-2">
+                    {{'labels.businessLicenseNumber'|translate}}
+                  </label>
                   <div class="input-group bg-white-color d-flex flex-nowrap">
                     <input type="text" class="form-control" [class.prevent-click]="isBusinessLicenseNumberReadOnly"
                       formControlName="businessLicenseNumber" autocomplete="cc-name" [min]="0"

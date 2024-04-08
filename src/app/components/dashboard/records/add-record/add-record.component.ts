@@ -11,7 +11,7 @@ import { PublicService } from './../../../../services/generic/public.service';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { RecordsService } from './../../services/records.service';
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription, catchError, tap } from 'rxjs';
 
 @Component({
@@ -60,6 +60,7 @@ export class AddRecordComponent {
   constructor(
     private recordsService: RecordsService,
     private alertsService: AlertsService,
+    private config: DynamicDialogConfig,
     public publicService: PublicService,
     private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
@@ -84,12 +85,12 @@ export class AddRecordComponent {
         validators: [
           Validators.required]
       }],
-      companies: [null, {
-        validators: []
-      }],
-      permissions: [null, {
-        validators: []
-      }],
+      // companies: [null, {
+      //   validators: []
+      // }],
+      // permissions: [null, {
+      //   validators: []
+      // }],
     }
   );
   get formControls(): any {
@@ -104,46 +105,34 @@ export class AddRecordComponent {
   onKeyUpEvent(): void {
     this.isLoadingCheckRecordNum = false;
   }
-
   // Start Check If Record Number Unique
   checkRecordNumAvailable(): void {
-    if (!this.formControls.recordNumber.valid) {
-      return; // Exit early if ID is not valid
+    if (!this.formControls?.recordNumber?.valid) {
+      return; // Exit early if Record Number is not valid
     }
-
-    const recordNumber = this.modalForm.value.recordNumber;
-    const data = { recordNumber };
-
+    const number: number | string = this.modalForm?.value?.recordNumber;
+    const data: any = { number };
     this.isLoadingCheckRecordNum = true;
-
-    let checkRecordNumberSubscription = this.recordsService?.IsRecordNumberAvailable(data)?.subscribe(
-      (res: any) => {
-        this.handleRecordNumberResponse(res);
-      },
-      (err: any) => {
-        this.handleRecordNumberError(err);
-      }
-    );
-    this.subscriptions.push(checkRecordNumberSubscription);
+    let checkRecordNumSubscription: Subscription = this.publicService?.IsRecordNumberAvailable(data).pipe(
+      tap(res => this.handleRecordNumResponse(res)),
+      catchError(err => this.handleRecordNumError(err))
+    ).subscribe();
+    this.subscriptions.push(checkRecordNumSubscription);
   }
-  private handleRecordNumberResponse(res: any): void {
+  private handleRecordNumResponse(res: any): void {
     if (res?.success && res?.result != null) {
       this.recordNumNotAvailable = !res.result;
     } else {
       this.recordNumNotAvailable = false;
-      if (res?.message) {
-        this.alertsService?.openToast('error', 'error', res.message);
-      }
+      this.handleRecordNumError(res?.message);
     }
     this.isLoadingCheckRecordNum = false;
     this.cdr.detectChanges();
   }
-  private handleRecordNumberError(err: any): void {
-    this.recordNumNotAvailable = false;
-    const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
-    this.alertsService?.openToast('error', 'error', errorMessage);
+  private handleRecordNumError(err: any): any {
+    this.recordNumNotAvailable = true;
     this.isLoadingCheckRecordNum = false;
-
+    this.handleError(err);
   }
   // End Check If Record Number Unique
 
@@ -158,9 +147,11 @@ export class AddRecordComponent {
   }
   private extractFormData(): any {
     return {
-      recordName: this.modalForm?.value?.recordName,
-      recordNumber: this.modalForm?.value?.recordNumber,
-      endDate: this.modalForm?.value?.endDate
+      name: this.modalForm?.value?.recordName,
+      number: this.modalForm?.value?.recordNumber,
+      expireDate: this.modalForm?.value?.endDate,
+      client_id: this.config?.data?.item?.id,
+      licenseFile: "assets/images/license.jpg"
     };
   }
   private addRecord(formData: any): void {

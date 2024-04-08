@@ -5,7 +5,7 @@
         {{'dashboard.tableHeader.recordName'|translate}}
       </p>
       <p class="mb-0 fs-5-2">
-        {{item?.recordName||'--'}}
+        {{item?.name||'--'}}
       </p>
     </div>
     <div class="mt-3">
@@ -13,7 +13,7 @@
         {{'dashboard.tableHeader.recordNumber'|translate}}
       </p>
       <p class="mb-0 fs-5-2">
-        {{item?.recordNumber||'--'}}
+        {{item?.number||'--'}}
       </p>
     </div>
     <div class="mt-3">
@@ -21,7 +21,7 @@
         {{'dashboard.tableHeader.endDate'|translate}}
       </p>
       <p class="mb-0 fs-5-2">
-        {{item?.endDate | date: 'd MMMM y':'':currentLanguage}}
+        {{item?.expireDate | date: 'd MMMM y':'':currentLanguage}}
       </p>
     </div>
   </div>

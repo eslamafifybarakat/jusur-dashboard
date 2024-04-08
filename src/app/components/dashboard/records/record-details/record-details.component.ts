@@ -19,7 +19,7 @@ import { MaxDigitsDirective } from '../../directives/max-digits.directive';
 import { RecordsService } from '../../services/records.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Subscription, catchError, tap } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -59,9 +59,10 @@ export class RecordDetailsComponent {
   isBusinessLicenseReadOnly: boolean = true;
   isBusinessLicenseNumberReadOnly: boolean = true;
 
-  clientId: any;
-  isLoading: boolean = false;
-  details: any;
+  recordId: number | string;
+  clientId: number | string;
+  isLoadingRecordDetails: boolean = false;
+  recordDetails: any;
 
   // Registration File variable
   isEditRegistrationFile: boolean = false;
@@ -94,36 +95,28 @@ export class RecordDetailsComponent {
           Validators.required]
       }],
       licenseNumber: ['', {
-        validators: [
-          Validators.required], updateOn: "blur"
+        validators: [], updateOn: "blur"
       }],
       licenseDate: [null, {
-        validators: [
-          Validators.required]
+        validators: []
       }],
       certificateNumber: ['', {
-        validators: [
-          Validators.required], updateOn: "blur"
+        validators: [], updateOn: "blur"
       }],
       certificateDate: [null, {
-        validators: [
-          Validators.required]
+        validators: []
       }],
       medicalInsuranceNumber: ['', {
-        validators: [
-          Validators.required], updateOn: "blur"
+        validators: [], updateOn: "blur"
       }],
       medicalInsuranceDate: [null, {
-        validators: [
-          Validators.required]
+        validators: []
       }],
       businessLicense: ['', {
-        validators: [
-          Validators.required], updateOn: "blur"
+        validators: [], updateOn: "blur"
       }],
       businessLicenseNumber: ['', {
-        validators: [
-          Validators.required], updateOn: "blur"
+        validators: [], updateOn: "blur"
       }],
     }
   );
@@ -135,6 +128,7 @@ export class RecordDetailsComponent {
     private localizationLanguageService: LocalizationLanguageService,
     private metadataService: MetadataService,
     private recordsService: RecordsService,
+    private activatedRoute: ActivatedRoute,
     private alertsService: AlertsService,
     public publicService: PublicService,
     private cdr: ChangeDetectorRef,
@@ -145,10 +139,18 @@ export class RecordDetailsComponent {
   }
 
   ngOnInit(): void {
-    this.getRecordByClientId();
-    this.updateMetaTagsForSEO();
+    this.loadPageData();
   }
-
+  loadPageData(): void {
+    this.updateMetaTagsForSEO();
+    this.activatedRoute.params.subscribe((params) => {
+      this.recordId = params['id'];
+      if (this.recordId) {
+        this.getRecordById(this.recordId);
+        // this.fullPageUrl = environment.publicUrl + this.localizationLanguageService.getFullURL();
+      }
+    });
+  }
   private updateMetaTagsForSEO(): void {
     let metaData: MetaDetails = {
       title: 'تفاصيل السجل',
@@ -159,51 +161,22 @@ export class RecordDetailsComponent {
   }
 
   // Start Get Record By Client Id
-  getRecordByClientId(): void {
-    this.isLoading = true;
-    let subscribeGetRecord: Subscription = this.recordsService?.getRecordByClientId(this.clientId).pipe(
+  getRecordById(recordId: number | string): void {
+    this.isLoadingRecordDetails = true;
+    let subscribeGetRecord: Subscription = this.recordsService?.getSingleHistory(recordId).pipe(
       tap(res => this.handleGetRecordSuccess(res)),
       catchError(err => this.handleError(err))
     ).subscribe();
     this.subscriptions.push(subscribeGetRecord);
   }
   private handleGetRecordSuccess(response: any): void {
-    if (response?.success || true) {
-      this.details = response.result;
+    if (response?.success) {
+      this.recordDetails = response.result;
       this.patchValue();
-      this.isLoading = false;
+      this.isLoadingRecordDetails = false;
     } else {
       this.handleError(response?.message);
     }
-  }
-  private handleError(err: any): any {
-    this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
-    this.details = {
-      recordName: 'recordName 1',
-      registrationNumber: '2135836527289',
-      recordDate: new Date(),
-      registrationFile: 'assets/images/home/sidebar-bg.webp',
-
-      licenseDate: new Date(),
-      licenseNumber: '135836527289',
-      licenseFile: 'assets/images/home/sidebar-bg.webp',
-
-      certificateDate: new Date(),
-      certificateNumber: '135836527289',
-      certificateFile: 'assets/images/home/sidebar-bg.webp',
-
-      medicalInsuranceDate: new Date(),
-      medicalInsuranceNumber: '135836527289',
-
-      businessLicense: "business License 1",
-      businessLicenseNumber: "135836527289"
-    };
-    this.patchValue();
-    this.isLoading = false;
-  }
-  private setMessage(message: string, type: string): void {
-    this.alertsService.openToast(type, type, message);
-    this.isLoading = false;
   }
   // End Get Record By Client Id
 
@@ -220,27 +193,35 @@ export class RecordDetailsComponent {
   // End Upload Files
 
   patchValue(): void {
+    let convertedRecordDate: any = new Date(this.recordDetails?.expireDate);
+    let convertedLicenseDate: any = this.recordDetails?.licenseDate ? new Date(this.recordDetails?.licenseDate) : null;
+    let convertedCertificateDate: any = this.recordDetails?.certificateDate ? new Date(this.recordDetails?.certificateDate) : null;
+    let convertedMedicalInsuranceDate: any = this.recordDetails?.medicalInsuranceDate ? new Date(this.recordDetails?.medicalInsuranceDate) : null;
+    let prepeareDetails = {
+      registrationFile: 'assets/images/home/sidebar-bg.webp',
+      licenseFile: this.recordDetails?.licenseFile || 'assets/images/home/sidebar-bg.webp',
+      certificateFile: 'assets/images/home/sidebar-bg.webp',
+    };
     this.modalForm?.patchValue({
-      recordName: this.details?.recordName,
-      registrationNumber: this.details?.registrationNumber,
-      recordDate: this.details?.recordDate,
-      licenseNumber: this.details?.registrationNumber,
-      licenseDate: this.details?.recordDate,
-      certificateNumber: this.details?.certificateNumber,
-      certificateDate: this.details?.certificateDate,
-      medicalInsuranceNumber: this.details?.medicalInsuranceNumber,
-      medicalInsuranceDate: this.details?.medicalInsuranceDate,
-      businessLicenseNumber: this.details?.businessLicenseNumber,
-      businessLicense: this.details?.businessLicense,
+      recordName: this.recordDetails?.name,
+      registrationNumber: this.recordDetails?.number,
+      recordDate: convertedRecordDate,
+      licenseNumber: this.recordDetails?.licenseNumber,
+      licenseDate: convertedLicenseDate,
+      certificateNumber: this.recordDetails?.certificateNumber,
+      certificateDate: convertedCertificateDate,
+      medicalInsuranceNumber: this.recordDetails?.medicalInsuranceNumber,
+      medicalInsuranceDate: convertedMedicalInsuranceDate,
+      businessLicenseNumber: this.recordDetails?.businessLicenseNumber,
+      businessLicense: this.recordDetails?.businessLicense,
     })
-    this.isEditRegistrationFile = true;
-    this.registrationFile = this.details?.registrationFile;
-    this.isEditLicenseFile = true;
-    this.licenseFile = this.details?.licenseFile;
-    this.isEditCertificateFile = true;
-    this.certificateFile = this.details?.licenseFile;
+    // this.isEditRegistrationFile = true;
+    // this.registrationFile = prepeareDetails.registrationFile;
+    // this.isEditLicenseFile = true;
+    // this.licenseFile = prepeareDetails.licenseFile;
+    // this.isEditCertificateFile = true;
+    // this.certificateFile = prepeareDetails.certificateFile;
   }
-
   editInput(name: string): void {
     if (name == 'recordName') {
       this.isRecordNameReadOnly = false;
@@ -279,48 +260,40 @@ export class RecordDetailsComponent {
 
   // Start Check If Record Number Unique
   checkRecordNumAvailable(): void {
-    if (!this.formControls.registrationNumber.valid) {
-      return; // Exit early if ID is not valid
+    if (!this.formControls?.registrationNumber?.valid) {
+      return; // Exit early if Record Number is not valid
     }
-
-    const registrationNumber = this.modalForm.value.registrationNumber;
-    const data = { registrationNumber };
-
+    if (this.modalForm?.value?.registrationNumber == this.recordDetails?.registrationNumber) {
+      return; // Exit early if Record Number is not valid
+    }
+    const number: number | string = this.modalForm?.value?.registrationNumber;
+    const data: any = { number };
     this.isLoadingCheckRecordNum = true;
-
-    let checkRegistrationNumberSubscription = this.recordsService?.IsRecordNumberAvailable(data)?.subscribe(
-      (res: any) => {
-        this.handleRecordNumberResponse(res);
-      },
-      (err: any) => {
-        this.handleRecordNumberError(err);
-      }
-    );
-    this.subscriptions.push(checkRegistrationNumberSubscription);
+    let checkRecordNumSubscription: Subscription = this.publicService?.IsRecordNumberAvailable(data).pipe(
+      tap(res => this.handleRecordNumResponse(res)),
+      catchError(err => this.handleRecordNumError(err))
+    ).subscribe();
+    this.subscriptions.push(checkRecordNumSubscription);
   }
-  private handleRecordNumberResponse(res: any): void {
+  private handleRecordNumResponse(res: any): void {
     if (res?.success && res?.result != null) {
       this.recordNumNotAvailable = !res.result;
     } else {
       this.recordNumNotAvailable = false;
-      if (res?.message) {
-        this.alertsService?.openToast('error', 'error', res.message);
-      }
+      this.handleRecordNumError(res?.message);
     }
     this.isLoadingCheckRecordNum = false;
     this.cdr.detectChanges();
   }
-  private handleRecordNumberError(err: any): void {
-    this.recordNumNotAvailable = false;
-    const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
-    this.alertsService?.openToast('error', 'error', errorMessage);
+  private handleRecordNumError(err: any): any {
+    this.recordNumNotAvailable = true;
     this.isLoadingCheckRecordNum = false;
-
+    this.handleError(err);
   }
+  // End Check If Record Number Unique
   onKeyUpEvent(): void {
     this.isLoadingCheckRecordNum = false;
   }
-  // End Check If Record Number Unique
 
   // Start Submit Edit Record
   submit(): void {
@@ -333,10 +306,11 @@ export class RecordDetailsComponent {
   }
   private extractFormData(): any {
     return {
-      recordName: this.modalForm.value?.recordName,
-      registrationNumber: this.modalForm.value?.registrationNumber,
-      recordDate: this.modalForm.value?.recordDate,
-      licenseNumber: this.modalForm.value?.registrationNumber,
+      active: true,
+      name: this.modalForm.value?.recordName,
+      number: this.modalForm.value?.registrationNumber,
+      expireDate: this.modalForm.value?.recordDate,
+      licenseNumber: this.modalForm.value?.licenseNumber,
       licenseDate: this.modalForm.value?.recordDate,
       certificateNumber: this.modalForm.value?.certificateNumber,
       certificateDate: this.modalForm.value?.certificateDate,
@@ -351,31 +325,35 @@ export class RecordDetailsComponent {
   }
   private editRecord(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);
-    let subscribeEditRecord = this.recordsService?.editRecord(formData)?.subscribe(
-      (res: any) => {
-        this.handleEditRecordSuccess(res);
-      },
-      (err: any) => {
-        this.handleEditRecordError(err);
-      }
-    );
+    let subscribeEditRecord = this.recordsService?.editRecord(formData, this.recordId)?.pipe(
+      tap(res => this.handleEditRecordSuccess(res)),
+      catchError(err => this.handleError(err))
+    ).subscribe();
     this.subscriptions.push(subscribeEditRecord);
   }
   private handleEditRecordSuccess(response: any): void {
     this.publicService?.showGlobalLoader?.next(false);
-    if (response?.isSuccess && response?.statusCode === 200) {
-      this.router.navigate(['/Dashboard/Clients']);
-      response?.message ? this.alertsService?.openToast('success', 'success', response?.message) : '';
+    if (response?.success) {
+      // this.router.navigate(['/Dashboard/Clients']);
+      this.handleSuccess(response?.message);
     } else {
-      response?.message ? this.alertsService?.openToast('error', 'error', response?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
+      this.handleError(response?.message);
     }
-  }
-  private handleEditRecordError(error: any): void {
-    this.publicService?.showGlobalLoader?.next(false);
-    error?.message ? this.alertsService?.openToast('error', 'error', error?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
   }
   // End Submit Edit Record
 
+  /* --- Handle api requests messages --- */
+  private handleSuccess(msg: any): any {
+    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
+  }
+  private handleError(err: any): any {
+    this.isLoadingRecordDetails = false;
+    this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
+  }
+  private setMessage(message: string, type: string): void {
+    this.alertsService.openToast(type, type, message);
+    this.publicService.showGlobalLoader.next(false);
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription: Subscription) => {

@@ -3,15 +3,28 @@ export interface RecordsListApiResponse {
   success: boolean;
   result: {
     totalCount: number;
-    totalPages: number;
-    currentPage: number;
-    perPage: number;
     items: RecordsListingItem[];
   };
 }
 export interface RecordsListingItem {
-  id?: string;
-  recordName: string | null;
-  recordNumber: string;
-  endDate: Date | null;
+  id: number;
+  name: string;
+  number: string;
+  expireDate: string | Date | null;
+  active: boolean;
+  licenseNumber: string | null;
+  licenseDate: string | null;
+  certificateNumber: string | null;
+  certificateDate: string | null;
+  medicalInsuranceNumber: string | null;
+  medicalInsuranceDate: string | null;
+  businessLicenseNumber: string | null;
+  businessLicense: string | null;
+  registrationFile: string | null;
+  licenseFile: string | null;
+  certificateFile: string | null;
+  createdAt: string;
+  updatedAt: string;
+  client_id: number;
 }
+
