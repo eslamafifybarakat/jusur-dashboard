@@ -40,7 +40,7 @@ export const roots = {
       editRecords: 'ClientHistory/UpdateClientHistory'
     },
     employees: {
-      getEmployees: '/getEmployees',
+      getEmployees: 'Employee/AllEmployees',
       addEditEmployee: '/addEditEmployee'
     },
     vehicles: {

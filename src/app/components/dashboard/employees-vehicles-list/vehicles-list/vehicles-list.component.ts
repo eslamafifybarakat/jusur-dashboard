@@ -18,7 +18,7 @@ import { Subject, Subscription, catchError, debounceTime, finalize, tap } from '
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
 import { VehiclesService } from './../../services/vehicles.service';
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, Input } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
 @Component({
@@ -42,6 +42,7 @@ export class VehiclesListComponent {
   private subscriptions: Subscription[] = [];
 
   dataStyleType: string = 'list';
+  @Input() recordId: number | string;
 
   isLoadingSearch: boolean = false;
   isSearch: boolean = false;

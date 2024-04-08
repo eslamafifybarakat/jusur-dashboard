@@ -14,7 +14,7 @@ export class EmployeesService {
     private http: HttpClient
   ) { }
 
-  getEmployeesList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any): Observable<any> {
+  getEmployeesList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any, clientHistory_id?: number | string): Observable<any> {
     let params = new HttpParams();
     if (page) {
       params = params?.append("page", page);
@@ -30,6 +30,9 @@ export class EmployeesService {
     }
     if (conditions && conditions?.length > 0) {
       params = params?.append("conditions", JSON?.stringify(conditions));
+    }
+    if (clientHistory_id) {
+      params = params?.append("clientHistory_id", 3);
     }
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.employees.getEmployees}`, { params: params })
   }

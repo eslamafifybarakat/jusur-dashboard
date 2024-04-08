@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex flex-wrap gap-3">
       <div class="image">
-        <img [src]="item.residencePhoto" alt="residencePhoto" class="w-100 h-100 shadow">
+        <img [src]="item.iqamaImage" alt="residencePhoto" class="w-100 h-100 shadow">
       </div>
       <div>
         <div>
@@ -10,7 +10,7 @@
             {{'labels.fullName'|translate}}
           </p>
           <p class="mb-0 fs-5-2">
-            {{item?.fullName||'--'}}
+            {{item?.name||'--'}}
           </p>
         </div>
         <div class="mt-3">
@@ -18,7 +18,7 @@
             {{'labels.endDate'|translate}}
           </p>
           <p class="mb-0 fs-5-2">
-            {{item?.endDate | date: 'd MMMM y':'':currentLanguage}}
+            {{item?.expiryDate | date: 'd MMMM y':'':currentLanguage}}
           </p>
         </div>
       </div>
@@ -29,7 +29,7 @@
           {{'labels.residencyNumber'|translate}}
         </p>
         <p class="mb-0 fs-5-2">
-          {{item?.residencyNumber||'--'}}
+          {{item?.identity||'--'}}
         </p>
       </div>
       <div>

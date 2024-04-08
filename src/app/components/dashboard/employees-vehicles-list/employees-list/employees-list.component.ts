@@ -18,7 +18,7 @@ import { Subject, Subscription, catchError, debounceTime, finalize, tap } from '
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
 import { EmployeesService } from '../../services/employees.service';
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, Input } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
 
@@ -44,6 +44,7 @@ export class EmployeesListComponent {
   private subscriptions: Subscription[] = [];
 
   dataStyleType: string = 'list';
+  @Input() recordId: number | string;
 
   isLoadingSearch: boolean = false;
   isSearch: boolean = false;
@@ -93,48 +94,89 @@ export class EmployeesListComponent {
   }
 
   ngOnInit(): void {
+    this.initializeTableHeaders();
+    this.setupSubscriptions();
+    this.getAllEmployees(false, this.recordId);
+  }
+  private initializeTableHeaders(): void {
     this.tableHeaders = [
-      { field: 'fullName', header: 'dashboard.tableHeader.fullName', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.fullName'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
-      { field: 'residencyNumber', header: 'dashboard.tableHeader.residencyNumber', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.residencyNumber'), type: 'numeric', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
-      { field: 'endDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
-      { field: 'healthCertificate', header: 'dashboard.tableHeader.healthCertificate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.healthCertificate'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true },
-      { field: 'residencePhoto', header: 'dashboard.tableHeader.residencePhoto', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.residencePhoto'), type: 'img' },
+      {
+        field: 'name',
+        header: 'dashboard.tableHeader.fullName',
+        title: this.publicService?.translateTextFromJson('dashboard.tableHeader.fullName'),
+        type: 'text',
+        sort: true,
+        showDefaultSort: true,
+        filter: true,
+      },
+      {
+        field: 'identity',
+        header: 'dashboard.tableHeader.residencyNumber',
+        title: this.publicService?.translateTextFromJson('dashboard.tableHeader.residencyNumber'),
+        type: 'numeric',
+        sort: true,
+        showDefaultSort: true,
+        filter: true,
+      },
+      {
+        field: 'expiryDate',
+        header: 'dashboard.tableHeader.endDate',
+        title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'),
+        type: 'date',
+        sort: true,
+        showDefaultSort: true,
+        filter: true,
+      },
+      {
+        field: 'healthCertificate',
+        header: 'dashboard.tableHeader.healthCertificate',
+        title: this.publicService?.translateTextFromJson('dashboard.tableHeader.healthCertificate'),
+        type: 'text',
+        sort: true,
+        showDefaultSort: true,
+        filter: true,
+      },
+      {
+        field: 'iqamaImage',
+        header: 'dashboard.tableHeader.residencePhoto',
+        title: this.publicService?.translateTextFromJson('dashboard.tableHeader.residencePhoto'),
+        type: 'img',
+      },
     ];
-    this.getAllEmployees();
-    this.searchSubject
-      .pipe(
-        debounceTime(500) // Throttle time in milliseconds (1 seconds)
-      )
-      .subscribe(event => {
-        this.searchHandler(event);
-      });
+  }
+  private setupSubscriptions(): void {
+    this.searchSubject.pipe(debounceTime(500)).subscribe(event => this.searchHandler(event));
+
     this.publicService.toggleFilterEmployeeDataType.subscribe((res: any) => {
       if (res) {
         this.changeDateStyle(res);
       }
-    })
-    this.publicService.addEmployeeItem.subscribe((res: any) => {
+    });
+
+    this.publicService.addEmployeeItem.subscribe(res => {
       if (res) {
         this.addEditEmployeeItem();
       }
-    })
-    this.publicService.resetEmployeesData.subscribe((res: any) => {
+    });
+
+    this.publicService.resetEmployeesData.subscribe(res => {
       if (res) {
         this.clearTable();
       }
-    })
-    this.publicService.searchEmployeesData.subscribe((res: any) => {
+    });
+
+    this.publicService.searchEmployeesData.subscribe(res => {
       if (res) {
         this.searchHandler(res);
       }
-    })
-    this.publicService.filterEmployeesData.subscribe((res: any) => {
+    });
+
+    this.publicService.filterEmployeesData.subscribe(res => {
       if (res) {
         this.filterItem();
       }
-    })
+    });
   }
-
   private updateMetaTagsForSEO(): void {
     let metaData: MetaDetails = {
       title: 'الموظفين',
@@ -143,8 +185,6 @@ export class EmployeesListComponent {
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
-
-
   // Toggle data style table or card
   changeDateStyle(type: string): void {
     this.clearTable();
@@ -152,9 +192,9 @@ export class EmployeesListComponent {
   }
 
   // Start Employees List Functions
-  getAllEmployees(isFiltering?: boolean): void {
+  getAllEmployees(isFiltering?: boolean, recordId?: number | string): void {
     isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingEmployeesList = true;
-    this.employeesService?.getEmployeesList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null)
+    this.employeesService?.getEmployeesList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null, recordId)
       .pipe(
         tap((res: EmployeesListApiResponse) => this.processEmployeesListResponse(res)),
         catchError(err => this.handleError(err)),
@@ -179,18 +219,6 @@ export class EmployeesListComponent {
     setTimeout(() => {
       this.enableSortFilter = true;
     }, 200);
-    this.setDummyData();
-  }
-  private setDummyData(): void {
-    this.employeesList = [
-      { fullName: "Ali Ahmed", residencyNumber: '01009887876', endDate: new Date(), healthCertificate: '33u2929899', residencePhoto: 'assets/images/home/sidebar-bg.webp' },
-      { fullName: "Ali Ahmed", residencyNumber: '01009887876', endDate: new Date(), healthCertificate: '33u2929899', residencePhoto: 'assets/images/home/sidebar-bg.webp' },
-      { fullName: "Ali Ahmed", residencyNumber: '01009887876', endDate: new Date(), healthCertificate: '33u2929899', residencePhoto: 'assets/images/home/sidebar-bg.webp' },
-      { fullName: "Ali Ahmed", residencyNumber: '01009887876', endDate: new Date(), healthCertificate: '33u2929899', residencePhoto: 'assets/images/home/sidebar-bg.webp' },
-      { fullName: "Ali Ahmed", residencyNumber: '01009887876', endDate: new Date(), healthCertificate: '33u2929899', residencePhoto: 'assets/images/home/sidebar-bg.webp' },
-    ];
-    this.publicService.employeesLength.next(this.employeesCount);
-    this.employeesCount = 3225;
   }
   // End Employees List Functions
 
@@ -220,6 +248,25 @@ export class EmployeesListComponent {
   //Employee Details
   itemDetails(item?: any): void {
   }
+  // Filter Employee
+  filterItem(): void {
+    const ref = this.dialogService?.open(FilterEmployeesComponent, {
+      header: this.publicService?.translateTextFromJson('general.filter'),
+      dismissableMask: false,
+      width: '45%',
+      data: this.filterCards,
+      styleClass: 'custom-modal',
+    });
+    ref.onClose.subscribe((res: any) => {
+      if (res) {
+        this.page = 1;
+        this.filtersArray = res.conditions;
+        this.filterCards = res.conditions;
+        // this.publicService?.changePageSub?.next({ page: this.page });
+        this.getAllEmployees(true);
+      }
+    });
+  }
 
   // Add Or Edit Employee
   addEditEmployeeItem(item?: any, type?: any): void {
@@ -242,27 +289,7 @@ export class EmployeesListComponent {
     });
   }
 
-  // Filter Employee
-  filterItem(): void {
-    const ref = this.dialogService?.open(FilterEmployeesComponent, {
-      header: this.publicService?.translateTextFromJson('general.filter'),
-      dismissableMask: false,
-      width: '45%',
-      data: this.filterCards,
-      styleClass: 'custom-modal',
-    });
-    ref.onClose.subscribe((res: any) => {
-      if (res) {
-        this.page = 1;
-        this.filtersArray = res.conditions;
-        this.filterCards = res.conditions;
-        // this.publicService?.changePageSub?.next({ page: this.page });
-        this.getAllEmployees(true);
-      }
-    });
-  }
-
-  //Start Delete Employee==========
+  //Start Delete Employee Functions
   deleteItem(item: any): void {
     if (!item?.confirmed) {
       return;
@@ -299,7 +326,7 @@ export class EmployeesListComponent {
     const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
     this.alertsService.openToast('error', 'error', errorMessage);
   }
-  //End Delete Employee
+  //End Delete Employee Functions
 
   // Clear table
   clearTable(): void {
@@ -311,7 +338,6 @@ export class EmployeesListComponent {
     // this.publicService?.changePageSub?.next({ page: this.page });
     this.getAllEmployees();
   }
-
   // Sort table
   sortItems(event: any): void {
     if (event?.order == 1) {
@@ -328,7 +354,6 @@ export class EmployeesListComponent {
       this.getAllEmployees();
     }
   }
-
   // filter Table
   filterItems(event: any): void {
     this.filtersArray = [];

@@ -67,8 +67,7 @@
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="registrationNumber"
-                    class="mb-2 required">
+                  <label for="registrationNumber" class="mb-2 required">
                     {{'labels.registrationNumber'|translate}}
                   </label>
                   <div class="input-group bg-white-color d-flex flex-nowrap">
@@ -327,8 +326,7 @@
               </div>
               <div class="p-3">
                 <div class="mb-3">
-                  <label for="medicalInsuranceNumber"
-                    class="mb-2">{{'labels.medicalInsuranceNumber'|translate}}</label>
+                  <label for="medicalInsuranceNumber" class="mb-2">{{'labels.medicalInsuranceNumber'|translate}}</label>
                   <div class="input-group bg-white-color d-flex flex-nowrap">
                     <input type="text" class="form-control" [class.prevent-click]="isMedicalInsuranceNumberReadOnly"
                       formControlName="medicalInsuranceNumber" autocomplete="cc-name" [min]="0"
@@ -359,8 +357,7 @@
                   </div>
                 </div>
                 <div class="">
-                  <label for="medicalInsuranceDate"
-                    class="mb-2">{{'labels.medicalInsuranceDate'|translate}}</label>
+                  <label for="medicalInsuranceDate" class="mb-2">{{'labels.medicalInsuranceDate'|translate}}</label>
                   <div
                     [class.border-red]="formControls?.medicalInsuranceDate?.invalid && (formControls?.medicalInsuranceDate?.dirty || formControls?.medicalInsuranceDate?.touched)">
                     <div class="input-group bg-white-color d-flex flex-nowrap">
@@ -435,8 +432,7 @@
                   </div>
                 </div>
                 <div>
-                  <label for="businessLicenseNumber"
-                    class="mb-2">
+                  <label for="businessLicenseNumber" class="mb-2">
                     {{'labels.businessLicenseNumber'|translate}}
                   </label>
                   <div class="input-group bg-white-color d-flex flex-nowrap">
@@ -477,7 +473,7 @@
 
     <div class="mt-4">
       <div>
-        <employees-vehicles-list></employees-vehicles-list>
+        <employees-vehicles-list [recordId]="recordId"></employees-vehicles-list>
       </div>
     </div>
   </div>

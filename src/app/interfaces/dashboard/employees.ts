@@ -4,16 +4,21 @@ export interface EmployeesListApiResponse {
   result: {
     totalCount: number;
     totalPages: number;
-    currentPage: number;
+    currentPage: string;
     perPage: number;
     items: EmployeesListingItem[];
   };
 }
+
 export interface EmployeesListingItem {
-  id?: number;
-  fullName: string | null;
-  residencyNumber: string;
-  endDate: Date | null;
+  id: number | string;
+  name: string;
+  iqamaImage: string;
   healthCertificate: string;
-  residencePhoto: string;
+  expiryDate: string;
+  identity: string;
+  createdAt: string;
+  updatedAt: string;
+  clientHistory_id: number;
 }
+

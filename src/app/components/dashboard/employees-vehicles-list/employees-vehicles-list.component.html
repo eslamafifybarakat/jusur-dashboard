@@ -3,7 +3,8 @@
     <ul class="d-flex align-items-center gap-3 p-0">
       <li class="d-flex align-items-center gap-2 tab" [class.active]="tabType=='employee'"
         (click)="showTabItems('employee')">
-        <span><svg width="25" height="25" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg"
+        <span>
+          <svg width="25" height="25" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink">
             <mask id="mask0_216_511" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="29"
               height="29">
@@ -43,7 +44,8 @@
         {{clientsCount}}
       </span> -->
     </ul>
-    <div class="d-flex gap-3 flex-xl-nowrap flex-wrap" *ngIf="list">
+    <!-- <div class="d-flex gap-3 flex-xl-nowrap flex-wrap" *ngIf="list"> -->
+    <div class="d-flex gap-3 flex-xl-nowrap flex-wrap" *ngIf="true">
       <!-- Add Customer -->
       <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addItem()">
         <i class="pi pi-plus"></i>
@@ -195,10 +197,10 @@
   </div>
   <div class="global-card p-4 mt-4">
     <ng-container *ngIf="tabType=='employee'">
-      <employees-list></employees-list>
+      <employees-list [recordId]="recordId"></employees-list>
     </ng-container>
     <ng-container *ngIf="tabType=='vehicle'">
-      <vehicles-list></vehicles-list>
+      <vehicles-list [recordId]="recordId"></vehicles-list>
     </ng-container>
   </div>
 </div>

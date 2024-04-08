@@ -14,7 +14,7 @@ import { VehiclesListComponent } from './vehicles-list/vehicles-list.component';
 import { LocalizationLanguageService } from './../../../services/generic/localization-language.service';
 import { PublicService } from './../../../services/generic/public.service';
 import { Subject, Subscription, debounceTime } from 'rxjs';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   standalone: true,
@@ -37,6 +37,7 @@ import { Component } from '@angular/core';
 })
 export class EmployeesVehiclesListComponent {
   private subscriptions: Subscription[] = [];
+  @Input() recordId: number | string;
 
   dataStyleType: string = 'list';
   tabType: string = 'employee';
@@ -57,27 +58,22 @@ export class EmployeesVehiclesListComponent {
   }
 
   ngOnInit(): void {
-    this.searchSubject
-      .pipe(
-        debounceTime(500) // Throttle time in milliseconds (1 seconds)
-      )
-      .subscribe(event => {
-        this.searchHandler(event);
-      });
+    this.searchSubject.pipe(debounceTime(500)) // Throttle time in milliseconds (1 seconds)
+      .subscribe(event => { this.searchHandler(event); });
 
     this.publicService.isLoadingEmployees.subscribe((res) => {
       this.isLoadingList = res;
-    })
+    });
     this.publicService.employeesLength.subscribe((res: any) => {
       if (res) {
         this.list = res;
       }
-    })
+    });
     this.publicService.isLoadingSearchEmployees.subscribe((res: any) => {
       if (res) {
         this.isLoadingSearch = res;
       }
-    })
+    });
 
     this.publicService.isLoadingVehicles.subscribe((res) => {
       this.isLoadingList = res;
@@ -86,21 +82,19 @@ export class EmployeesVehiclesListComponent {
       if (res) {
         this.list = res;
       }
-    })
+    });
     this.publicService.isLoadingSearchVehicles.subscribe((res: any) => {
       if (res) {
         this.isLoadingSearch = res;
       }
-    })
+    });
   }
-
   // Toggle data type employees or vehicles
   showTabItems(type: string): void {
     this.list = 0;
     this.tabType = type;
     this.dataStyleType = 'list';
   }
-
   // Toggle data style table or card
   changeDateStyle(type: string): void {
     this.dataStyleType = type;
