@@ -730,8 +730,8 @@
   </ng-template>
   <ng-template pTemplate="emptymessage">
     <ng-container *ngIf="!isLoading">
-      <tr>
-        <td [attr.colspan]="tableHeaders.length+1" class="border-0 bg-transparent">
+      <tr class="bg-transparent">
+        <td [attr.colspan]="tableHeaders.length+1" class="border-0">
           <div class="not-found d-flex flex-column justify-content-center align-items-center">
             <ng-container *ngIf="!isSearch">
               <div>

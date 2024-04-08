@@ -40,6 +40,10 @@ export class AddEditVehicleComponent {
   isEdit: boolean = false;
   vehicleId: any;
 
+  // Check Operating Card Variables
+  isLoadingCheckOperatingCard: Boolean = false;
+  operatingCardNotAvailable: Boolean = false;
+
   constructor(
     private vehiclesService: VehiclesService,
     private alertsService: AlertsService,
@@ -81,6 +85,44 @@ export class AddEditVehicleComponent {
   get formControls(): any {
     return this.modalForm?.controls;
   }
+
+  onKeyUpEvent(): void {
+    this.isLoadingCheckOperatingCard = false;
+    this.cdr.detectChanges();
+  }
+  clearCheckAvailable(): void {
+    this.operatingCardNotAvailable = false;
+  }
+  // Start Check If Operating Card Unique
+  checkOperatingCardAvailable(): void {
+    if (!this.formControls?.operatingCard?.valid) {
+      return; // Exit early if Operating Card is not valid
+    }
+    const operatingCard: number | string = this.modalForm?.value?.operatingCard;
+    const data: any = { operatingCard };
+    this.isLoadingCheckOperatingCard = true;
+    let checkOperatingCardSubscription: Subscription = this.publicService?.IsOperatingCardAvailable(data).pipe(
+      tap(res => this.handleOperatingCardResponse(res)),
+      catchError(err => this.handleOperatingCardError(err))
+    ).subscribe();
+    this.subscriptions.push(checkOperatingCardSubscription);
+  }
+  private handleOperatingCardResponse(res: any): void {
+    if (res?.success && res?.result != null) {
+      this.operatingCardNotAvailable = !res.result;
+    } else {
+      this.operatingCardNotAvailable = false;
+      this.handleOperatingCardError(res?.message);
+    }
+    this.isLoadingCheckOperatingCard = false;
+    this.cdr.detectChanges();
+  }
+  private handleOperatingCardError(err: any): any {
+    this.operatingCardNotAvailable = false;
+    this.isLoadingCheckOperatingCard = false;
+    this.handleError(err);
+  }
+  // End Check If Operating Card Unique
 
   uploadFormPhoto(event: any): void {
     this.formPhotoFile = event.file;

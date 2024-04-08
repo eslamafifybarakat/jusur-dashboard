@@ -25,6 +25,8 @@ export const roots = {
       IsEmailAvailable: "Client/IsEmailAvailable",
       IsPhoneAvailable: "Client/IsPhoneNumberAvailable",
       IsRecordNumberAvailable: "ClientHistory/IsNumberAvailable",
+      IsOperatingCardAvailable: "IsOperatingCardAvailable",
+      IsResidencyNumberAvailable: 'IsResidencyNumberAvailable'
     },
     clients: {
       getClients: 'Client/AllClients',

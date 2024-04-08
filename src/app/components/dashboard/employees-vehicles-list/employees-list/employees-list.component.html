@@ -74,7 +74,7 @@
       <div class="d-flex gap-2" *ngIf="employeesList.length>0">
         <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addEditEmployeeItem()">
           <i class="pi pi-plus"></i>
-          <span>{{'dashboard.employees.addCustomer'|translate}}</span>
+          <span>{{'dashboard.employees.addEmployee'|translate}}</span>
         </button>
         <!-- Filter Button -->
         <button [class.disabled-actions]="isLoadingEmployeesList" *ngIf="employeesList?.length>0"
@@ -127,7 +127,7 @@
         [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
         [enableConfirmDeleteDialog]="true" [keyDelete]="'fullName'"
         (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
-        [enableFilterDriverStatus]="true" [addBtnText]="'dashboard.employees.addCustomer'"
+        [enableFilterDriverStatus]="true" [addBtnText]="'dashboard.employees.addEmployee'"
         (addHandler)="addEditEmployeeItem()"></dynamic-table>
     </ng-container>
     <!-- Card -->
@@ -173,7 +173,7 @@
           </div>
           <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
           <button (click)="addEditEmployeeItem()"
-            class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.employees.addCustomer'|translate}}</button>
+            class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.employees.addEmployee'|translate}}</button>
         </div>
       </ng-template>
     </ng-container>
@@ -219,7 +219,7 @@
         </div>
         <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
         <button (click)="addEditEmployeeItem()"
-          class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.employees.addCustomer'|translate}}</button>
+          class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.employees.addEmployee'|translate}}</button>
       </div>
     </ng-template>
   </div>

@@ -38,7 +38,7 @@
               <input type="number" class="form-control" formControlName="nationalIdentity" MaxDigits [maxNumber]="10"
                 (input)="publicService?.clearValidationErrors(formControls?.nationalIdentity);clearCheckAvailable('nationalIdentity')"
                 [class.border-red]="formControls?.nationalIdentity?.invalid && (formControls?.nationalIdentity?.dirty || formControls?.nationalIdentity?.touched)"
-                [class.is-valid]="!isLoadingCheckNationalIdentity &&!emailNotAvailable && formControls?.nationalIdentity?.valid && (formControls?.nationalIdentity?.dirty || formControls?.nationalIdentity?.touched)"
+                [class.is-valid]="!isLoadingCheckNationalIdentity &&!nationalIdentityNotAvailable && formControls?.nationalIdentity?.valid && (formControls?.nationalIdentity?.dirty || formControls?.nationalIdentity?.touched)"
                 [class.disabled]="isLoadingCheckNationalIdentity" placeholder="{{'placeholders.id'|translate}}"
                 (blur)="checkNationalIdentityAvailable()" (keyup)="onKeyUpEvent('nationalIdentity')">
               <ng-container *ngIf="isLoadingCheckNationalIdentity">

@@ -75,6 +75,12 @@ export class PublicService {
   IsRecordNumberAvailable(data: any): Observable<any> {
     return this.http.post<any>(this.baseUrl + '/' + roots.dashboard.availability.IsRecordNumberAvailable, data);
   }
+  IsResidencyNumberAvailable(data: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + '/' + roots.dashboard.availability.IsResidencyNumberAvailable, data);
+  }
+  IsOperatingCardAvailable(data: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + '/' + roots.dashboard.availability.IsOperatingCardAvailable, data);
+  }
 
   getCities(): Observable<any> {
     return this.http.get<any>(

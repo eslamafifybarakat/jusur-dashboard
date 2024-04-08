@@ -148,8 +148,8 @@
       "customerDataDetails": "Client data details"
     },
     "records": {
-      "records": "Records",
-      "addRecord": "Add Record"
+      "records": "History",
+      "addRecord": "Add History"
     },
     "employees": {
       "employees": "Employees",

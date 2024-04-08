@@ -40,6 +40,10 @@ export class AddEditEmployeeComponent {
   isEdit: boolean = false;
   employeeId: any;
 
+  // Check National Identity Variables
+  isLoadingCheckResidencyNumber: Boolean = false;
+  residencyNumberNotAvailable: Boolean = false;
+
   constructor(
     private employeesService: EmployeesService,
     private alertsService: AlertsService,
@@ -100,6 +104,43 @@ export class AddEditEmployeeComponent {
     return this.modalForm?.controls;
   }
 
+  onKeyUpEvent(): void {
+    this.isLoadingCheckResidencyNumber = false;
+  }
+  clearCheckAvailable(): void {
+    this.residencyNumberNotAvailable = false;
+  }
+  // Start Check If Residency Number Unique
+  checkResidencyNumberAvailable(): void {
+    if (!this.formControls?.residencyNumber?.valid) {
+      return; // Exit early if Residency Number is not valid
+    }
+    const residencyNumber: number | string = this.modalForm?.value?.residencyNumber;
+    const data: any = { residencyNumber };
+    this.isLoadingCheckResidencyNumber = true;
+    let checkResidencyNumberSubscription: Subscription = this.publicService?.IsRecordNumberAvailable(data).pipe(
+      tap(res => this.handleResidencyNumberResponse(res)),
+      catchError(err => this.handleResidencyNumberError(err))
+    ).subscribe();
+    this.subscriptions.push(checkResidencyNumberSubscription);
+  }
+  private handleResidencyNumberResponse(res: any): void {
+    if (res?.success && res?.result != null) {
+      this.residencyNumberNotAvailable = !res.result;
+    } else {
+      this.residencyNumberNotAvailable = false;
+      this.handleResidencyNumberError(res?.message);
+    }
+    this.isLoadingCheckResidencyNumber = false;
+    this.cdr.detectChanges();
+  }
+  private handleResidencyNumberError(err: any): any {
+    this.residencyNumberNotAvailable = false;
+    this.isLoadingCheckResidencyNumber = false;
+    this.handleError(err);
+  }
+  // End Check If Residency Number Unique
+
   uploadResidencePhoto(event: any): void {
     this.residencePhotoFile = event.file;
     this.formControls.residencePhoto.setValue(this.residencePhotoFile);
@@ -136,7 +177,7 @@ export class AddEditEmployeeComponent {
   }
   private addEditEmployee(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);
-    let subscribeAddEditEmployee: Subscription = this.employeesService?.addEditEmployee(formData,this.config?.data?.item?.details?.id).pipe(
+    let subscribeAddEditEmployee: Subscription = this.employeesService?.addEditEmployee(formData, this.config?.data?.item?.details?.id).pipe(
       tap(res => this.handleAddEditEmployeeSuccess(res)),
       catchError(err => this.handleError(err))
     ).subscribe();

@@ -76,7 +76,7 @@ export class AddClientComponent {
         validators: [
           Validators.required, Validators.pattern(patterns?.email)], updateOn: "blur"
       }],
-      birthDate: [null, {
+      birthDate: [this.maxDate, {
         validators: [
           Validators.required]
       }],
@@ -160,7 +160,7 @@ export class AddClientComponent {
     this.cdr.detectChanges();
   }
   private handleNationalIdentityError(err: any): any {
-    this.nationalIdentityNotAvailable = true;
+    this.nationalIdentityNotAvailable = false;
     this.isLoadingCheckNationalIdentity = false;
     this.handleError(err);
   }

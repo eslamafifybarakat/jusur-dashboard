@@ -13,7 +13,7 @@
       <!-- Add Customer -->
       <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addEditItem()">
         <i class="pi pi-plus"></i>
-        <span>{{'dashboard.employees.addEmployee'|translate}}</span>
+        <span>{{'dashboard.vehicles.addVehicle'|translate}}</span>
       </button>
       <!-- Filter Button -->
       <button [class.disabled-actions]="isLoadingVehiclesList" *ngIf="vehiclesList?.length>0"
@@ -74,7 +74,7 @@
       <div class="d-flex gap-2" *ngIf="vehiclesList.length>0">
         <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addEditItem()">
           <i class="pi pi-plus"></i>
-          <span>{{'dashboard.employees.addCustomer'|translate}}</span>
+          <span>{{'dashboard.vehicles.addVehicle'|translate}}</span>
         </button>
         <!-- Filter Button -->
         <button [class.disabled-actions]="isLoadingVehiclesList" *ngIf="vehiclesList?.length>0"
@@ -128,7 +128,7 @@
         [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
         (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch"
         [arrayChildKey]="'operatingCard'" [enableFilterDriverStatus]="true"
-        [addBtnText]="'dashboard.employees.addCustomer'" (addHandler)="addEditItem()"></dynamic-table>
+        [addBtnText]="'dashboard.vehicles.addVehicle'" (addHandler)="addEditItem()"></dynamic-table>
     </ng-container>
     <!-- Card -->
     <ng-container *ngIf="dataStyleType=='grid'">
@@ -173,7 +173,7 @@
           </div>
           <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
           <button (click)="addEditItem()"
-            class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.employees.addCustomer'|translate}}</button>
+            class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.vehicles.addVehicle'|translate}}</button>
         </div>
       </ng-template>
     </ng-container>
@@ -219,7 +219,7 @@
         </div>
         <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
         <button (click)="addEditItem()"
-          class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.employees.addCustomer'|translate}}</button>
+          class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.vehicles.addVehicle'|translate}}</button>
       </div>
     </ng-template>
   </div>

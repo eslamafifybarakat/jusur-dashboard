@@ -159,6 +159,7 @@ export class ClientsListComponent {
   // End Clients List Functions
 
   itemDetails(item?: any): void {
+    this.router.navigate(['Dashboard/Clients/Details/' + item.id]);
   }
   // Add Client
   addItem(item?: any, type?: any): void {

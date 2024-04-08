@@ -7,10 +7,18 @@
             <div class="col-xl-12 col-md-6">
               <div class="mb-3">
                 <label for="operatingCard" class="mb-2 required">{{'labels.operatingCard'|translate}}</label>
-                <input type="text" class="form-control" formControlName="operatingCard"
-                  (input)="publicService?.clearValidationErrors(formControls?.operatingCard)"
-                  [class.border-red]="formControls?.operatingCard?.invalid && (formControls?.operatingCard?.dirty || formControls?.operatingCard?.touched)"
-                  placeholder="{{'placeholders.operatingCard'|translate}}">
+                <span class="p-input-icon-right w-100">
+                  <input type="text" class="form-control" formControlName="operatingCard"
+                    (input)="publicService?.clearValidationErrors(formControls?.operatingCard);clearCheckAvailable()"
+                    [class.border-red]="formControls?.operatingCard?.invalid && (formControls?.operatingCard?.dirty || formControls?.operatingCard?.touched)"
+                    placeholder="{{'placeholders.operatingCard'|translate}}"
+                    [class.is-valid]="!isLoadingCheckOperatingCard &&!operatingCardNotAvailable && formControls?.operatingCard?.valid && (formControls?.operatingCard?.dirty || formControls?.operatingCard?.touched)"
+                    [class.disabled]="isLoadingCheckOperatingCard" (blur)="checkOperatingCardAvailable()"
+                    (keyup)="onKeyUpEvent()">
+                  <ng-container *ngIf="isLoadingCheckOperatingCard">
+                    <i class="pi pi-spin pi-spinner"></i>
+                  </ng-container>
+                </span>
                 <div class="mt-2">
                   <ng-container
                     *ngIf="formControls?.operatingCard?.invalid && (formControls?.operatingCard?.dirty || formControls?.operatingCard?.touched)">
@@ -19,6 +27,13 @@
                         {{'validations.requiredField'|translate}}
                       </span>
                     </ng-container>
+                  </ng-container>
+                  <ng-container *ngIf="operatingCardNotAvailable">
+                    <span class="text-danger fs-8 d-block">
+                      {{'labels.operatingCard'|translate}}<span class="text-main-color fw-bold px-1">
+                        {{modalForm?.value?.operatingCard}}</span>
+                      {{'auth.isUsedBefore'|translate}}
+                    </span>
                   </ng-container>
                 </div>
               </div>
