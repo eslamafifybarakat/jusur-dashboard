@@ -237,8 +237,8 @@ export class ClientsListComponent {
   }
   // End Search Functions
 
-  // Filter Clients Function
-  filterItem(): void {
+  // Filter Clients Modal Function
+  filterItemModal(): void {
     const ref = this.dialogService?.open(FilterClientsComponent, {
       header: this.publicService?.translateTextFromJson('general.filter'),
       dismissableMask: false,
@@ -256,8 +256,8 @@ export class ClientsListComponent {
       }
     });
   }
-  // filter table Functions
-  filterItems(event: any): void {
+  // filter Table Functions
+  filterItemsTable(event: any): void {
     this.filtersArray = [];
     Object.keys(event)?.forEach((key: any) => {
       this.tableHeaders?.forEach((colHeader: any) => {
