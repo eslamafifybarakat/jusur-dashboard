@@ -145,7 +145,7 @@
             <ng-container *ngIf="clientsList.length>0; else noClients">
               <ng-container *ngFor="let card of clientsList; let i=index">
                 <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                  <client-card [item]="card" (editItemHandler)="itemDetails($event)"></client-card>
+                  <client-card [item]="card" (itemDetailsHandler)="itemDetails($event)"></client-card>
                 </div>
               </ng-container>
             </ng-container>
@@ -156,7 +156,7 @@
                 [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>
               <div class="d-flex align-items-center gap-3">
                 <p-dropdown [styleClass]="'paginator-options-dropdown'" [dropdownIcon]="'fas fa-caret-down'" #dropdown
-                  [options]="rowsOptions" (onChange)="onPaginatorOptionsChange($event)"></p-dropdown>
+                  [options]="rowsOptions" (onChange)="onPaginatorOptionsChange($event)" (onHide)="hide()"></p-dropdown>
               </div>
             </div>
           </ng-container>
@@ -193,6 +193,16 @@
             </ng-container>
           </ng-container>
         </ng-template>
+        <ng-container *ngIf="clientsList?.length>0">
+          <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingClientsList">
+            <p-paginator #paginator [rows]="perPage" [totalRecords]="clientsCount" [showPageLinks]="true"
+              [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>
+            <div class="d-flex align-items-center gap-3">
+              <p-dropdown [styleClass]="'paginator-options-dropdown'" [dropdownIcon]="'fas fa-caret-down'" #dropdown
+                [options]="rowsOptions" (onChange)="onPaginatorOptionsChange($event)" (onHide)="hide()"></p-dropdown>
+            </div>
+          </div>
+        </ng-container>
       </div>
       <ng-template #noClients2>
         <div class="d-flex flex-column justify-content-center align-items-center">

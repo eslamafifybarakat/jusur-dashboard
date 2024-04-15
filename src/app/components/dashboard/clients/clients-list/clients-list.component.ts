@@ -1,5 +1,6 @@
 // Modules
 import { TranslateModule } from '@ngx-translate/core';
+import { PaginatorModule } from 'primeng/paginator';
 import { SidebarModule } from 'primeng/sidebar';
 import { CommonModule } from '@angular/common';
 
@@ -18,13 +19,12 @@ import { LocalizationLanguageService } from './../../../../services/generic/loca
 import { MetaDetails, MetadataService } from './../../../../services/generic/metadata.service';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
-import { catchError, debounceTime, finalize, map, tap } from 'rxjs/operators';
+import { catchError, debounceTime, finalize, tap } from 'rxjs/operators';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { ClientsService } from '../../services/clients.service';
-import { ChangeDetectorRef, Component } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Subject, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
   standalone: true,
@@ -84,6 +84,9 @@ export class ClientsListComponent {
   showToggleAction: boolean = false;
   showActionFiles: boolean = false;
   // End Permissions Variables
+
+  // Dropdown Element
+  @ViewChild('dropdown') dropdown: any;
 
   constructor(
     private localizationLanguageService: LocalizationLanguageService,
@@ -182,6 +185,7 @@ export class ClientsListComponent {
       if (res?.listChanged) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
+        this.dataStyleType == 'grid' ? this.getAllClients() : '';
       }
     });
   }
@@ -254,7 +258,6 @@ export class ClientsListComponent {
         this.page = 1;
         this.filtersArray = res.conditions;
         this.filterCards = res.conditions;
-        // this.publicService?.changePageSub?.next({ page: this.page });
         this.getAllClients(true);
       }
     });
@@ -371,6 +374,11 @@ export class ClientsListComponent {
     this.alertsService.openToast('error', 'error', message);
     this.publicService.showGlobalLoader.next(false);
     this.finalizeClientListLoading();
+  }
+
+  // Hide dropdown to not make action when keypress on keyboard arrows
+  hide(): void {
+    this.dropdown?.accessibleViewChild?.nativeElement?.blur();
   }
 
   ngOnDestroy(): void {
