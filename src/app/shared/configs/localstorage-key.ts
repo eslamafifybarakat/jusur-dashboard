@@ -1,15 +1,15 @@
 export const keys = {
-  language: 'structureLanguage',
-  userLoginData: 'structureUserLoginData',
-  currentUserInformation: 'structureCurrentUserInformation',
-  accessToken: 'structureAccessToken',
-  enc_AccessToken: 'structureEnc_AccessToken',
+  language: 'jusurLanguage',
+  userLoginData: 'jusurUserLoginData',
+  currentUserInformation: 'jusurCurrentUserInformation',
+  accessToken: 'jusurAccessToken',
+  enc_AccessToken: 'jusurEnc_AccessToken',
 
-  logged: 'structureLogged',
-  userData: 'structureUserData',
-  theme: 'structureTheme',
-  token: 'structureToken',
+  logged: 'jusurLogged',
+  userData: 'jusurUserData',
+  theme: 'jusurTheme',
+  token: 'jusurToken',
 
-  prepareStepData: 'structurePrepareStepData',
-  saveTripData: 'structureSaveTripData'
+  prepareStepData: 'jusurPrepareStepData',
+  saveTripData: 'jusurSaveTripData'
 };

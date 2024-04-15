@@ -1,8 +1,7 @@
 import { PublicService } from './../../../services/generic/public.service';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { keys } from '../../configs/localstorage-key';
+import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
@@ -21,9 +20,7 @@ export class SearchOverlayLoadingComponent {
   ) { }
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.currentLanguage = window?.localStorage?.getItem(keys?.language);
-    }
+    this.currentLanguage = this.publicService.getCurrentLanguage();
 
     this.publicService.showSearchLoader.subscribe((res: any) => {
       if (res == true) {

@@ -1,7 +1,7 @@
 import { TranslationService } from '../../../services/generic/translation.service';
-import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
-import { keys } from '../../configs/localstorage-key';
+import { PublicService } from './../../../services/generic/public.service';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
   standalone: true,
@@ -17,15 +17,14 @@ export class LanguageSelectorComponent {
   collapse: boolean = false;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
     public translationService: TranslationService,
+    private publicService: PublicService
   ) { }
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.currentLanguage = window?.localStorage?.getItem(keys?.language);
-    }
+    this.currentLanguage = this.publicService.getCurrentLanguage();
   }
+
   shouldApplyDarkToggle(): boolean {
     const includedPages = [
       'place-details',

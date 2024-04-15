@@ -1,12 +1,11 @@
 import { AuthService } from '../../../services/authentication/auth.service';
 import { PublicService } from './../../../services/generic/public.service';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Router, RouterModule } from '@angular/router';
-import { keys } from '../../configs/localstorage-key';
 import { TranslateModule } from '@ngx-translate/core';
 import { ConfirmationService } from 'primeng/api';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 @Component({
   standalone: true,
   imports: [TranslateModule, CommonModule, RouterModule],
@@ -15,28 +14,21 @@ import { ConfirmationService } from 'primeng/api';
   styleUrls: ['./user-info.component.scss']
 })
 export class UserInfoComponent {
-  currentLanguage: string;
   phone: string = '+(966)295768795';
-  email: string = 'yasser@gmail.com';
-  userData: any;
+  currentUserInfo: any;
 
   constructor(
     private confirmationService: ConfirmationService,
-    @Inject(PLATFORM_ID) private platformId: Object,
     private publicService: PublicService,
     private authService: AuthService,
     public sanitizer: DomSanitizer,
-    private router: Router,
   ) { }
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.currentLanguage = window?.localStorage?.getItem(keys?.language);
-    }
-    this.getUserData();
+    this.getCurrentUserInfo();
   }
 
-  getUserData(): void {
-    this.userData = this.authService.getUserLoginDataLocally();
+  getCurrentUserInfo(): void {
+    this.currentUserInfo = this.authService.getCurrentUserInformationLocally();
   }
   logOut(): void {
     this.confirmationService?.confirm({

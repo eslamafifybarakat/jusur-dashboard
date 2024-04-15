@@ -1,8 +1,10 @@
 import { environment } from './../../../environments/environment.development'
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms'
+import { keys } from './../../shared/configs/localstorage-key';
 import { TranslateService } from '@ngx-translate/core'
 import { Observable } from 'rxjs/internal/Observable'
 import { roots } from './../../shared/configs/roots'
+import { isPlatformBrowser } from '@angular/common'
 import { Inject, PLATFORM_ID } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { BehaviorSubject, Subject } from 'rxjs'
@@ -44,6 +46,12 @@ export class PublicService {
     private translate: TranslateService,
     private http: HttpClient,
   ) { }
+
+  getCurrentLanguage(): any {
+    if (isPlatformBrowser(this.platformId)) {
+      return window?.localStorage?.getItem(keys?.language);
+    }
+  }
 
   translateTextFromJson(text: string): any {
     return this.translate.instant(text)

@@ -4,18 +4,22 @@
       data-bs-toggle="dropdown" aria-expanded="false">
       <div class="text-start">
         <p class="mb-0 text-capitalize title">
-          {{userData?.name||''}}
+          {{currentUserInfo?.name||''}}
         </p>
         <p class="mb-0 text-muted-color">
-          CEO
+          {{currentUserInfo?.role||''}}
         </p>
       </div>
       <i class="pi pi-angle-down fs-8 mt-1"></i>
     </button>
     <ul class="dropdown-menu border-0 shadow user-info-menu p-0" aria-labelledby="dropdownMenuButton1">
       <div class="p-3 fs-6 text-start">
-        <p class="mb-2">{{userData?.name||''}}</p>
-        <p class="text-muted-color mb-0">CEO</p>
+        <p class="mb-2">
+          {{currentUserInfo?.name||''}}
+        </p>
+        <p class="text-muted-color mb-0">
+          {{currentUserInfo?.role||''}}
+        </p>
       </div>
       <hr class="my-0">
       <ul class="p-1">
@@ -32,11 +36,11 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link d-flex align-items-center gap-2 fs-6" href="mailto:yasser@gmail.com">
+          <a class="nav-link d-flex align-items-center gap-2 fs-6" [href]="'mailto:'+currentUserInfo?.email">
             <span>
               <i class="pi pi-envelope"></i>
             </span>
-            {{email}}
+            {{currentUserInfo?.email||''}}
           </a>
         </li>
         <li class="nav-item">

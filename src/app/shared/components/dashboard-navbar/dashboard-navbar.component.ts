@@ -31,16 +31,16 @@ import { UserInfoComponent } from '../user-info/user-info.component';
 })
 export class DashboardNavbarComponent {
   showSidebar: boolean = false;
-  userData: any;
+  currentUserInfo: any;
 
   constructor(
     private authService: AuthService
   ) { }
   ngOnInit(): void {
-    this.getUserData();
+    this.getCurrentUserInfo();
   }
-  getUserData(): void {
-    this.userData = this.authService.getUserLoginDataLocally();
+  getCurrentUserInfo(): void {
+    this.currentUserInfo = this.authService.getCurrentUserInformationLocally();
   }
   openSidebar(): void {
     this.showSidebar = true;
