@@ -1,9 +1,6 @@
 <main style="transition: 0.5s" class="main-wrapper" [style.opacity]="isServer ? 0 : 1">
-  <div class="d-none d-xl-block" *ngIf="shouldRender">
-    <app-navbar></app-navbar>
-  </div>
-  <div class="d-block d-xl-none" *ngIf="shouldRender">
-    <navbar-mobile></navbar-mobile>
+  <div *ngIf="shouldRender">
+    <dashboard-navbar></dashboard-navbar>
   </div>
   <section>
     <router-outlet></router-outlet>

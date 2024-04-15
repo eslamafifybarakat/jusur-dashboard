@@ -64,7 +64,10 @@
     "edit": "Edit",
     "no_records_found": "No records have been added yet",
     "reset": "Reset",
-    "filter": "Filter"
+    "filter": "Filter",
+    "dataNotEditable":"This data is not editable",
+    "except":"Except through the competent authority",
+    "recordedData":"Your recorded data"
   },
   "summary": {
     "faster": "Faster",

@@ -19,11 +19,10 @@ import localeAr from '@angular/common/locales/ar';
 
 import { SearchOverlayLoadingComponent } from './shared/components/search-overlay-loading/search-overlay-loading.component';
 import { BottomNavigationComponent } from './shared/components/bottom-navigation/bottom-navigation.component';
+import { DashboardNavbarComponent } from './shared/components/dashboard-navbar/dashboard-navbar.component';
 import { OverlayLoadingComponent } from './shared/components/overlay-loading/overlay-loading.component';
 import { NavbarMobileComponent } from './shared/components/navbar-mobile/navbar-mobile.component';
 import { ScrollTopComponent } from './shared/components/scroll-top/scroll-top.component';
-import { FooterComponent } from './shared/components/footer/footer.component';
-import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 import { AuthGuard } from './services/authentication/guards/auth.guard';
 
@@ -36,11 +35,10 @@ registerLocaleData(localeAr);
   imports: [
     SearchOverlayLoadingComponent,
     BottomNavigationComponent,
+    DashboardNavbarComponent,
     OverlayLoadingComponent,
     NavbarMobileComponent,
     ScrollTopComponent,
-    NavbarComponent,
-    FooterComponent,
     LoaderComponent,
 
     BrowserModule.withServerTransition({ appId: 'my-app', }),
@@ -60,13 +58,13 @@ registerLocaleData(localeAr);
   ],
   providers: [
     DatePipe,
-     AsyncPipe,
-      DialogService,
-       MessageService,
-        ConfirmationService, 
-        AuthGuard,
-        interceptorProviders
-      ],
+    AsyncPipe,
+    DialogService,
+    MessageService,
+    ConfirmationService,
+    AuthGuard,
+    interceptorProviders
+  ],
   // providers: [DatePipe, AsyncPipe, DialogService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

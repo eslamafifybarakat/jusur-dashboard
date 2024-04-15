@@ -1,9 +1,9 @@
 import { AuthService } from './../../../services/authentication/auth.service';
+import { Router, RouterModule } from '@angular/router';
 // Modules
 import { TranslateModule } from '@ngx-translate/core';
 import { SidebarModule } from 'primeng/sidebar';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
 
 // Components
@@ -32,12 +32,15 @@ import { UserInfoComponent } from '../user-info/user-info.component';
 export class DashboardNavbarComponent {
   showSidebar: boolean = false;
   currentUserInfo: any;
+  showLogo: boolean = false;
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
   ngOnInit(): void {
     this.getCurrentUserInfo();
+    this.showLogo = !this.router.url.includes('dashboard');
   }
   getCurrentUserInfo(): void {
     this.currentUserInfo = this.authService.getCurrentUserInformationLocally();

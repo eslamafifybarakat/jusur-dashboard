@@ -1,3 +1,4 @@
+import { ClientComponent } from './components/client/client.component';
 import { Routes } from '@angular/router';
 
 // Components
@@ -39,6 +40,22 @@ export const appRoutes: Routes = [
         (c) => c.DashboardComponent
       ),
     children: dashBoardChildrenRoutes
+  },
+  {
+    path: ':lang/Client',
+    canActivate: [AuthGuard], // Apply the guard here
+    loadComponent: () =>
+      import('./components/client/client.component').then(
+        (c) => c.ClientComponent
+      )
+  },
+  {
+    path: 'Client',
+    canActivate: [AuthGuard], // Apply the guard here
+    loadComponent: () =>
+      import('./components/client/client.component').then(
+        (c) => c.ClientComponent
+      )
   },
   {
     path: ':lang/Dashboard',
