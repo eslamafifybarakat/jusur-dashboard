@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 
 // Components
 import { UploadMultiFilesComponent } from '../../../../shared/components/upload-files/upload-multi-files/upload-multi-files.component';
+import { DynamicSvgComponent } from 'src/app/shared/components/icons/dynamic-svg/dynamic-svg.component';
 import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
 import { RecordsComponent } from '../../records/records.component';
 
@@ -33,6 +34,7 @@ import { Subscription, catchError, tap } from 'rxjs';
 
     // Components
     UploadMultiFilesComponent,
+    DynamicSvgComponent,
     SkeletonComponent,
     RecordsComponent,
 
@@ -362,14 +364,14 @@ export class EditClientComponent {
     this.publicService?.showGlobalLoader?.next(false);
     if (response?.success) {
       // this.router.navigate(['/Dashboard/Clients']);
-      this.isFullNameReadOnly = false;
-      this.isNationalIdentityReadOnly = false;
-      this.isPhoneNumberReadOnly = false;
-      this.isEmailReadOnly = false;
-      this.isBirthDateReadOnly = false;
-      response?.message ? this.alertsService?.openToast('success', 'success', response?.message) : '';
+      this.isFullNameReadOnly = true;
+      this.isNationalIdentityReadOnly = true;
+      this.isPhoneNumberReadOnly = true;
+      this.isEmailReadOnly = true;
+      this.isBirthDateReadOnly = true;
+      this.handleSuccess(response?.message);
     } else {
-      response?.message ? this.alertsService?.openToast('error', 'error', response?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
+      this.handleError(response?.message);
     }
   }
   // End Edit Client
@@ -386,7 +388,6 @@ export class EditClientComponent {
     this.alertsService.openToast(type, type, message);
     this.publicService.showGlobalLoader.next(false);
   }
-
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription: Subscription) => {

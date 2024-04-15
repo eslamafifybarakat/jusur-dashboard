@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { DynamicTableLocalActionsComponent } from './../../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
 import { DynamicTableComponent } from './../../../../shared/components/dynamic-table/dynamic-table.component';
 import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
+import { DynamicSvgComponent } from 'src/app/shared/components/icons/dynamic-svg/dynamic-svg.component';
 import { AddClientComponent } from '../add-client/add-client.component';
 import { FilterClientsComponent } from '../filter-clients/filter-clients.component';
 import { ClientCardComponent } from './../client-card/client-card.component';
@@ -36,7 +37,8 @@ import { Router } from '@angular/router';
     DynamicTableLocalActionsComponent,
     DynamicTableComponent,
     ClientCardComponent,
-    SkeletonComponent,
+    DynamicSvgComponent,
+    SkeletonComponent
   ],
   selector: 'app-clients-list',
   templateUrl: './clients-list.component.html',
@@ -184,7 +186,7 @@ export class ClientsListComponent {
   editItem(item: any): void {
     this.router.navigate(['Dashboard/Clients/Details/' + item.id]);
   }
-  //Delete Client
+  //Start Delete Client Functions
   deleteItem(item: any): void {
     if (!item?.confirmed) {
       return;
@@ -193,17 +195,14 @@ export class ClientsListComponent {
       name: item?.item?.title
     };
     this.publicService.showGlobalLoader.next(true);
-    this.clientsService?.deleteClientById(item?.item?.id, data)?.subscribe(
-      (res: any) => {
-        this.processDeleteResponse(res);
-      },
-      (err) => {
-        this.handleErrorDelete(err);
-      }
-    ).add(() => {
-      this.publicService.showGlobalLoader.next(false);
-      this.cdr.detectChanges();
-    });
+    this.clientsService?.deleteClientById(item?.item?.id, data)?.pipe(
+      tap((res: ClientsListApiResponse) => this.processDeleteResponse(res)),
+      catchError(err => this.handleError(err)),
+      finalize(() => {
+        this.publicService.showGlobalLoader.next(false);
+        this.cdr.detectChanges();
+      })
+    ).subscribe();
   }
   private processDeleteResponse(res: any): void {
     const messageType = res?.code === 200 ? 'success' : 'error';
@@ -214,12 +213,9 @@ export class ClientsListComponent {
       this.getAllClients();
     }
   }
-  private handleErrorDelete(err: any): void {
-    const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
-    this.alertsService.openToast('error', 'error', errorMessage);
-  }
+  //End Delete Client Functions
 
-  // Start Search
+  // Start Search Functions
   handleSearch(event: any): void {
     this.searchSubject.next(event);
   }
@@ -239,9 +235,9 @@ export class ClientsListComponent {
     this.searchKeyword = null;
     this.getAllClients(true);
   }
-  // End Search
+  // End Search Functions
 
-  // Filter Clients
+  // Filter Clients Function
   filterItem(): void {
     const ref = this.dialogService?.open(FilterClientsComponent, {
       header: this.publicService?.translateTextFromJson('general.filter'),
@@ -260,33 +256,7 @@ export class ClientsListComponent {
       }
     });
   }
-  // Clear table
-  clearTable(): void {
-    this.searchKeyword = '';
-    this.sortObj = {};
-    this.filtersArray = [];
-    this.page = 1;
-    this.publicService.resetTable.next(true);
-    // this.publicService?.changePageSub?.next({ page: this.page });
-    this.getAllClients();
-  }
-  // Sort table
-  sortItems(event: any): void {
-    if (event?.order == 1) {
-      this.sortObj = {
-        column: event?.field,
-        order: 'asc'
-      }
-      this.getAllClients();
-    } else if (event?.order == -1) {
-      this.sortObj = {
-        column: event?.field,
-        order: 'desc'
-      }
-      this.getAllClients();
-    }
-  }
-  // filter table
+  // filter table Functions
   filterItems(event: any): void {
     this.filtersArray = [];
     Object.keys(event)?.forEach((key: any) => {
@@ -349,8 +319,34 @@ export class ClientsListComponent {
     // this.publicService?.changePageSub?.next({ page: this.page });
     this.getAllClients();
   }
+  // Clear table Function
+  clearTable(): void {
+    this.searchKeyword = '';
+    this.sortObj = {};
+    this.filtersArray = [];
+    this.page = 1;
+    this.publicService.resetTable.next(true);
+    // this.publicService?.changePageSub?.next({ page: this.page });
+    this.getAllClients();
+  }
+  // Sort table Functions
+  sortItems(event: any): void {
+    if (event?.order == 1) {
+      this.sortObj = {
+        column: event?.field,
+        order: 'asc'
+      }
+      this.getAllClients();
+    } else if (event?.order == -1) {
+      this.sortObj = {
+        column: event?.field,
+        order: 'desc'
+      }
+      this.getAllClients();
+    }
+  }
 
-  // Start Pagination
+  // Start Pagination Functions
   onPageChange(e: any): void {
     this.page = e?.page + 1;
     this.getAllClients();
@@ -361,7 +357,7 @@ export class ClientsListComponent {
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
   }
-  // End Pagination
+  // End Pagination Functions
 
   /* --- Handle api requests error messages --- */
   private handleError(err: any): any {

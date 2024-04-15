@@ -7,11 +7,7 @@
         </h4>
         <div class="d-flex gap-3 flex-lg-nowrap flex-wrap">
           <button type="submit" class="btn btn-solid-main d-flex align-items-center gap-2 me-auto">
-            <svg width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M0.5625 19.3125H22.4375V20.875H0.5625V19.3125ZM18.8438 6.03125C19.4688 5.40625 19.4688 4.46875 18.8438 3.84375L16.0312 1.03125C15.4062 0.40625 14.4688 0.40625 13.8438 1.03125L2.125 12.75V17.75H7.125L18.8438 6.03125ZM14.9375 2.125L17.75 4.9375L15.4062 7.28125L12.5938 4.46875L14.9375 2.125ZM3.6875 16.1875V13.375L11.5 5.5625L14.3125 8.375L6.5 16.1875H3.6875Z"
-                fill="white" />
-            </svg>
+            <app-dynamic-svg [name]="'edit'"></app-dynamic-svg>
             <span>
               {{'general.edit'|translate}}
             </span>
@@ -46,11 +42,7 @@
                   <span class="input-group-text bg-white-color p-1" id="basic-addon1">
                     <a *ngIf="isFullNameReadOnly" class="edit-input d-flex justify-content-center align-items-center"
                       (click)="editInput('fullName')">
-                      <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
-                          fill="#359A9C" />
-                      </svg>
+                      <app-dynamic-svg [name]="'edit'" [fillColor]="'#359A9C'"></app-dynamic-svg>
                     </a>
                   </span>
                 </div>
@@ -95,11 +87,7 @@
                   <span class="input-group-text bg-white-color p-1 border-0" id="basic-addon1">
                     <a *ngIf="isPhoneNumberReadOnly" class="edit-input d-flex justify-content-center align-items-center"
                       (click)="editInput('phoneNumber')">
-                      <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
-                          fill="#359A9C" />
-                      </svg>
+                      <app-dynamic-svg [name]="'edit'" [fillColor]="'#359A9C'"></app-dynamic-svg>
                     </a>
                   </span>
                 </div>
@@ -188,11 +176,7 @@
                     <a *ngIf="isNationalIdentityReadOnly"
                       class="edit-input d-flex justify-content-center align-items-center"
                       (click)="editInput('nationalIdentity')">
-                      <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
-                          fill="#359A9C" />
-                      </svg>
+                      <app-dynamic-svg [name]="'edit'" [fillColor]="'#359A9C'"></app-dynamic-svg>
                     </a>
                   </span>
                 </div>
@@ -242,11 +226,7 @@
                   <span class="input-group-text bg-white-color p-1" id="basic-addon1">
                     <a *ngIf="isEmailReadOnly" class="edit-input d-flex justify-content-center align-items-center"
                       (click)="editInput('email')">
-                      <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
-                          fill="#359A9C" />
-                      </svg>
+                      <app-dynamic-svg [name]="'edit'" [fillColor]="'#359A9C'"></app-dynamic-svg>
                     </a>
                   </span>
                 </div>
