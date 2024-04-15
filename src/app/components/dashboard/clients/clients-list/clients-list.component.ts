@@ -24,6 +24,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Subject, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
   standalone: true,
@@ -32,6 +33,7 @@ import { Router } from '@angular/router';
     TranslateModule,
     SidebarModule,
     CommonModule,
+    PaginatorModule,
 
     // Components
     DynamicTableLocalActionsComponent,
@@ -125,6 +127,7 @@ export class ClientsListComponent {
 
   // Toggle data style table or card
   changeDateStyle(type: string): void {
+    type == 'grid' ? this.perPage = 8 : this.perPage = 5;
     this.clearTable();
     this.dataStyleType = type;
   }
@@ -356,6 +359,7 @@ export class ClientsListComponent {
     this.pagesCount = Math?.ceil(this.clientsCount / this.perPage);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
+    this.dataStyleType == 'grid' ? this.getAllClients() : '';
   }
   // End Pagination Functions
 

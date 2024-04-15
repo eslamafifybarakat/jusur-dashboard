@@ -125,9 +125,9 @@
           [showDelete]="false" (deleteHandler)="deleteItem($event)" [showDetails]="true"
           (detailsHandler)="itemDetails($event)" (editHandler)="editItem($event)"
           (customSortHandler)="enableSortFilter?sortItems($event):''"
-          (filterHandler)="enableSortFilter?filterItemsTable($event):''" [results]="clientsCount" [paginatorRows]="perPage"
-          [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
-          [enableConfirmDeleteDialog]="true" [keyDelete]="'fullName'"
+          (filterHandler)="enableSortFilter?filterItemsTable($event):''" [results]="clientsCount"
+          [paginatorRows]="perPage" [pages]="pagesCount" (paginateHandler)="onPageChange($event)"
+          [rowsPerPageOptions]="rowsOptions" [enableConfirmDeleteDialog]="true" [keyDelete]="'fullName'"
           (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
           [enableFilterDriverStatus]="true" [addBtnText]="'dashboard.customers.addCustomer'"
           (addHandler)="addItem()"></dynamic-table>
@@ -150,7 +150,16 @@
               </ng-container>
             </ng-container>
           </ng-template>
-
+          <ng-container *ngIf="clientsList?.length>0">
+            <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingClientsList">
+              <p-paginator #paginator [rows]="perPage" [totalRecords]="clientsCount" [showPageLinks]="true"
+                [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>
+              <div class="d-flex align-items-center gap-3">
+                <p-dropdown [styleClass]="'paginator-options-dropdown'" [dropdownIcon]="'fas fa-caret-down'" #dropdown
+                  [options]="rowsOptions" (onChange)="onPaginatorOptionsChange($event)"></p-dropdown>
+              </div>
+            </div>
+          </ng-container>
         </div>
         <ng-template #noClients>
           <div class="d-flex flex-column justify-content-center align-items-center">
