@@ -20,7 +20,7 @@
         <!-- Filter Button -->
         <button [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList?.length>0"
           [class.d-none]="dataStyleType=='list'" class="btn btn-solid-main d-flex align-items-center gap-2"
-          (click)="filterItem()">
+          (click)="filterItemModal()">
           <i class="pi pi-filter"></i>
         </button>
         <!-- Data style list 0or grid (table or card) -->
@@ -78,7 +78,7 @@
           </button>
           <!-- Filter Button -->
           <button [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList?.length>0"
-            class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItem()">
+            class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItemModal()">
             <i class="pi pi-filter"></i>
           </button>
         </div>
@@ -125,7 +125,7 @@
           [showDelete]="false" (deleteHandler)="deleteItem($event)" [showDetails]="true"
           (detailsHandler)="itemDetails($event)" (editHandler)="editItem($event)"
           (customSortHandler)="enableSortFilter?sortItems($event):''"
-          (filterHandler)="enableSortFilter?filterItems($event):''" [results]="clientsCount" [paginatorRows]="perPage"
+          (filterHandler)="enableSortFilter?filterItemsTable($event):''" [results]="clientsCount" [paginatorRows]="perPage"
           [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
           [enableConfirmDeleteDialog]="true" [keyDelete]="'fullName'"
           (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
