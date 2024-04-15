@@ -44,11 +44,11 @@ export class EmployeesService {
     }
     return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.employees.addEmployee}`, data);
   }
-  deleteEmployeeById(id: number, data: any): Observable<any> {
+  deleteEmployeeById(id: number): Observable<any> {
     let params = new HttpParams();
-    if (data?.name) {
-      params = params.append("name", data?.name);
+    if (id) {
+      params = params.append("id", id);
     }
-    return this.http.delete<any>(`${this.baseUrl}${roots?.dashboard.employees}/delete/` + id, { params: params });
+    return this.http.delete<any>(`${this.baseUrl}${roots?.dashboard.employees.deleteEmployee}`, { params: params });
   }
 }

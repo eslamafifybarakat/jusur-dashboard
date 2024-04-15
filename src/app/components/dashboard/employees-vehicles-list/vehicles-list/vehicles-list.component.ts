@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 // Components
 import { DynamicTableLocalActionsComponent } from './../../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
 import { DynamicTableComponent } from './../../../../shared/components/dynamic-table/dynamic-table.component';
+import { DynamicSvgComponent } from 'src/app/shared/components/icons/dynamic-svg/dynamic-svg.component';
 import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
+import { AddEditVehicleComponent } from './add-edit-vehicle/add-edit-vehicle.component';
 import { FilterVehiclesComponent } from './filter-vehicles/filter-vehicles.component';
 import { VehicleCardComponent } from './vehicle-card/vehicle-card.component';
-import { AddEditVehicleComponent } from './add-edit-vehicle/add-edit-vehicle.component';
 
 //Services
 import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
@@ -32,6 +33,7 @@ import { Router } from '@angular/router';
     DynamicTableLocalActionsComponent,
     DynamicTableComponent,
     VehicleCardComponent,
+    DynamicSvgComponent,
     SkeletonComponent,
   ],
   selector: 'vehicles-list',

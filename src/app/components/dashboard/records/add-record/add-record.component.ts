@@ -148,7 +148,7 @@ export class AddRecordComponent {
   private extractFormData(): any {
     return {
       name: this.modalForm?.value?.recordName,
-      number: this.modalForm?.value?.recordNumber,
+      number: this.modalForm?.value?.recordNumber.toString(),
       expireDate: this.modalForm?.value?.endDate,
       client_id: this.config?.data?.item?.id,
       licenseFile: "assets/images/license.jpg"

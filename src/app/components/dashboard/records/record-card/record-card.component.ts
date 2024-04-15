@@ -18,6 +18,7 @@ export class RecordCardComponent {
   @Input() item: RecordsListingItem;
   currentLanguage: string;
   @Output() editItemHandler: EventEmitter<any> = new EventEmitter();
+  @Output() itemDetailsHandler: EventEmitter<any> = new EventEmitter();
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -29,5 +30,8 @@ export class RecordCardComponent {
   }
   editItem(item: any): void {
     this.editItemHandler.emit(item);
+  }
+  itemDetails(item: any): void {
+    this.itemDetailsHandler.emit(item);
   }
 }

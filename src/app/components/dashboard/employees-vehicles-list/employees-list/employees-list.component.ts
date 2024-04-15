@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 // Components
 import { DynamicTableLocalActionsComponent } from './../../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
 import { DynamicTableComponent } from './../../../../shared/components/dynamic-table/dynamic-table.component';
+import { DynamicSvgComponent } from 'src/app/shared/components/icons/dynamic-svg/dynamic-svg.component';
 import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
 import { FilterEmployeesComponent } from './filter-employees/filter-employees.component';
 import { AddEditEmployeeComponent } from './add-edit-employee/add-edit-employee.component';
@@ -34,6 +35,7 @@ import { Router } from '@angular/router';
     DynamicTableLocalActionsComponent,
     DynamicTableComponent,
     EmployeeCardComponent,
+    DynamicSvgComponent,
     SkeletonComponent,
   ],
   selector: 'employees-list',
@@ -297,24 +299,15 @@ export class EmployeesListComponent {
     if (!item?.confirmed) {
       return;
     }
-
-    const data = {
-      name: item?.item?.title
-    };
-
-    // this.publicService.showGlobalLoader.next(true);
-
-    // this.clientsService?.deleteClientById(item?.item?.id, data)?.subscribe(
-    //   (res: any) => {
-    //     this.processDeleteResponse(res);
-    //   },
-    //   (err) => {
-    //     this.handleErrorDelete(err);
-    //   }
-    // ).add(() => {
-    //   this.publicService.showGlobalLoader.next(false);
-    //   this.cdr.detectChanges();
-    // });
+    this.publicService.showGlobalLoader.next(true);
+    this.employeesService?.deleteEmployeeById(item?.item?.id)?.pipe(
+      tap((res: EmployeesListApiResponse) => this.processDeleteResponse(res)),
+      catchError(err => this.handleError(err)),
+      finalize(() => {
+        this.publicService.showGlobalLoader.next(false);
+        this.cdr.detectChanges();
+      })
+    ).subscribe();
   }
   private processDeleteResponse(res: any): void {
     const messageType = res?.code === 200 ? 'success' : 'error';
@@ -324,10 +317,6 @@ export class EmployeesListComponent {
     if (messageType === 'success') {
       this.getAllEmployees();
     }
-  }
-  private handleErrorDelete(err: any): void {
-    const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
-    this.alertsService.openToast('error', 'error', errorMessage);
   }
   //End Delete Employee Functions
 

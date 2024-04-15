@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 // Components
 import { DynamicTableLocalActionsComponent } from './../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
 import { DynamicTableComponent } from './../../../shared/components/dynamic-table/dynamic-table.component';
+import { DynamicSvgComponent } from 'src/app/shared/components/icons/dynamic-svg/dynamic-svg.component';
 import { SkeletonComponent } from './../../../shared/skeleton/skeleton/skeleton.component';
 import { FilterRecordComponent } from './filter-record/filter-record.component';
 import { RecordCardComponent } from './record-card/record-card.component';
@@ -34,6 +35,7 @@ import { Router } from '@angular/router';
     // Components
     DynamicTableLocalActionsComponent,
     DynamicTableComponent,
+    DynamicSvgComponent,
     RecordCardComponent,
     SkeletonComponent,
   ],
@@ -177,6 +179,7 @@ export class RecordsComponent {
 
   // Record Details
   itemDetails(item?: any): void {
+    this.router.navigate(['Dashboard/Clients/Record-Details', item?.id]);
   }
   // Add Record
   addItem(item?: any, type?: any): void {
