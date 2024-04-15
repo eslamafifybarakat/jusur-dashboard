@@ -150,13 +150,12 @@ export class AddRecordComponent {
       name: this.modalForm?.value?.recordName,
       number: this.modalForm?.value?.recordNumber.toString(),
       expireDate: this.modalForm?.value?.endDate,
-      client_id: this.config?.data?.item?.id,
       licenseFile: "assets/images/license.jpg"
     };
   }
   private addRecord(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);
-    let subscribeAddRecord: Subscription = this.recordsService?.addRecord(formData).pipe(
+    let subscribeAddRecord: Subscription = this.recordsService?.addRecord(formData, this.config?.data?.item?.id).pipe(
       tap(res => this.handleAddRecordSuccess(res)),
       catchError(err => this.handleError(err))
     ).subscribe();
@@ -164,7 +163,7 @@ export class AddRecordComponent {
   }
   private handleAddRecordSuccess(response: any): void {
     this.publicService?.showGlobalLoader?.next(false);
-    if (response?.success || true) {
+    if (response?.success) {
       this.ref.close({ listChanged: true, item: response?.data });
       this.handleSuccess(response?.message);
     } else {

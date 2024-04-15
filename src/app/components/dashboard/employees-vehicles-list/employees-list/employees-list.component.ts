@@ -276,7 +276,7 @@ export class EmployeesListComponent {
     const ref = this.dialogService?.open(AddEditEmployeeComponent, {
       data: {
         item: {
-          recordId: this.recordId,
+          clientHistory_id: this.recordId,
           details: item
         },
         type: type == 'edit' ? 'edit' : 'add'

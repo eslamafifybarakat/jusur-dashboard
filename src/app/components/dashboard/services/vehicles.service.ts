@@ -32,12 +32,17 @@ export class VehiclesService {
       params = params?.append("conditions", JSON?.stringify(conditions));
     }
     if (clientHistory_id) {
-      params = params?.append("clientHistory_id", 3);
+      params = params?.append("clientHistory_id", clientHistory_id);
     }
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.vehicles.getVehicles}`, { params: params })
   }
-  addEditVehicle(data: any): Observable<any> {
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.vehicles.addEditVehicle}`, data)
+  addEditVehicle(data: any, id?: number | string): Observable<any> {
+    let params = new HttpParams();
+    if (id) {
+      params = params?.append("id", id);
+      return this.http?.put(`${this.baseUrl}/${roots?.dashboard?.vehicles.editVehicle}`, data, { params: params });
+    }
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.vehicles.addVehicle}`, data);
   }
   deleteVehicleById(id: number, data: any): Observable<any> {
     let params = new HttpParams();

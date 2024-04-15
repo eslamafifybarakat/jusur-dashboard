@@ -128,6 +128,27 @@ export class ClientsListComponent {
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
 
+  //Check if Filteration
+  ifFilteration(): boolean {
+    if (this.hasValue(this.searchKeyword) || this.isArrayNotEmpty(this.filtersArray) || this.isObjectNotEmpty(this.sortObj)) {
+      return true;
+    } else {
+      return false
+    }
+  }
+  // Function to check if a variable is not null or undefined
+  hasValue<T>(variable: T | null | undefined): boolean {
+    return variable !== null && variable !== undefined;
+  }
+  // Function to check if an array is not empty
+  isArrayNotEmpty<T>(array: T[]): boolean {
+    return this.hasValue(array) && array.length > 0;
+  }
+  // Function to check if an object has at least one key
+  isObjectNotEmpty<T>(obj: T): boolean {
+    return this.hasValue(obj) && Object.keys(obj).length > 0;
+  }
+
   // Toggle data style table or card
   changeDateStyle(type: string): void {
     type == 'grid' ? this.perPage = 8 : this.perPage = 5;

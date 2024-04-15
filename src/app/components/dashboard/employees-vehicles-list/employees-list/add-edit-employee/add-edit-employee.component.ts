@@ -115,10 +115,10 @@ export class AddEditEmployeeComponent {
     if (!this.formControls?.residencyNumber?.valid) {
       return; // Exit early if Residency Number is not valid
     }
-    const residencyNumber: number | string = this.modalForm?.value?.residencyNumber;
-    const data: any = { residencyNumber };
+    const identity: number | string = this.modalForm?.value?.residencyNumber;
+    const data: any = { identity };
     this.isLoadingCheckResidencyNumber = true;
-    let checkResidencyNumberSubscription: Subscription = this.publicService?.IsRecordNumberAvailable(data).pipe(
+    let checkResidencyNumberSubscription: Subscription = this.publicService?.IsNationalIdentityAvailable(data).pipe(
       tap(res => this.handleResidencyNumberResponse(res)),
       catchError(err => this.handleResidencyNumberError(err))
     ).subscribe();
@@ -160,18 +160,18 @@ export class AddEditEmployeeComponent {
       formData.append('id', this.employeeId);
     }
     formData.append('name', this.modalForm?.value?.fullName);
-    formData.append('identity', this.modalForm?.value?.residencyNumber);
+    formData.append('identity', this.modalForm?.value?.residencyNumber?.toString());
     formData.append('expiryDate', this.modalForm?.value?.endDate);
     formData.append('healthCertificate', this.modalForm?.value?.healthCertificate);
     formData.append('iqamaImage', 'https://example.com/iqama.jpg');
-
+    formData.append('clientHistory_id', this.config?.data?.item?.clientHistory_id);
     let dataObj: any = {
       "name": this.modalForm?.value?.fullName,
       "iqamaImage": "https://example.com/iqama.jpg",
-      "healthCertificate": "https://example.com/certificate.pdf",
+      "healthCertificate": this.modalForm?.value?.healthCertificate,
       "expiryDate": this.modalForm?.value?.endDate,
       "identity": this.modalForm?.value?.residencyNumber?.toString(),
-      "clientHistory_id": this.config?.data?.item?.recordId
+      "clientHistory_id": this.config?.data?.item?.clientHistory_id
     };
     return dataObj;
   }
@@ -185,7 +185,7 @@ export class AddEditEmployeeComponent {
   }
   private handleAddEditEmployeeSuccess(response: any): void {
     this.publicService?.showGlobalLoader?.next(false);
-    if (response?.success || true) {
+    if (response?.success) {
       this.ref.close({ listChanged: true, item: response?.data });
       this.handleSuccess(response?.message);
     } else {

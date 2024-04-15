@@ -18,13 +18,13 @@
           </span>
         </button>
         <!-- Filter Button -->
-        <button [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList?.length>0"
+        <button [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList?.length>0 && !ifFilteration"
           [class.d-none]="dataStyleType=='list'" class="btn btn-solid-main d-flex align-items-center gap-2"
           (click)="filterItemModal()">
           <i class="pi pi-filter"></i>
         </button>
         <!-- Data style list 0or grid (table or card) -->
-        <div [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList.length>0"
+        <div [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList.length>0&& !ifFilteration"
           class="data-style d-md-flex d-none align-items-center gap-2 p-2">
           <a class="scaleX-rtl" [class.active]="dataStyleType=='list'" (click)="changeDateStyle('list')">
             <app-dynamic-svg [name]="'list'"></app-dynamic-svg>
@@ -77,7 +77,7 @@
             </span>
           </button>
           <!-- Filter Button -->
-          <button [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList?.length>0"
+          <button [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList?.length>0&& !ifFilteration"
             class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItemModal()">
             <i class="pi pi-filter"></i>
           </button>
@@ -150,7 +150,7 @@
               </ng-container>
             </ng-container>
           </ng-template>
-          <ng-container *ngIf="clientsList?.length>0">
+          <ng-container *ngIf="clientsList?.length>0 && !ifFilteration">
             <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingClientsList">
               <p-paginator #paginator [rows]="perPage" [totalRecords]="clientsCount" [showPageLinks]="true"
                 [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>
@@ -193,7 +193,7 @@
             </ng-container>
           </ng-container>
         </ng-template>
-        <ng-container *ngIf="clientsList?.length>0">
+        <ng-container *ngIf="clientsList?.length>0 && !ifFilteration">
           <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingClientsList">
             <p-paginator #paginator [rows]="perPage" [totalRecords]="clientsCount" [showPageLinks]="true"
               [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>

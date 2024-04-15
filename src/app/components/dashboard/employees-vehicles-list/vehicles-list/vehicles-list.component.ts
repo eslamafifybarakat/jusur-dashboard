@@ -97,7 +97,7 @@ export class VehiclesListComponent {
   ngOnInit(): void {
     this.initializeTableHeaders();
     this.setupSubscriptions();
-    this.getAllVehicles(false, this.recordId);
+    this.getAllVehicles(false);
   }
   private initializeTableHeaders(): void {
     this.tableHeaders = [
@@ -150,9 +150,9 @@ export class VehiclesListComponent {
   }
 
   // Start Vehicles List Functions
-  getAllVehicles(isFiltering?: boolean, recordId?: number | string): void {
+  getAllVehicles(isFiltering?: boolean): void {
     isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingVehiclesList = true;
-    this.vehiclesService?.getVehiclesList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null, recordId)
+    this.vehiclesService?.getVehiclesList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null, this.recordId)
       .pipe(
         tap((res: VehiclesListApiResponse) => this.processVehiclesListResponse(res)),
         catchError(err => this.handleError(err)),
@@ -212,7 +212,10 @@ export class VehiclesListComponent {
   addEditItem(item?: any, type?: any): void {
     const ref = this.dialogService?.open(AddEditVehicleComponent, {
       data: {
-        item,
+        item: {
+          clientHistory_id: this.recordId,
+          details: item
+        },
         type: type == 'edit' ? 'edit' : 'add'
       },
       header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.vehicles.editVehicle') : this.publicService?.translateTextFromJson('dashboard.vehicles.addVehicle'),
@@ -224,7 +227,6 @@ export class VehiclesListComponent {
       if (res?.listChanged) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
-        this.getAllVehicles();
       }
     });
   }
@@ -242,8 +244,7 @@ export class VehiclesListComponent {
         this.page = 1;
         this.filtersArray = res.conditions;
         this.filterCards = res.conditions;
-        // this.publicService?.changePageSub?.next({ page: this.page });
-        this.getAllVehicles(true);
+        this.publicService?.changePageSub?.next({ page: this.page });
       }
     });
   }
@@ -293,8 +294,8 @@ export class VehiclesListComponent {
     this.filtersArray = [];
     this.page = 1;
     this.publicService.resetTable.next(true);
-    // this.publicService?.changePageSub?.next({ page: this.page });
-    this.getAllVehicles();
+    this.publicService?.changePageSub?.next({ page: this.page });
+    // this.getAllVehicles();
   }
   // Sort Table
   sortItems(event: any): void {
@@ -372,8 +373,8 @@ export class VehiclesListComponent {
       });
     });
     this.page = 1;
-    // this.publicService?.changePageSub?.next({ page: this.page });
-    this.getAllVehicles();
+    this.publicService?.changePageSub?.next({ page: this.page });
+    // this.getAllVehicles();
   }
 
   // Start Pagination

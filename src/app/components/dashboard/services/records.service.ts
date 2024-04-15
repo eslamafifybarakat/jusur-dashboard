@@ -48,15 +48,19 @@ export class RecordsService {
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.records.getRecords}`, { params: params });
     // return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.records.getSingleHistory}/${id}`);
   }
-  addRecord(data: any): Observable<any> {
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.records.addRecords}`, data);
+  addRecord(data: any, clientId?: string | number): Observable<any> {
+    let params = new HttpParams();
+    if (clientId) {
+      params = params?.append("client_id", clientId);
+    }
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.records.addRecords}`, data, { params: params });
   }
-  editRecord(data: any,id:any): Observable<any> {
+  editRecord(data: any, id: any): Observable<any> {
     let params = new HttpParams();
     if (id) {
       params = params?.append("id", id);
     }
-    return this.http?.put(`${this.baseUrl}/${roots?.dashboard?.records.editRecords}`, data,{ params: params });
+    return this.http?.put(`${this.baseUrl}/${roots?.dashboard?.records.editRecords}`, data, { params: params });
   }
   deleteRecordById(id: number, data: any): Observable<any> {
     let params = new HttpParams();

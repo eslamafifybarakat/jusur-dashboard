@@ -25,8 +25,8 @@ export const roots = {
       IsEmailAvailable: "Client/IsEmailAvailable",
       IsPhoneAvailable: "Client/IsPhoneNumberAvailable",
       IsRecordNumberAvailable: "ClientHistory/IsNumberAvailable",
-      IsOperatingCardAvailable: "IsOperatingCardAvailable",
-      IsResidencyNumberAvailable: 'IsResidencyNumberAvailable'
+      IsOperatingCardAvailable: "Employee/IsIdentityAvailable",
+      IsResidencyNumberAvailable: 'Employee/IsIdentityAvailable'
     },
     clients: {
       getClients: 'Client/AllClients',
@@ -49,7 +49,8 @@ export const roots = {
     },
     vehicles: {
       getVehicles: 'Car/AllCars',
-      addEditVehicle: '/addEditVehicle'
+      addVehicle: 'Car/AddCar',
+      editVehicle: 'Car/UpdateCar'
     }
   }
 }

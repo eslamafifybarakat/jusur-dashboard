@@ -161,8 +161,8 @@ export class RecordDetailsComponent {
   }
 
   // Start Get Record By Client Id
-  getRecordById(recordId: number | string): void {
-    this.isLoadingRecordDetails = true;
+  getRecordById(recordId: number | string, preventLoading?: boolean): void {
+    preventLoading ? '' : this.isLoadingRecordDetails = true;
     let subscribeGetRecord: Subscription = this.recordsService?.getSingleHistory(recordId).pipe(
       tap(res => this.handleGetRecordSuccess(res)),
       catchError(err => this.handleError(err))
@@ -170,7 +170,7 @@ export class RecordDetailsComponent {
     this.subscriptions.push(subscribeGetRecord);
   }
   private handleGetRecordSuccess(response: any): void {
-    if (response?.success) {
+    if (response?.success == true) {
       this.recordDetails = response.result;
       this.patchValue();
       this.isLoadingRecordDetails = false;
@@ -193,7 +193,7 @@ export class RecordDetailsComponent {
   // End Upload Files
 
   patchValue(): void {
-    let convertedRecordDate: any = new Date(this.recordDetails?.expireDate);
+    let convertedRecordDate: any = this.recordDetails?.expireDate ? new Date(this.recordDetails?.expireDate) : null;
     let convertedLicenseDate: any = this.recordDetails?.licenseDate ? new Date(this.recordDetails?.licenseDate) : null;
     let convertedCertificateDate: any = this.recordDetails?.certificateDate ? new Date(this.recordDetails?.certificateDate) : null;
     let convertedMedicalInsuranceDate: any = this.recordDetails?.medicalInsuranceDate ? new Date(this.recordDetails?.medicalInsuranceDate) : null;
@@ -311,7 +311,7 @@ export class RecordDetailsComponent {
       number: this.modalForm.value?.registrationNumber,
       expireDate: this.modalForm.value?.recordDate,
       licenseNumber: this.modalForm.value?.licenseNumber,
-      licenseDate: this.modalForm.value?.recordDate,
+      licenseDate: this.modalForm.value?.licenseDate,
       certificateNumber: this.modalForm.value?.certificateNumber,
       certificateDate: this.modalForm.value?.certificateDate,
       medicalInsuranceNumber: this.modalForm.value?.medicalInsuranceNumber,

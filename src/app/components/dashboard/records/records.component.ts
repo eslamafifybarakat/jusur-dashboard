@@ -108,7 +108,7 @@ export class RecordsComponent {
 
   loadPageData(): void {
     this.updateMetaTagsForSEO();
-    this.getAllRecords(false, this.clientId);
+    this.getAllRecords(false);
     this.searchSubject.pipe(debounceTime(500)) // Throttle time in milliseconds (1 seconds)
       .subscribe(event => { this.searchHandler(event); });
   }
@@ -128,9 +128,9 @@ export class RecordsComponent {
   }
 
   // Start Records List Functions
-  getAllRecords(isFiltering?: boolean, clientId?: number | string): void {
+  getAllRecords(isFiltering?: boolean): void {
     isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingRecordsList = true;
-    this.recordsService?.getRecordsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null, clientId)
+    this.recordsService?.getRecordsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null, this.clientId)
       .pipe(
         tap((res: RecordsListApiResponse) => this.processRecordsListResponse(res)),
         catchError(err => this.handleError(err)),

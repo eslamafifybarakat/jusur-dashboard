@@ -98,8 +98,8 @@ export class AddEditVehicleComponent {
     if (!this.formControls?.operatingCard?.valid) {
       return; // Exit early if Operating Card is not valid
     }
-    const operatingCard: number | string = this.modalForm?.value?.operatingCard;
-    const data: any = { operatingCard };
+    const identity: number | string = this.modalForm?.value?.operatingCard;
+    const data: any = { identity };
     this.isLoadingCheckOperatingCard = true;
     let checkOperatingCardSubscription: Subscription = this.publicService?.IsOperatingCardAvailable(data).pipe(
       tap(res => this.handleOperatingCardResponse(res)),
@@ -129,15 +129,16 @@ export class AddEditVehicleComponent {
     this.formControls.formPhotoFile.setValue(this.formPhotoFile);
   }
   patchValue(data: any): void {
+    this.vehicleId = data.item.details.id;
     console.log(data);
-
-    this.vehicleId = data.item.id;
+    let convertedEndDate: any = new Date(data?.item?.details?.expiryDate);
+    let convertedInsuranceExpiryDate: any = new Date(data?.item?.details?.insuranceExpiryDate);
     this.modalForm.patchValue({
-      operatingCard: data?.item?.operatingCard,
-      endDate: data?.item?.endDate,
-      insuranceExpiryDate: data?.item?.insuranceExpiryDate
+      operatingCard: data?.item?.details?.workPermitCard,
+      endDate: convertedEndDate,
+      insuranceExpiryDate: convertedInsuranceExpiryDate
     });
-    this.formPhoto = data?.item?.formPhoto;
+    this.formPhoto = data?.item?.details?.formImage;
     this.formControls.formPhotoFile.setValue(this.formPhoto);
   }
   // Start Add Or Edit Vehicle
@@ -154,15 +155,24 @@ export class AddEditVehicleComponent {
     if (this.isEdit) {
       formData.append('id', this.vehicleId);
     }
-    formData.append('operatingCard', this.modalForm?.value?.operatingCard);
-    formData.append('endDate', this.modalForm?.value?.endDate);
+    formData.append('workPermitCard', this.modalForm?.value?.operatingCard);
+    formData.append('expiryDate', this.modalForm?.value?.endDate);
     formData.append('insuranceExpiryDate', this.modalForm?.value?.insuranceExpiryDate);
-    formData.append('formPhotoFile', this.formPhotoFile);
-    return formData;
+    formData.append('formImage', this.formPhotoFile);
+    formData.append('clientHistory_id', this.config?.data?.item?.clientHistory_id);
+
+    let dataObj: any = {
+      "workPermitCard": this.modalForm?.value?.operatingCard,
+      "expiryDate": this.modalForm?.value?.endDate,
+      "insuranceExpiryDate": this.modalForm?.value?.insuranceExpiryDate,
+      "formImage": "https://example.com/car-form-image.jpg",
+      "clientHistory_id": this.config?.data?.item?.clientHistory_id
+    };
+    return dataObj;
   }
   private addEditVehicle(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);
-    let subscribeAddVehicle: Subscription = this.vehiclesService?.addEditVehicle(formData).pipe(
+    let subscribeAddVehicle: Subscription = this.vehiclesService?.addEditVehicle(formData, this.config?.data?.item?.details?.id).pipe(
       tap(res => this.handleAddEditVehicleSuccess(res)),
       catchError(err => this.handleError(err))
     ).subscribe();
@@ -170,7 +180,7 @@ export class AddEditVehicleComponent {
   }
   private handleAddEditVehicleSuccess(response: any): void {
     this.publicService?.showGlobalLoader?.next(false);
-    if (response?.success || true) {
+    if (response?.success) {
       this.ref.close({ listChanged: true, item: response?.data });
       this.handleSuccess(response?.message);
     } else {
