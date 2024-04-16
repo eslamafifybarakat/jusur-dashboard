@@ -17,7 +17,7 @@ export class MetadataService {
   private readonly defaultTitle = 'Structure';
   private readonly defaultDescription = 'Structure Site Description';
   private readonly defaultImage =
-    'https://ik.imagekit.io/2cvha6t2l9/Logo.jpeg?updatedAt=1712577283111';
+    'https://ik.imagekit.io/2cvha6t2l9/Carousel%20card.svg?updatedAt=1713227892043';
 
   constructor(private titleService: Title, private metaService: Meta) { }
 

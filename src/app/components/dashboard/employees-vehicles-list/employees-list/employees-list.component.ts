@@ -183,7 +183,7 @@ export class EmployeesListComponent {
     let metaData: MetaDetails = {
       title: 'الموظفين',
       description: 'الوصف',
-      image: 'https://ik.imagekit.io/2cvha6t2l9/Logo.jpeg?updatedAt=1712577283111'
+      image: 'https://ik.imagekit.io/2cvha6t2l9/Carousel%20card.svg?updatedAt=1713227892043'
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
