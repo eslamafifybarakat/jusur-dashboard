@@ -1,3 +1,6 @@
+import { PublicService } from './../../../services/generic/public.service';
+import { MetadataService, MetaDetails } from './../../../services/generic/metadata.service';
+import { LocalizationLanguageService } from './../../../services/generic/localization-language.service';
 import { SkeletonComponent } from './../../../shared/skeleton/skeleton/skeleton.component';
 import { DynamicSvgComponent } from './../../../shared/components/icons/dynamic-svg/dynamic-svg.component';
 import { DynamicTableComponent } from './../../../shared/components/dynamic-table/dynamic-table.component';
@@ -34,11 +37,25 @@ export class WelcomeComponent {
   clientId: number = 21;
 
   constructor(
-    private authService: AuthService
-  ) { }
+    private localizationLanguageService: LocalizationLanguageService,
+    private metadataService: MetadataService,
+    private publicService: PublicService,
+    private authService: AuthService,
+  ) {
+    localizationLanguageService.updatePathAccordingLang();
+  }
 
   ngOnInit(): void {
     this.getUserData();
+    this.updateMetaTagsForSEO();
+  }
+  private updateMetaTagsForSEO(): void {
+    let metaData: MetaDetails = {
+      title: this.publicService.translateTextFromJson('metaText.client'),
+      description: this.publicService.translateTextFromJson('metaText.description'),
+      image: 'https://ik.imagekit.io/2cvha6t2l9/Logo.jpeg?updatedAt=1712577283111'
+    }
+    this.metadataService.updateMetaTagsForSEO(metaData);
   }
   getUserData(): void {
     this.userData = this.authService.getUserLoginDataLocally();

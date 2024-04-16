@@ -6,12 +6,20 @@
     "previous": "Previous"
   },
   "titles": {
-    "projectName": "P-linker",
+    "projectName": "Jusur",
     "error500": "Server error",
     "login": "Login",
     "signUp": "Sign Up",
     "allResults": "All Results",
     "advancedSearch": "Advanced Search"
+  },
+  "metaText":{
+"client":"Client",
+"clients":"Clients",
+"history":"History",
+"employees":"Employees",
+"vehicles":"Vehicles",
+"description":"Description"
   },
   "nav": {
     "home": "Home",

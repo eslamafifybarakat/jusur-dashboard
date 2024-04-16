@@ -6,13 +6,21 @@
     "previous": "السابق"
   },
   "titles": {
-    "projectName": "استقدام",
+    "projectName": "جسور",
     "error500": "خطأ في الخادم",
     "login": "تسجيل الدخول",
     "signUp": "إنشاء حساب",
     "allResults": "جميع النتائج",
     "advancedSearch": "بحث متقدم"
   },
+  "metaText":{
+    "client":"العميل",
+    "clients":"العملاء",
+    "history":"السجلات",
+    "employees":"الموظفين",
+    "vehicles":"المركبات",
+    "description":"الوصف"
+      },
   "nav": {
     "home": "الرئيسية",
     "services": {
