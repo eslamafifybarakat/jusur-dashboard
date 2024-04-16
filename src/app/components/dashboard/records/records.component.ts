@@ -47,6 +47,13 @@ export class RecordsComponent {
   private subscriptions: Subscription[] = [];
 
   @Input() clientId: number | string;
+  @Input() showRecordCount: boolean = true;
+  @Input() showSearch: boolean = true;
+  @Input() showFilter: boolean = true;
+  @Input() showToggleData: boolean = true;
+  @Input() showAddBtn: boolean = true;
+  @Input() showReset: boolean = true;
+  @Input() changeTitleStyle: boolean = false;
 
   dataStyleType: string = 'list';
 

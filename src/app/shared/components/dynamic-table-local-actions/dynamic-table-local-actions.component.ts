@@ -110,6 +110,8 @@ export class DynamicTableLocalActionsComponent {
   @Input() notFoundImage: string = 'assets/image/not-found/no-data.svg';
   @Input() notFoundText: string = this.publicService?.translateTextFromJson("general.no_records_found");
   @Input() addBtnText: string = '';
+  @Input() showAddBtn: boolean = true;
+
   // key of item with filterArray
   @Input() arrayChildKey: string = '';
 

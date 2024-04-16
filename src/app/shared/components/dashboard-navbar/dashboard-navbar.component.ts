@@ -40,7 +40,7 @@ export class DashboardNavbarComponent {
   ) { }
   ngOnInit(): void {
     this.getCurrentUserInfo();
-    this.showLogo = !this.router.url.includes('dashboard');
+    this.showLogo = !this.router.url.includes('Dashboard');
   }
   getCurrentUserInfo(): void {
     this.currentUserInfo = this.authService.getCurrentUserInformationLocally();

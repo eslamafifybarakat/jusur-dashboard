@@ -10,6 +10,7 @@ import { errorsChildrenRoutes } from './components/errors/errors-routes';
 
 //Services
 import { AuthGuard } from './services/authentication/guards/auth.guard';
+import { clientChildrenRoutes } from './components/client/client-children-routes';
 
 
 export const appRoutes: Routes = [
@@ -47,7 +48,8 @@ export const appRoutes: Routes = [
     loadComponent: () =>
       import('./components/client/client.component').then(
         (c) => c.ClientComponent
-      )
+      ),
+    children: clientChildrenRoutes
   },
   {
     path: 'Client',
@@ -55,7 +57,8 @@ export const appRoutes: Routes = [
     loadComponent: () =>
       import('./components/client/client.component').then(
         (c) => c.ClientComponent
-      )
+      ),
+    children: clientChildrenRoutes
   },
   {
     path: ':lang/Dashboard',

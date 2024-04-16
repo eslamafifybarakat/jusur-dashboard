@@ -1,25 +1,28 @@
 <div id="records">
   <div class="d-md-flex d-none justify-content-between align-items-center flex-wrap gap-3">
     <div class="d-flex align-items-center gap-2">
-      <h4 class="mb-0 text-capitalize">{{'dashboard.records.records'|translate}}</h4>
-      <span class="badge badge-main text-main-color d-flex justify-content-center align-items-center">
+      <h4 class="mb-0 text-capitalize" [ngClass]="changeTitleStyle?'text-main-color fs-5':''">
+        {{'dashboard.records.records'|translate}}</h4>
+      <span *ngIf="showRecordCount"
+        class="badge badge-main text-main-color d-flex justify-content-center align-items-center">
         {{recordsCount}}
       </span>
     </div>
     <div class="d-flex gap-3 flex-lg-nowrap flex-wrap">
       <!-- Add Customer -->
-      <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addItem()">
+      <button *ngIf="showAddBtn" class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap"
+        (click)="addItem()">
         <i class="pi pi-plus"></i>
         <span>{{'dashboard.records.addRecord'|translate}}</span>
       </button>
       <!-- Filter Button -->
-      <button [class.disabled-actions]="isLoadingRecordsList" *ngIf="recordsList?.length>0"
+      <button [class.disabled-actions]="isLoadingRecordsList" *ngIf="recordsList?.length>0&&showFilter"
         [class.d-none]="dataStyleType=='list'" class="btn btn-solid-main d-flex align-items-center gap-2"
         (click)="filterItem()">
         <i class="pi pi-filter"></i>
       </button>
       <!-- Data style list 0or grid (table or card) -->
-      <div *ngIf="recordsList.length>0" [class.disabled-actions]="isLoadingRecordsList"
+      <div *ngIf="recordsList.length>0&&showToggleData" [class.disabled-actions]="isLoadingRecordsList"
         class="data-style d-md-flex d-none align-items-center gap-2 p-2">
         <a class="scaleX-rtl" [class.active]="dataStyleType=='list'" (click)="changeDateStyle('list')">
           <app-dynamic-svg [name]="'list'"></app-dynamic-svg>
@@ -29,7 +32,8 @@
         </a>
       </div>
       <!-- Search Handler -->
-      <div *ngIf="recordsList.length>0" [class.disabled-actions]="isLoadingRecordsList" class="search" role="search">
+      <div *ngIf="recordsList.length>0&&showSearch" [class.disabled-actions]="isLoadingRecordsList" class="search"
+        role="search">
         <div class="input-group bg-white-color d-flex flex-nowrap">
           <span class="input-group-text border-0" id="basic-addon1">
             <i class="pi pi-search text-muted-color"></i>
@@ -45,7 +49,7 @@
         </div>
       </div>
       <!-- Clear -->
-      <button *ngIf="recordsList.length>0" [class.disabled-actions]="isLoadingRecordsList"
+      <button *ngIf="recordsList.length>0&&showReset" [class.disabled-actions]="isLoadingRecordsList"
         class="btn btn-outline-main d-flex align-items-center gap-2 text-nowrap" (click)="clearTable()">
         <i class="pi pi-refresh"></i>
         <span>{{'general.reset'|translate}}</span>
@@ -55,24 +59,27 @@
   <div class="d-md-none d-block">
     <div class="d-flex justify-content-between gap-3 flex-wrap title-header">
       <div class="d-flex align-items-center gap-2">
-        <h4 class="mb-0 text-capitalize">{{'dashboard.records.records'|translate}}</h4>
-        <span class="badge badge-main text-main-color d-flex justify-content-center align-items-center">
+        <h4 class="mb-0 text-capitalize" [ngClass]="changeTitleStyle?'text-main-color fs-5':''">
+          {{'dashboard.records.records'|translate}}</h4>
+        <span *ngIf="showRecordCount"
+          class="badge badge-main text-main-color d-flex justify-content-center align-items-center">
           {{recordsCount}}
         </span>
       </div>
       <div class="d-flex gap-2">
-        <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addItem()">
+        <button *ngIf="showAddBtn" class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap"
+          (click)="addItem()">
           <i class="pi pi-plus"></i>
           <span>{{'dashboard.records.addRecord'|translate}}</span>
         </button>
         <!-- Filter Button -->
-        <button [class.disabled-actions]="isLoadingRecordsList" *ngIf="recordsList?.length>0"
+        <button [class.disabled-actions]="isLoadingRecordsList" *ngIf="recordsList?.length>0&&showFilter"
           class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItem()">
           <i class="pi pi-filter"></i>
         </button>
       </div>
     </div>
-    <div class="row mt-3 mx-0" [class.disabled-actions]="isLoadingRecordsList" *ngIf="recordsList.length>0">
+    <div class="row mt-3 mx-0" [class.disabled-actions]="isLoadingRecordsList" *ngIf="recordsList.length>0&&showSearch">
       <!-- Search Handler -->
       <div class="col-sm-8 col-9">
         <div class="search" role="search">
@@ -115,7 +122,8 @@
         [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
         [enableConfirmDeleteDialog]="true" [keyDelete]="'recordName'"
         (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
-        [addBtnText]="'dashboard.records.addRecord'" (addHandler)="addItem()"></dynamic-table>
+        [showAddBtn]="showAddBtn?true:false" [addBtnText]="'dashboard.records.addRecord'"
+        (addHandler)="addItem()"></dynamic-table>
     </ng-container>
     <!-- Card -->
     <ng-container *ngIf="dataStyleType=='grid'">
@@ -143,7 +151,7 @@
             <app-dynamic-svg [name]="'noRecords'"></app-dynamic-svg>
           </div>
           <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
-          <button (click)="addItem()"
+          <button *ngIf="showAddBtn" (click)="addItem()"
             class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.records.addRecord'|translate}}</button>
         </div>
       </ng-template>
@@ -173,7 +181,7 @@
           <app-dynamic-svg [name]="'noRecords'"></app-dynamic-svg>
         </div>
         <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
-        <button (click)="addItem()"
+        <button *ngIf="showAddBtn" (click)="addItem()"
           class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.records.addRecord'|translate}}</button>
       </div>
     </ng-template>

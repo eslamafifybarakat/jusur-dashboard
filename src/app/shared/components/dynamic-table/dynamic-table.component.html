@@ -754,7 +754,7 @@
                 </svg>
               </div>
               <p class="fw-500 mt-3">{{notFoundText|translate}}</p>
-              <button (click)="addHandlerEmit()"
+              <button *ngIf="showAddBtn" (click)="addHandlerEmit()"
                 class="btn btn-solid-main d-flex justify-content-center align-items-center">{{addBtnText|translate}}</button>
             </ng-container>
             <ng-container *ngIf="isSearch">
