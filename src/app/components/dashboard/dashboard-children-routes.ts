@@ -9,7 +9,7 @@ export const dashBoardChildrenRoutes: any[] = [
   { path: '', redirectTo: 'Statistics', pathMatch: 'full' },
   {
     path: 'Clients',
-    canActivate: [PermissionGuard],
+    // canActivate: [PermissionGuard],
     data: {
       permission: 'Pages.Client.List',
       title: 'Appointments'

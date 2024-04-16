@@ -11,7 +11,7 @@ export const clientsChildrenRoutes: any[] = [
   {
     path: 'List',
     component: ClientsListComponent,
-    canActivate: [PermissionGuard],
+    // canActivate: [PermissionGuard],
     data: {
       permission: 'Pages.Client.List',
       title: 'Appointments'
