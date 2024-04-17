@@ -39,32 +39,84 @@
               </a>
             </div>
           </div>
-          <div class="mt-4 d-flex justify-content-between gap-2 flex-wrap">
-            <div>
-              <label class="text-muted-color mb-1">{{'labels.fullName'|translate}}</label>
-              <p class="mb-0">yasser mohamed</p>
+          <ng-container *ngIf="dataStyleType=='list'">
+            <div class="mt-4 d-flex justify-content-between gap-2 flex-wrap">
+              <div>
+                <label class="text-muted-color mb-1">{{'labels.fullName'|translate}}</label>
+                <p class="mb-0">yasser mohamed</p>
+              </div>
+              <div>
+                <label class="text-muted-color mb-1">
+                  {{'labels.id'|translate}}</label>
+                <p class="mb-0">985987366364</p>
+              </div>
+              <div>
+                <label class="text-muted-color mb-1">
+                  {{'labels.birthDate'|translate}}</label>
+                <p class="mb-0">12 سبتمبر 1995</p>
+              </div>
+              <div>
+                <label class="text-muted-color mb-1">
+                  {{'labels.phoneNumber'|translate}}</label>
+                <p class="mb-0">(+966)324157973</p>
+              </div>
+              <div>
+                <label class="text-muted-color mb-1">
+                  {{'labels.email'|translate}}</label>
+                <p class="mb-0">yasser45@gmail.com</p>
+              </div>
             </div>
-            <div>
-              <label class="text-muted-color mb-1">
-                {{'labels.id'|translate}}</label>
-              <p class="mb-0">985987366364</p>
+          </ng-container>
+          <ng-container *ngIf="dataStyleType=='grid'">
+            <div class="mt-4 row" id="modal-form">
+              <div class="col-lg-4 col-sm-6 mb-3">
+                <label for="fullName" class="required">
+                  {{"labels.fullName"|translate}}
+                </label>
+                <input type="text" id="fullName" class="form-control"
+                  placeholder="{{'placeholders.fullName'|translate}}" [value]="'ياسر محمد العوضي'">
+              </div>
+              <div class="col-lg-4 col-sm-6 mb-3">
+                <label for="id" class="required">
+                  {{"placeholders.id"|translate}}
+                </label>
+                <input type="text" id="id" class="form-control" placeholder="{{'labels.id'|translate}}"
+                  [value]="'1284764556273485775'">
+              </div>
+              <div class="col-lg-4 col-sm-6 mb-3">
+                <label for="birthDate" class="required">
+                  {{'labels.birthDate'|translate}}
+                </label>
+                <div class="birthDate">
+                  <p-calendar appendTo="body" [showIcon]="true" inputId="icon" [readonlyInput]="true"
+                    [styleClass]="'date-picker'" placeholder="{{'placeholders.dateFormat'| translate}}"
+                    [showButtonBar]="true" [todayButtonStyleClass]="'d-none'" dateFormat="dd/mm/yy"
+                    hourFormat="12"></p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-4 col-sm-6 mb-3">
+                <label for="email" class="required">
+                  {{"labels.email"|translate}}
+                </label>
+                <input type="email" id="email" class="form-control" placeholder="{{'placeholders.email'|translate}}"
+                  [value]="'yasser45@gmail.com'">
+              </div>
+              <div class="col-lg-4 col-sm-6">
+                <label for="phoneNumber" class="required">
+                  {{'labels.phoneNumber'|translate}}
+                </label>
+                <div class="input-number input-group bg-white-color d-flex flex-nowrap w-100">
+                  <span class="input-group-text border-0 fs-6-1 text-dark-color" id="basic-addon1">
+                    +966
+                  </span>
+                  <span class="p-input-icon-right w-100 d-flex flex-nowrap m-0">
+                    <input type="number" class="form-control border-0" autocomplete="cc-name" MaxDigits [min]="0"
+                      [value]="'123 123 123491234'" placeholder="{{'placeholders.phoneNumber'|translate}}">
+                  </span>
+                </div>
+              </div>
             </div>
-            <div>
-              <label class="text-muted-color mb-1">
-                {{'labels.birthDate'|translate}}</label>
-              <p class="mb-0">12 سبتمبر 1995</p>
-            </div>
-            <div>
-              <label class="text-muted-color mb-1">
-                {{'labels.phoneNumber'|translate}}</label>
-              <p class="mb-0">(+966)324157973</p>
-            </div>
-            <div>
-              <label class="text-muted-color mb-1">
-                {{'labels.email'|translate}}</label>
-              <p class="mb-0">yasser45@gmail.com</p>
-            </div>
-          </div>
+          </ng-container>
         </div>
         <div class="mt-4">
           <records [clientId]="clientId" [showRecordCount]="false" [showSearch]="false" [showFilter]="false"

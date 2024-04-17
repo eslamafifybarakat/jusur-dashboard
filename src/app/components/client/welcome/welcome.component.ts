@@ -15,6 +15,7 @@ import { RecordsComponent } from '../../dashboard/records/records.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { catchError, Subscription, tap } from 'rxjs';
 import { ClientService } from '../../dashboard/services/client.service';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   standalone: true,
@@ -23,6 +24,7 @@ import { ClientService } from '../../dashboard/services/client.service';
     ReactiveFormsModule,
     TranslateModule,
     PaginatorModule,
+    CalendarModule,
     CommonModule,
     FormsModule,
 
@@ -42,7 +44,7 @@ export class WelcomeComponent {
 
   userData: any;
   dataStyleType: string = 'list';
-  clientId: number = 21;
+  clientId: number;
 
   noteForm = this.fb.group({
     note: ['', { validators: [Validators.required, Validators.minLength(4)], updateOn: 'blur' }],
@@ -76,7 +78,8 @@ export class WelcomeComponent {
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
   getUserData(): void {
-    this.userData = this.authService.getUserLoginDataLocally();
+    this.userData = this.authService.getCurrentUserInformationLocally();
+    this.clientId = this.userData.id;
   }
 
   // Toggle data style table or card
