@@ -16,13 +16,14 @@
         <span>{{'dashboard.records.addRecord'|translate}}</span>
       </button>
       <!-- Filter Button -->
-      <button [class.disabled-actions]="isLoadingRecordsList" *ngIf="(recordsList.length>0||ifFilteration)&&showFilter"
-        [class.d-none]="dataStyleType=='list'" class="btn btn-solid-main d-flex align-items-center gap-2"
-        (click)="filterItem()">
+      <button [class.disabled-actions]="isLoadingRecordsList"
+        *ngIf="(recordsList.length>0||ifFilteration())&&showFilter" [class.d-none]="dataStyleType=='list'"
+        class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItem()">
         <i class="pi pi-filter"></i>
       </button>
       <!-- Data style list 0or grid (table or card) -->
-      <div *ngIf="(recordsList.length>0||ifFilteration)&&showToggleData" [class.disabled-actions]="isLoadingRecordsList"
+      <div *ngIf="(recordsList.length>0||ifFilteration())&&showToggleData"
+        [class.disabled-actions]="isLoadingRecordsList"
         class="data-style d-md-flex d-none align-items-center gap-2 p-2">
         <a class="scaleX-rtl" [class.active]="dataStyleType=='list'" (click)="changeDateStyle('list')">
           <app-dynamic-svg [name]="'list'"></app-dynamic-svg>
@@ -32,7 +33,7 @@
         </a>
       </div>
       <!-- Search Handler -->
-      <div *ngIf="(recordsList.length>0||ifFilteration)&&showSearch" [class.disabled-actions]="isLoadingRecordsList"
+      <div *ngIf="(recordsList.length>0||ifFilteration())&&showSearch" [class.disabled-actions]="isLoadingRecordsList"
         class="search" role="search">
         <div class="input-group bg-white-color d-flex flex-nowrap">
           <span class="input-group-text border-0" id="basic-addon1">
@@ -49,7 +50,7 @@
         </div>
       </div>
       <!-- Clear -->
-      <button *ngIf="(recordsList.length>0||ifFilteration)&&showReset" [class.disabled-actions]="isLoadingRecordsList"
+      <button *ngIf="(recordsList.length>0||ifFilteration())&&showReset" [class.disabled-actions]="isLoadingRecordsList"
         class="btn btn-outline-main d-flex align-items-center gap-2 text-nowrap" (click)="clearTable()">
         <i class="pi pi-refresh"></i>
         <span>{{'general.reset'|translate}}</span>
@@ -74,14 +75,14 @@
         </button>
         <!-- Filter Button -->
         <button [class.disabled-actions]="isLoadingRecordsList"
-          *ngIf="(recordsList.length>0||ifFilteration)&&showFilter"
+          *ngIf="(recordsList.length>0||ifFilteration())&&showFilter"
           class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItem()">
           <i class="pi pi-filter"></i>
         </button>
       </div>
     </div>
     <div class="row mt-3 mx-0" [class.disabled-actions]="isLoadingRecordsList"
-      *ngIf="(recordsList.length>0||ifFilteration)&&showSearch">
+      *ngIf="(recordsList.length>0||ifFilteration())&&showSearch">
       <!-- Search Handler -->
       <div class="col-sm-8 col-9">
         <div class="search" role="search">
@@ -103,7 +104,7 @@
       <!-- Clear -->
       <div class="col-sm-4 col-3 d-flex justify-content-end">
         <button class="btn btn-outline-main d-flex align-items-center gap-2 text-nowrap h-100" (click)="clearTable()"
-          *ngIf="(recordsList.length>0||ifFilteration)&&showReset" [class.disabled-actions]="isLoadingRecordsList">
+          *ngIf="(recordsList.length>0||ifFilteration())&&showReset" [class.disabled-actions]="isLoadingRecordsList">
           <i class="pi pi-refresh"></i>
           <span class="d-sm-inline-block d-none">{{'general.reset'|translate}}</span>
         </button>
@@ -148,7 +149,7 @@
         </ng-template>
 
         <!-- Pagination Card -->
-        <ng-container *ngIf="recordsList?.length>0 || ifFilteration">
+        <ng-container *ngIf="recordsList?.length>0 || ifFilteration()">
           <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingRecordsList">
             <p-paginator #paginator [rows]="perPage" [totalRecords]="recordsCount" [showPageLinks]="true"
               [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>
@@ -190,7 +191,7 @@
         </ng-container>
       </ng-template>
       <!-- Pagination Card -->
-      <ng-container *ngIf="recordsList?.length>0 || ifFilteration">
+      <ng-container *ngIf="recordsList?.length>0 || ifFilteration()">
         <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingRecordsList">
           <p-paginator #paginator [rows]="perPage" [totalRecords]="recordsCount" [showPageLinks]="true"
             [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>

@@ -131,6 +131,7 @@ export class RecordsComponent {
       image: 'https://ik.imagekit.io/2cvha6t2l9/Carousel%20card.svg?updatedAt=1713227892043'
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
+
   }
 
   //Check if Filteration
