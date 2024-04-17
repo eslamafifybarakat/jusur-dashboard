@@ -42,14 +42,16 @@
 }
 :host::ng-deep {
   #Welcome {
-    .form-control,
-    .p-calendar,
-    .p-inputtext,
-    .input-number.input-group {
-      pointer-events: none;
-      background-color: #dae7e7 !important;
-      border-color: #dae7e7;
-      border-radius: var(--border-input-radius);
+    #modal-form {
+      .form-control,
+      .p-calendar,
+      .p-inputtext,
+      .input-number.input-group {
+        pointer-events: none;
+        background-color: #dae7e7 !important;
+        border-color: #dae7e7;
+        border-radius: var(--border-input-radius);
+      }
     }
   }
 }
