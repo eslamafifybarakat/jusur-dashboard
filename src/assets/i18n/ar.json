@@ -75,7 +75,8 @@
     "filter": "فلتر",
     "dataNotEditable":"هذه البيانات غير قابلة للتعديل",
     "except":"إلا من خلال الجهة المختصة",
-    "recordedData":"بياناتك التي تم تسجيلها"
+    "recordedData":"بياناتك التي تم تسجيلها",
+    "noSearchResult":"لا يوجد نتائج للبحث"
   },
   "summary": {
     "faster": "أٍسرع",

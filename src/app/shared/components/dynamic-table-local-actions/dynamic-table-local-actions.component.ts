@@ -24,6 +24,7 @@ import { Subscription } from 'rxjs';
 
 // Components
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
+import { DynamicSvgComponent } from '../icons/dynamic-svg/dynamic-svg.component';
 
 @Component({
   standalone: true,
@@ -45,6 +46,8 @@ import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.compone
     ImageModule,
     FormsModule,
     TableModule,
+
+    DynamicSvgComponent,
   ],
   selector: 'dynamic-table-local-actions',
   templateUrl: './dynamic-table-local-actions.component.html',

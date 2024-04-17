@@ -18,13 +18,13 @@
           </span>
         </button>
         <!-- Filter Button -->
-        <button [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList?.length>0 && !ifFilteration"
+        <button [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList?.length>0 || ifFilteration"
           [class.d-none]="dataStyleType=='list'" class="btn btn-solid-main d-flex align-items-center gap-2"
           (click)="filterItemModal()">
           <i class="pi pi-filter"></i>
         </button>
         <!-- Data style list 0or grid (table or card) -->
-        <div [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList.length>0&& !ifFilteration"
+        <div [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList.length>0||ifFilteration"
           class="data-style d-md-flex d-none align-items-center gap-2 p-2">
           <a class="scaleX-rtl" [class.active]="dataStyleType=='list'" (click)="changeDateStyle('list')">
             <app-dynamic-svg [name]="'list'"></app-dynamic-svg>
@@ -34,7 +34,8 @@
           </a>
         </div>
         <!-- Search Handler -->
-        <div *ngIf="clientsList.length>0" [class.disabled-actions]="isLoadingClientsList" class="search" role="search">
+        <div *ngIf="clientsList.length>0 || ifFilteration" [class.disabled-actions]="isLoadingClientsList"
+          class="search" role="search">
           <div class="input-group bg-white-color d-flex flex-nowrap">
             <span class="input-group-text border-0" id="basic-addon1">
               <i class="pi pi-search text-muted-color"></i>
@@ -44,13 +45,14 @@
               <i *ngIf="!isLoadingSearch&&search.value" class="pi pi-times text-danger pointer"
                 (click)="clearSearch(search)"></i>
               <input type="text" class="form-control border-0 bg-transparent px-1" #search
-                (keyup)="handleSearch(search.value)" placeholder="{{'placeholders.search' | translate}}"
-                [readOnly]="isLoadingSearch" aria-label="search" aria-describedby="basic-addon1">
+                (keyup)="handleSearch(search.value)" [(ngModel)]="searchKeyword"
+                placeholder="{{'placeholders.search' | translate}}" [readOnly]="isLoadingSearch" aria-label="search"
+                aria-describedby="basic-addon1">
             </span>
           </div>
         </div>
         <!-- Clear -->
-        <button *ngIf="clientsList.length>0" [class.disabled-actions]="isLoadingClientsList"
+        <button *ngIf="clientsList.length>0|| ifFilteration" [class.disabled-actions]="isLoadingClientsList"
           class="btn btn-outline-main d-flex align-items-center gap-2 text-nowrap" (click)="clearTable()">
           <i class="pi pi-refresh"></i>
           <span>
@@ -96,8 +98,9 @@
                 <i *ngIf="!isLoadingSearch&&search2.value" class="pi pi-times text-danger pointer"
                   (click)="clearSearch(search2)"></i>
                 <input type="text" class="form-control border-0 bg-transparent px-1" #search2
-                  (keyup)="handleSearch(search2.value)" placeholder="{{'placeholders.search' | translate}}"
-                  [readOnly]="isLoadingSearch" aria-label="search" aria-describedby="basic-addon1">
+                  [(ngModel)]="searchKeyword" (keyup)="handleSearch(search2.value)"
+                  placeholder="{{'placeholders.search' | translate}}" [readOnly]="isLoadingSearch" aria-label="search"
+                  aria-describedby="basic-addon1">
               </span>
             </div>
           </div>

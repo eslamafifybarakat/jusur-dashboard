@@ -75,7 +75,8 @@
     "filter": "Filter",
     "dataNotEditable": "This data is not editable",
     "except": "Except through the competent authority",
-    "recordedData": "Your recorded data"
+    "recordedData": "Your recorded data",
+    "noSearchResult":"There are no results for your search"
   },
   "summary": {
     "faster": "Faster",
