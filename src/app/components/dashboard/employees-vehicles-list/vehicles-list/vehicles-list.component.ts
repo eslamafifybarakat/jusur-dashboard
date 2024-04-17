@@ -217,7 +217,7 @@ export class VehiclesListComponent {
   }
   searchHandler(keyWord: any): void {
     this.page = 1;
-    this.perPage = 20;
+    this.dataStyleType == 'grid' ? this.perPage = 8 : this.perPage = 5;
     this.searchKeyword = keyWord;
     this.isLoadingVehiclesList = true;
     this.publicService.isLoadingEmployees.next(true);

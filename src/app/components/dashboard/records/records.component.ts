@@ -195,7 +195,7 @@ export class RecordsComponent {
   }
   searchHandler(keyWord: any): void {
     this.page = 1;
-    this.perPage = 20;
+    this.dataStyleType == 'grid' ? this.perPage = 8 : this.perPage = 5;
     this.searchKeyword = keyWord;
     this.isLoadingRecordsList = true;
     this.isSearch = true;

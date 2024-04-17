@@ -744,12 +744,15 @@
             <ng-container *ngIf="isSearch">
               <app-dynamic-svg [name]="'noRecords'"></app-dynamic-svg>
               <p class="fw-500 mt-3">{{"general.noSearchResult"|translate}}</p>
+              <button (click)="clearTable()"
+                class="btn btn-outline-main d-flex justify-content-center align-items-center">
+                {{'general.reset'|translate}}</button>
             </ng-container>
           </div>
         </td>
       </tr>
     </ng-container>
-    <ng-container *ngIf="isLoading && !isSearch">
+    <ng-container *ngIf="isLoading">
       <tr class="bg-transparent">
         <td class="p-0 border-0" [attr.colspan]="tableHeaders?.length+1">
           <p-table [value]="skeletonItems">

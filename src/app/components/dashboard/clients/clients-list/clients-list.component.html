@@ -18,11 +18,11 @@
           </span>
         </button>
         <!-- Filter Button -->
-        <button [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList?.length>0 || ifFilteration"
+        <!-- <button [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList?.length>0 || ifFilteration"
           [class.d-none]="dataStyleType=='list'" class="btn btn-solid-main d-flex align-items-center gap-2"
           (click)="filterItemModal()">
           <i class="pi pi-filter"></i>
-        </button>
+        </button> -->
         <!-- Data style list 0or grid (table or card) -->
         <div [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList.length>0||ifFilteration"
           class="data-style d-md-flex d-none align-items-center gap-2 p-2">
@@ -79,13 +79,14 @@
             </span>
           </button>
           <!-- Filter Button -->
-          <button [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList?.length>0&& !ifFilteration"
+          <!-- <button [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList?.length>0|| ifFilteration"
             class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItemModal()">
             <i class="pi pi-filter"></i>
-          </button>
+          </button> -->
         </div>
       </div>
-      <div class="row mt-3 mx-0" [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList.length>0">
+      <div class="row mt-3 mx-0" [class.disabled-actions]="isLoadingClientsList"
+        *ngIf="clientsList.length>0|| ifFilteration">
         <!-- Search Handler -->
         <div class="col-sm-8 col-9">
           <div class="search" role="search">
@@ -155,7 +156,7 @@
           </ng-template>
 
           <!-- Pagination Card -->
-          <ng-container *ngIf="clientsList?.length>0 || ifFilteration">
+          <ng-container *ngIf="clientsList?.length>0">
             <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingClientsList">
               <p-paginator #paginator [rows]="perPage" [totalRecords]="clientsCount" [showPageLinks]="true"
                 [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>
@@ -167,16 +168,24 @@
           </ng-container>
         </div>
         <ng-template #noClients>
-          <div class="d-flex flex-column justify-content-center align-items-center">
+          <div class="d-flex flex-column justify-content-center align-items-center no-data">
             <div>
               <app-dynamic-svg [name]="'noRecords'"></app-dynamic-svg>
             </div>
-            <p class="fw-500 mt-3">
-              {{'general.no_records_found'|translate}}
-            </p>
-            <button (click)="addItem()" class="btn btn-solid-main d-flex justify-content-center align-items-center">
-              {{'dashboard.customers.addCustomer'|translate}}
-            </button>
+            <ng-container *ngIf="isSearch; else noSearch">
+              <p class="fw-500 mt-3">{{"general.noSearchResult"|translate}}</p>
+              <button (click)="clearTable()"
+                class="btn btn-outline-main d-flex justify-content-center align-items-center">
+                {{'general.reset'|translate}}</button>
+            </ng-container>
+            <ng-template #noSearch>
+              <p class="fw-500 mt-3">
+                {{'general.no_records_found'|translate}}
+              </p>
+              <button (click)="addItem()" class="btn btn-solid-main d-flex justify-content-center align-items-center">
+                {{'dashboard.customers.addCustomer'|translate}}
+              </button>
+            </ng-template>
           </div>
         </ng-template>
       </ng-container>
@@ -200,7 +209,7 @@
         </ng-template>
 
         <!-- Pagination Card -->
-        <ng-container *ngIf="clientsList?.length>0 ||ifFilteration">
+        <ng-container *ngIf="clientsList?.length>0">
           <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingClientsList">
             <p-paginator #paginator [rows]="perPage" [totalRecords]="clientsCount" [showPageLinks]="true"
               [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>
@@ -212,16 +221,24 @@
         </ng-container>
       </div>
       <ng-template #noClients2>
-        <div class="d-flex flex-column justify-content-center align-items-center">
+        <div class="d-flex flex-column justify-content-center align-items-center no-data">
           <div>
             <app-dynamic-svg [name]="'noRecords'"></app-dynamic-svg>
           </div>
-          <p class="fw-500 mt-3">
-            {{'general.no_records_found'|translate}}
-          </p>
-          <button (click)="addItem()" class="btn btn-solid-main d-flex justify-content-center align-items-center">
-            {{'dashboard.customers.addCustomer'|translate}}
-          </button>
+          <ng-container *ngIf="isSearch; else noSearch2">
+            <p class="fw-500 mt-3">{{"general.noSearchResult"|translate}}</p>
+            <button (click)="clearTable()"
+              class="btn btn-outline-main d-flex justify-content-center align-items-center">
+              {{'general.reset'|translate}}</button>
+          </ng-container>
+          <ng-template #noSearch2>
+            <p class="fw-500 mt-3">
+              {{'general.no_records_found'|translate}}
+            </p>
+            <button (click)="addItem()" class="btn btn-solid-main d-flex justify-content-center align-items-center">
+              {{'dashboard.customers.addCustomer'|translate}}
+            </button>
+          </ng-template>
         </div>
       </ng-template>
     </div>

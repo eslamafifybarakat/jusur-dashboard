@@ -430,13 +430,14 @@ export class DynamicTableComponent {
       element.showDesSort = false;
       element.showDefaultSort = true;
     });
-    console.log('kkk');
     this.collapse = false;
     this.collapseEnd = false;
     // this.search.nativeElement.value = null;
     // table?.clear();
   }
-
+  clearTable(): void {
+    this.clearHandler?.emit();
+  }
   // Sort table
   toggleSort(type: any, col: any): void {
     this.tableHeaders?.forEach((element: any) => {
