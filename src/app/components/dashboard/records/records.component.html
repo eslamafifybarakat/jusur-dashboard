@@ -8,7 +8,7 @@
         {{recordsCount}}
       </span>
     </div>
-    <div class="d-flex gap-3 flex-lg-nowrap flex-wrap">
+    <div class="d-flex gap-3  flex-wrap">
       <!-- Add Customer -->
       <button *ngIf="showAddBtn" class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap"
         (click)="addItem()">
@@ -16,11 +16,11 @@
         <span>{{'dashboard.records.addRecord'|translate}}</span>
       </button>
       <!-- Filter Button -->
-      <button [class.disabled-actions]="isLoadingRecordsList"
+      <!-- <button [class.disabled-actions]="isLoadingRecordsList"
         *ngIf="(recordsList.length>0||ifFilteration())&&showFilter" [class.d-none]="dataStyleType=='list'"
-        class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItem()">
+        class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItemModal()">
         <i class="pi pi-filter"></i>
-      </button>
+      </button> -->
       <!-- Data style list 0or grid (table or card) -->
       <div *ngIf="(recordsList.length>0||ifFilteration())&&showToggleData"
         [class.disabled-actions]="isLoadingRecordsList"
@@ -74,11 +74,11 @@
           <span>{{'dashboard.records.addRecord'|translate}}</span>
         </button>
         <!-- Filter Button -->
-        <button [class.disabled-actions]="isLoadingRecordsList"
+        <!-- <button [class.disabled-actions]="isLoadingRecordsList"
           *ngIf="(recordsList.length>0||ifFilteration())&&showFilter"
-          class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItem()">
+          class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItemModal()">
           <i class="pi pi-filter"></i>
-        </button>
+        </button> -->
       </div>
     </div>
     <div class="row mt-3 mx-0" [class.disabled-actions]="isLoadingRecordsList"
@@ -166,9 +166,17 @@
           <div>
             <app-dynamic-svg [name]="'noRecords'"></app-dynamic-svg>
           </div>
-          <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
-          <button *ngIf="showAddBtn" (click)="addItem()"
-            class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.records.addRecord'|translate}}</button>
+          <ng-container *ngIf="isSearch; else noSearch">
+            <p class="fw-500 mt-3">{{"general.noSearchResult"|translate}}</p>
+            <button (click)="clearTable()"
+              class="btn btn-outline-main d-flex justify-content-center align-items-center">
+              {{'general.reset'|translate}}</button>
+          </ng-container>
+          <ng-template #noSearch>
+            <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
+            <button *ngIf="showAddBtn" (click)="addItem()"
+              class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.records.addRecord'|translate}}</button>
+          </ng-template>
         </div>
       </ng-template>
     </ng-container>
@@ -207,9 +215,16 @@
         <div>
           <app-dynamic-svg [name]="'noRecords'"></app-dynamic-svg>
         </div>
-        <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
-        <button *ngIf="showAddBtn" (click)="addItem()"
-          class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.records.addRecord'|translate}}</button>
+        <ng-container *ngIf="isSearch; else noSearch2">
+          <p class="fw-500 mt-3">{{"general.noSearchResult"|translate}}</p>
+          <button (click)="clearTable()" class="btn btn-outline-main d-flex justify-content-center align-items-center">
+            {{'general.reset'|translate}}</button>
+        </ng-container>
+        <ng-template #noSearch2>
+          <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
+          <button *ngIf="showAddBtn" (click)="addItem()"
+            class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.records.addRecord'|translate}}</button>
+        </ng-template>
       </div>
     </ng-template>
   </div>

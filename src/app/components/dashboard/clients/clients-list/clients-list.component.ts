@@ -1,7 +1,6 @@
 // Modules
+import { Paginator, PaginatorModule } from 'primeng/paginator';
 import { TranslateModule } from '@ngx-translate/core';
-import { PaginatorModule } from 'primeng/paginator';
-import { SidebarModule } from 'primeng/sidebar';
 import { CommonModule } from '@angular/common';
 
 // Components
@@ -65,6 +64,7 @@ export class ClientsListComponent {
   perPage: number = 5;
   pagesCount: number = 0;
   rowsOptions: number[] = [5, 10, 15, 30];
+  @ViewChild('paginator') paginator: Paginator | undefined;
   // End Pagination Variables
 
   // Start Filtration Variables
@@ -207,6 +207,7 @@ export class ClientsListComponent {
       if (res?.listChanged) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
+        this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
         this.dataStyleType == 'grid' ? this.getAllClients() : '';
       }
     });
@@ -355,6 +356,7 @@ export class ClientsListComponent {
     this.filtersArray = [];
     this.page = 1;
     this.publicService.resetTable.next(true);
+    this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
     // this.publicService?.changePageSub?.next({ page: this.page });
     this.getAllClients();
   }
@@ -385,7 +387,11 @@ export class ClientsListComponent {
     this.pagesCount = Math?.ceil(this.clientsCount / this.perPage);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
+    this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
     this.dataStyleType == 'grid' ? this.getAllClients() : '';
+  }
+  changePageActiveNumber(number: number): void {
+    this.paginator?.changePage(number - 1);
   }
   // End Pagination Functions
 

@@ -1,6 +1,6 @@
 // Modules
+import { Paginator, PaginatorModule } from 'primeng/paginator';
 import { TranslateModule } from '@ngx-translate/core';
-import { PaginatorModule } from 'primeng/paginator';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -74,6 +74,7 @@ export class RecordsComponent {
   perPage: number = 5;
   pagesCount: number = 0;
   rowsOptions: number[] = [5, 10, 15, 30];
+  @ViewChild('paginator') paginator: Paginator | undefined;
   // End Pagination Variables
 
   // Start Filtration Variables
@@ -111,9 +112,12 @@ export class RecordsComponent {
 
   ngOnInit(): void {
     this.tableHeaders = [
-      { field: 'name', header: 'dashboard.tableHeader.recordName', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordName'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
-      { field: 'number', header: 'dashboard.tableHeader.recordNumber', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordNumber'), type: 'numeric', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
-      { field: 'expireDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
+      { field: 'name', header: 'dashboard.tableHeader.recordName', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordName'), type: 'text' },
+      { field: 'number', header: 'dashboard.tableHeader.recordNumber', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordNumber'), type: 'numeric' },
+      { field: 'expireDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date' },
+      // { field: 'name', header: 'dashboard.tableHeader.recordName', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordName'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true },
+      // { field: 'number', header: 'dashboard.tableHeader.recordNumber', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordNumber'), type: 'numeric', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true },
+      // { field: 'expireDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true }
     ];
     this.loadPageData();
   }
@@ -235,6 +239,7 @@ export class RecordsComponent {
       if (res?.listChanged) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
+        this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
         this.dataStyleType == 'grid' ? this.getAllRecords() : '';
       }
     });
@@ -244,8 +249,8 @@ export class RecordsComponent {
     this.router.navigate(['Dashboard/Clients/Record-Details', item?.id]);
   }
 
-  // Filter Record
-  filterItem(): void {
+  // Filter Record Modal
+  filterItemModal(): void {
     const ref = this.dialogService?.open(FilterRecordComponent, {
       header: this.publicService?.translateTextFromJson('general.filter'),
       dismissableMask: false,
@@ -258,7 +263,7 @@ export class RecordsComponent {
         this.page = 1;
         this.filtersArray = res.conditions;
         this.filterCards = res.conditions;
-        // this.publicService?.changePageSub?.next({ page: this.page });
+        this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
         this.getAllRecords(true);
       }
     });
@@ -309,6 +314,7 @@ export class RecordsComponent {
     this.filtersArray = [];
     this.page = 1;
     this.publicService.resetTable.next(true);
+    this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
     // this.publicService?.changePageSub?.next({ page: this.page });
     this.getAllRecords();
   }
@@ -404,7 +410,11 @@ export class RecordsComponent {
     this.pagesCount = Math?.ceil(this.recordsCount / this.perPage);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
+    this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
     this.dataStyleType == 'grid' ? this.getAllRecords() : '';
+  }
+  changePageActiveNumber(number: number): void {
+    this.paginator?.changePage(number - 1);
   }
   // End Pagination
 

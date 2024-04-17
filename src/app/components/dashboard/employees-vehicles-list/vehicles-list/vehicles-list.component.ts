@@ -1,6 +1,6 @@
 // Modules
+import { Paginator, PaginatorModule } from 'primeng/paginator';
 import { TranslateModule } from '@ngx-translate/core';
-import { PaginatorModule } from 'primeng/paginator';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -66,6 +66,7 @@ export class VehiclesListComponent {
   perPage: number = 5;
   pagesCount: number = 0;
   rowsOptions: number[] = [5, 10, 15, 30];
+  @ViewChild('paginator') paginator: Paginator | undefined;
   // End Pagination Variables
 
   // Start Filtration Variables
@@ -258,6 +259,7 @@ export class VehiclesListComponent {
       if (res?.listChanged) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
+        this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
         this.dataStyleType == 'grid' ? this.getAllVehicles() : '';
       }
     });
@@ -277,6 +279,8 @@ export class VehiclesListComponent {
         this.filtersArray = res.conditions;
         this.filterCards = res.conditions;
         this.publicService?.changePageSub?.next({ page: this.page });
+        this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
+        this.dataStyleType == 'grid' ? this.getAllVehicles() : '';
       }
     });
   }
@@ -327,6 +331,8 @@ export class VehiclesListComponent {
     this.page = 1;
     this.publicService.resetTable.next(true);
     this.publicService?.changePageSub?.next({ page: this.page });
+    this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
+    this.dataStyleType == 'grid' ? this.getAllVehicles() : '';
     // this.getAllVehicles();
   }
   // Sort Table
@@ -419,7 +425,11 @@ export class VehiclesListComponent {
     this.pagesCount = Math?.ceil(this.vehiclesCount / this.perPage);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
+    this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
     this.dataStyleType == 'grid' ? this.getAllVehicles() : '';
+  }
+  changePageActiveNumber(number: number): void {
+    this.paginator?.changePage(number - 1);
   }
   // End Pagination
 
