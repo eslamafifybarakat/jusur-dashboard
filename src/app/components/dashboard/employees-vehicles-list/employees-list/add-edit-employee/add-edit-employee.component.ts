@@ -11,6 +11,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { PublicService } from '../../../../../services/generic/public.service';
 import { AlertsService } from '../../../../../services/generic/alerts.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MaxDigitsDirective } from '../../../directives/max-digits.directive';
 import { EmployeesService } from '../../../services/employees.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Subscription, catchError, tap } from 'rxjs';
@@ -26,7 +27,10 @@ import { Subscription, catchError, tap } from 'rxjs';
     FormsModule,
 
     // Components
-    FileUploadComponent
+    FileUploadComponent,
+
+    // Directives
+    MaxDigitsDirective
   ],
   selector: 'app-add-edit-employee',
   templateUrl: './add-edit-employee.component.html',
@@ -84,7 +88,7 @@ export class AddEditEmployeeComponent {
       }],
       residencyNumber: ['', {
         validators: [
-          Validators.required], updateOn: "blur"
+          Validators.required, Validators.minLength(10)], updateOn: "blur"
       }],
       endDate: [null, {
         validators: [

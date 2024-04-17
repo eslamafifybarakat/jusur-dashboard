@@ -320,6 +320,7 @@
     "dateFormat": "mm/dd/yy"
   },
   "validations": {
+    "residencyNumberLength":"Residency number must be 10 digits",
     "username": "Username is required",
     "password": "Password is required",
     "email": "Email is required",

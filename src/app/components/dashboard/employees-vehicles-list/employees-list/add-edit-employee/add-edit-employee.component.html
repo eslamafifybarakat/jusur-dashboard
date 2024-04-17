@@ -33,6 +33,7 @@
             <span class="p-input-icon-right w-100">
               <input type="number" class="form-control" formControlName="residencyNumber"
                 (input)="publicService?.clearValidationErrors(formControls?.residencyNumber);clearCheckAvailable()"
+                MaxDigits [maxNumber]="10"
                 [class.border-red]="formControls?.residencyNumber?.invalid && (formControls?.residencyNumber?.dirty || formControls?.residencyNumber?.touched)"
                 placeholder="{{'placeholders.residencyNumber'|translate}}"
                 [class.is-valid]="!isLoadingCheckResidencyNumber &&!residencyNumberNotAvailable && formControls?.residencyNumber?.valid && (formControls?.residencyNumber?.dirty || formControls?.residencyNumber?.touched)"
@@ -48,6 +49,11 @@
                 <ng-container *ngIf="formControls?.residencyNumber?.errors?.['required']">
                   <span class="text-danger fs-8">
                     {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="formControls?.residencyNumber?.errors?.minlength">
+                  <span class="text-danger fs-8">
+                    {{'validations.residencyNumberLength'|translate}}
                   </span>
                 </ng-container>
               </ng-container>

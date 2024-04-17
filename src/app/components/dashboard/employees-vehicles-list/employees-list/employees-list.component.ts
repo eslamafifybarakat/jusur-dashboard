@@ -157,7 +157,6 @@ export class EmployeesListComponent {
   }
   private setupSubscriptions(): void {
     this.searchSubject.pipe(debounceTime(500)).subscribe(event => this.searchHandler(event));
-
     this.publicService.toggleFilterEmployeeDataType.subscribe((res: any) => {
       if (res) {
         this.changeDateStyle(res);
@@ -184,7 +183,7 @@ export class EmployeesListComponent {
 
     this.publicService.filterEmployeesData.subscribe(res => {
       if (res) {
-        this.filterItem();
+        this.filterItemModal();
       }
     });
   }
@@ -240,6 +239,7 @@ export class EmployeesListComponent {
       this.employeesCount = response?.result?.totalCount;
       this.pagesCount = Math.ceil(this.employeesCount / this.perPage);
       this.employeesList = response?.result?.items;
+      this.publicService.employeesLength.next(this.employeesCount);
     } else {
       this.handleError(response.error);
       return;
@@ -247,6 +247,7 @@ export class EmployeesListComponent {
   }
   private finalizeEmployeeListLoading(): void {
     this.isLoadingEmployeesList = false;
+    this.publicService.isLoadingSearchEmployees.next(false);
     this.isLoadingSearch = false;
     this.enableSortFilter = false;
     this.publicService.showSearchLoader.next(false);
@@ -285,7 +286,7 @@ export class EmployeesListComponent {
   itemDetails(item?: any): void {
   }
   // Filter Employee
-  filterItem(): void {
+  filterItemModal(): void {
     const ref = this.dialogService?.open(FilterEmployeesComponent, {
       header: this.publicService?.translateTextFromJson('general.filter'),
       dismissableMask: false,

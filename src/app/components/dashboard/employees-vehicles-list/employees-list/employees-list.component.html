@@ -18,7 +18,7 @@
       <!-- Filter Button -->
       <button [class.disabled-actions]="isLoadingEmployeesList" *ngIf="employeesList.length>0||ifFilteration()"
         [class.d-none]="dataStyleType=='list'" class="btn btn-solid-main d-flex align-items-center gap-2"
-        (click)="filterItem()">
+        (click)="filterItemModal()">
         <i class="pi pi-filter"></i>
       </button>
       <!-- Data style list 0or grid (table or card) -->
@@ -72,7 +72,7 @@
         </button>
         <!-- Filter Button -->
         <button [class.disabled-actions]="isLoadingEmployeesList" *ngIf="employeesList.length>0||ifFilteration()"
-          class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItem()">
+          class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItemModal()">
           <i class="pi pi-filter"></i>
         </button>
       </div>
@@ -114,8 +114,8 @@
       <dynamic-table [isLoading]="isLoadingEmployeesList" [showHeader]="false" [showClear]="false" [showSearch]="false"
         [isLoadingSearch]="isLoadingSearch" [showActionsButtons]="true"
         (clearHandler)="enableSortFilter?clearTable():''" [tableHeaders]="tableHeaders" [tableData]="employeesList"
-        [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="true" [showEdit]="true"
-        [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
+        [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="true" [showEdit]="false"
+        [showDelete]="false" (deleteHandler)="deleteItem($event)" [showDetails]="true"
         (detailsHandler)="itemDetails($event)" (editHandler)="addEditEmployeeItem($event,'edit')"
         (customSortHandler)="enableSortFilter?sortItems($event):''"
         (filterHandler)="enableSortFilter?filterItems($event):''" [results]="employeesCount" [paginatorRows]="perPage"

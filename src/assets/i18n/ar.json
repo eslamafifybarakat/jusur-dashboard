@@ -320,6 +320,7 @@
     "dateFormat": "شهر / يوم / سنه"
   },
   "validations": {
+    "residencyNumberLength":"رقم الاقامة يجب ان يكون 10 ارقام",
     "username": "اسم المستخدم مطلوب",
     "password": "كلمة المرور مطلوبة",
     "email": "البريد الإلكتروني مطلوب",

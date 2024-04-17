@@ -1,21 +1,26 @@
-import { AlertsService } from './../../../services/generic/alerts.service';
-import { PublicService } from './../../../services/generic/public.service';
-import { MetadataService, MetaDetails } from './../../../services/generic/metadata.service';
-import { LocalizationLanguageService } from './../../../services/generic/localization-language.service';
-import { SkeletonComponent } from './../../../shared/skeleton/skeleton/skeleton.component';
+// Modules
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { PaginatorModule } from 'primeng/paginator';
+import { CalendarModule } from 'primeng/calendar';
+import { CommonModule } from '@angular/common';
+
+// Components
+import { DynamicTableLocalActionsComponent } from './../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
 import { DynamicSvgComponent } from './../../../shared/components/icons/dynamic-svg/dynamic-svg.component';
 import { DynamicTableComponent } from './../../../shared/components/dynamic-table/dynamic-table.component';
-import { DynamicTableLocalActionsComponent } from './../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { AuthService } from './../../../services/authentication/auth.service';
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PaginatorModule } from 'primeng/paginator';
+import { SkeletonComponent } from './../../../shared/skeleton/skeleton/skeleton.component';
 import { RecordsComponent } from '../../dashboard/records/records.component';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { catchError, Subscription, tap } from 'rxjs';
+
+//Services
+import { LocalizationLanguageService } from './../../../services/generic/localization-language.service';
+import { MetadataService, MetaDetails } from './../../../services/generic/metadata.service';
+import { AuthService } from './../../../services/authentication/auth.service';
+import { AlertsService } from './../../../services/generic/alerts.service';
+import { PublicService } from './../../../services/generic/public.service';
 import { ClientService } from '../../dashboard/services/client.service';
-import { CalendarModule } from 'primeng/calendar';
+import { catchError, Subscription, tap } from 'rxjs';
+import { Component } from '@angular/core';
 
 @Component({
   standalone: true,

@@ -1,5 +1,5 @@
 <div class="global-card p-3 h-100 d-flex flex-column justify-content-between" id="employee-card">
-  <div>
+  <div class="overflow-hidden">
     <div class="d-flex flex-wrap gap-3">
       <div class="image">
         <img [src]="item.iqamaImage" alt="residencePhoto" class="w-100 h-100 shadow">
@@ -48,9 +48,9 @@
       <button class="details-btn d-flex align-items-center justify-content-center">
         {{'general.details'|translate}}
       </button>
-      <button (click)="editItem(item)" class="details-btn d-flex align-items-center justify-content-center">
+      <!-- <button (click)="editItem(item)" class="details-btn d-flex align-items-center justify-content-center">
         {{'general.edit'|translate}}
-      </button>
+      </button> -->
     </div>
   </div>
 </div>

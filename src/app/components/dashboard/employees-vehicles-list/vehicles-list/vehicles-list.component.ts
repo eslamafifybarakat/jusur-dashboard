@@ -196,6 +196,7 @@ export class VehiclesListComponent {
       this.publicService.VehicleLength.next(this.vehiclesCount);
       this.pagesCount = Math.ceil(this.vehiclesCount / this.perPage);
       this.vehiclesList = response?.result?.items;
+      this.publicService.VehicleLength.next(this.vehiclesCount);
     } else {
       this.handleError(response.error);
       return;
@@ -204,6 +205,7 @@ export class VehiclesListComponent {
   private finalizeVehicleListLoading(): void {
     this.isLoadingVehiclesList = false;
     this.isLoadingSearch = false;
+    this.publicService.isLoadingSearchVehicles.next(false);
     this.enableSortFilter = false;
     this.publicService.showSearchLoader.next(false);
     setTimeout(() => {
@@ -226,7 +228,7 @@ export class VehiclesListComponent {
     this.getAllVehicles(true);
     if (keyWord?.length > 0) {
       this.isLoadingSearch = true;
-      this.publicService.isLoadingSearchEmployees.next(true);
+      this.publicService.isLoadingSearchVehicles.next(true);
     }
     this.cdr.detectChanges();
   }
