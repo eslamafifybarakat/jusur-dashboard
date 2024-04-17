@@ -200,8 +200,9 @@ export class RecordDetailsComponent {
     let prepeareDetails = {
       registrationFile: 'assets/images/home/sidebar-bg.webp',
       licenseFile: this.recordDetails?.licenseFile || 'assets/images/home/sidebar-bg.webp',
-      certificateFile: 'assets/images/home/sidebar-bg.webp',
     };
+    this.certificateFile = this.recordDetails.certificateFile,
+      this.certificateFile ? this.isEditCertificateFile = true : '';
     this.modalForm?.patchValue({
       recordName: this.recordDetails?.name,
       registrationNumber: this.recordDetails?.number,
