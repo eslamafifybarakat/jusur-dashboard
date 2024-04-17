@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
 // Components
 import { DashboardNavbarComponent } from './../../shared/components/dashboard-navbar/dashboard-navbar.component';
 import { AsideMenuComponent } from './../../shared/components/aside-menu/aside-menu.component';
-import { FooterComponent } from './../../shared/components/footer/footer.component';
 
 @Component({
   standalone: true,
@@ -18,7 +17,6 @@ import { FooterComponent } from './../../shared/components/footer/footer.compone
     // Components
     DashboardNavbarComponent,
     AsideMenuComponent,
-    FooterComponent,
   ],
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
