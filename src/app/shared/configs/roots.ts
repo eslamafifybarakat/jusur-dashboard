@@ -19,6 +19,9 @@ export const roots = {
     getCountries: "/Country/GetCountrys",
     getCitiesByCountryId: "/City/GetCitysByCountryId",
   },
+  client: {
+    addNote: 'Note/AddNote',
+  },
   dashboard: {
     availability: {
       IsNationalIdentityAvailable: "Client/IsIdentityAvailable",

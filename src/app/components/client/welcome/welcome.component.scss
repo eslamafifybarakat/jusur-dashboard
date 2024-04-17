@@ -9,6 +9,15 @@
   .btn.bg-white-color:hover {
     color: var(--text-dark-color);
   }
+
+  .btn-solid-main {
+    height: 2.9rem;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: var(--bg-main-color);
+    border: 1px solid var(--bg-main-color);
+    color: var(--text-white-color);
+  }
   .data-style {
     background: #ffffffb2;
     border: 1px solid #8c95a336;
@@ -23,5 +32,11 @@
         color: #111;
       }
     }
+  }
+
+  textarea {
+    border: 1px solid #8c95a336;
+    border-radius: 20px;
+    height: 8rem;
   }
 }

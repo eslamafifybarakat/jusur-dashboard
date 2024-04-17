@@ -174,6 +174,7 @@
     }
   },
   "auth": {
+    "send":"Send",
     "welcomeBack": "Welcome back, we missed you",
     "start": "Start",
     "logInToGetPermissions": "Log in to get the permissions you want",
@@ -227,6 +228,7 @@
     "joinNow": "Join now"
   },
   "labels": {
+    "addNote":"Add a note",
     "apply": "Apply",
     "cancelClassification": "Reset",
     "total": "Total",
@@ -273,6 +275,7 @@
     "formPhoto": "form photo"
   },
   "placeholders": {
+    "tellUs":"Tell us what you want...",
     "searchEstkdam": "Find the employment you want",
     "username": "Enter username",
     "password": "Enter password",
@@ -338,7 +341,7 @@
     "companyName": "Company name is required",
     "requiredField": "This field is required",
     "validVatId": "Please enter valid vat number, must be Must Be Between 11 and 20 Characters Long.",
-    "addressLength": "Sorry! The Address Must Be Between 4 And 100 Characters Long.",
+    "noteLength": "Note length must be larger than 3 characters long.",
     "pickPassword": "Pick a password",
     "oneLowerCase": "At least one lowercase",
     "oneUppercase": "At least one uppercase",
