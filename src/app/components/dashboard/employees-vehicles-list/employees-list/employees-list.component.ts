@@ -1,6 +1,8 @@
 // Modules
 import { TranslateModule } from '@ngx-translate/core';
+import { PaginatorModule } from 'primeng/paginator';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 // Components
 import { DynamicTableLocalActionsComponent } from './../../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
@@ -19,7 +21,7 @@ import { Subject, Subscription, catchError, debounceTime, finalize, tap } from '
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
 import { EmployeesService } from '../../services/employees.service';
-import { Component, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, ChangeDetectorRef, Input, ViewChild } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
 
@@ -29,12 +31,15 @@ import { Router } from '@angular/router';
   imports: [
     // Modules
     TranslateModule,
+    PaginatorModule,
     CommonModule,
+    FormsModule,
 
     // Components
     DynamicTableLocalActionsComponent,
     DynamicTableComponent,
     EmployeeCardComponent,
+    DynamicSvgComponent,
     DynamicSvgComponent,
     SkeletonComponent,
   ],
@@ -81,6 +86,9 @@ export class EmployeesListComponent {
   showToggleAction: boolean = false;
   showActionFiles: boolean = false;
   // End Permissions Variables
+
+  // Dropdown Element
+  @ViewChild('dropdown') dropdown: any;
 
   constructor(
     private localizationLanguageService: LocalizationLanguageService,
@@ -187,8 +195,31 @@ export class EmployeesListComponent {
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
+
+  //Check if Filteration
+  ifFilteration(): boolean {
+    if (this.hasValue(this.searchKeyword) || this.isArrayNotEmpty(this.filtersArray) || this.isObjectNotEmpty(this.sortObj)) {
+      return true;
+    } else {
+      return false
+    }
+  }
+  // Function to check if a variable is not null or undefined
+  hasValue<T>(variable: T | null | undefined): boolean {
+    return variable !== null && variable !== undefined;
+  }
+  // Function to check if an array is not empty
+  isArrayNotEmpty<T>(array: T[]): boolean {
+    return this.hasValue(array) && array.length > 0;
+  }
+  // Function to check if an object has at least one key
+  isObjectNotEmpty<T>(obj: T): boolean {
+    return this.hasValue(obj) && Object.keys(obj).length > 0;
+  }
+
   // Toggle data style table or card
   changeDateStyle(type: string): void {
+    type == 'grid' ? this.perPage = 8 : this.perPage = 5;
     this.clearTable();
     this.dataStyleType = type;
   }
@@ -234,6 +265,7 @@ export class EmployeesListComponent {
     this.searchKeyword = keyWord;
     this.isLoadingEmployeesList = true;
     this.publicService.isLoadingEmployees.next(true);
+    this.isSearch = true;
     this.getAllEmployees(true);
     if (keyWord?.length > 0) {
       this.isLoadingSearch = true;
@@ -290,6 +322,7 @@ export class EmployeesListComponent {
       if (res?.listChanged) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
+        this.dataStyleType == 'grid' ? this.getAllEmployees() : '';
       }
     });
   }
@@ -420,6 +453,7 @@ export class EmployeesListComponent {
     this.pagesCount = Math?.ceil(this.employeesCount / this.perPage);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
+    this.dataStyleType == 'grid' ? this.getAllEmployees() : '';
   }
   // End Pagination
 
@@ -431,6 +465,11 @@ export class EmployeesListComponent {
     this.alertsService.openToast('error', 'error', message);
     this.publicService.showGlobalLoader.next(false);
     this.finalizeEmployeeListLoading();
+  }
+
+  // Hide dropdown to not make action when keypress on keyboard arrows
+  hide(): void {
+    this.dropdown?.accessibleViewChild?.nativeElement?.blur();
   }
 
   ngOnDestroy(): void {

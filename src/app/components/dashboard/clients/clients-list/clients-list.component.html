@@ -153,7 +153,9 @@
               </ng-container>
             </ng-container>
           </ng-template>
-          <ng-container *ngIf="clientsList?.length>0 && !ifFilteration">
+
+          <!-- Pagination Card -->
+          <ng-container *ngIf="clientsList?.length>0 || ifFilteration">
             <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingClientsList">
               <p-paginator #paginator [rows]="perPage" [totalRecords]="clientsCount" [showPageLinks]="true"
                 [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>
@@ -196,7 +198,9 @@
             </ng-container>
           </ng-container>
         </ng-template>
-        <ng-container *ngIf="clientsList?.length>0 && !ifFilteration">
+
+        <!-- Pagination Card -->
+        <ng-container *ngIf="clientsList?.length>0 ||ifFilteration">
           <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingClientsList">
             <p-paginator #paginator [rows]="perPage" [totalRecords]="clientsCount" [showPageLinks]="true"
               [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>

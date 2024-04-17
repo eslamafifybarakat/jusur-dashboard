@@ -1,7 +1,8 @@
 // Modules
 import { TranslateModule } from '@ngx-translate/core';
-import { SidebarModule } from 'primeng/sidebar';
+import { PaginatorModule } from 'primeng/paginator';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 // Components
 import { DynamicTableLocalActionsComponent } from './../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
@@ -17,9 +18,9 @@ import { LocalizationLanguageService } from './../../../services/generic/localiz
 import { RecordsListApiResponse, RecordsListingItem } from './../../../interfaces/dashboard/records';
 import { MetaDetails, MetadataService } from './../../../services/generic/metadata.service';
 import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
+import { ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
 import { AlertsService } from './../../../services/generic/alerts.service';
 import { PublicService } from './../../../services/generic/public.service';
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { RecordsService } from '../services/records.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
@@ -29,8 +30,9 @@ import { Router } from '@angular/router';
   imports: [
     // Modules
     TranslateModule,
-    SidebarModule,
+    PaginatorModule,
     CommonModule,
+    FormsModule,
 
     // Components
     DynamicTableLocalActionsComponent,
@@ -91,6 +93,9 @@ export class RecordsComponent {
   showActionFiles: boolean = false;
   // End Permissions Variables
 
+  // Dropdown Element
+  @ViewChild('dropdown') dropdown: any;
+
   constructor(
     private localizationLanguageService: LocalizationLanguageService,
     private metadataService: MetadataService,
@@ -128,8 +133,30 @@ export class RecordsComponent {
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
 
+  //Check if Filteration
+  ifFilteration(): boolean {
+    if (this.hasValue(this.searchKeyword) || this.isArrayNotEmpty(this.filtersArray) || this.isObjectNotEmpty(this.sortObj)) {
+      return true;
+    } else {
+      return false
+    }
+  }
+  // Function to check if a variable is not null or undefined
+  hasValue<T>(variable: T | null | undefined): boolean {
+    return variable !== null && variable !== undefined;
+  }
+  // Function to check if an array is not empty
+  isArrayNotEmpty<T>(array: T[]): boolean {
+    return this.hasValue(array) && array.length > 0;
+  }
+  // Function to check if an object has at least one key
+  isObjectNotEmpty<T>(obj: T): boolean {
+    return this.hasValue(obj) && Object.keys(obj).length > 0;
+  }
+
   // Toggle data style table or card
   changeDateStyle(type: string): void {
+    type == 'grid' ? this.perPage = 8 : this.perPage = 5;
     this.clearTable();
     this.dataStyleType = type;
   }
@@ -171,6 +198,7 @@ export class RecordsComponent {
     this.perPage = 20;
     this.searchKeyword = keyWord;
     this.isLoadingRecordsList = true;
+    this.isSearch = true;
     this.getAllRecords(true);
     if (keyWord?.length > 0) {
       this.isLoadingSearch = true;
@@ -206,6 +234,7 @@ export class RecordsComponent {
       if (res?.listChanged) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
+        this.dataStyleType == 'grid' ? this.getAllRecords() : '';
       }
     });
   }
@@ -374,6 +403,7 @@ export class RecordsComponent {
     this.pagesCount = Math?.ceil(this.recordsCount / this.perPage);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
+    this.dataStyleType == 'grid' ? this.getAllRecords() : '';
   }
   // End Pagination
 
@@ -385,6 +415,11 @@ export class RecordsComponent {
     this.alertsService.openToast('error', 'error', message);
     this.publicService.showGlobalLoader.next(false);
     this.finalizeRecordListLoading();
+  }
+
+  // Hide dropdown to not make action when keypress on keyboard arrows
+  hide(): void {
+    this.dropdown?.accessibleViewChild?.nativeElement?.blur();
   }
 
   ngOnDestroy(): void {

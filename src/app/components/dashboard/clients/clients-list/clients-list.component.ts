@@ -31,7 +31,6 @@ import { Router } from '@angular/router';
   imports: [
     // Modules
     TranslateModule,
-    SidebarModule,
     CommonModule,
     PaginatorModule,
 

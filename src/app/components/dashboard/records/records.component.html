@@ -16,13 +16,13 @@
         <span>{{'dashboard.records.addRecord'|translate}}</span>
       </button>
       <!-- Filter Button -->
-      <button [class.disabled-actions]="isLoadingRecordsList" *ngIf="recordsList?.length>0&&showFilter"
+      <button [class.disabled-actions]="isLoadingRecordsList" *ngIf="(recordsList.length>0||ifFilteration)&&showFilter"
         [class.d-none]="dataStyleType=='list'" class="btn btn-solid-main d-flex align-items-center gap-2"
         (click)="filterItem()">
         <i class="pi pi-filter"></i>
       </button>
       <!-- Data style list 0or grid (table or card) -->
-      <div *ngIf="recordsList.length>0&&showToggleData" [class.disabled-actions]="isLoadingRecordsList"
+      <div *ngIf="(recordsList.length>0||ifFilteration)&&showToggleData" [class.disabled-actions]="isLoadingRecordsList"
         class="data-style d-md-flex d-none align-items-center gap-2 p-2">
         <a class="scaleX-rtl" [class.active]="dataStyleType=='list'" (click)="changeDateStyle('list')">
           <app-dynamic-svg [name]="'list'"></app-dynamic-svg>
@@ -32,8 +32,8 @@
         </a>
       </div>
       <!-- Search Handler -->
-      <div *ngIf="recordsList.length>0&&showSearch" [class.disabled-actions]="isLoadingRecordsList" class="search"
-        role="search">
+      <div *ngIf="(recordsList.length>0||ifFilteration)&&showSearch" [class.disabled-actions]="isLoadingRecordsList"
+        class="search" role="search">
         <div class="input-group bg-white-color d-flex flex-nowrap">
           <span class="input-group-text border-0" id="basic-addon1">
             <i class="pi pi-search text-muted-color"></i>
@@ -42,14 +42,14 @@
             <i *ngIf="isLoadingSearch" class="pi pi-spin pi-spinner"></i>
             <i *ngIf="!isLoadingSearch&&search.value" class="pi pi-times text-danger pointer"
               (click)="clearSearch(search)"></i>
-            <input type="text" class="form-control border-0 bg-transparent px-1" #search
+            <input type="text" class="form-control border-0 bg-transparent px-1" #search [(ngModel)]="searchKeyword"
               (keyup)="handleSearch(search.value)" placeholder="{{'placeholders.search' | translate}}"
               [readOnly]="isLoadingSearch" aria-label="search" aria-describedby="basic-addon1">
           </span>
         </div>
       </div>
       <!-- Clear -->
-      <button *ngIf="recordsList.length>0&&showReset" [class.disabled-actions]="isLoadingRecordsList"
+      <button *ngIf="(recordsList.length>0||ifFilteration)&&showReset" [class.disabled-actions]="isLoadingRecordsList"
         class="btn btn-outline-main d-flex align-items-center gap-2 text-nowrap" (click)="clearTable()">
         <i class="pi pi-refresh"></i>
         <span>{{'general.reset'|translate}}</span>
@@ -73,13 +73,15 @@
           <span>{{'dashboard.records.addRecord'|translate}}</span>
         </button>
         <!-- Filter Button -->
-        <button [class.disabled-actions]="isLoadingRecordsList" *ngIf="recordsList?.length>0&&showFilter"
+        <button [class.disabled-actions]="isLoadingRecordsList"
+          *ngIf="(recordsList.length>0||ifFilteration)&&showFilter"
           class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItem()">
           <i class="pi pi-filter"></i>
         </button>
       </div>
     </div>
-    <div class="row mt-3 mx-0" [class.disabled-actions]="isLoadingRecordsList" *ngIf="recordsList.length>0&&showSearch">
+    <div class="row mt-3 mx-0" [class.disabled-actions]="isLoadingRecordsList"
+      *ngIf="(recordsList.length>0||ifFilteration)&&showSearch">
       <!-- Search Handler -->
       <div class="col-sm-8 col-9">
         <div class="search" role="search">
@@ -91,7 +93,7 @@
               <i *ngIf="isLoadingSearch" class="pi pi-spin pi-spinner"></i>
               <i *ngIf="!isLoadingSearch&&search2.value" class="pi pi-times text-danger pointer"
                 (click)="clearSearch(search2)"></i>
-              <input type="text" class="form-control border-0 bg-transparent px-1" #search2
+              <input type="text" class="form-control border-0 bg-transparent px-1" #search2 [(ngModel)]="searchKeyword"
                 (keyup)="handleSearch(search2.value)" placeholder="{{'placeholders.search' | translate}}"
                 [readOnly]="isLoadingSearch" aria-label="search" aria-describedby="basic-addon1">
             </span>
@@ -100,7 +102,8 @@
       </div>
       <!-- Clear -->
       <div class="col-sm-4 col-3 d-flex justify-content-end">
-        <button class="btn btn-outline-main d-flex align-items-center gap-2 text-nowrap h-100" (click)="clearTable()">
+        <button class="btn btn-outline-main d-flex align-items-center gap-2 text-nowrap h-100" (click)="clearTable()"
+          *ngIf="(recordsList.length>0||ifFilteration)&&showReset" [class.disabled-actions]="isLoadingRecordsList">
           <i class="pi pi-refresh"></i>
           <span class="d-sm-inline-block d-none">{{'general.reset'|translate}}</span>
         </button>
@@ -144,6 +147,18 @@
           </ng-container>
         </ng-template>
 
+        <!-- Pagination Card -->
+        <ng-container *ngIf="recordsList?.length>0 || ifFilteration">
+          <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingRecordsList">
+            <p-paginator #paginator [rows]="perPage" [totalRecords]="recordsCount" [showPageLinks]="true"
+              [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>
+            <div class="d-flex align-items-center gap-3">
+              <p-dropdown [styleClass]="'paginator-options-dropdown'" [dropdownIcon]="'fas fa-caret-down'" #dropdown
+                [options]="rowsOptions" (onChange)="onPaginatorOptionsChange($event)" (onHide)="hide()"></p-dropdown>
+            </div>
+          </div>
+        </ng-container>
+
       </div>
       <ng-template #noRecords1>
         <div class="d-flex flex-column justify-content-center align-items-center">
@@ -174,6 +189,17 @@
           </ng-container>
         </ng-container>
       </ng-template>
+      <!-- Pagination Card -->
+      <ng-container *ngIf="recordsList?.length>0 || ifFilteration">
+        <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingRecordsList">
+          <p-paginator #paginator [rows]="perPage" [totalRecords]="recordsCount" [showPageLinks]="true"
+            [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>
+          <div class="d-flex align-items-center gap-3">
+            <p-dropdown [styleClass]="'paginator-options-dropdown'" [dropdownIcon]="'fas fa-caret-down'" #dropdown
+              [options]="rowsOptions" (onChange)="onPaginatorOptionsChange($event)" (onHide)="hide()"></p-dropdown>
+          </div>
+        </div>
+      </ng-container>
     </div>
     <ng-template #noRecords>
       <div class="d-flex flex-column justify-content-center align-items-center">
