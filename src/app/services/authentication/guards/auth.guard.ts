@@ -21,9 +21,9 @@ export class AuthGuard implements CanActivate {
     }
     return false;
   }
-  authState(): boolean {
+  authState(roleId): boolean {
     if (this.checkLogin()) {
-      this.router.navigate(['/Dashboard']);
+      roleId == 1 ? this.router.navigate(['/Dashboard']) : this.router.navigate(['/Client']);
       return false;
     }
     return true;
@@ -42,7 +42,8 @@ export class AuthGuard implements CanActivate {
     this.url = state?.url;
     const isAuthenticated: boolean = this.authService.isLoggedIn();
     if (isAuthenticated) {
-      return this.authState();
+      let roleId = this.authService.getCurrentUserInformationLocally().roleId;
+      return this.authState(roleId);
     }
     return this.notAuthState();
   }
