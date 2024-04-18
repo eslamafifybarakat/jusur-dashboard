@@ -158,16 +158,25 @@ export class AddEditVehicleComponent {
     formData.append('workPermitCard', this.modalForm?.value?.operatingCard);
     formData.append('expiryDate', this.modalForm?.value?.endDate);
     formData.append('insuranceExpiryDate', this.modalForm?.value?.insuranceExpiryDate);
-    formData.append('formImage', this.formPhotoFile);
     formData.append('clientHistory_id', this.config?.data?.item?.clientHistory_id);
-
+    if (this.isEdit) {
+      let photo: any = this.modalForm?.value?.formPhotoFile;
+      photo?.name != null ? formData.append('formImage', 'https://example.com/iqama.jpg') : '';
+    } else {
+      formData.append('formImage', 'https://example.com/iqama.jpg');
+    }
     let dataObj: any = {
       "workPermitCard": this.modalForm?.value?.operatingCard,
       "expiryDate": this.modalForm?.value?.endDate,
       "insuranceExpiryDate": this.modalForm?.value?.insuranceExpiryDate,
-      "formImage": "https://example.com/car-form-image.jpg",
       "clientHistory_id": this.config?.data?.item?.clientHistory_id
     };
+    if (this.isEdit) {
+      let photo: any = this.modalForm?.value?.formPhotoFile;
+      photo?.name != null ? dataObj['formImage'] = 'https://example.com/iqama.jpg' : '';
+    } else {
+      dataObj['formImage'] = 'https://example.com/iqama.jpg'
+    }
     return dataObj;
   }
   private addEditVehicle(formData: any): void {

@@ -167,16 +167,26 @@ export class AddEditEmployeeComponent {
     formData.append('identity', this.modalForm?.value?.residencyNumber?.toString());
     formData.append('expiryDate', this.modalForm?.value?.endDate);
     formData.append('healthCertificate', this.modalForm?.value?.healthCertificate);
-    formData.append('iqamaImage', 'https://example.com/iqama.jpg');
+    if (this.isEdit) {
+      let photo: any = this.modalForm?.value?.residencePhoto;
+      photo?.name != null ? formData.append('iqamaImage', 'https://example.com/iqama.jpg') : '';
+    } else {
+      formData.append('iqamaImage', 'https://example.com/iqama.jpg');
+    }
     formData.append('clientHistory_id', this.config?.data?.item?.clientHistory_id);
     let dataObj: any = {
       "name": this.modalForm?.value?.fullName,
-      "iqamaImage": "https://example.com/iqama.jpg",
       "healthCertificate": this.modalForm?.value?.healthCertificate,
       "expiryDate": this.modalForm?.value?.endDate,
       "identity": this.modalForm?.value?.residencyNumber?.toString(),
       "clientHistory_id": this.config?.data?.item?.clientHistory_id
     };
+    if (this.isEdit) {
+      let photo: any = this.modalForm?.value?.residencePhoto;
+      photo?.name != null ? dataObj['iqamaImage'] = 'https://example.com/iqama.jpg' : '';
+    } else {
+      dataObj['iqamaImage'] = 'https://example.com/iqama.jpg'
+    }
     return dataObj;
   }
   private addEditEmployee(formData: any): void {

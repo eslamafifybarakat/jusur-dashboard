@@ -583,6 +583,9 @@ export class DynamicTableLocalActionsComponent {
   //   this.driverStatusList = this.publicService.getDriverStatus();
   //   this.cdr.detectChanges();
   // }
+  onImageError(item: any, col: any): void {
+    item[col] = 'assets/images/not-found/no-img.webp';
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription: Subscription) => {

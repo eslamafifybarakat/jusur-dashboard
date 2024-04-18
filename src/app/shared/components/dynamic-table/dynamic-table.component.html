@@ -377,7 +377,8 @@
       <td>
         <div class="image">
           <p-image class="shadow" [src]="item[col.field]" [previewImageSrc]="item[col.field]" alt="Image" width="70"
-            [preview]="item[col.showPreview]?item[col.showPreview]:true"></p-image>
+            [preview]="item[col.showPreview]?item[col.showPreview]:true"
+            (onImageError)="onImageError(item,col.field)"></p-image>
         </div>
       </td>
     </ng-container>

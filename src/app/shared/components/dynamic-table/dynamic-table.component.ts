@@ -419,7 +419,9 @@ export class DynamicTableComponent {
   hide(): void {
     this.dropdown?.accessibleViewChild?.nativeElement?.blur();
   }
-
+  onImageError(item: any, col: any): void {
+    item[col] = 'assets/images/not-found/no-img.webp';
+  }
   // Clear table
   clear(table?: any): void {
     // this.dropdown.value = this.paginateOption;

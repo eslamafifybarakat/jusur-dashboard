@@ -47,7 +47,7 @@
           [class.border-bottom]="i<filesNames.length-1">
           <div class="d-flex align-items-center gap-3 text-truncate">
             <img class="fit-object-cover file-img shadow-sm" [src]="filesSrc[i]?.img"
-              onerror="src='assets/images/notFound/noUser.svg'" alt="provider image" />
+              onerror="src='assets/images/not-found/no-img.webp'" alt="provider image" />
             <div class="text-truncate">
               <p class="fw-500 mb-1">{{item?.name}}</p>
               <p class="mb-0 text-desc-color fs-8">{{item?.size}}</p>

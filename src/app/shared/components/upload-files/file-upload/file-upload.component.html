@@ -15,7 +15,7 @@
         </ng-container>
         <ng-container *ngIf="type?.includes('image')">
           <p-image class="shadow" [src]="imageSrc" [previewImageSrc]="imageSrc" alt="Image" width="70"
-            [preview]="showPreview"></p-image>
+            [preview]="showPreview" (onImageError)="onImageError(imageSrc)"></p-image>
         </ng-container>
         <div class="text-truncate">
           <p class="fw-500 mb-1">{{name}}</p>

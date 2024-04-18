@@ -36,7 +36,10 @@ export class FileUploadComponent implements OnInit {
   ngOnInit(): void {
     if (this.isEdit) {
       this.showFile = true;
-      this.name = this.imageSrc;
+      const urlParts = this.imageSrc.split('/');
+      // Get the last part of the URL, which is the image name
+      const imageName = urlParts[urlParts.length - 1];
+      this.name = imageName;
       this.type = this.imageSrc;
     }
   }
@@ -100,6 +103,10 @@ export class FileUploadComponent implements OnInit {
     else if (size == 1) { size = size + " byte"; }
     else { size = "0 bytes"; }
     this.imageSize = size;
+  }
+
+  onImageError(imageSrc: any): void {
+    imageSrc = 'assets/images/not-found/no-img.webp';
   }
 }
 

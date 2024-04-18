@@ -116,7 +116,7 @@
         (clearHandler)="enableSortFilter?clearTable():''" [tableHeaders]="tableHeaders" [tableData]="employeesList"
         [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="true" [showEdit]="false"
         [showDelete]="false" (deleteHandler)="deleteItem($event)" [showDetails]="true"
-        (detailsHandler)="itemDetails($event)" (editHandler)="addEditEmployeeItem($event,'edit')"
+        (detailsHandler)="addEditEmployeeItem($event,'edit')" (editHandler)="addEditEmployeeItem($event,'edit')"
         (customSortHandler)="enableSortFilter?sortItems($event):''"
         (filterHandler)="enableSortFilter?filterItems($event):''" [results]="employeesCount" [paginatorRows]="perPage"
         [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
