@@ -116,36 +116,24 @@ export class EmployeesListComponent {
         header: 'dashboard.tableHeader.fullName',
         title: this.publicService?.translateTextFromJson('dashboard.tableHeader.fullName'),
         type: 'text',
-        sort: true,
-        showDefaultSort: true,
-        filter: true,
       },
       {
         field: 'identity',
         header: 'dashboard.tableHeader.residencyNumber',
         title: this.publicService?.translateTextFromJson('dashboard.tableHeader.residencyNumber'),
         type: 'numeric',
-        sort: true,
-        showDefaultSort: true,
-        filter: true,
       },
       {
         field: 'expiryDate',
         header: 'dashboard.tableHeader.endDate',
         title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'),
         type: 'date',
-        sort: true,
-        showDefaultSort: true,
-        filter: true,
       },
       {
         field: 'healthCertificate',
         header: 'dashboard.tableHeader.healthCertificate',
         title: this.publicService?.translateTextFromJson('dashboard.tableHeader.healthCertificate'),
         type: 'text',
-        sort: true,
-        showDefaultSort: true,
-        filter: true,
       },
       {
         field: 'iqamaImage',
@@ -153,6 +141,48 @@ export class EmployeesListComponent {
         title: this.publicService?.translateTextFromJson('dashboard.tableHeader.residencePhoto'),
         type: 'img',
       },
+      // {
+      //   field: 'name',
+      //   header: 'dashboard.tableHeader.fullName',
+      //   title: this.publicService?.translateTextFromJson('dashboard.tableHeader.fullName'),
+      //   type: 'text',
+      //   sort: true,
+      //   showDefaultSort: true,
+      //   filter: true,
+      // },
+      // {
+      //   field: 'identity',
+      //   header: 'dashboard.tableHeader.residencyNumber',
+      //   title: this.publicService?.translateTextFromJson('dashboard.tableHeader.residencyNumber'),
+      //   type: 'numeric',
+      //   sort: true,
+      //   showDefaultSort: true,
+      //   filter: true,
+      // },
+      // {
+      //   field: 'expiryDate',
+      //   header: 'dashboard.tableHeader.endDate',
+      //   title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'),
+      //   type: 'date',
+      //   sort: true,
+      //   showDefaultSort: true,
+      //   filter: true,
+      // },
+      // {
+      //   field: 'healthCertificate',
+      //   header: 'dashboard.tableHeader.healthCertificate',
+      //   title: this.publicService?.translateTextFromJson('dashboard.tableHeader.healthCertificate'),
+      //   type: 'text',
+      //   sort: true,
+      //   showDefaultSort: true,
+      //   filter: true,
+      // },
+      // {
+      //   field: 'iqamaImage',
+      //   header: 'dashboard.tableHeader.residencePhoto',
+      //   title: this.publicService?.translateTextFromJson('dashboard.tableHeader.residencePhoto'),
+      //   type: 'img',
+      // },
     ];
   }
   private setupSubscriptions(): void {
@@ -308,6 +338,8 @@ export class EmployeesListComponent {
 
   // Add Or Edit Employee
   addEditEmployeeItem(item?: any, type?: any): void {
+    console.log(this.dataStyleType);
+
     const ref = this.dialogService?.open(AddEditEmployeeComponent, {
       data: {
         item: {
@@ -363,7 +395,7 @@ export class EmployeesListComponent {
     this.sortObj = {};
     this.filtersArray = [];
     this.page = 1;
-    this.publicService.resetTable.next(true);
+    this.dataStyleType == 'list' ? this.publicService.resetTable.next(true) : '';
     // this.publicService?.changePageSub?.next({ page: this.page });
     this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
     this.getAllEmployees();

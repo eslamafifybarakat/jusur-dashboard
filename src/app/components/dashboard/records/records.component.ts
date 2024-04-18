@@ -313,7 +313,7 @@ export class RecordsComponent {
     this.sortObj = {};
     this.filtersArray = [];
     this.page = 1;
-    this.publicService.resetTable.next(true);
+    this.dataStyleType == 'list' ? this.publicService.resetTable.next(true) : '';
     this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
     // this.publicService?.changePageSub?.next({ page: this.page });
     this.getAllRecords();

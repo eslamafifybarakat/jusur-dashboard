@@ -11,8 +11,8 @@ export interface VehiclesListApiResponse {
 }
 export interface VehiclesListingItem {
   id?: string;
-  operatingCard: string | null;
-  endDate: Date | null;
+  workPermitCard: string | null;
+  expiryDate: Date | null;
   insuranceExpiryDate: Date | null;
-  formPhoto: string
+  formImage: string
 }
