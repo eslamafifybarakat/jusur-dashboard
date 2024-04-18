@@ -138,7 +138,7 @@
           <ng-container *ngIf="vehiclesList.length>0; else noVehicles">
             <ng-container *ngFor="let card of vehiclesList; let i=index">
               <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <vehicle-card [item]="card" (editItemHandler)="addEditItem($event,'edit')"></vehicle-card>
+                <vehicle-card [item]="card" (itemDetailsHandler)="addEditItem($event,'edit')"></vehicle-card>
               </div>
             </ng-container>
           </ng-container>
@@ -180,7 +180,7 @@
         <ng-container *ngIf="vehiclesList.length>0; else noVehicles2">
           <ng-container *ngFor="let card of vehiclesList; let i=index">
             <div class="col-xl-3 col-lg-4 col-sm-6 mb-4">
-              <vehicle-card (editItemHandler)="addEditItem($event,'edit')" [item]="card"></vehicle-card>
+              <vehicle-card (itemDetailsHandler)="addEditItem($event,'edit')" [item]="card"></vehicle-card>
             </div>
           </ng-container>
         </ng-container>

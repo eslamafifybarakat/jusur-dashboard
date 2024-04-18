@@ -138,7 +138,7 @@
           <ng-container *ngIf="employeesList.length>0; else noEmployees">
             <ng-container *ngFor="let card of employeesList; let i=index">
               <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <employee-card [item]="card" (editItemHandler)="addEditEmployeeItem($event,'edit')"></employee-card>
+                <employee-card [item]="card" (itemDetailsHandler)="addEditEmployeeItem($event,'edit')"></employee-card>
               </div>
             </ng-container>
           </ng-container>
@@ -180,7 +180,7 @@
         <ng-container *ngIf="employeesList.length>0; else noEmployees2">
           <ng-container *ngFor="let card of employeesList; let i=index">
             <div class="col-xl-3 col-lg-4 col-sm-6 mb-4">
-              <employee-card (editItemHandler)="addEditEmployeeItem($event,'edit')" [item]="card"></employee-card>
+              <employee-card (itemDetailsHandler)="addEditEmployeeItem($event,'edit')" [item]="card"></employee-card>
             </div>
           </ng-container>
         </ng-container>

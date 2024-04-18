@@ -75,7 +75,7 @@ export class AddEditEmployeeComponent {
       endDate: convertedEndDate,
       healthCertificate: data?.item?.details?.healthCertificate
     });
-    this.residencePhoto = data?.item?.details?.residencePhoto;
+    this.residencePhoto = data?.item?.details?.iqamaImage;
     this.formControls.residencePhoto.setValue(this.residencePhoto);
   }
 

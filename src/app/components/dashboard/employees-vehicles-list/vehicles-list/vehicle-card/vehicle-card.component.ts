@@ -17,6 +17,7 @@ export class VehicleCardComponent {
   @Input() item: VehiclesListingItem;
   currentLanguage: string;
   @Output() editItemHandler: EventEmitter<any> = new EventEmitter();
+  @Output() itemDetailsHandler: EventEmitter<any> = new EventEmitter();
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -28,5 +29,8 @@ export class VehicleCardComponent {
   }
   editItem(item: any): void {
     this.editItemHandler.emit(item);
+  }
+  itemDetails(item: any): void {
+    this.itemDetailsHandler.emit(item);
   }
 }
