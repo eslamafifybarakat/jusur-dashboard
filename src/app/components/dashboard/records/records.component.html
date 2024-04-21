@@ -142,7 +142,8 @@
           <ng-container *ngIf="recordsList.length>0; else noRecords1">
             <ng-container *ngFor="let card of recordsList; let i=index">
               <div class="col-md-6 mb-4" [ngClass]="isClientHistory?'col-xl-4 col-lg-6':'col-xl-3 col-lg-4'">
-                <record-card [item]="card" (itemDetailsHandler)="itemDetails($event)"></record-card>
+                <record-card [item]="card" (itemDetailsHandler)="itemDetails($event)"
+                  [isClientHistoryCard]="isClientHistory?false:true"></record-card>
               </div>
             </ng-container>
           </ng-container>
@@ -194,7 +195,8 @@
           <ng-container *ngFor="let card of recordsList; let i=index">
             <div class="col-sm-6 mb-4" class="col-md-6 mb-4"
               [ngClass]="isClientHistory?'col-xl-4 col-lg-6':'col-xl-3 col-lg-4'">
-              <record-card (itemDetailsHandler)="itemDetails($event)" [item]="card"></record-card>
+              <record-card (itemDetailsHandler)="itemDetails($event)" [item]="card"
+                [isClientHistoryCard]="isClientHistory?false:true"></record-card>
             </div>
           </ng-container>
         </ng-container>

@@ -16,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class RecordCardComponent {
   @Input() item: RecordsListingItem;
+  @Input() isClientHistoryCard: boolean = true;
   currentLanguage: string;
   @Output() editItemHandler: EventEmitter<any> = new EventEmitter();
   @Output() itemDetailsHandler: EventEmitter<any> = new EventEmitter();
