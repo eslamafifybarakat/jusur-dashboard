@@ -90,7 +90,7 @@
                 <div class="birthDate">
                   <p-calendar appendTo="body" [showIcon]="true" inputId="icon" [readonlyInput]="true"
                     [styleClass]="'date-picker'" placeholder="{{'placeholders.dateFormat'| translate}}"
-                    [showButtonBar]="true" [todayButtonStyleClass]="'d-none'" dateFormat="dd/mm/yy"
+                    [(ngModel)]="date" [showButtonBar]="true" [todayButtonStyleClass]="'d-none'" dateFormat="dd/mm/yy"
                     hourFormat="12"></p-calendar>
                 </div>
               </div>
@@ -111,7 +111,7 @@
                   </span>
                   <span class="p-input-icon-right w-100 d-flex flex-nowrap m-0">
                     <input type="number" class="form-control border-0" autocomplete="cc-name" [min]="0"
-                      [value]="'123 123 123491234'" placeholder="{{'placeholders.phoneNumber'|translate}}">
+                      [(ngModel)]="phoneNumber" placeholder="{{'placeholders.phoneNumber'|translate}}">
                   </span>
                 </div>
               </div>

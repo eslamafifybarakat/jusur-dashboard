@@ -47,6 +47,8 @@ import { Component } from '@angular/core';
 export class WelcomeComponent {
   private subscriptions: Subscription[] = [];
 
+  phoneNumber = '12344444';
+  date = new Date();
   userData: any;
   dataStyleType: string = 'list';
   clientId: number;
