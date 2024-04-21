@@ -108,7 +108,7 @@ export class ClientsListComponent {
   }
   private loadData(): void {
     this.tableHeaders = [
-      { field: 'name', header: 'dashboard.tableHeader.name', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), type: 'text' },
+      { field: 'name', header: 'dashboard.tableHeader.fullName', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.fullName'), type: 'text' },
       { field: 'identity', header: 'dashboard.tableHeader.id', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.id'), type: 'text' },
       { field: 'birthDate', header: 'dashboard.tableHeader.date', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), type: 'date' },
       { field: 'phoneNumber', header: 'dashboard.tableHeader.mobilePhone', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), type: 'text' }

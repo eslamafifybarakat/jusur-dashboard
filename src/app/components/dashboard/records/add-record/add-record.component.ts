@@ -155,7 +155,8 @@ export class AddRecordComponent {
   }
   private addRecord(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);
-    let subscribeAddRecord: Subscription = this.recordsService?.addRecord(formData, this.config?.data?.item?.id).pipe(
+    let id = this.config?.data?.item?.id;
+    let subscribeAddRecord: Subscription = this.recordsService?.addRecord(formData, id ? id : null).pipe(
       tap(res => this.handleAddRecordSuccess(res)),
       catchError(err => this.handleError(err))
     ).subscribe();
