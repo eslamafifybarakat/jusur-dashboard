@@ -15,8 +15,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-info.component.scss']
 })
 export class UserInfoComponent {
-  phone: string = '+(966)295768795';
+  phone: string = '295768795';
   currentUserInfo: any;
+  currentLanguage: string = '';
 
   constructor(
     private confirmationService: ConfirmationService,
@@ -26,6 +27,7 @@ export class UserInfoComponent {
   ) { }
   ngOnInit(): void {
     this.getCurrentUserInfo();
+    this.currentLanguage = this.publicService.getCurrentLanguage();
   }
 
   getCurrentUserInfo(): void {

@@ -36,7 +36,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link d-flex align-items-center gap-2 fs-6" [href]="'mailto:'+currentUserInfo?.email">
+          <a class="nav-link d-flex align-items-center gap-2 fs-6">
             <span>
               <i class="pi pi-envelope"></i>
             </span>
@@ -44,11 +44,15 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link d-flex align-items-center gap-2 fs-6" href="tel:+966295768795">
+          <a class="nav-link d-flex align-items-center gap-2 fs-6">
             <span>
               <i class="pi pi-phone"></i>
             </span>
-            {{phone}}
+            <div>
+              <span *ngIf="currentLanguage=='en'">+(966)</span>
+              {{phone}}
+              <span *ngIf="currentLanguage=='ar'">+(966)</span>
+            </div>
           </a>
         </li>
       </ul>
