@@ -120,7 +120,8 @@
         </div>
         <div class="mt-4">
           <records [clientId]="clientId" [showRecordCount]="false" [showSearch]="false" [showFilter]="false"
-            [showToggleData]="true" [showAddBtn]="false" [showReset]="false" [changeTitleStyle]="true"></records>
+            [showToggleData]="true" [showAddBtn]="false" [showReset]="false" [changeTitleStyle]="true"
+            [isClientHistory]="true"></records>
         </div>
         <form class="mt-4" aria-label="note-form" [formGroup]="noteForm" (ngSubmit)="submit()">
           <label for="note">

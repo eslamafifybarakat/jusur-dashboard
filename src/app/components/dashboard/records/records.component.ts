@@ -56,6 +56,7 @@ export class RecordsComponent {
   @Input() showAddBtn: boolean = true;
   @Input() showReset: boolean = true;
   @Input() changeTitleStyle: boolean = false;
+  @Input() isClientHistory: boolean = false;
 
   dataStyleType: string = 'list';
 
@@ -130,7 +131,7 @@ export class RecordsComponent {
   }
   private updateMetaTagsForSEO(): void {
     let metaData: MetaDetails = {
-      title: 'السجلات',
+      title: this.isClientHistory ? 'بياناتي' : 'السجلات',
       description: 'الوصف',
       image: 'https://ik.imagekit.io/2cvha6t2l9/Carousel%20card.svg?updatedAt=1713227892043'
     }
