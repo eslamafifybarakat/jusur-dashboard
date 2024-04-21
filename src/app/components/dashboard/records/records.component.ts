@@ -220,7 +220,7 @@ export class RecordsComponent {
 
   // Record Details
   itemDetails(item?: any): void {
-    this.router.navigate(['Dashboard/Clients/Record-Details', item?.id]);
+    this.router.navigate(['Dashboard/Clients/RecordDetails', item?.id]);
   }
   // Add Record
   addItem(item?: any, type?: any): void {
@@ -247,7 +247,7 @@ export class RecordsComponent {
   }
   // Edit Record
   editItem(item: any): void {
-    this.router.navigate(['Dashboard/Clients/Record-Details', item?.id]);
+    this.router.navigate(['Dashboard/Clients/RecordDetails', item?.id]);
   }
 
   // Filter Record Modal
