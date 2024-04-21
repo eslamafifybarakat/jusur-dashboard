@@ -28,6 +28,3 @@
 /Client
 /en/Client
 /ar/Client
-/Client
-/en/Client
-/ar/Client
