@@ -1,2 +1,2 @@
-const server = require('../dist/start-angular-16-ssr/server/main');
+const server = require("../dist/jusur/server/main");
 module.exports = server.app();
