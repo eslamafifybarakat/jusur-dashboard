@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "structure": {
+    "jusur": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/structure/browser",
+            "outputPath": "dist/jusur/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -82,10 +82,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "structure:build:production"
+              "browserTarget": "jusur:build:production"
             },
             "development": {
-              "browserTarget": "structure:build:development"
+              "browserTarget": "jusur:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -93,7 +93,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "structure:build"
+            "browserTarget": "jusur:build"
           }
         },
         "test": {
@@ -119,7 +119,7 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/structure/server",
+            "outputPath": "dist/jusur/server",
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json",
             "inlineStyleLanguage": "scss"
@@ -142,12 +142,12 @@
           "builder": "@nguniversal/builders:ssr-dev-server",
           "configurations": {
             "development": {
-              "browserTarget": "structure:build:development",
-              "serverTarget": "structure:server:development"
+              "browserTarget": "jusur:build:development",
+              "serverTarget": "jusur:server:development"
             },
             "production": {
-              "browserTarget": "structure:build:production",
-              "serverTarget": "structure:server:production"
+              "browserTarget": "jusur:build:production",
+              "serverTarget": "jusur:server:production"
             }
           },
           "defaultConfiguration": "development"
@@ -160,12 +160,12 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "structure:build:production",
-              "serverTarget": "structure:server:production"
+              "browserTarget": "jusur:build:production",
+              "serverTarget": "jusur:server:production"
             },
             "development": {
-              "browserTarget": "structure:build:development",
-              "serverTarget": "structure:server:development"
+              "browserTarget": "jusur:build:development",
+              "serverTarget": "jusur:server:development"
             }
           },
           "defaultConfiguration": "production"

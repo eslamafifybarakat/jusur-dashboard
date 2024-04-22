@@ -1,5 +1,5 @@
 {
-  "name": "structure",
+  "name": "jusur",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,13 +7,13 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:structure": "node dist/structure/server/server.mjs",
-    "dev:ssr": "ng run structure:serve-ssr",
+    "serve:ssr:jusur": "node dist/jusur/server/server.mjs",
+    "dev:ssr": "ng run jusur:serve-ssr",
     "vercel-build": "npm run build:ssr",
-    "build:ssr-prod": "ng build --configuration production && ng run structure:server",
-    "prerender": "ng run structure:prerender",
-    "build:ssr": "ng build && ng run structure:server",
-    "serve:ssr": "node dist/structure/server/main.js"
+    "build:ssr-prod": "ng build --configuration production && ng run jusur:server",
+    "prerender": "ng run jusur:prerender",
+    "build:ssr": "ng build && ng run jusur:server",
+    "serve:ssr": "node dist/jusur/server/main.js"
   },
   "private": true,
   "dependencies": {
