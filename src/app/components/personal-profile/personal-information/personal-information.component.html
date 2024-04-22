@@ -1,0 +1,274 @@
+<div id="personal-info">
+  <form [formGroup]="personalInfoForm" id="modal-form" aria-label="client-details-form" (ngSubmit)="submit()">
+
+    <div class="mt-xl-4 mt-md-3 mt-3 mb-3">
+      <div class="row">
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+          <div class="mb-3">
+            <label for="firstName" class="mb-2 required">
+              {{'labels.firstName'|translate}}
+            </label>
+            <div class="input-group d-flex flex-nowrap"
+              [class.border-red]="formControls?.firstName?.invalid && (formControls?.firstName?.dirty || formControls?.firstName?.touched)">
+              <input type="text" class="form-control" formControlName="firstName" autocomplete="cc-name" [min]="0"
+                (input)="publicService?.clearValidationErrors(formControls?.firstName)"
+                placeholder="{{'placeholders.firstName'|translate}}" [readOnly]="isFirstNameReadOnly"
+                [class.prevent-click]="isFirstNameReadOnly">
+              <span class="input-group-text bg-transparent border-0 p-1" id="basic-addon1">
+                <a *ngIf="isFirstNameReadOnly" class="edit-input d-flex justify-content-center align-items-center"
+                  (click)="editInput('firstName')">
+                  <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                      fill="#359a9c" />
+                  </svg>
+                </a>
+              </span>
+            </div>
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.firstName?.invalid && (formControls?.firstName?.dirty || formControls?.firstName?.touched)">
+                <ng-container *ngIf="formControls?.firstName?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.firstNameRequired'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="formControls?.firstName?.errors?.['minlength']">
+                  <span class="text-danger fs-8 d-block">
+                    {{'validations.length'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+          <div class="mb-3">
+            <label for="lastName" class="mb-2 required">
+              {{'labels.lastName'|translate}}
+            </label>
+            <div class="input-group d-flex flex-nowrap"
+              [class.border-red]="formControls?.lastName?.invalid && (formControls?.lastName?.dirty || formControls?.lastName?.touched)">
+              <input type="text" class="form-control" [readOnly]="isLastNameReadOnly"
+                [class.prevent-click]="isLastNameReadOnly" formControlName="lastName" autocomplete="cc-name" [min]="0"
+                (input)="publicService?.clearValidationErrors(formControls?.lastName)"
+                placeholder="{{'placeholders.lastName'|translate}}">
+              <span class="input-group-text bg-transparent p-1" id="basic-addon1">
+                <a *ngIf="isLastNameReadOnly" class="edit-input d-flex justify-content-center align-items-center"
+                  (click)="editInput('lastName')">
+                  <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                      fill="#359a9c" />
+                  </svg>
+                </a>
+              </span>
+            </div>
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.lastName?.invalid && (formControls?.lastName?.dirty || formControls?.lastName?.touched)">
+                <ng-container *ngIf="formControls?.lastName?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.lastNameRequired'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="formControls?.lastName?.errors?.['minlength']">
+                  <span class="text-danger fs-8 d-block">
+                    {{'validations.length'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+          <div class="mb-3">
+            <label for="email" class="mb-2">
+              {{'labels.email'|translate}}
+            </label>
+            <div class="input-group d-flex flex-nowrap"
+              [class.border-red]="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)">
+              <span class="p-input-icon-right w-100">
+                <input type="email" class="form-control" formControlName="email" autocomplete="cc-name"
+                  [readOnly]="isEmailReadOnly" [class.prevent-click]="isEmailReadOnly"
+                  (input)="publicService?.clearValidationErrors(formControls?.email)"
+                  placeholder="{{'placeholders.email'|translate}}">
+              </span>
+              <!-- <span class="input-group-text bg-transparent p-1" id="basic-addon1">
+                <a *ngIf="isEmailReadOnly" class="edit-input d-flex justify-content-center align-items-center"
+                  (click)="editInput('email')">
+                  <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                      fill="#359a9c" />
+                  </svg>
+                </a>
+              </span> -->
+            </div>
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)">
+                <ng-container *ngIf="formControls?.email?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.emailRequired'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="formControls?.email?.errors?.['pattern']">
+                  <span class="text-danger fs-8 d-block">
+                    {{'validations.emailNotCorrect'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+          <div class="mb-3">
+            <label class="mb-2 required">
+              {{'labels.gender' | translate}}
+            </label>
+            <div class="input-group d-flex flex-nowrap"
+              [class.border-red]="formControls?.gender?.invalid && (formControls?.gender?.dirty || formControls?.gender?.touched)">
+              <span class="p-input-icon-right w-100">
+                <p-dropdown [options]="genders" formControlName="gender" optionLabel="label" [filter]="false"
+                  [dropdownIcon]="'fas fa-caret-down'" [virtualScroll]="true" [virtualScrollItemSize]="38"
+                  filterBy="label" appendTo="body" [filterPlaceholder]="'placeholders.select'|translate"
+                  [placeholder]="'placeholders.select'|translate" [readonly]="isLoadingGenders" scrollHeight="200px"
+                  [disabled]="isGenderReadOnly" [class.prevent-click]="isGenderReadOnly"
+                  emptyMessage="{{'general.no_result_found'|translate}}" [showClear]="true" [placeholder]="'...'">
+                </p-dropdown>
+              </span>
+              <span class="input-group-text bg-transparent p-1" id="basic-addon2">
+                <a *ngIf="isGenderReadOnly" class="edit-input d-flex justify-content-center align-items-center"
+                  (click)="editInput('gender')">
+                  <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                      fill="#359a9c" />
+                  </svg>
+                </a>
+              </span>
+            </div>
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.gender?.invalid && (formControls?.gender?.dirty || formControls?.gender?.touched)">
+                <ng-container *ngIf="formControls?.gender?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+          <div class="mb-3">
+            <label for="phoneNumber" class="mb-2">
+              {{'labels.phoneNumber'|translate}}
+            </label>
+            <div class="input-number input-group d-flex flex-nowrap"
+              [class.border-red]="formControls?.phoneNumber?.invalid && (formControls?.phoneNumber?.dirty || formControls?.phoneNumber?.touched)">
+              <!-- <span class="input-group-text border-0 fs-6-1 " id="basic-addon1">
+                +966
+              </span> -->
+              <span class="p-input-icon-right w-100">
+                <input type="number" class="form-control border-0" [readOnly]="isPhoneNumberReadOnly"
+                  [class.prevent-click]="isPhoneNumberReadOnly" formControlName="phoneNumber" autocomplete="cc-name"
+                  [min]="0" (input)="publicService?.clearValidationErrors(formControls?.phoneNumber)"
+                  placeholder="{{'placeholders.phoneNumber'|translate}}"
+                  [class.is-valid]="formControls?.phoneNumber?.valid && (formControls?.phoneNumber?.dirty || formControls?.phoneNumber?.touched)">
+              </span>
+              <span class="input-group-text bg-transparent p-1 border-0" id="basic-addon1">
+                <a *ngIf="isPhoneNumberReadOnly" class="edit-input d-flex justify-content-center align-items-center"
+                  (click)="editInput('phoneNumber')">
+                  <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                      fill="#359a9c" />
+                  </svg>
+                </a>
+              </span>
+            </div>
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.phoneNumber?.invalid && (formControls?.phoneNumber?.dirty || formControls?.phoneNumber?.touched)">
+                <ng-container *ngIf="formControls?.phoneNumber?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.required_field'|translate}}
+                  </span>
+                </ng-container>
+                <!-- <ng-container *ngIf="formControls?.phoneNumber?.errors?.['pattern']">
+                  <span class="text-danger fs-8 d-block">
+                    {{'validations.phoneNotCorrect'|translate}}
+                  </span>
+                </ng-container> -->
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+          <div class="mb-3">
+            <label for="birthDate" class="mb-2 required">
+              {{'labels.birthDate'|translate}}
+            </label>
+            <div
+              [class.border-red]="formControls?.birthDate?.invalid && (formControls?.birthDate?.dirty || formControls?.birthDate?.touched)"
+              class="birthDate overflow-hidden">
+              <div class="input-group bg-white-color d-flex flex-nowrap">
+                <p-calendar [maxDate]="maxDate" [class.prevent-click]="isBirthDateReadOnly" class="w-100"
+                  formControlName="birthDate" appendTo="body" [showIcon]="true" inputId="icon" [readonlyInput]="true"
+                  [styleClass]="'date-picker'" placeholder="yyyy/mm/dd" [showButtonBar]="true"
+                  [todayButtonStyleClass]="'d-none'" dateFormat="yy/mm/dd" hourFormat="12"></p-calendar>
+                <span class="input-group-text bg-transparent p-1" id="basic-addon1">
+                  <a *ngIf="isBirthDateReadOnly" class="edit-input d-flex justify-content-center align-items-center"
+                    (click)="editInput('birthDate')">
+                    <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                        fill="#359a9c" />
+                    </svg>
+                  </a>
+                </span>
+              </div>
+            </div>
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.birthDate?.invalid && (formControls?.birthDate?.dirty || formControls?.birthDate?.touched)">
+                <ng-container *ngIf="formControls?.birthDate?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end align-items-center flex-wrap gap-2">
+      <div class="d-flex gap-3 flex-lg-nowrap flex-wrap">
+        <button type="submit" class="btn btn-solid-main d-flex align-items-center gap-2 me-auto">
+          <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+              fill="#FFF" />
+          </svg>
+          <span>
+            {{'general.save'|translate}}
+          </span>
+        </button>
+
+        <!-- <button class="btn btn-outline-main d-flex align-items-center gap-2 me-auto">
+          <i class="pi pi-times-circle"></i>
+          <span>
+            {{'general.cancel'|translate}}
+          </span>
+        </button> -->
+
+      </div>
+    </div>
+  </form>
+</div>

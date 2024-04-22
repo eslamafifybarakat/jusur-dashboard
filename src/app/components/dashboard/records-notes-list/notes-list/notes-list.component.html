@@ -118,7 +118,7 @@
       <ng-template #noLoadingCards>
         <ng-container *ngIf="notesList.length>0; else noRecords">
           <ng-container *ngFor="let card of notesList; let i=index">
-            <div class="col-xl-3 col-lg-4 col-sm-6 mb-4">
+            <div class="mb-4">
               <app-note-card [item]="card"></app-note-card>
             </div>
           </ng-container>

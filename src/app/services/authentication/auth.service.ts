@@ -106,7 +106,14 @@ export class AuthService {
   isEmailAvailable(emailAddress: string): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/${roots.auth.isEmailAvailable}`, { emailAddress });
   }
-  signOut(): void {
+  profileData(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}${roots.auth.profileData}`);
+  }
+  changePassword(data: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}${roots.auth.changePassword}`, data);
+  }
+
+  signOut(): any {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem(keys.userLoginData);
       localStorage.removeItem(keys.currentUserInformation);

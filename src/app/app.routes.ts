@@ -1,4 +1,3 @@
-import { ClientComponent } from './components/client/client.component';
 import { Routes } from '@angular/router';
 
 // Components
@@ -11,6 +10,7 @@ import { errorsChildrenRoutes } from './components/errors/errors-routes';
 //Services
 import { AuthGuard } from './services/authentication/guards/auth.guard';
 import { clientChildrenRoutes } from './components/client/client-children-routes';
+import { profileChildrenRoutes } from './components/personal-profile/profile-children-routes';
 
 
 export const appRoutes: Routes = [
@@ -75,6 +75,22 @@ export const appRoutes: Routes = [
   //   children: placesChildrenRoutes
   //   // canActivate: [LanguageGuard] // Optional: Use a guard to validate the language parameter
   // },
+  {
+    path: 'Profile',
+    loadComponent: () =>
+      import('./components/personal-profile/personal-profile.component').then(
+        (c) => c.PersonalProfileComponent
+      ),
+    children: profileChildrenRoutes
+  },
+  {
+    path: ':lang/Profile',
+    loadComponent: () =>
+      import('./components/personal-profile/personal-profile.component').then(
+        (c) => c.PersonalProfileComponent
+      ),
+    children: profileChildrenRoutes
+  },
   {
     path: '**', loadComponent: () =>
       import('./components/errors/errors.component').then(

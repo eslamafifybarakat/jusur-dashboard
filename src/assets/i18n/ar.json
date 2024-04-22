@@ -43,7 +43,8 @@
         "contactUs": "اتصل بنا",
         "faqs": "الأسئلة الشائعة"
       }
-    }
+    },
+    "profile": "الملف الشخصي"
   },
   "general": {
     "backToHome": "العودة إلى الصفحة الرئيسية",
@@ -240,6 +241,10 @@
     "joinNow": "انضم الأن"
   },
   "labels": {
+    "gender":"النوع",
+    "changePassword":"تغيير كلمة المرور",
+    "personalInformation":"المعلومات الشخصية",
+    "conatctInformation":"معلومات الاتصال",
     "addNote":"إضاقة ملاحظة",
     "apply": "تطبيق",
     "cancelClassification": "إلغاء التصنيف",
@@ -284,9 +289,12 @@
     "residencePhoto": "صورة الإقامة",
     "operatingCard": "كارت التشغيل",
     "insuranceExpiryDate": "تاريخ إنتهاء التأمين",
-    "formPhoto": "صورة الإستمارة"
+    "formPhoto": "صورة الإستمارة",
+    "currentPassword": "كلمة المرور الحالية"
   },
   "placeholders": {
+    "currentPassword": "أدخل كلمة المرور الحالية",
+    "select":"اختر",
     "tellUs":"اخبرنا بما تريد...",
     "searchEstkdam": "ابحث عن الإستقدام الذى تريده",
     "username": "أدخل اسم المستخدم",
@@ -331,6 +339,9 @@
     "dateFormat": "شهر / يوم / سنه"
   },
   "validations": {
+    "emailRequired": "البريد الإلكتروني مطلوب",
+    "firstNameRequired": "الإسم الأول مطلوب",
+    "lastNameRequired": "الإسم الأخير مطلوب",
     "residencyNumberLength":"رقم الاقامة يجب ان يكون 10 ارقام",
     "username": "اسم المستخدم مطلوب",
     "password": "كلمة المرور مطلوبة",

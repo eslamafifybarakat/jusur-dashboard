@@ -1,0 +1,58 @@
+:host::ng-deep {
+  #personal-info {
+    .prevent-click {
+      pointer-events: none;
+    }
+    .p-inputtext,
+    .p-dropdown,
+    .p-multiselect,
+    .p-inputnumber,
+    .p-password,
+    .form-control,
+    .p-calendar-w-btn .p-inputtext {
+      background-color: #edfcfd;
+      border: none !important;
+      color: #000;
+      height: 3rem !important;
+      overflow: hidden;
+
+      // Adding placeholder styles
+      &::placeholder {
+        // targeting the placeholder pseudo-element
+        color: gray !important; // set the color of the placeholder text to red
+        opacity: 1; // ensure the placeholder is not partially transparent
+      }
+    }
+
+    .input-group {
+      border-radius: var(--border-input-radius);
+      overflow: hidden;
+      border: 1px solid var(--second-border-color);
+      background-color: #edfcfd;
+
+      .p-icon,
+      .p-datepicker-trigger .p-icon {
+        fill: var(--text-main-color) !important;
+      }
+
+      .edit-input {
+        width: 2.4rem;
+        min-width: 2.4rem;
+        height: 2.4rem;
+        border-radius: 10px;
+        background-color: #eaeaea;
+      }
+    }
+  }
+}
+.btn {
+  height: 2.9rem;
+  padding: 1rem;
+  border-radius: 10px;
+}
+.btn-solid-main,
+.btn-solid-main:focus {
+  background-color: var(--bg-main-color);
+  border: 1px solid var(--bg-main-color);
+  color: var(--text-white-color);
+}

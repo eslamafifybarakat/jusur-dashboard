@@ -3,11 +3,12 @@ import { MetaDetails, MetadataService } from './../../../services/generic/metada
 import { AuthService } from './../../../services/authentication/auth.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
 
 @Component({
   standalone: true,
-  imports: [TranslateModule, CommonModule],
+  imports: [TranslateModule, CommonModule, RouterModule],
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.scss']

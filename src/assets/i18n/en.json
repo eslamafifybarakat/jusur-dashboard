@@ -43,7 +43,8 @@
         "contactUs": "Contact Us",
         "faqs": "FAQs"
       }
-    }
+    },
+    "profile": "Personal Profile"
   },
   "general": {
     "backToHome": "Back to home",
@@ -240,6 +241,11 @@
     "joinNow": "Join now"
   },
   "labels": {
+    "currentPassword": "Current Password",
+    "gender":"Gender",
+    "changePassword": "Change Password",
+    "personalInformation": "Personal Information",
+    "conatctInformation": "Contact Information",
     "addNote":"Add a note",
     "apply": "Apply",
     "cancelClassification": "Reset",
@@ -287,6 +293,8 @@
     "formPhoto": "form photo"
   },
   "placeholders": {
+    "currentPassword": "Enter current password",
+    "select":"Select",
     "tellUs":"Tell us what you want...",
     "searchEstkdam": "Find the employment you want",
     "username": "Enter username",
@@ -331,6 +339,9 @@
     "dateFormat": "mm/dd/yy"
   },
   "validations": {
+    "emailRequired": "Email Address is required",
+    "firstNameRequired": "First Name is required",
+    "lastNameRequired": "Last Name is required",
     "residencyNumberLength":"Residency number must be 10 digits",
     "username": "Username is required",
     "password": "Password is required",

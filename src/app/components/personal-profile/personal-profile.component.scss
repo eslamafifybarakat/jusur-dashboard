@@ -1,0 +1,99 @@
+.profile {
+  padding-top: 3rem;
+
+  .header {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    text-align: left; // Align text to the left for LTR
+
+    &:dir(rtl) {
+      text-align: right; // Align text to the right for RTL
+    }
+  }
+
+  .global-card {
+    border: none;
+
+    .btn-tabs {
+      display: flex; // Ensuring flex layout to align tabs in a row
+      overflow-x: auto; // Allows horizontal scrolling
+      scrollbar-width: none; // Hides scrollbar in Firefox
+      -ms-overflow-style: none; // Hides scrollbar in IE 10+
+      flex-direction: column;
+
+      @media (max-width: 576px) {
+        flex-direction: row;
+      }
+
+      &::-webkit-scrollbar {
+        display: none; // Hides scrollbar in WebKit browsers
+      }
+
+      button.tab {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start; // Adjust content alignment to the left
+        color: #626262;
+        background-color: transparent;
+        border: none;
+        border-radius: 0.5rem;
+        width: auto; // Tabs will only take as much width as needed
+        text-align: left; // Left align text for LTR
+        padding: 1rem;
+        font-weight: 500;
+
+        &:dir(rtl) {
+          text-align: right; // Align text to the right for RTL
+        }
+
+        .fas {
+          margin-right: 1rem; // Change margin to right for icon
+          margin-left: 0; // Reset left margin
+
+          &:dir(rtl) {
+            transform: scaleX(-1);
+            margin-left: 1rem; // Change margin to left for icon
+            margin-right: 0; // Reset right margin
+          }
+        }
+
+        &:hover {
+          background-color: transparent;
+          color: var(--text-main-color);
+        }
+
+        &.active {
+          color: var(--text-main-color);
+          background-color: #e4fcfc;
+          font-weight: 600;
+        }
+      }
+
+      .danger {
+        color: red !important;
+      }
+
+      hr {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      @media (max-width: 576px) {
+        button.tab span {
+          text-wrap: nowrap;
+        }
+
+        justify-content: start; // Aligns tabs to the start for smaller screens
+
+        button.tab {
+          min-width: fit-content; // Each tab will fit its content
+          white-space: nowrap; // Prevents wrapping of text inside tabs
+          scroll-snap-align: start; // Ensures that snapping aligns to the start of the tab
+        }
+
+        scroll-snap-type: x mandatory; // Enables x-axis snap scrolling
+      }
+    }
+  }
+}

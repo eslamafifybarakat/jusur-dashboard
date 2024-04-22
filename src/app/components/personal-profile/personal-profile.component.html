@@ -1,0 +1,55 @@
+<div class="profile">
+  <div class="container">
+    <h3 class="header">
+      {{'nav.profile'|translate}}
+    </h3>
+    <div class="row">
+      <div class="col-xl-3 col-md-4 col-sm-6 col-12 mb-1">
+        <div class="global-card">
+          <div class="btn-tabs">
+            <button (click)="setActiveTab(0)" [ngClass]="{'active': activeTab === 0}" class="tab">
+              <i class="fas fa-user mr-1"></i>
+              <span>
+                {{'labels.personalInformation' | translate}}
+              </span>
+            </button>
+            <!-- <button (click)="setActiveTab(1)" [ngClass]="{'active': activeTab === 1}" class="tab">
+              <i class="fas fa-address-card mr-1"></i>
+              <span>
+                {{'labels.conatctInformation' | translate}}
+              </span>
+            </button> -->
+            <button (click)="changePassword()" class="tab">
+              <i class="fas fa-lock mr-1"></i>
+              <span>
+                {{'labels.changePassword' | translate}}
+              </span>
+            </button>
+            <hr />
+            <button (click)="logOut()" class="tab danger">
+              <i class="fas fa-sign-in-alt mr-1"></i>
+              <span>
+                {{'general.logout' | translate}}
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-9 col-md-8 col-sm-6 col-12 mb-1">
+        <div class="global-card p-xl-4 p-md-4 px-sm-3 px-3">
+          <div *ngIf="activeTab === 0">
+            <h4>
+              {{'labels.personalInformation' | translate}}
+            </h4>
+            <app-personal-information></app-personal-information>
+          </div>
+          <!-- <div *ngIf="activeTab === 1">
+            <h4>
+              {{'labels.conatctInformation' | translate}}
+            </h4>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

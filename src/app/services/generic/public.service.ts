@@ -20,6 +20,9 @@ export class PublicService {
   showSearchLoader = new Subject<boolean>();
   resetTable = new BehaviorSubject<boolean>(false);
   changePageSub = new BehaviorSubject<{}>({});
+  recallProfileDataFuntion = new BehaviorSubject<boolean>(false);
+  pushUrlData = new BehaviorSubject<boolean>(false);
+  userAuthenicationChanged = new Subject<boolean>();
 
   // ====Start Employees and Vehicles actions=========
   isLoadingEmployees = new BehaviorSubject<boolean>(false);

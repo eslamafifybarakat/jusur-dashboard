@@ -7,6 +7,8 @@ export const roots = {
     validateCode: '/Account/ValidateCode',
     resetPassword: '/Account/ResetPassword',
     updateProfile: '/Account/UpdateProfile',
+    profileData: '/get-profile',
+    changePassword: '/update-password',
 
     isEmailAvailable: "/Account/IsEmailAvailable",
 

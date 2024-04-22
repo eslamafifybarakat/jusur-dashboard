@@ -9,7 +9,7 @@ export const keys = {
   userData: 'jusurUserData',
   theme: 'jusurTheme',
   token: 'jusurToken',
-
+  profileData: 'jusurProfileData',
   prepareStepData: 'jusurPrepareStepData',
   saveTripData: 'jusurSaveTripData'
 };
