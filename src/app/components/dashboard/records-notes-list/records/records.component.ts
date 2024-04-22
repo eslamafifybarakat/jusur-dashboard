@@ -5,23 +5,23 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 // Components
-import { DynamicTableLocalActionsComponent } from './../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
-import { DynamicTableComponent } from './../../../shared/components/dynamic-table/dynamic-table.component';
+import { DynamicTableLocalActionsComponent } from './../../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
+import { DynamicTableComponent } from './../../../../shared/components/dynamic-table/dynamic-table.component';
 import { DynamicSvgComponent } from 'src/app/shared/components/icons/dynamic-svg/dynamic-svg.component';
-import { SkeletonComponent } from './../../../shared/skeleton/skeleton/skeleton.component';
+import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
 import { FilterRecordComponent } from './filter-record/filter-record.component';
 import { RecordCardComponent } from './record-card/record-card.component';
 import { AddRecordComponent } from './add-record/add-record.component';
 
 //Services
-import { LocalizationLanguageService } from './../../../services/generic/localization-language.service';
-import { RecordsListApiResponse, RecordsListingItem } from './../../../interfaces/dashboard/records';
-import { MetaDetails, MetadataService } from './../../../services/generic/metadata.service';
+import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
+import { RecordsListApiResponse, RecordsListingItem } from './../../../../interfaces/dashboard/records';
+import { MetaDetails, MetadataService } from './../../../../services/generic/metadata.service';
 import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
 import { ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
-import { AlertsService } from './../../../services/generic/alerts.service';
-import { PublicService } from './../../../services/generic/public.service';
-import { RecordsService } from '../services/records.service';
+import { AlertsService } from './../../../../services/generic/alerts.service';
+import { PublicService } from './../../../../services/generic/public.service';
+import { RecordsService } from '../../services/records.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
 
@@ -112,17 +112,48 @@ export class RecordsComponent {
   }
 
   ngOnInit(): void {
+    this.initializeTableHeaders();
+    this.loadPageData();
+
+    // Start Behavior Subject Actions
+    this.publicService.toggleFilterRecordDataType.subscribe((res: any) => {
+      if (res) {
+        this.changeDateStyle(res);
+      }
+    });
+
+    this.publicService.addRecordItem.subscribe(res => {
+      if (res) {
+        this.addItem();
+      }
+    });
+
+    this.publicService.resetRecordsData.subscribe(res => {
+      if (res) {
+        this.clearTable();
+      }
+    });
+
+    this.publicService.searchRecordsData.subscribe(res => {
+      if (res) {
+        this.searchHandler(res);
+      }
+    });
+
+    this.publicService.filterRecordsData.subscribe(res => {
+      if (res) {
+        this.filterItemModal();
+      }
+    });
+    // End Behavior Subject Actions
+  }
+  private initializeTableHeaders(): void {
     this.tableHeaders = [
       { field: 'name', header: 'dashboard.tableHeader.recordName', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordName'), type: 'text' },
       { field: 'number', header: 'dashboard.tableHeader.recordNumber', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordNumber'), type: 'numeric' },
       { field: 'expireDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date' },
-      // { field: 'name', header: 'dashboard.tableHeader.recordName', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordName'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true },
-      // { field: 'number', header: 'dashboard.tableHeader.recordNumber', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordNumber'), type: 'numeric', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true },
-      // { field: 'expireDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true }
     ];
-    this.loadPageData();
   }
-
   loadPageData(): void {
     this.updateMetaTagsForSEO();
     this.getAllRecords(false);

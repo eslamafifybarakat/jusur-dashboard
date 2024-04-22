@@ -187,6 +187,7 @@ export class EmployeesListComponent {
   }
   private setupSubscriptions(): void {
     this.searchSubject.pipe(debounceTime(500)).subscribe(event => this.searchHandler(event));
+
     this.publicService.toggleFilterEmployeeDataType.subscribe((res: any) => {
       if (res) {
         this.changeDateStyle(res);

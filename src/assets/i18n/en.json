@@ -170,6 +170,10 @@
       "records": "History",
       "addRecord": "Add History"
     },
+    "notes":{
+    "notes":"Notes",
+    "addNote": "Add Note"
+    },
     "employees": {
       "employees": "Employees",
       "addEmployee": "Add Employee",

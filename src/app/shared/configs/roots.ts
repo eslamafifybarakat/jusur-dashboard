@@ -46,6 +46,9 @@ export const roots = {
       addRecords: 'ClientHistory/AddClientHistory',
       editRecords: 'ClientHistory/UpdateClientHistory'
     },
+    notes: {
+      getNotes: 'ClientHistory/AllClientNotes',
+    },
     employees: {
       getEmployees: 'Employee/AllEmployees',
       addEmployee: 'Employee/AddEmployee',

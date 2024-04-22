@@ -168,6 +168,10 @@
       "records": "السجلات",
       "addRecord": "إضافة سجل"
     },
+    "notes":{
+      "notes":"الملاحظات",
+      "addNote": "إضافة ملاحظة"
+      },
     "employees": {
       "employees": "الموظفين",
       "addEmployee": "إضافة موظف",

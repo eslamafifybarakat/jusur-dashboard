@@ -1,0 +1,157 @@
+<div id="notes">
+  <div class="d-md-flex d-none justify-content-between align-items-center flex-wrap gap-3">
+    <div class="d-flex align-items-center gap-2">
+      <h4 class="mb-0 text-capitalize">
+        {{'dashboard.notes.notes'|translate}}</h4>
+      <!-- <span *ngIf="showRecordCount"
+        class="badge badge-main text-main-color d-flex justify-content-center align-items-center">
+        {{notesCount}}
+      </span> -->
+    </div>
+    <div class="d-none gap-3  flex-wrap">
+      <!-- Add Record -->
+      <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addItem()">
+        <i class="pi pi-plus"></i>
+        <span>{{'dashboard.records.addRecord'|translate}}</span>
+      </button>
+      <!-- Filter Button -->
+      <!-- <button [class.disabled-actions]="isLoadingNotesList"
+        *ngIf="(notesList.length>0||ifFilteration())&&showFilter" [class.d-none]="dataStyleType=='list'"
+        class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItemModal()">
+        <i class="pi pi-filter"></i>
+      </button> -->
+      <!-- Data style list 0or grid (table or card) -->
+      <div *ngIf="(notesList.length>0||ifFilteration())" [class.disabled-actions]="isLoadingNotesList"
+        class="data-style d-md-flex d-none align-items-center gap-2 p-2">
+        <a class="scaleX-rtl" [class.active]="dataStyleType=='list'" (click)="changeDateStyle('list')">
+          <app-dynamic-svg [name]="'list'"></app-dynamic-svg>
+        </a>
+        <a class="scaleX-rtl" [class.active]="dataStyleType=='grid'" (click)="changeDateStyle('grid')">
+          <app-dynamic-svg [name]="'grid'"></app-dynamic-svg>
+        </a>
+      </div>
+      <!-- Search Handler -->
+      <div *ngIf="(notesList.length>0||ifFilteration())" [class.disabled-actions]="isLoadingNotesList" class="search"
+        role="search">
+        <div class="input-group bg-white-color d-flex flex-nowrap">
+          <span class="input-group-text border-0" id="basic-addon1">
+            <i class="pi pi-search text-muted-color"></i>
+          </span>
+          <span class="p-input-icon-right d-inline-block w-100">
+            <i *ngIf="isLoadingSearch" class="pi pi-spin pi-spinner"></i>
+            <i *ngIf="!isLoadingSearch&&search.value" class="pi pi-times text-danger pointer"
+              (click)="clearSearch(search)"></i>
+            <input type="text" class="form-control border-0 bg-transparent px-1" #search [(ngModel)]="searchKeyword"
+              (keyup)="handleSearch(search.value)" placeholder="{{'placeholders.search' | translate}}"
+              [readOnly]="isLoadingSearch" aria-label="search" aria-describedby="basic-addon1">
+          </span>
+        </div>
+      </div>
+      <!-- Clear -->
+      <button *ngIf="(notesList.length>0||ifFilteration())" [class.disabled-actions]="isLoadingNotesList"
+        class="btn btn-outline-main d-flex align-items-center gap-2 text-nowrap" (click)="clearTable()">
+        <i class="pi pi-refresh"></i>
+        <span>{{'general.reset'|translate}}</span>
+      </button>
+    </div>
+  </div>
+  <div class="d-md-none d-none">
+    <div class="d-flex justify-content-between gap-3 flex-wrap title-header">
+      <div class="d-flex align-items-center gap-2">
+        <h4 class="mb-0 text-capitalize">
+          {{'dashboard.notes.notes'|translate}}</h4>
+        <span class="badge badge-main text-main-color d-flex justify-content-center align-items-center">
+          {{notesCount}}
+        </span>
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addItem()">
+          <i class="pi pi-plus"></i>
+          <span>{{'dashboard.records.addRecord'|translate}}</span>
+        </button>
+        <!-- Filter Button -->
+        <!-- <button [class.disabled-actions]="isLoadingNotesList"
+          *ngIf="(notesList.length>0||ifFilteration())&&showFilter"
+          class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItemModal()">
+          <i class="pi pi-filter"></i>
+        </button> -->
+      </div>
+    </div>
+    <div class="row mt-3 mx-0" [class.disabled-actions]="isLoadingNotesList"
+      *ngIf="(notesList.length>0||ifFilteration())">
+      <!-- Search Handler -->
+      <div class="col-sm-8 col-9">
+        <div class="search" role="search">
+          <div class="input-group bg-white-color d-flex flex-nowrap w-100">
+            <span class="input-group-text border-0" id="basic-addon1">
+              <i class="pi pi-search text-muted-color"></i>
+            </span>
+            <span class="p-input-icon-right d-inline-block w-100">
+              <i *ngIf="isLoadingSearch" class="pi pi-spin pi-spinner"></i>
+              <i *ngIf="!isLoadingSearch&&search2.value" class="pi pi-times text-danger pointer"
+                (click)="clearSearch(search2)"></i>
+              <input type="text" class="form-control border-0 bg-transparent px-1" #search2 [(ngModel)]="searchKeyword"
+                (keyup)="handleSearch(search2.value)" placeholder="{{'placeholders.search' | translate}}"
+                [readOnly]="isLoadingSearch" aria-label="search" aria-describedby="basic-addon1">
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- Clear -->
+      <div class="col-sm-4 col-3 d-flex justify-content-end">
+        <button class="btn btn-outline-main d-flex align-items-center gap-2 text-nowrap h-100" (click)="clearTable()"
+          *ngIf="(notesList.length>0||ifFilteration())" [class.disabled-actions]="isLoadingNotesList">
+          <i class="pi pi-refresh"></i>
+          <span class="d-sm-inline-block d-none">{{'general.reset'|translate}}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Show Cards  -->
+  <div>
+    <div class="row pt-4">
+      <!-- Loading Cards -->
+      <ng-container *ngIf="isLoadingNotesList; else noLoadingCards">
+        <skeleton type="clientsList"></skeleton>
+      </ng-container>
+      <!-- Cards List -->
+      <ng-template #noLoadingCards>
+        <ng-container *ngIf="notesList.length>0; else noRecords">
+          <ng-container *ngFor="let card of notesList; let i=index">
+            <div class="col-xl-3 col-lg-4 col-sm-6 mb-4">
+              <app-note-card [item]="card"></app-note-card>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-template>
+      <!-- Pagination Card -->
+      <ng-container *ngIf="notesList?.length>0 || ifFilteration()">
+        <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingNotesList">
+          <p-paginator #paginator [rows]="perPage" [totalRecords]="notesCount" [showPageLinks]="true" [pageLinkSize]="3"
+            (onPageChange)="onPageChange($event)"></p-paginator>
+          <div class="d-flex align-items-center gap-3">
+            <p-dropdown [styleClass]="'paginator-options-dropdown'" [dropdownIcon]="'fas fa-caret-down'" #dropdown
+              [options]="rowsOptions" (onChange)="onPaginatorOptionsChange($event)" (onHide)="hide()"></p-dropdown>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <ng-template #noRecords>
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <div>
+          <app-dynamic-svg [name]="'noRecords'"></app-dynamic-svg>
+        </div>
+        <ng-container *ngIf="isSearch; else noSearch2">
+          <p class="fw-500 mt-3">{{"general.noSearchResult"|translate}}</p>
+          <button (click)="clearTable()" class="btn btn-outline-main d-flex justify-content-center align-items-center">
+            {{'general.reset'|translate}}</button>
+        </ng-container>
+        <ng-template #noSearch2>
+          <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
+          <button (click)="addItem()"
+            class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.records.addRecord'|translate}}</button>
+        </ng-template>
+      </div>
+    </ng-template>
+  </div>
+</div>

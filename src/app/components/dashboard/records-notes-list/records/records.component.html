@@ -3,13 +3,13 @@
     <div class="d-flex align-items-center gap-2">
       <h4 class="mb-0 text-capitalize" [ngClass]="changeTitleStyle?'text-main-color fs-5':''">
         {{'dashboard.records.records'|translate}}</h4>
-      <span *ngIf="showRecordCount"
+      <!-- <span *ngIf="showRecordCount"
         class="badge badge-main text-main-color d-flex justify-content-center align-items-center">
         {{recordsCount}}
-      </span>
+      </span> -->
     </div>
-    <div class="d-flex gap-3  flex-wrap">
-      <!-- Add Customer -->
+    <div class="d-none gap-3  flex-wrap">
+      <!-- Add Record -->
       <button *ngIf="showAddBtn" class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap"
         (click)="addItem()">
         <i class="pi pi-plus"></i>
@@ -57,7 +57,7 @@
       </button>
     </div>
   </div>
-  <div class="d-md-none d-block">
+  <div class="d-md-none d-none">
     <div class="d-flex justify-content-between gap-3 flex-wrap title-header">
       <div class="d-flex align-items-center gap-2">
         <h4 class="mb-0 text-capitalize" [ngClass]="changeTitleStyle?'text-main-color fs-5':''">

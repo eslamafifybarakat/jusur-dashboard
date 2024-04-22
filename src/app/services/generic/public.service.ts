@@ -16,30 +16,41 @@ import { Injectable } from '@angular/core'
 export class PublicService {
   private readonly baseUrl = environment?.apiUrl
 
-  showGlobalLoader = new Subject<boolean>()
-  showSearchLoader = new Subject<boolean>()
-  resetTable = new BehaviorSubject<boolean>(false)
-  changePageSub = new BehaviorSubject<{}>({})
+  showGlobalLoader = new Subject<boolean>();
+  showSearchLoader = new Subject<boolean>();
+  resetTable = new BehaviorSubject<boolean>(false);
+  changePageSub = new BehaviorSubject<{}>({});
 
   // ====Start Employees and Vehicles actions=========
-  isLoadingEmployees = new BehaviorSubject<boolean>(false)
-  isLoadingSearchEmployees = new BehaviorSubject<boolean>(false)
-  employeesLength = new BehaviorSubject<{}>(null)
-  addEmployeeItem = new BehaviorSubject<boolean>(false)
-  resetEmployeesData = new BehaviorSubject<boolean>(false)
-  filterEmployeesData = new BehaviorSubject<boolean>(false)
-  searchEmployeesData = new BehaviorSubject<{}>(null)
-  toggleFilterEmployeeDataType = new BehaviorSubject<{}>(null)
+  isLoadingEmployees = new BehaviorSubject<boolean>(false);
+  isLoadingSearchEmployees = new BehaviorSubject<boolean>(false);
+  employeesLength = new BehaviorSubject<{}>(null);
+  addEmployeeItem = new BehaviorSubject<boolean>(false);
+  resetEmployeesData = new BehaviorSubject<boolean>(false);
+  filterEmployeesData = new BehaviorSubject<boolean>(false);
+  searchEmployeesData = new BehaviorSubject<{}>(null);
+  toggleFilterEmployeeDataType = new BehaviorSubject<{}>(null);
 
-  isLoadingVehicles = new BehaviorSubject<boolean>(false)
-  isLoadingSearchVehicles = new BehaviorSubject<boolean>(false)
-  VehicleLength = new BehaviorSubject<{}>(null)
-  addVehicleItem = new BehaviorSubject<boolean>(false)
-  resetVehiclesData = new BehaviorSubject<boolean>(false)
-  filterVehiclesData = new BehaviorSubject<boolean>(false)
+  isLoadingVehicles = new BehaviorSubject<boolean>(false);
+  isLoadingSearchVehicles = new BehaviorSubject<boolean>(false);
+  VehicleLength = new BehaviorSubject<{}>(null);
+  addVehicleItem = new BehaviorSubject<boolean>(false);
+  resetVehiclesData = new BehaviorSubject<boolean>(false);
+  filterVehiclesData = new BehaviorSubject<boolean>(false);
   searchVehiclesData = new BehaviorSubject<{}>(null)
-  toggleFilterVehicleDataType = new BehaviorSubject<{}>(null)
+  toggleFilterVehicleDataType = new BehaviorSubject<{}>(null);
   // ====End Employees and Vehicles actions=========
+
+  // ====Start Records actions=========
+  isLoadingRecords = new BehaviorSubject<boolean>(false);
+  isLoadingSearchRecords = new BehaviorSubject<boolean>(false);
+  recordsLength = new BehaviorSubject<{}>(null);
+  addRecordItem = new BehaviorSubject<boolean>(false);
+  resetRecordsData = new BehaviorSubject<boolean>(false);
+  filterRecordsData = new BehaviorSubject<boolean>(false);
+  searchRecordsData = new BehaviorSubject<{}>(null);
+  toggleFilterRecordDataType = new BehaviorSubject<{}>(null);
+  // ====End Records actions=========
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,

@@ -4,19 +4,19 @@ import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
 
 // Components
-import { UploadMultiFilesComponent } from '../../../../shared/components/upload-files/upload-multi-files/upload-multi-files.component';
-import { FileUploadComponent } from '../../../../shared/components/upload-files/file-upload/file-upload.component';
-import { EmployeesVehiclesListComponent } from '../../employees-vehicles-list/employees-vehicles-list.component';
-import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
+import { UploadMultiFilesComponent } from '../../../../../shared/components/upload-files/upload-multi-files/upload-multi-files.component';
+import { FileUploadComponent } from '../../../../../shared/components/upload-files/file-upload/file-upload.component';
+import { EmployeesVehiclesListComponent } from '../../../employees-vehicles-list/employees-vehicles-list.component';
+import { SkeletonComponent } from './../../../../../shared/skeleton/skeleton/skeleton.component';
 
 //Services
-import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
-import { MetaDetails, MetadataService } from './../../../../services/generic/metadata.service';
+import { LocalizationLanguageService } from './../../../../../services/generic/localization-language.service';
+import { MetaDetails, MetadataService } from './../../../../../services/generic/metadata.service';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AlertsService } from './../../../../services/generic/alerts.service';
-import { PublicService } from '../../../../services/generic/public.service';
-import { MaxDigitsDirective } from '../../directives/max-digits.directive';
-import { RecordsService } from '../../services/records.service';
+import { AlertsService } from './../../../../../services/generic/alerts.service';
+import { PublicService } from '../../../../../services/generic/public.service';
+import { MaxDigitsDirective } from '../../../directives/max-digits.directive';
+import { RecordsService } from '../../../services/records.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Subscription, catchError, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Inject, Input, Output, PLATFORM_ID } from '@angular/core';
-import { RecordsListingItem } from './../../../../interfaces/dashboard/records';
-import { keys } from './../../../../shared/configs/localstorage-key';
+import { RecordsListingItem } from './../../../../../interfaces/dashboard/records';
+import { keys } from './../../../../../shared/configs/localstorage-key';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 

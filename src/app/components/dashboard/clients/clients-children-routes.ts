@@ -1,6 +1,6 @@
 
 import { PermissionGuard } from './../../../services/authentication/guards/permission.guard';
-import { RecordDetailsComponent } from "../records/record-details/record-details.component";
+import { RecordDetailsComponent } from '../records-notes-list/records/record-details/record-details.component';
 import { ClientsListComponent } from "./clients-list/clients-list.component";
 import { EditClientComponent } from "./edit-client/edit-client.component";
 import { ErrorsComponent } from "../../errors/errors.component";

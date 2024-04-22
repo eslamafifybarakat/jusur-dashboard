@@ -8,7 +8,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CommonModule } from '@angular/common';
 
 //Services
-import { PublicService } from './../../../../services/generic/public.service';
+import { PublicService } from './../../../../../services/generic/public.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Component } from '@angular/core';
 

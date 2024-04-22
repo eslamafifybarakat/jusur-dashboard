@@ -6,8 +6,8 @@ import { CommonModule } from '@angular/common';
 // Components
 import { UploadMultiFilesComponent } from '../../../../shared/components/upload-files/upload-multi-files/upload-multi-files.component';
 import { DynamicSvgComponent } from 'src/app/shared/components/icons/dynamic-svg/dynamic-svg.component';
+import { RecordsNotesListComponent } from '../../records-notes-list/records-notes-list.component';
 import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
-import { RecordsComponent } from '../../records/records.component';
 
 //Services
 import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
@@ -34,9 +34,9 @@ import { Subscription, catchError, tap } from 'rxjs';
 
     // Components
     UploadMultiFilesComponent,
+    RecordsNotesListComponent,
     DynamicSvgComponent,
     SkeletonComponent,
-    RecordsComponent,
 
     // Directive
     MaxDigitsDirective
