@@ -10,7 +10,7 @@ import { DynamicTableLocalActionsComponent } from './../../../shared/components/
 import { DynamicSvgComponent } from './../../../shared/components/icons/dynamic-svg/dynamic-svg.component';
 import { DynamicTableComponent } from './../../../shared/components/dynamic-table/dynamic-table.component';
 import { SkeletonComponent } from './../../../shared/skeleton/skeleton/skeleton.component';
-import { RecordsComponent } from '../../dashboard/records/records.component';
+import { ClientRecordsComponent } from './records/client-records.component';
 
 //Services
 import { LocalizationLanguageService } from './../../../services/generic/localization-language.service';
@@ -35,10 +35,10 @@ import { Component } from '@angular/core';
 
     // Components
     DynamicTableLocalActionsComponent,
+    ClientRecordsComponent,
     DynamicTableComponent,
     DynamicSvgComponent,
     SkeletonComponent,
-    RecordsComponent
   ],
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
