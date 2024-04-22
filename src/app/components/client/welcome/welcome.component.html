@@ -20,7 +20,8 @@
             </h5>
             <p class="mt-1">{{'general.except'|translate}}</p>
 
-            <button class="btn bg-white-color mt-3">{{'dashboard.statistics.viewProfile'|translate}}</button>
+            <button
+              class="btn bg-white-color mt-3 d-flex justify-content-center align-items-center">{{'dashboard.statistics.viewProfile'|translate}}</button>
           </div>
         </div>
       </div>
@@ -43,7 +44,7 @@
             <div class="mt-4 d-flex justify-content-between gap-2 flex-wrap">
               <div>
                 <label class="text-muted-color mb-1">{{'labels.fullName'|translate}}</label>
-                <p class="mb-0">yasser mohamed</p>
+                <p class="mb-0">{{userData.name||'--'}}</p>
               </div>
               <div>
                 <label class="text-muted-color mb-1">
@@ -63,7 +64,7 @@
               <div>
                 <label class="text-muted-color mb-1">
                   {{'labels.email'|translate}}</label>
-                <p class="mb-0">yasser45@gmail.com</p>
+                <p class="mb-0">{{userData.email||'--'}}</p>
               </div>
             </div>
           </ng-container>
@@ -74,7 +75,7 @@
                   {{"labels.fullName"|translate}}
                 </label>
                 <input type="text" id="fullName" class="form-control"
-                  placeholder="{{'placeholders.fullName'|translate}}" [value]="'ياسر محمد العوضي'">
+                  placeholder="{{'placeholders.fullName'|translate}}" [value]="userData.name||'--'">
               </div>
               <div class="col-lg-4 col-sm-6 mb-3">
                 <label for="id" class="required">
@@ -99,7 +100,7 @@
                   {{"labels.email"|translate}}
                 </label>
                 <input type="email" id="email" class="form-control" placeholder="{{'placeholders.email'|translate}}"
-                  [value]="'yasser45@gmail.com'">
+                  [value]="userData.email||'--'">
               </div>
               <div class="col-lg-4 col-sm-6">
                 <label for="phoneNumber" class="required">
