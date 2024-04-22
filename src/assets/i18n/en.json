@@ -76,7 +76,9 @@
     "dataNotEditable": "This data is not editable",
     "except": "Except through the competent authority",
     "recordedData": "Your recorded data",
-    "noSearchResult":"There are no results for your search"
+    "noSearchResult":"There are no results for your search",
+    "activate":"Activate",
+    "suspend":"Suspend"
   },
   "summary": {
     "faster": "Faster",
@@ -157,7 +159,12 @@
       "certificateDetails": "Safety certificate details",
       "medicalDetails": "Medical insurance details",
       "fileDetails": "Labor office file details",
-      "customerDataDetails": "Client data details"
+      "customerDataDetails": "Client data details",
+      "activateClient":"Activate Client Account",
+      "suspendClient":"Suspend Client Account",
+      "areYouSureToActivate":"Are you sure you want to activate",
+      "areYouSureToSuspend":"Are you sure you want to suspend",
+      "account":"account?"
     },
     "records": {
       "records": "History",

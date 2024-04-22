@@ -133,8 +133,9 @@
           [paginatorRows]="perPage" [pages]="pagesCount" (paginateHandler)="onPageChange($event)"
           [rowsPerPageOptions]="rowsOptions" [enableConfirmDeleteDialog]="true" [keyDelete]="'fullName'"
           (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
-          [enableFilterDriverStatus]="true" [addBtnText]="'dashboard.customers.addCustomer'"
-          (addHandler)="addItem()"></dynamic-table>
+          [enableFilterDriverStatus]="true" [addBtnText]="'dashboard.customers.addCustomer'" (addHandler)="addItem()"
+          [showSuspend]="true" (suspendHandler)="suspendClientAccount($event)" [showActivate]="true"
+          (activateHandler)="activateClientAccount($event)"></dynamic-table>
       </ng-container>
       <!-- Card -->
       <ng-container *ngIf="dataStyleType=='grid'">
@@ -149,7 +150,9 @@
             <ng-container *ngIf="clientsList.length>0; else noClients">
               <ng-container *ngFor="let card of clientsList; let i=index">
                 <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                  <client-card [item]="card" (itemDetailsHandler)="itemDetails($event)"></client-card>
+                  <client-card [item]="card" (itemDetailsHandler)="itemDetails($event)"
+                    (activateHandlerEmit)="activateClientAccount($event)"
+                    (suspendHandlerEmit)="suspendClientAccount($event)"></client-card>
                 </div>
               </ng-container>
             </ng-container>
@@ -202,7 +205,9 @@
           <ng-container *ngIf="clientsList.length>0; else noClients2">
             <ng-container *ngFor="let card of clientsList; let i=index">
               <div class="col-xl-3 col-lg-4 col-sm-6 mb-4">
-                <client-card (itemDetailsHandler)="itemDetails($event)" [item]="card"></client-card>
+                <client-card (itemDetailsHandler)="itemDetails($event)" [item]="card"
+                  (activateHandlerEmit)="activateClientAccount($event)"
+                  (suspendHandlerEmit)="suspendClientAccount($event)"></client-card>
               </div>
             </ng-container>
           </ng-container>

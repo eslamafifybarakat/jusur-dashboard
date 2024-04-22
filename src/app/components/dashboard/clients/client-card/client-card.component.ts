@@ -15,6 +15,8 @@ export class ClientCardComponent {
   @Input() item: ClientListingItem;
   currentLanguage: string;
   @Output() itemDetailsHandler: EventEmitter<any> = new EventEmitter();
+  @Output() activateHandler: EventEmitter<any> = new EventEmitter();
+  @Output() suspendHandler: EventEmitter<any> = new EventEmitter();
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -26,5 +28,11 @@ export class ClientCardComponent {
   }
   itemDetails(item: any): void {
     this.itemDetailsHandler.emit(item);
+  }
+  activateHandlerEmit(item: any): void {
+    this.activateHandler.emit(item);
+  }
+  suspendHandlerEmit(item: any): void {
+    this.suspendHandler.emit(item);
   }
 }

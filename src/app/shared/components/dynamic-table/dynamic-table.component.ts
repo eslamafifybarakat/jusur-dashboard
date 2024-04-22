@@ -87,6 +87,8 @@ export class DynamicTableComponent {
   @Input() showCopyAction: boolean = false;
   @Input() showResetPassword: boolean = false;
   @Input() showCopy: boolean = false;
+  @Input() showSuspend: boolean = false;
+  @Input() showActivate: boolean = false;
 
   // Paginator variables
   @ViewChild('paginator') paginator: Paginator | undefined;
@@ -134,6 +136,8 @@ export class DynamicTableComponent {
   @Output() toggleStatusHandler: EventEmitter<any> = new EventEmitter();
   @Output() arrangeHandler: EventEmitter<any> = new EventEmitter();
   @Output() itemActionHandler: EventEmitter<any> = new EventEmitter();
+  @Output() suspendHandler: EventEmitter<any> = new EventEmitter();
+  @Output() activateHandler: EventEmitter<any> = new EventEmitter();
 
   // Actions handler
   @Output() detailsHandler: EventEmitter<any> = new EventEmitter();
@@ -389,6 +393,13 @@ export class DynamicTableComponent {
   }
   copyChildHandlerEmit(item: any): void {
     this.copyChildHandler.emit(item);
+  }
+
+  activateHandlerEmit(item: any): void {
+    this.activateHandler?.emit(item);
+  }
+  suspendHandlerEmit(item: any): void {
+    this.suspendHandler?.emit(item);
   }
   // ======End actions functions=======
 

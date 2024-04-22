@@ -70,4 +70,10 @@
   .p-dialog-footer {
     background-color: var(--bg-white-color) !important;
   }
+  &:dir(rtl) {
+    .p-confirm-dialog-message {
+      margin-right: 1rem;
+      margin-left: auto;
+    }
+  }
 }

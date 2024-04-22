@@ -76,7 +76,9 @@
     "dataNotEditable":"هذه البيانات غير قابلة للتعديل",
     "except":"إلا من خلال الجهة المختصة",
     "recordedData":"بياناتك التي تم تسجيلها",
-    "noSearchResult":"لا يوجد نتائج للبحث"
+    "noSearchResult":"لا يوجد نتائج للبحث",
+    "activate":"تفعيل",
+    "suspend":"تعليق"
   },
   "summary": {
     "faster": "أٍسرع",
@@ -155,7 +157,12 @@
       "certificateDetails": "تفاصيل شهادة السلامة",
       "medicalDetails": "تفاصيل التأمين الطبي",
       "fileDetails": "تفاصيل ملف مكتب العمل",
-      "customerDataDetails": "تفاصيل بيانات العميل"
+      "customerDataDetails": "تفاصيل بيانات العميل",
+      "activateClient":"تفعيل حساب العميل",
+      "suspendClient":"تعليق حساب العميل",
+      "areYouSureToActivate":"هل أنت متأكد أنك تريد تفعيل",
+      "areYouSureToSuspend":"هل أنت متأكد أنك تريد تعليق",
+      "account":"الحساب؟"
     },
     "records": {
       "records": "السجلات",

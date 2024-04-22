@@ -15,6 +15,8 @@ export interface ClientListingItem {
   email: string;
   password: string;
   active: boolean;
+  isActive: boolean;
+  isLoadingActive: boolean;
   identity: string;
   birthDate: string | Date | null;
   phoneNumber: string;

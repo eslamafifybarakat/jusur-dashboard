@@ -22,6 +22,7 @@ import { catchError, debounceTime, finalize, tap } from 'rxjs/operators';
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { ClientsService } from '../../services/clients.service';
 import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmationService } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -29,9 +30,9 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [
     // Modules
+    PaginatorModule,
     TranslateModule,
     CommonModule,
-    PaginatorModule,
 
     // Components
     DynamicTableLocalActionsComponent,
@@ -89,6 +90,7 @@ export class ClientsListComponent {
 
   constructor(
     private localizationLanguageService: LocalizationLanguageService,
+    private confirmationService: ConfirmationService,
     private metadataService: MetadataService,
     private clientsService: ClientsService,
     private publicService: PublicService,
@@ -172,6 +174,10 @@ export class ClientsListComponent {
       this.clientsCount = response?.result?.totalCount;
       this.pagesCount = Math.ceil(this.clientsCount / this.perPage);
       this.clientsList = response?.result?.items;
+      this.clientsList.forEach((item: ClientListingItem) => {
+        item['isActive'] = false;
+        item['isLoadingActive'] = false;
+      });
     } else {
       this.handleError(response.error);
       return;
@@ -244,6 +250,79 @@ export class ClientsListComponent {
     }
   }
   //End Delete Client Functions
+
+  // Start Activate Or Suspend Client Functions
+  activateClientAccount(item: any): void {
+    let data: any = {
+      id: item?.id
+    }
+    this.confirmationService.confirm({
+      message: this.publicService.translateTextFromJson('dashboard.customers.areYouSureToActivate') + ' ' + item?.name + ' ' + this.publicService.translateTextFromJson('dashboard.customers.account'),
+      header: this.publicService.translateTextFromJson('dashboard.customers.activateClient'),
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.activateClient(item, data);
+      }
+    });
+  }
+  activateClient(item: any, data: any): void {
+    item.isLoadingActive = true;
+    this.clientsService?.activateClientAccount(data)?.pipe(
+      tap((res: ClientsListApiResponse) => this.processActivateResponse(res)),
+      catchError(err => this.handleError(err)),
+      finalize(() => {
+        item.isLoadingActive = false;
+        this.cdr.detectChanges();
+      })
+    ).subscribe();
+  }
+  private processActivateResponse(res: any): void {
+    const messageType = res?.success === true ? 'success' : 'error';
+    const message = res?.message || '';
+
+    this.alertsService.openToast(messageType, messageType, message);
+    if (messageType === 'success') {
+      this.getAllClients();
+    }
+  }
+  // Start Activate Client Functions
+
+  // Start Suspend Client Functions
+  suspendClientAccount(item: any): void {
+    let data: any = {
+      id: item?.id
+    }
+    this.confirmationService.confirm({
+      message: this.publicService.translateTextFromJson('dashboard.customers.areYouSureToSuspend') + ' ' + item?.name + ' ' + this.publicService.translateTextFromJson('dashboard.customers.account'),
+      header: this.publicService.translateTextFromJson('dashboard.customers.suspendClient'),
+      icon: 'pi pi-exclamation-triangle',
+
+      accept: () => {
+        this.suspendClient(item, data);
+      }
+    });
+  }
+  suspendClient(item: any, data: any): void {
+    item.isLoadingActive = true;
+    this.clientsService?.suspendClientAccount(data)?.pipe(
+      tap((res: ClientsListApiResponse) => this.processSuspendResponse(res)),
+      catchError(err => this.handleError(err)),
+      finalize(() => {
+        item.isLoadingActive = false;
+        this.cdr.detectChanges();
+      })
+    ).subscribe();
+  }
+  private processSuspendResponse(res: any): void {
+    const messageType = res?.success === true ? 'success' : 'error';
+    const message = res?.message || '';
+
+    this.alertsService.openToast(messageType, messageType, message);
+    if (messageType === 'success') {
+      this.getAllClients();
+    }
+  }
+  // End Suspend Client Functions
 
   // Start Search Functions
   handleSearch(event: any): void {

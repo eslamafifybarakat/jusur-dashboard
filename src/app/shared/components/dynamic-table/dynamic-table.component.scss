@@ -318,7 +318,7 @@
 }
 .badge-btn {
   border-radius: 11px;
-  height: 2.6rem;
+  height: 2.6rem !important;
   border: none;
   padding: 0.9rem;
   display: flex;
@@ -335,22 +335,25 @@
   color: #e55555;
 }
 
-.btn-solid-main {
+.btn-solid-main,
+.btn-solid-main:focus {
   height: 2.9rem;
-  padding: 1rem;
+  // padding: 1rem;
   border-radius: 10px;
   background-color: var(--bg-main-color);
   border: 1px solid var(--bg-main-color);
   color: var(--text-white-color);
 }
-.btn-outline-main {
+.btn-outline-main,
+.btn-outline-main:focus {
   height: 2.9rem;
-  padding: 1rem;
+  // padding: 1rem;
   border-radius: 10px;
   background-color: transparent;
   border: 1px solid var(--bg-main-color);
   color: var(--text-main-color);
 }
+
 :host::ng-deep {
   p-image {
     width: 70px;
@@ -382,3 +385,8 @@
 //   text-overflow: ellipsis;
 //   overflow: hidden;
 // }
+.btn-overlay {
+  inset: 0;
+  background-color: #ffffff91;
+  pointer-events: none;
+}

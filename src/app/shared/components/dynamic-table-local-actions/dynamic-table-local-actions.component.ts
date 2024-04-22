@@ -91,6 +91,8 @@ export class DynamicTableLocalActionsComponent {
   @Input() showEdit: boolean = false;
   @Input() showCopyAction: boolean = false;
   @Input() showResetPassword: boolean = false;
+  @Input() showSuspend: boolean = false;
+  @Input() showActivate: boolean = false;
 
   // Paginator variables
   @ViewChild('paginator') paginator: Paginator | undefined;
@@ -149,6 +151,8 @@ export class DynamicTableLocalActionsComponent {
   @Output() deleteHandler: EventEmitter<any> = new EventEmitter();
   @Output() copyHandler: EventEmitter<any> = new EventEmitter();
   @Output() itemActionHandler: EventEmitter<any> = new EventEmitter();
+  @Output() suspendHandler: EventEmitter<any> = new EventEmitter();
+  @Output() activateHandler: EventEmitter<any> = new EventEmitter();
 
   // pagination handler
   @Output() paginateHandler: EventEmitter<any> = new EventEmitter();
@@ -434,6 +438,13 @@ export class DynamicTableLocalActionsComponent {
   }
   isInputElement(target: EventTarget): target is HTMLInputElement {
     return (target as HTMLInputElement).value !== undefined;
+  }
+
+  activateHandlerEmit(item: any): void {
+    this.activateHandler?.emit(item);
+  }
+  suspendHandlerEmit(item: any): void {
+    this.suspendHandler?.emit(item);
   }
   // ======End actions functions=======
 

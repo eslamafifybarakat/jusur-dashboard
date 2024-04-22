@@ -479,6 +479,26 @@
               </a>
             </ng-container>
           </ng-container>
+          <ng-container *ngIf="showSuspend&&item?.isActive==true">
+            <button class="btn btn-outline-main badge-btn px-3 position-relative overflow-hidden"
+              (click)="suspendHandlerEmit(item)">
+              <div *ngIf="item?.isLoadingActive"
+                class="btn-overlay position-absolute d-flex justify-content-center align-items-center">
+                <i class="pi pi-spin pi-spinner text-main-color"></i>
+              </div>
+              <span class="fw-500">{{'general.suspend'|translate}}</span>
+            </button>
+          </ng-container>
+          <ng-container *ngIf="showActivate&& item?.isActive==false">
+            <button class="btn btn-solid-main badge-btn px-3 position-relative overflow-hidden"
+              (click)="activateHandlerEmit(item)">
+              <div *ngIf="item?.isLoadingActive"
+                class="btn-overlay position-absolute d-flex justify-content-center align-items-center">
+                <i class="pi pi-spin pi-spinner text-main-color"></i>
+              </div>
+              <span class="fw-500">{{'general.activate'|translate}}</span>
+            </button>
+          </ng-container>
         </div>
       </td>
     </ng-container>
