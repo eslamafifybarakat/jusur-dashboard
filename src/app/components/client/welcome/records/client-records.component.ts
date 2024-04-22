@@ -219,7 +219,7 @@ export class ClientRecordsComponent {
 
   // Record Details
   itemDetails(item?: any): void {
-    this.router.navigate(['Dashboard/Clients/RecordDetails', item?.id]);
+    this.router.navigate(['Client/History-Details', item?.id]);
   }
   // Add Record
   addItem(item?: any, type?: any): void {
@@ -246,7 +246,7 @@ export class ClientRecordsComponent {
   }
   // Edit Record
   editItem(item: any): void {
-    this.router.navigate(['Dashboard/Clients/RecordDetails', item?.id]);
+    this.router.navigate(['Client/History-Details', item?.id]);
   }
 
   // Filter Record Modal

@@ -66,7 +66,8 @@
         </span>
       </div>
       <div class="d-flex gap-2">
-        <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addEditItem()">
+        <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addEditItem()"
+          *ngIf="!onlyPreview">
           <i class="pi pi-plus"></i>
           <span>{{'dashboard.vehicles.addVehicle'|translate}}</span>
         </button>
@@ -123,7 +124,8 @@
         [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
         (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch"
         [arrayChildKey]="'operatingCard'" [enableFilterDriverStatus]="true"
-        [addBtnText]="'dashboard.vehicles.addVehicle'" (addHandler)="addEditItem()"></dynamic-table>
+        [addBtnText]="'dashboard.vehicles.addVehicle'" (addHandler)="addEditItem()"
+        [showAddBtn]="!onlyPreview"></dynamic-table>
     </ng-container>
     <!-- Card -->
     <ng-container *ngIf="dataStyleType=='grid'">
@@ -162,7 +164,7 @@
             <app-dynamic-svg [name]="'noRecords'"></app-dynamic-svg>
           </div>
           <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
-          <button (click)="addEditItem()"
+          <button (click)="addEditItem()" *ngIf="!onlyPreview"
             class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.vehicles.addVehicle'|translate}}</button>
         </div>
       </ng-template>
@@ -204,7 +206,7 @@
           <app-dynamic-svg [name]="'noRecords'"></app-dynamic-svg>
         </div>
         <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
-        <button (click)="addEditItem()"
+        <button (click)="addEditItem()" *ngIf="!onlyPreview"
           class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.vehicles.addVehicle'|translate}}</button>
       </div>
     </ng-template>

@@ -25,7 +25,7 @@
       </span> -->
     </ul>
     <!-- <div class="d-flex gap-3 flex-xl-nowrap flex-wrap" *ngIf="list"> -->
-    <div class="d-flex gap-3 flex-xl-nowrap flex-wrap">
+    <div class="d-flex gap-3 flex-xl-nowrap flex-wrap" *ngIf="!onlyPreview">
       <!-- Add Customer -->
       <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addItem()">
         <i class="pi pi-plus"></i>
@@ -105,7 +105,7 @@
           {{clientsCount}}
         </span> -->
       </ul>
-      <div class="d-flex gap-2">
+      <div class="d-flex gap-2" *ngIf="!onlyPreview">
         <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addItem()">
           <i class="pi pi-plus"></i>
           <span>
@@ -123,7 +123,7 @@
         </button> -->
       </div>
     </div>
-    <div class="row mt-3 mx-0" [class.disabled-actions]="isLoadingList" *ngIf="list||ifFilteration()">
+    <div class="row mt-3 mx-0" [class.disabled-actions]="isLoadingList" *ngIf="list||ifFilteration()&&!onlyPreview">
       <!-- Search Handler -->
       <div class="col-sm-8 col-9">
         <div class="search" role="search">
@@ -153,10 +153,10 @@
   </div>
   <div class="global-card p-4 mt-4">
     <ng-container *ngIf="tabType=='employee'">
-      <employees-list [recordId]="recordId"></employees-list>
+      <employees-list [recordId]="recordId" [onlyPreview]="true"></employees-list>
     </ng-container>
     <ng-container *ngIf="tabType=='vehicle'">
-      <vehicles-list [recordId]="recordId"></vehicles-list>
+      <vehicles-list [recordId]="recordId" [onlyPreview]="true"></vehicles-list>
     </ng-container>
   </div>
 </div>

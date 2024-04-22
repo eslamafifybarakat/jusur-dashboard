@@ -49,6 +49,7 @@ export class VehiclesListComponent {
 
   dataStyleType: string = 'list';
   @Input() recordId: number | string;
+  @Input() onlyPreview: boolean = false;
 
   isLoadingSearch: boolean = false;
   isSearch: boolean = false;

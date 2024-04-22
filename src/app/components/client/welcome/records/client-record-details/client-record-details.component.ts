@@ -1,3 +1,7 @@
+import { DynamicSvgComponent } from 'src/app/shared/components/icons/dynamic-svg/dynamic-svg.component';
+import { SkeletonComponent } from './../../../../../shared/skeleton/skeleton/skeleton.component';
+import { PublicService } from 'src/app/services/generic/public.service';
+import { EmployeesVehiclesListComponent } from './../../../../dashboard/employees-vehicles-list/employees-vehicles-list.component';
 import { RecordsService } from './../../../../dashboard/services/records.service';
 import { MetaDetails, MetadataService } from './../../../../../services/generic/metadata.service';
 import { LocalizationLanguageService } from './../../../../../services/generic/localization-language.service';
@@ -10,7 +14,7 @@ import { CommonModule } from '@angular/common';
 
 
 //Services
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, catchError, tap } from 'rxjs';
@@ -26,7 +30,9 @@ import { Subscription, catchError, tap } from 'rxjs';
     FormsModule,
 
     // Components
-
+    EmployeesVehiclesListComponent,
+    SkeletonComponent,
+    DynamicSvgComponent,
     // Directive
   ],
   selector: 'app-client-record-details',
@@ -36,17 +42,11 @@ import { Subscription, catchError, tap } from 'rxjs';
 export class ClientRecordDetailsComponent {
   private subscriptions: Subscription[] = [];
 
-  isRecordNameReadOnly: boolean = true;
-  isRegistrationNumberReadOnly: boolean = true;
-  isRecordDateReadOnly: boolean = true;
-  isLicenseNumberReadOnly: boolean = true;
-  isLicenseDateReadOnly: boolean = true;
-  isCertificateNumberReadOnly: boolean = true;
-  isCertificateDateReadOnly: boolean = true;
-  isMedicalInsuranceNumberReadOnly: boolean = true;
-  isMedicalInsuranceDateReadOnly: boolean = true;
-  isBusinessLicenseReadOnly: boolean = true;
-  isBusinessLicenseNumberReadOnly: boolean = true;
+  dataStyleType: string = 'list';
+  dataSecondStyleType: string = 'list';
+  dataThirdStyleType: string = 'list';
+  dataFourthStyleType: string = 'list';
+  dataFifthStyleType: string = 'list';
 
   recordId: number | string;
   clientId: number | string;
@@ -58,66 +58,17 @@ export class ClientRecordDetailsComponent {
   registrationFile: string = '';
 
   // License File variable
-  isEditLicenseFile: boolean = false;
   licenseFile: string = '';
 
   // Certificate File variable
-  isEditCertificateFile: boolean = false;
   certificateFile: string = '';
-
-  // check record number variable
-  isLoadingCheckRecordNum: Boolean = false;
-  recordNumNotAvailable: Boolean = false;
-
-  modalForm = this.fb?.group(
-    {
-      recordName: ['', {
-        validators: [
-          Validators.required], updateOn: "blur"
-      }],
-      registrationNumber: ['', {
-        validators: [
-          Validators.required], updateOn: "blur"
-      }],
-      recordDate: [null, {
-        validators: [
-          Validators.required]
-      }],
-      licenseNumber: ['', {
-        validators: [], updateOn: "blur"
-      }],
-      licenseDate: [null, {
-        validators: []
-      }],
-      certificateNumber: ['', {
-        validators: [], updateOn: "blur"
-      }],
-      certificateDate: [null, {
-        validators: []
-      }],
-      medicalInsuranceNumber: ['', {
-        validators: [], updateOn: "blur"
-      }],
-      medicalInsuranceDate: [null, {
-        validators: []
-      }],
-      businessLicense: ['', {
-        validators: [], updateOn: "blur"
-      }],
-      businessLicenseNumber: ['', {
-        validators: [], updateOn: "blur"
-      }],
-    }
-  );
-  get formControls(): any {
-    return this.modalForm?.controls;
-  }
 
   constructor(
     private localizationLanguageService: LocalizationLanguageService,
     private metadataService: MetadataService,
     private recordsService: RecordsService,
     private activatedRoute: ActivatedRoute,
+    public publicService: PublicService,
     private cdr: ChangeDetectorRef,
     private fb: FormBuilder,
     private router: Router
@@ -128,6 +79,28 @@ export class ClientRecordDetailsComponent {
   ngOnInit(): void {
     this.loadPageData();
   }
+
+  // Toggle data style table or card
+  changeDateStyle(type: string): void {
+    this.dataStyleType = type;
+  }
+
+  changeSecondDateStyle(type: string): void {
+    this.dataSecondStyleType = type;
+  }
+
+  changeThirdDateStyle(type: string): void {
+    this.dataThirdStyleType = type;
+  }
+
+  changeFourthDateStyle(type: string): void {
+    this.dataFourthStyleType = type;
+  }
+
+  changeFifthDateStyle(type: string): void {
+    this.dataFifthStyleType = type;
+  }
+
   loadPageData(): void {
     this.updateMetaTagsForSEO();
     this.activatedRoute.params.subscribe((params) => {
@@ -167,168 +140,23 @@ export class ClientRecordDetailsComponent {
   }
   // End Get Record By Client Id
 
-  // Start Upload Files
-  uploadRecordFile(event: any): void {
-    console.log(event);
-  }
-  uploadLicenseFile(event: any): void {
-    console.log(event);
-  }
-  uploadCertificateFile(event: any): void {
-    console.log(event);
-  }
-  // End Upload Files
-
   patchValue(): void {
-    let convertedRecordDate: any = this.recordDetails?.expireDate ? new Date(this.recordDetails?.expireDate) : null;
-    let convertedLicenseDate: any = this.recordDetails?.licenseDate ? new Date(this.recordDetails?.licenseDate) : null;
-    let convertedCertificateDate: any = this.recordDetails?.certificateDate ? new Date(this.recordDetails?.certificateDate) : null;
-    let convertedMedicalInsuranceDate: any = this.recordDetails?.medicalInsuranceDate ? new Date(this.recordDetails?.medicalInsuranceDate) : null;
     let prepeareDetails = {
       registrationFile: 'assets/images/home/sidebar-bg.webp',
       licenseFile: this.recordDetails?.licenseFile || 'assets/images/home/sidebar-bg.webp',
     };
     this.certificateFile = this.recordDetails.certificateFile,
-      this.certificateFile ? this.isEditCertificateFile = true : '';
-    this.modalForm?.patchValue({
-      recordName: this.recordDetails?.name,
-      registrationNumber: this.recordDetails?.number,
-      recordDate: convertedRecordDate,
-      licenseNumber: this.recordDetails?.licenseNumber,
-      licenseDate: convertedLicenseDate,
-      certificateNumber: this.recordDetails?.certificateNumber,
-      certificateDate: convertedCertificateDate,
-      medicalInsuranceNumber: this.recordDetails?.medicalInsuranceNumber,
-      medicalInsuranceDate: convertedMedicalInsuranceDate,
-      businessLicenseNumber: this.recordDetails?.businessLicenseNumber,
-      businessLicense: this.recordDetails?.businessLicense,
-    })
-    // this.isEditRegistrationFile = true;
-    // this.registrationFile = prepeareDetails.registrationFile;
+      this.recordDetails.expireDateValue = this.recordDetails?.expireDate ? new Date(this.recordDetails?.expireDate) : null;
+    this.recordDetails.licenseDateValue = this.recordDetails?.licenseDate ? new Date(this.recordDetails?.licenseDate) : null;
+    this.recordDetails.certificateDateValue = this.recordDetails?.certificateDate ? new Date(this.recordDetails?.certificateDate) : null;
+    this.recordDetails.medicalInsuranceDateValue = this.recordDetails?.medicalInsuranceDate ? new Date(this.recordDetails?.medicalInsuranceDate) : null;
+    this.isEditRegistrationFile = true;
+    this.registrationFile = prepeareDetails.registrationFile;
     // this.isEditLicenseFile = true;
     // this.licenseFile = prepeareDetails.licenseFile;
     // this.isEditCertificateFile = true;
     // this.certificateFile = prepeareDetails.certificateFile;
   }
-  editInput(name: string): void {
-    if (name == 'recordName') {
-      this.isRecordNameReadOnly = false;
-    }
-    if (name == 'registrationNumber') {
-      this.isRegistrationNumberReadOnly = false;
-    }
-    if (name == 'recordDate') {
-      this.isRecordDateReadOnly = false;
-    }
-    if (name == 'licenseNumber') {
-      this.isLicenseNumberReadOnly = false;
-    }
-    if (name == 'licenseDate') {
-      this.isLicenseDateReadOnly = false;
-    }
-    if (name == 'certificateNumber') {
-      this.isCertificateNumberReadOnly = false;
-    }
-    if (name == 'certificateDate') {
-      this.isCertificateDateReadOnly = false;
-    }
-    if (name == 'medicalInsuranceNumber') {
-      this.isMedicalInsuranceNumberReadOnly = false;
-    }
-    if (name == 'medicalInsuranceDate') {
-      this.isMedicalInsuranceDateReadOnly = false;
-    }
-    if (name == 'businessLicense') {
-      this.isBusinessLicenseReadOnly = false;
-    }
-    if (name == 'businessLicenseNumber') {
-      this.isBusinessLicenseNumberReadOnly = false;
-    }
-  }
-
-  // Start Check If Record Number Unique
-  checkRecordNumAvailable(): void {
-    if (!this.formControls?.registrationNumber?.valid) {
-      return; // Exit early if Record Number is not valid
-    }
-    if (this.modalForm?.value?.registrationNumber == this.recordDetails?.registrationNumber) {
-      return; // Exit early if Record Number is not valid
-    }
-    const number: number | string = this.modalForm?.value?.registrationNumber;
-    const data: any = { number };
-    this.isLoadingCheckRecordNum = true;
-    // let checkRecordNumSubscription: Subscription = this.publicService?.IsRecordNumberAvailable(data).pipe(
-    //   tap(res => this.handleRecordNumResponse(res)),
-    //   catchError(err => this.handleRecordNumError(err))
-    // ).subscribe();
-    // this.subscriptions.push(checkRecordNumSubscription);
-  }
-  private handleRecordNumResponse(res: any): void {
-    if (res?.success && res?.result != null) {
-      this.recordNumNotAvailable = !res.result;
-    } else {
-      this.recordNumNotAvailable = false;
-      this.handleRecordNumError(res?.message);
-    }
-    this.isLoadingCheckRecordNum = false;
-    this.cdr.detectChanges();
-  }
-  private handleRecordNumError(err: any): any {
-    this.recordNumNotAvailable = true;
-    this.isLoadingCheckRecordNum = false;
-    this.handleError(err);
-  }
-  // End Check If Record Number Unique
-  onKeyUpEvent(): void {
-    this.isLoadingCheckRecordNum = false;
-  }
-
-  // Start Submit Edit Record
-  submit(): void {
-    // if (this.modalForm?.valid) {
-    //   const formData = this.extractFormData();
-    //   this.editRecord(formData);
-    // } else {
-    //   this.publicService?.validateAllFormFields(this.modalForm);
-    // }
-  }
-  private extractFormData(): any {
-    return {
-      active: true,
-      name: this.modalForm.value?.recordName,
-      number: this.modalForm.value?.registrationNumber,
-      expireDate: this.modalForm.value?.recordDate,
-      licenseNumber: this.modalForm.value?.licenseNumber,
-      licenseDate: this.modalForm.value?.licenseDate,
-      certificateNumber: this.modalForm.value?.certificateNumber,
-      certificateDate: this.modalForm.value?.certificateDate,
-      medicalInsuranceNumber: this.modalForm.value?.medicalInsuranceNumber,
-      medicalInsuranceDate: this.modalForm.value?.medicalInsuranceDate,
-      businessLicenseNumber: this.modalForm.value?.businessLicenseNumber,
-      businessLicense: this.modalForm.value?.businessLicense,
-      registrationFile: this.registrationFile,
-      licenseFile: this.licenseFile,
-      certificateFile: this.licenseFile,
-    };
-  }
-  private editRecord(formData: any): void {
-    // this.publicService?.showGlobalLoader?.next(true);
-    // let subscribeEditRecord = this.recordsService?.editRecord(formData, this.recordId)?.pipe(
-    //   tap(res => this.handleEditRecordSuccess(res)),
-    //   catchError(err => this.handleError(err))
-    // ).subscribe();
-    // this.subscriptions.push(subscribeEditRecord);
-  }
-  private handleEditRecordSuccess(response: any): void {
-    // this.publicService?.showGlobalLoader?.next(false);
-    // if (response?.success) {
-    //   // this.router.navigate(['/Dashboard/Clients']);
-    //   this.handleSuccess(response?.message);
-    // } else {
-    //   this.handleError(response?.message);
-    // }
-  }
-  // End Submit Edit Record
 
   /* --- Handle api requests messages --- */
   private handleSuccess(msg: any): any {

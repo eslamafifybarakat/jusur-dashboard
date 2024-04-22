@@ -123,7 +123,7 @@
         [enableConfirmDeleteDialog]="true" [keyDelete]="'fullName'"
         (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
         [enableFilterDriverStatus]="true" [addBtnText]="'dashboard.employees.addEmployee'"
-        (addHandler)="addEditEmployeeItem()"></dynamic-table>
+        (addHandler)="addEditEmployeeItem()" [showAddBtn]="!onlyPreview"></dynamic-table>
     </ng-container>
     <!-- Card -->
     <ng-container *ngIf="dataStyleType=='grid'">
@@ -151,7 +151,7 @@
             <app-dynamic-svg [name]="'noRecords'"></app-dynamic-svg>
           </div>
           <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
-          <button (click)="addEditEmployeeItem()"
+          <button (click)="addEditEmployeeItem()" *ngIf="!onlyPreview"
             class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.employees.addEmployee'|translate}}</button>
         </div>
       </ng-template>
@@ -203,7 +203,7 @@
           <app-dynamic-svg [name]="'noRecords'"></app-dynamic-svg>
         </div>
         <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
-        <button (click)="addEditEmployeeItem()"
+        <button (click)="addEditEmployeeItem()" *ngIf="!onlyPreview"
           class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.employees.addEmployee'|translate}}</button>
       </div>
     </ng-template>
