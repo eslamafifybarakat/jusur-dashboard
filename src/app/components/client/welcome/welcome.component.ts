@@ -108,7 +108,7 @@ export class WelcomeComponent {
       ).subscribe();
       this.subscriptions.push(addNoteSubscription);
     } else {
-      this.publicService.validateAllFormFields(this.noteForm);
+      this.checkNoteValidation();
     }
   }
   private handleSuccessAddNote(res: any): void {
@@ -117,6 +117,19 @@ export class WelcomeComponent {
     } else {
       this.handleError(res?.error?.message || this.publicService.translateTextFromJson('general.errorOccur'));
     }
+  }
+  checkNoteValidation(): void {
+    if (this.formControls?.note?.errors?.required) {
+      this.alertsService.openToast('error', 'error', this.publicService.translateTextFromJson('validations.requiredField'));
+    }
+    if (this.formControls?.note?.errors?.minlength) {
+      this.alertsService.openToast('error', 'error', this.publicService.translateTextFromJson('validations.noteLength'));
+    }
+  }
+
+  // Rest Note Value
+  cancel(): void {
+    this.noteForm.reset();
   }
   // End Add Note Functions
 

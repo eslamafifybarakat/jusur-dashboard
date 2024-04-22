@@ -128,26 +128,15 @@
             {{"labels.addNote"|translate}}
           </label>
           <textarea id="note" class="form-control" type="text" placeholder="{{'placeholders.tellUs' | translate}}"
-            formControlName="note" (input)="publicService?.clearValidationErrors(formControls.note)"
-            [class.border-red]="(formControls?.note?.touched||formControls?.note?.dirty)&&formControls?.note?.invalid"></textarea>
-          <ng-container
-            *ngIf="formControls?.note?.invalid && (formControls?.note?.dirty || formControls?.note?.touched)">
-            <div class="mt-1">
-              <ng-container *ngIf="formControls?.note?.errors?.required">
-                <span class="text-danger fs-8">
-                  {{'validations.requiredField'|translate}}
-                </span>
-              </ng-container>
-              <ng-container *ngIf="formControls?.note?.errors?.minlength">
-                <span class="text-danger fs-8">
-                  {{'validations.noteLength'|translate}}
-                </span>
-              </ng-container>
-            </div>
-          </ng-container>
-          <div class="d-flex justify-content-center mt-3">
+            formControlName="note" (input)="publicService?.clearValidationErrors(formControls.note)" #note></textarea>
+          <div class="d-flex justify-content-center gap-3 mt-3">
             <button class="btn btn-solid-main d-flex justify-content-center align-items-center px-sm-5 px-4">
               {{'auth.send'|translate}}
+            </button>
+            <button *ngIf="note.value"
+              class="btn btn-outline-main d-flex justify-content-center align-items-center px-sm-4 px-4"
+              (click)="cancel()">
+              {{'general.cancel'|translate}}
             </button>
           </div>
         </form>

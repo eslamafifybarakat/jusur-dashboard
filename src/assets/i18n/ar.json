@@ -54,7 +54,7 @@
     "errorOccur": "حدث خطأ",
     "successRequest": "تم تنفيذ طلبك بنجاح",
     "save": "حفظ",
-    "cancel": "الغاء",
+    "cancel": "إلغاء",
     "logout": "تسجيل خروج",
     "areYouSureToLogout": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
     "confirm_delete": "تأكيد الحذف",
@@ -159,21 +159,21 @@
     },
     "records": {
       "records": "السجلات",
-      "addRecord": "اضافة سجل"
+      "addRecord": "إضافة سجل"
     },
     "employees": {
       "employees": "الموظفين",
-      "addEmployee": "اضافة موظف",
+      "addEmployee": "إضافة موظف",
       "editEmployee": "تعديل الموظف"
     },
     "vehicles": {
       "vehicles": "المركبات",
-      "addVehicle": "اضافة مركبة",
+      "addVehicle": "إضافة مركبة",
       "editVehicle": "تعديل المركبة"
     }
   },
   "auth": {
-    "send":"ارسال",
+    "send":"إرسال",
     "welcomeBack":"مرحبا بك مجدداً، لقد أفتقدناك",
     "start":"أبدأ",
     "logInToGetPermissions":"سجل دخولك لتحصل علي الصلاحيات التي تريد",
@@ -313,7 +313,7 @@
     "endDate": "تاريخ الانتهاء",
     "residencyNumber": "أدخل رقم الإقامة",
     "healthCertificate": "أدخل الشهادة الصحية",
-    "residencePhoto": "اضافة صورة الإقامة",
+    "residencePhoto": "إضافة صورة الإقامة",
     "operatingCard": "أدخل كارت التشغيل",
     "insuranceExpiryDate": "أدخل تاريخ إنتهاء التأمين",
     "formPhoto": "أدخل صورة الإستمارة",
