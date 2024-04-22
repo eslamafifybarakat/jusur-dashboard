@@ -102,47 +102,7 @@ export class NotesListComponent {
   }
 
   ngOnInit(): void {
-    this.initializeTableHeaders();
     this.loadPageData();
-
-    // Start Behavior Subject Actions
-    this.publicService.toggleFilterRecordDataType.subscribe((res: any) => {
-      if (res) {
-        this.changeDateStyle(res);
-      }
-    });
-
-    this.publicService.addRecordItem.subscribe(res => {
-      if (res) {
-        this.addItem();
-      }
-    });
-
-    this.publicService.resetRecordsData.subscribe(res => {
-      if (res) {
-        this.clearTable();
-      }
-    });
-
-    this.publicService.searchRecordsData.subscribe(res => {
-      if (res) {
-        this.searchHandler(res);
-      }
-    });
-
-    this.publicService.filterRecordsData.subscribe(res => {
-      if (res) {
-        this.filterItemModal();
-      }
-    });
-    // End Behavior Subject Actions
-  }
-  private initializeTableHeaders(): void {
-    this.tableHeaders = [
-      { field: 'name', header: 'dashboard.tableHeader.recordName', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordName'), type: 'text' },
-      { field: 'number', header: 'dashboard.tableHeader.recordNumber', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordNumber'), type: 'numeric' },
-      { field: 'expireDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date' },
-    ];
   }
   loadPageData(): void {
     this.updateMetaTagsForSEO();

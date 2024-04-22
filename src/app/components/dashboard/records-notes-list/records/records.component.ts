@@ -213,6 +213,7 @@ export class RecordsComponent {
       this.recordsCount = response?.result?.totalCount;
       this.pagesCount = Math.ceil(this.recordsCount / this.perPage);
       this.recordsList = response?.result?.items;
+      this.publicService.recordsLength.next(this.recordsList);
     } else {
       this.handleError(response.error);
       return;
@@ -220,9 +221,12 @@ export class RecordsComponent {
   }
   private finalizeRecordListLoading(): void {
     this.isLoadingRecordsList = false;
+    this.publicService.isLoadingSearchRecords.next(false);
+    this.publicService.isLoadingRecords.next(false);
     this.isLoadingSearch = false;
     this.enableSortFilter = false;
     this.publicService.showSearchLoader.next(false);
+
   }
   // End Records List Functions
 
@@ -236,9 +240,11 @@ export class RecordsComponent {
     this.searchKeyword = keyWord;
     this.isLoadingRecordsList = true;
     this.isSearch = true;
+    this.publicService.isLoadingRecords.next(true);
     this.getAllRecords(true);
     if (keyWord?.length > 0) {
       this.isLoadingSearch = true;
+      this.publicService.isLoadingSearchRecords.next(true);
     }
     this.cdr.detectChanges();
   }

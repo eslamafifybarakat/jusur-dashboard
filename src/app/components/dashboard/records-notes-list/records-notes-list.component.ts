@@ -85,24 +85,6 @@ export class RecordsNotesListComponent {
         this.isLoadingSearch = false;
       }
     });
-
-    this.publicService.isLoadingVehicles.subscribe((res) => {
-      this.isLoadingList = res;
-    })
-    this.publicService.VehicleLength.subscribe((res: any) => {
-      if (res) {
-        this.list = res;
-      } else {
-        this.list = 0;
-      }
-    });
-    this.publicService.isLoadingSearchVehicles.subscribe((res: any) => {
-      if (res) {
-        this.isLoadingSearch = res;
-      } else {
-        this.isLoadingSearch = false;
-      }
-    });
   }
   // Toggle data type records or notes
   showTabItems(type: string): void {
@@ -136,7 +118,7 @@ export class RecordsNotesListComponent {
   // Toggle data style table or card
   changeDateStyle(type: string): void {
     this.dataStyleType = type;
-    this.tabType == 'records' ? this.publicService.toggleFilterRecordDataType.next(type) : this.publicService.toggleFilterVehicleDataType.next(type);
+    this.tabType == 'records' ? this.publicService.toggleFilterRecordDataType.next(type) : '';
   }
 
   // Start Search
@@ -144,17 +126,17 @@ export class RecordsNotesListComponent {
     this.searchSubject.next(event);
   }
   searchHandler(keyWord: any): void {
-    this.tabType == 'records' ? this.publicService.searchRecordsData.next(keyWord) : this.publicService.searchVehiclesData.next(keyWord);
+    this.tabType == 'records' ? this.publicService.searchRecordsData.next(keyWord) : '';
   }
   clearSearch(search: any): void {
     search.value = null;
-    this.tabType == 'records' ? this.publicService.searchRecordsData.next(null) : this.publicService.searchVehiclesData.next(null);
+    this.tabType == 'records' ? this.publicService.searchRecordsData.next(null) : '';
   }
   // End Search
 
   // Add Item
   addItem(): void {
-    this.tabType == 'records' ? this.publicService.addRecordItem.next(true) : this.publicService.addVehicleItem.next(true);
+    this.tabType == 'records' ? this.publicService.addRecordItem.next(true) : '';
   }
 
   // Filter Item Modal
