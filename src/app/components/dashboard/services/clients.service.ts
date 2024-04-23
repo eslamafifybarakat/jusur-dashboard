@@ -50,10 +50,11 @@ export class ClientsService {
     return this.http.delete<any>(`${this.baseUrl}${roots?.dashboard.clients.deleteClients}/delete/` + id, { params: params });
   }
 
-  suspendClientAccount(body: any): Observable<any> {
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.clients?.suspendClientAccount}`, body)
-  }
-  activateClientAccount(body: any): Observable<any> {
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.clients?.activateClientAccount}`, body)
+  toggleActivateClientAccount(clientId: number| string): Observable<any> {
+    let params = new HttpParams();
+    if (clientId) {
+      params = params.append("client_id", clientId);
+    }
+    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.clients?.toggleActivateClientAccount}`, {params:params})
   }
 }

@@ -8,7 +8,8 @@ export interface NotesListApiResponse {
 }
 export interface NotesListingItem {
   id: number;
-  description: string;
-  date: string | Date | null;
+  desc: string;
+  createdAt ?: string | Date | null;
+  updatedAt?: string | Date | null;
 }
 

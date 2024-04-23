@@ -39,8 +39,7 @@ export const roots = {
       addClient: 'Client/AddClient',
       editClient: '/Client/UpdateClient',
       deleteClients: '/deleteClients',
-      suspendClientAccount: 'Client/SuspendClientAccount',
-      activateClientAccount: 'Client/ActivateClientAccount'
+      toggleActivateClientAccount: 'Client/ToggleActivation'
     },
     records: {
       getRecords: 'ClientHistory/AllClientHistorys',
@@ -49,7 +48,7 @@ export const roots = {
       editRecords: 'ClientHistory/UpdateClientHistory'
     },
     notes: {
-      getNotes: 'ClientHistory/AllClientNotes',
+      getNotes: 'Note/GetAllClientNotes',
     },
     employees: {
       getEmployees: 'Employee/AllEmployees',

@@ -14,12 +14,13 @@ import { TranslateModule } from '@ngx-translate/core';
 export class ClientCardComponent {
   @Input() item: ClientListingItem;
   currentLanguage: string;
+  
   @Output() itemDetailsHandler: EventEmitter<any> = new EventEmitter();
   @Output() activateHandler: EventEmitter<any> = new EventEmitter();
   @Output() suspendHandler: EventEmitter<any> = new EventEmitter();
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) { }
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {

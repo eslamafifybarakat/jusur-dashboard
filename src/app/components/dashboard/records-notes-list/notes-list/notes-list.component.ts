@@ -153,8 +153,8 @@ export class NotesListComponent {
       ).subscribe();
   }
   private processNotesListResponse(response: any): void {
-    if (response) {
-      this.notesCount = response?.result?.totalCount;
+    if (response.success) {
+      this.notesCount = response?.result?.totalCount||response?.result?.items?.length;
       this.pagesCount = Math.ceil(this.notesCount / this.perPage);
       this.notesList = response?.result?.items;
     } else {
@@ -167,15 +167,6 @@ export class NotesListComponent {
     this.isLoadingSearch = false;
     this.enableSortFilter = false;
     this.publicService.showSearchLoader.next(false);
-    this.notesList = [
-      { id: 1, description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias culpa voluptatum repudiandae accusantium animi cumque minima, magnam, obcaecati quod natus mollitia totam facilis quasi, laborum illum officiis sed adipisci rerum!', date: new Date() },
-      { id: 2, description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias culpa voluptatum repudiandae accusantium animi cumque minima, magnam, obcaecati quod natus mollitia totam facilis quasi, laborum illum officiis sed adipisci rerum!', date: new Date() },
-      { id: 3, description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias culpa voluptatum repudiandae accusantium animi cumque minima, magnam, obcaecati quod natus mollitia totam facilis quasi, laborum illum officiis sed adipisci rerum!', date: new Date() },
-      { id: 1, description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias culpa voluptatum repudiandae accusantium animi cumque minima, magnam, obcaecati quod natus mollitia totam facilis quasi, laborum illum officiis sed adipisci rerum!', date: new Date() },
-      { id: 2, description: ' cumque minima, magnam, obcaecati quod natus mollitia totam facilis quasi, laborum illum officiis sed adipisci rerum!', date: new Date() },
-      { id: 3, description: 'Lorem ipsum dolor sitfacilis quasi, laborum illum officiis sed adipisci rerum!', date: new Date() },
-    ];
-    this.notesCount = 20;
   }
   // End Notes List Functions
 

@@ -25,15 +25,13 @@
       </p>
     </div>
   </div>
-  <div *ngIf="isClientHistoryCard">
-    <hr>
-    <div class="d-flex justify-content-end gap-3 flex-wrap">
-      <button class="details-btn d-flex align-items-center justify-content-center" (click)="itemDetails(item)">
-        {{'general.details'|translate}}
-      </button>
-      <!-- <button (click)="editItem(item)" class="details-btn d-flex align-items-center justify-content-center">
+  <hr>
+  <div class="d-flex justify-content-end gap-3 flex-wrap">
+    <button class="details-btn d-flex align-items-center justify-content-center" (click)="itemDetails(item)">
+      {{'general.details'|translate}}
+    </button>
+    <!-- <button (click)="editItem(item)" class="details-btn d-flex align-items-center justify-content-center">
         {{'general.edit'|translate}}
       </button> -->
-    </div>
   </div>
 </div>

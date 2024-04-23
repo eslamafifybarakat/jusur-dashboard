@@ -113,7 +113,7 @@ export class LoginComponent {
     if (res?.success == true) {
       this.authService.saveCurrentUserInformation(res?.result);
       this.publicService.showGlobalLoader.next(false);
-      if (res?.result?.roleId == 2) {
+      if (res?.result?.role?.id == 2) {
         this.router.navigate(['/Client']);
       } else {
         this.router.navigate(['/Dashboard']);

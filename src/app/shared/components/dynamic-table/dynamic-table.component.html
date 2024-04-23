@@ -444,7 +444,7 @@
               </a>
             </ng-container>
           </ng-container>
-          <ng-container *ngIf="showSuspend&&item?.isActive==true">
+          <ng-container *ngIf="showSuspend&&item?.active==true">
             <button class="btn btn-outline-main badge-btn px-3 position-relative overflow-hidden"
               (click)="suspendHandlerEmit(item)">
               <div *ngIf="item?.isLoadingActive"
@@ -454,7 +454,7 @@
               <span class="fw-500">{{'general.suspend'|translate}}</span>
             </button>
           </ng-container>
-          <ng-container *ngIf="showActivate&& item?.isActive==false">
+          <ng-container *ngIf="showActivate&& item?.active==false">
             <button class="btn btn-solid-main badge-btn px-3 position-relative overflow-hidden"
               (click)="activateHandlerEmit(item)">
               <div *ngIf="item?.isLoadingActive"

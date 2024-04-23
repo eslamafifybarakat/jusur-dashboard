@@ -175,7 +175,6 @@ export class ClientsListComponent {
       this.pagesCount = Math.ceil(this.clientsCount / this.perPage);
       this.clientsList = response?.result?.items;
       this.clientsList.forEach((item: ClientListingItem) => {
-        item['isActive'] = false;
         item['isLoadingActive'] = false;
       });
     } else {
@@ -188,6 +187,7 @@ export class ClientsListComponent {
     this.isLoadingSearch = false;
     this.enableSortFilter = false;
     this.publicService.showSearchLoader.next(false);
+    this.publicService.showGlobalLoader.next(false);
     setTimeout(() => {
       this.enableSortFilter = true;
     }, 200);
@@ -252,77 +252,52 @@ export class ClientsListComponent {
   //End Delete Client Functions
 
   // Start Activate Or Suspend Client Functions
-  activateClientAccount(item: any): void {
-    let data: any = {
-      id: item?.id
-    }
-    this.confirmationService.confirm({
-      message: this.publicService.translateTextFromJson('dashboard.customers.areYouSureToActivate') + ' ' + item?.name + ' ' + this.publicService.translateTextFromJson('dashboard.customers.account'),
-      header: this.publicService.translateTextFromJson('dashboard.customers.activateClient'),
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.activateClient(item, data);
-      }
-    });
-  }
-  activateClient(item: any, data: any): void {
-    item.isLoadingActive = true;
-    this.clientsService?.activateClientAccount(data)?.pipe(
-      tap((res: ClientsListApiResponse) => this.processActivateResponse(res)),
-      catchError(err => this.handleError(err)),
-      finalize(() => {
-        item.isLoadingActive = false;
-        this.cdr.detectChanges();
-      })
-    ).subscribe();
-  }
-  private processActivateResponse(res: any): void {
-    const messageType = res?.success === true ? 'success' : 'error';
-    const message = res?.message || '';
-
-    this.alertsService.openToast(messageType, messageType, message);
-    if (messageType === 'success') {
-      this.getAllClients();
-    }
-  }
-  // Start Activate Client Functions
-
-  // Start Suspend Client Functions
   suspendClientAccount(item: any): void {
-    let data: any = {
-      id: item?.id
-    }
     this.confirmationService.confirm({
       message: this.publicService.translateTextFromJson('dashboard.customers.areYouSureToSuspend') + ' ' + item?.name + ' ' + this.publicService.translateTextFromJson('dashboard.customers.account'),
       header: this.publicService.translateTextFromJson('dashboard.customers.suspendClient'),
       icon: 'pi pi-exclamation-triangle',
 
       accept: () => {
-        this.suspendClient(item, data);
+        this.toggleActivationClientAccount(item, item?.id);
       }
     });
   }
-  suspendClient(item: any, data: any): void {
+  activateClientAccount(item: any): void {
+    this.confirmationService.confirm({
+      message: this.publicService.translateTextFromJson('dashboard.customers.areYouSureToActivate') + this.publicService.translateTextFromJson('dashboard.customers.account'),
+      header: this.publicService.translateTextFromJson('dashboard.customers.activateClient'),
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.toggleActivationClientAccount(item, item?.id);
+      }
+    });
+  }
+  // End Activate Or Suspend Client Functions
+
+  // Start Toggle Activate Client Functions
+  toggleActivationClientAccount(item: any, clientId: number | string): void {
     item.isLoadingActive = true;
-    this.clientsService?.suspendClientAccount(data)?.pipe(
-      tap((res: ClientsListApiResponse) => this.processSuspendResponse(res)),
+    this.publicService.showGlobalLoader.next(true);
+    this.clientsService?.toggleActivateClientAccount(clientId)?.pipe(
+      tap((res: any) => this.processToggleActivateResponse(res)),
       catchError(err => this.handleError(err)),
       finalize(() => {
         item.isLoadingActive = false;
+        this.publicService.showGlobalLoader.next(false);
         this.cdr.detectChanges();
       })
     ).subscribe();
   }
-  private processSuspendResponse(res: any): void {
-    const messageType = res?.success === true ? 'success' : 'error';
-    const message = res?.message || '';
-
-    this.alertsService.openToast(messageType, messageType, message);
-    if (messageType === 'success') {
+  private processToggleActivateResponse(res: any): void {
+    if (res?.success) {
+      this.handleSuccess(res?.message);
       this.getAllClients();
+    } else {
+      this.handleError(res?.message);
     }
   }
-  // End Suspend Client Functions
+  // End Toggle Activate Client Functions
 
   // Start Search Functions
   handleSearch(event: any): void {
@@ -475,11 +450,15 @@ export class ClientsListComponent {
   // End Pagination Functions
 
   /* --- Handle api requests error messages --- */
-  private handleError(err: any): any {
-    this.setErrorMessage(err || this.publicService.translateTextFromJson('general.errorOccur'));
+  private handleSuccess(Msg: any): void {
+    this.setMessage(Msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
   }
-  private setErrorMessage(message: string): void {
-    this.alertsService.openToast('error', 'error', message);
+
+  private handleError(err: any): any {
+    this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
+  }
+  private setMessage(message: string, type: string): void {
+    this.alertsService.openToast(type, type, message);
     this.publicService.showGlobalLoader.next(false);
     this.finalizeClientListLoading();
   }

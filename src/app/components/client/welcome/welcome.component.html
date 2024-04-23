@@ -44,22 +44,31 @@
             <div class="mt-4 d-flex justify-content-between gap-2 flex-wrap">
               <div>
                 <label class="text-muted-color mb-1">{{'labels.fullName'|translate}}</label>
-                <p class="mb-0">{{userData.name||'--'}}</p>
+                <p class="mb-0">
+                  {{userData?.name||'--'}}
+                </p>
               </div>
               <div>
                 <label class="text-muted-color mb-1">
                   {{'labels.id'|translate}}</label>
-                <p class="mb-0">985987366364</p>
+                <p class="mb-0">
+                  {{userData?.identity}}
+                </p>
               </div>
               <div>
                 <label class="text-muted-color mb-1">
                   {{'labels.birthDate'|translate}}</label>
-                <p class="mb-0">12 سبتمبر 1995</p>
+                <p class="mb-0">
+                  {{userData?.birthDate | date: 'd MMMM y':'':currentLanguage}}
+                </p>
               </div>
               <div>
                 <label class="text-muted-color mb-1">
-                  {{'labels.phoneNumber'|translate}}</label>
-                <p class="mb-0">(+966)324157973</p>
+                  {{'labels.phoneNumber'|translate}}
+                </label>
+                <p class="mb-0" dir="ltr">
+                  ({{userData?.countryCode}}){{userData?.phoneNumber}}
+                </p>
               </div>
               <div>
                 <label class="text-muted-color mb-1">
@@ -91,8 +100,8 @@
                 <div class="birthDate">
                   <p-calendar appendTo="body" [showIcon]="true" inputId="icon" [readonlyInput]="true"
                     [styleClass]="'date-picker'" placeholder="{{'placeholders.dateFormat'| translate}}"
-                    [(ngModel)]="date" [showButtonBar]="true" [todayButtonStyleClass]="'d-none'" dateFormat="dd/mm/yy"
-                    hourFormat="12"></p-calendar>
+                    [(ngModel)]="userData.birthDate" [showButtonBar]="true" [todayButtonStyleClass]="'d-none'"
+                    dateFormat="dd/mm/yy" hourFormat="12"></p-calendar>
                 </div>
               </div>
               <div class="col-lg-4 col-sm-6 mb-3">
@@ -112,7 +121,7 @@
                   </span>
                   <span class="p-input-icon-right w-100 d-flex flex-nowrap m-0">
                     <input type="number" class="form-control border-0" autocomplete="cc-name" [min]="0"
-                      [(ngModel)]="phoneNumber" placeholder="{{'placeholders.phoneNumber'|translate}}">
+                      [(ngModel)]="userData.phoneNumber" placeholder="{{'placeholders.phoneNumber'|translate}}">
                   </span>
                 </div>
               </div>
@@ -124,7 +133,7 @@
             [showToggleData]="true" [showAddBtn]="false" [showReset]="false" [changeTitleStyle]="true"
             [isClientHistory]="true"></client-records>
         </div>
-        <form class="mt-4" aria-label="note-form" [formGroup]="noteForm" (ngSubmit)="submit()">
+        <form class="mt-4" aria-label="note-form" [formGroup]="noteForm" (ngSubmit)="addNote()">
           <label for="note">
             {{"labels.addNote"|translate}}
           </label>

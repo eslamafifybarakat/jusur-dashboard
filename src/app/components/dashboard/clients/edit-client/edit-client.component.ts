@@ -376,6 +376,10 @@ export class EditClientComponent {
   }
   // End Edit Client
 
+  cancel():void {
+    this.patchValue();
+    this.router.navigate(['/Dashboard/Clients/List']);
+  }
   /* --- Handle api requests messages --- */
   private handleSuccess(msg: any): any {
     this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');

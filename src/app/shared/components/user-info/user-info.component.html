@@ -7,18 +7,18 @@
           {{currentUserInfo?.name||''}}
         </p>
         <p class="mb-0 text-muted-color">
-          {{currentUserInfo?.role||''}}
+          {{currentUserInfo?.role?.name||''}}
         </p>
       </div>
       <i class="pi pi-angle-down fs-8 mt-1"></i>
     </button>
-    <ul class="dropdown-menu border-0 shadow user-info-menu p-0" aria-labelledby="dropdownMenuButton1">
+    <ul class="dropdown-menu border-0 shadow user-info-menu p-0" aria-labelledby="dropdownMenuUserInfoButton">
       <div class="p-3 fs-6 text-start">
         <p class="mb-2">
           {{currentUserInfo?.name||''}}
         </p>
         <p class="text-muted-color mb-0">
-          {{currentUserInfo?.role||''}}
+          {{currentUserInfo?.role?.name||''}}
         </p>
       </div>
       <hr class="my-0">
@@ -48,10 +48,10 @@
             <span>
               <i class="pi pi-phone"></i>
             </span>
-            <div>
-              <span *ngIf="currentLanguage=='en'">+(966)</span>
+            <div dir="ltr">
+              <span>+(966)</span>
               {{phone}}
-              <span *ngIf="currentLanguage=='ar'">+(966)</span>
+              <!-- <span *ngIf="currentLanguage=='ar'">+(966)</span> -->
             </div>
           </a>
         </li>

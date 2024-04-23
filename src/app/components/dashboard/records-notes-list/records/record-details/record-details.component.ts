@@ -1,7 +1,7 @@
 // Modules
+import { CommonModule,Location } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
-import { CommonModule } from '@angular/common';
 
 // Components
 import { UploadMultiFilesComponent } from '../../../../../shared/components/upload-files/upload-multi-files/upload-multi-files.component';
@@ -18,8 +18,8 @@ import { PublicService } from '../../../../../services/generic/public.service';
 import { MaxDigitsDirective } from '../../../directives/max-digits.directive';
 import { RecordsService } from '../../../services/records.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { Subscription, catchError, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription, catchError, tap } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -132,6 +132,7 @@ export class RecordDetailsComponent {
     private alertsService: AlertsService,
     public publicService: PublicService,
     private cdr: ChangeDetectorRef,
+    private location: Location,
     private fb: FormBuilder,
     private router: Router
   ) {
@@ -342,6 +343,11 @@ export class RecordDetailsComponent {
     }
   }
   // End Submit Edit Record
+
+  cancel():void {
+    this.patchValue();
+    this.location.back();
+  }
 
   /* --- Handle api requests messages --- */
   private handleSuccess(msg: any): any {

@@ -3,7 +3,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { TranslateModule } from '@ngx-translate/core';
 import { PaginatorModule } from 'primeng/paginator';
 import { CalendarModule } from 'primeng/calendar';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 // Components
 import { DynamicTableLocalActionsComponent } from './../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
@@ -19,8 +19,9 @@ import { AuthService } from './../../../services/authentication/auth.service';
 import { AlertsService } from './../../../services/generic/alerts.service';
 import { PublicService } from './../../../services/generic/public.service';
 import { ClientService } from '../../dashboard/services/client.service';
+import { keys } from 'src/app/shared/configs/localstorage-key';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { catchError, Subscription, tap } from 'rxjs';
-import { Component } from '@angular/core';
 
 @Component({
   standalone: true,
@@ -47,9 +48,8 @@ import { Component } from '@angular/core';
 export class WelcomeComponent {
   private subscriptions: Subscription[] = [];
 
-  phoneNumber = '12344444';
-  date = new Date();
-  userData: any;
+  currentLanguage: string;
+  userData:any;
   dataStyleType: string = 'list';
   clientId: number;
 
@@ -62,6 +62,7 @@ export class WelcomeComponent {
 
   constructor(
     private localizationLanguageService: LocalizationLanguageService,
+    @Inject(PLATFORM_ID) private platformId: Object,
     private metadataService: MetadataService,
     private alertsService: AlertsService,
     private clientService: ClientService,
@@ -75,6 +76,9 @@ export class WelcomeComponent {
   ngOnInit(): void {
     this.getUserData();
     this.updateMetaTagsForSEO();
+    if (isPlatformBrowser(this.platformId)) {
+      this.currentLanguage = window?.localStorage?.getItem(keys?.language);
+    }
   }
   private updateMetaTagsForSEO(): void {
     let metaData: MetaDetails = {
@@ -95,7 +99,7 @@ export class WelcomeComponent {
   }
 
   // Start Add Note Functions
-  submit(): void {
+  addNote(): void {
     if (this.noteForm?.valid) {
       this.publicService.showGlobalLoader.next(true);
       let data = {
@@ -114,8 +118,10 @@ export class WelcomeComponent {
   private handleSuccessAddNote(res: any): void {
     if (res?.success == true) {
       this.publicService.showGlobalLoader.next(false);
+      this.handleSuccess(res.message);
+      this.noteForm.reset();
     } else {
-      this.handleError(res?.error?.message || this.publicService.translateTextFromJson('general.errorOccur'));
+      this.handleError(res.message);
     }
   }
   checkNoteValidation(): void {
@@ -134,11 +140,15 @@ export class WelcomeComponent {
   // End Add Note Functions
 
   /* --- Handle api requests error messages --- */
-  private handleError(err: any): any {
-    this.setErrorMessage(err || this.publicService.translateTextFromJson('general.errorOccur'));
+  private handleSuccess(Msg: any): void {
+    this.setMessage(Msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
   }
-  private setErrorMessage(message: string): void {
-    this.alertsService.openToast('error', 'error', message);
+
+  private handleError(err: any): any {
+    this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
+  }
+  private setMessage(message: string, type: string): void {
+    this.alertsService.openToast(type, type, message);
     this.publicService.showGlobalLoader.next(false);
   }
 
