@@ -129,8 +129,8 @@
           </ng-container>
         </div>
         <div class="mt-4">
-          <client-records [clientId]="clientId" [showRecordCount]="false" [showSearch]="false" [showFilter]="false"
-            [showToggleData]="true" [showAddBtn]="false" [showReset]="false" [changeTitleStyle]="true"
+          <client-records [clientId]="clientId" [showRecordCount]="false" [showSearch]="true" [showFilter]="false"
+            [showToggleData]="true" [showAddBtn]="false" [showReset]="true" [changeTitleStyle]="true"
             [isClientHistory]="true"></client-records>
         </div>
         <form class="mt-4" aria-label="note-form" [formGroup]="noteForm" (ngSubmit)="addNote()">

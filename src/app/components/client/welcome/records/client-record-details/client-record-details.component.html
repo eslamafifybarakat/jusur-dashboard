@@ -2,7 +2,7 @@
   <div class="container-fluid pb-4">
     <h4 class="mb-0 text-capitalize">{{'dashboard.customers.customerDetails'|translate}}</h4>
     <ng-container *ngIf="isLoadingRecordDetails; else noLoading">
-      <div class="row">
+      <div class="row mt-4">
         <ng-container *ngFor="let item of [4,4,4,4]">
           <skeleton [type]="'recordDetails'"></skeleton>
         </ng-container>
@@ -319,7 +319,8 @@
 
     <div class="mt-4">
       <div>
-        <employees-vehicles-list [recordId]="recordId" [onlyPreview]="true"></employees-vehicles-list>
+        <employees-vehicles-list [recordId]="recordId" [onlyPreview]="false"
+          [showAddBtn]="true"></employees-vehicles-list>
       </div>
     </div>
   </div>

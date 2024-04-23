@@ -53,6 +53,7 @@ export class EmployeesListComponent {
   dataStyleType: string = 'list';
   @Input() recordId: number | string;
   @Input() onlyPreview: boolean = false;
+  @Input() showAddBtn: boolean = true;
 
   isLoadingSearch: boolean = false;
   isSearch: boolean = false;

@@ -43,6 +43,7 @@ export class EmployeesVehiclesListComponent {
   private subscriptions: Subscription[] = [];
   @Input() recordId: number | string;
   @Input() onlyPreview: boolean = false;
+  @Input() showAddBtn: boolean = true;
 
   dataStyleType: string = 'list';
   tabType: string = 'employee';
