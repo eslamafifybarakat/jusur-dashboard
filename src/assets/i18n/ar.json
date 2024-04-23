@@ -498,5 +498,9 @@
     "passwordPrompt": "أدخل كلمة المرور",
     "emptyMessage": "لم يتم العثور على نتائج",
     "emptyFilterMessage": "لم يتم العثور على نتائج"
+  },
+  "comingSoon": {
+    "comingSoon": "قريباً",
+    "subscribe": "سوف تتفعل هذه الصفحة قريبا"
   }
 }

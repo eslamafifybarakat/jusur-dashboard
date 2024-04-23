@@ -1,3 +1,4 @@
+import { ComingSoonComponent } from './../../shared/components/coming-soon/coming-soon.component';
 
 import { PermissionGuard } from './../../services/authentication/guards/permission.guard';
 import { EditClientComponent } from "./clients/edit-client/edit-client.component";
@@ -28,6 +29,11 @@ export const dashBoardChildrenRoutes: any[] = [
   {
     path: 'Clients/:id',
     component: EditClientComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'Coming-Soon/:id',
+    component: ComingSoonComponent,
     pathMatch: 'full'
   },
   { path: '**', component: ErrorsComponent }

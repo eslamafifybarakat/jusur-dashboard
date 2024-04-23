@@ -1,0 +1,19 @@
+#coming-soon {
+  min-height: 80vh;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center !important;
+  .title {
+    font-size: 60px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    background: linear-gradient(
+      90deg,
+      rgba(10, 37, 39, 0.92) -35.03%,
+      #287676 100%
+    );
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    width: fit-content;
+  }
+}

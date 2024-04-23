@@ -499,5 +499,9 @@
     "passwordPrompt": "Enter a password",
     "emptyMessage": "No results found",
     "emptyFilterMessage": "No results found"
+  },
+  "comingSoon": {
+    "comingSoon": "Comming Soon",
+    "subscribe": "This page will be active soon"
   }
 }
