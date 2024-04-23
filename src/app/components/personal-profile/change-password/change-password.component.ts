@@ -78,8 +78,7 @@ export class ChangePasswordComponent {
       }
       let data = {
         currentPassword: this.changePasswordForm?.value?.currentPassword,
-        password: this.changePasswordForm?.value?.password,
-        password_confirmation: this.changePasswordForm?.value?.confirmPassword
+        newPassword: this.changePasswordForm?.value?.password
       };
       this.publicService.showGlobalLoader.next(true);
       const changePasswordSubscription: any = this.authService?.changePassword(data)?.pipe(

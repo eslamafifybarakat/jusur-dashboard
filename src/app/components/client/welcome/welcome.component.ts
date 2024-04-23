@@ -1,9 +1,10 @@
 // Modules
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { PaginatorModule } from 'primeng/paginator';
 import { CalendarModule } from 'primeng/calendar';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 // Components
 import { DynamicTableLocalActionsComponent } from './../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
@@ -32,6 +33,7 @@ import { catchError, Subscription, tap } from 'rxjs';
     PaginatorModule,
     CalendarModule,
     CommonModule,
+    RouterModule,
     FormsModule,
 
     // Components
@@ -49,7 +51,7 @@ export class WelcomeComponent {
   private subscriptions: Subscription[] = [];
 
   currentLanguage: string;
-  userData:any;
+  userData: any;
   dataStyleType: string = 'list';
   clientId: number;
 

@@ -12,6 +12,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription, catchError, tap } from 'rxjs';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
+import { MaxDigitsDirective } from '../../dashboard/directives/max-digits.directive';
 // Services
 
 @Component({
@@ -24,6 +25,8 @@ import { CalendarModule } from 'primeng/calendar';
     DropdownModule,
     CommonModule,
     FormsModule,
+
+    MaxDigitsDirective
   ],
   templateUrl: './personal-information.component.html',
   styleUrls: ['./personal-information.component.scss']
@@ -33,8 +36,9 @@ export class PersonalInformationComponent {
 
   currentLoginInformation: any;
 
-  genders: any[] = [];
-  isLoadingGenders: boolean = false; // This should be controlled based on actual data loading status
+  // Check National Identity Variables
+  isLoadingCheckNationalIdentity: Boolean = false;
+  nationalIdentityNotAvailable: Boolean = false;
 
   // BirthDate
   readonly minAge = 18;
@@ -42,43 +46,38 @@ export class PersonalInformationComponent {
 
   personalInfoForm = this.fb?.group(
     {
-      firstName: ['', {
+      fullName: ['', {
         validators: [
           Validators.required,
           Validators?.minLength(3)], updateOn: "blur"
       }],
-      lastName: ['', {
+      nationalIdentity: ['', {
         validators: [
           Validators.required,
           Validators?.minLength(3)], updateOn: "blur"
+      }],
+      birthDate: [null, {
+        validators: [
+          Validators.required]
       }],
       email: ['', {
         validators: [
           Validators.required, Validators.pattern(patterns?.email)], updateOn: "blur"
       }],
-      gender: ['', {
-        validators: [
-          Validators.required], updateOn: "blur"
-      }],
       phoneNumber: ['', {
         validators: [Validators.pattern(patterns?.phone)], updateOn: "blur"
       }],
-      // birthDate: [null, {
-      //   validators: [
-      //     Validators.required]
-      // }],
     }
   );
   get formControls(): any {
     return this.personalInfoForm?.controls;
   }
 
-  isFirstNameReadOnly: boolean = true;
-  isLastNameReadOnly: boolean = true;
+  isFullNameReadOnly: boolean = true;
+  isIdentityReadOnly: boolean = true;
   isPhoneNumberReadOnly: boolean = true;
   isEmailReadOnly: boolean = true;
   isBirthDateReadOnly: boolean = true;
-  isGenderReadOnly: boolean = true;
 
   constructor(
     private localizationLanguageService: LocalizationLanguageService,
@@ -94,56 +93,90 @@ export class PersonalInformationComponent {
   }
 
   ngOnInit(): void {
-    this.loadGenders();
     this.translate.onLangChange.subscribe(() => {
-      this.loadGenders();  // Reload genders on language change
       this.loadPageData();
     });
   }
-  private loadGenders() {
-    this.genders = [
-      { label: this.translate.instant('general.male'), value: 'male' },
-      { label: this.translate.instant('general.female'), value: 'female' }
-    ];
-    this.cdr.markForCheck();  // Trigger change detection to update the view
-  }
+
   private loadPageData(): void {
     if (isPlatformBrowser(this.platformId)) {
-      if (JSON.parse(window?.localStorage?.getItem(keys?.profileData) || '{}')) {
-        this.currentLoginInformation = JSON.parse(window?.localStorage?.getItem(keys?.profileData) || '{}');
+      if (JSON.parse(window?.localStorage?.getItem(keys?.currentUserInformation) || '{}')) {
+        this.currentLoginInformation = JSON.parse(window?.localStorage?.getItem(keys?.currentUserInformation) || '{}');
         this.patchValues();
       }
     }
   }
   patchValues(): void {
     this.personalInfoForm.patchValue({
-      firstName: this.currentLoginInformation.first_name,
-      lastName: this.currentLoginInformation.last_name,
+      fullName: this.currentLoginInformation.role.name,
+      nationalIdentity: this.currentLoginInformation.identity,
+      birthDate: this.currentLoginInformation.birthDate,
       email: this.currentLoginInformation.email,
-      gender: this.currentLoginInformation.gender == 'male' ? this.genders[0] : this.currentLoginInformation.gender == 'female' ? this.genders[0] : null,
       phoneNumber: this.currentLoginInformation.phone
     });
   }
 
-  editInput(name: string): void {
-    if (name == 'firstName') {
-      this.isFirstNameReadOnly = false;
+
+  onKeyUpEvent(type: string): void {
+    if (type == 'nationalIdentity') {
+      this.isLoadingCheckNationalIdentity = false;
     }
-    if (name == 'lastName') {
-      this.isLastNameReadOnly = false;
+
+    this.publicService?.clearValidationErrors(this.formControls[type]);
+    this.cdr.detectChanges();
+  }
+  clearCheckAvailable(type: string): void {
+    if (type == 'nationalIdentity') {
+      this.nationalIdentityNotAvailable = false;
+    }
+  }
+  // Start Check If National Identity Unique
+  checkNationalIdentityAvailable(): void {
+    if (!this.formControls?.nationalIdentity?.valid) {
+      return; // Exit early if National Identity is not valid
+    }
+    const identity: number | string = this.personalInfoForm?.value?.nationalIdentity;
+    const data: any = { identity };
+    this.isLoadingCheckNationalIdentity = true;
+    let checkNationalIdentitySubscription: Subscription = this.publicService?.IsNationalIdentityAvailable(data).pipe(
+      tap(res => this.handleNationalIdentityResponse(res)),
+      catchError(err => this.handleNationalIdentityError(err))
+    ).subscribe();
+    this.subscriptions.push(checkNationalIdentitySubscription);
+  }
+  private handleNationalIdentityResponse(res: any): void {
+    if (res?.success && res?.result != null) {
+      this.nationalIdentityNotAvailable = !res.result;
+    } else {
+      this.nationalIdentityNotAvailable = false;
+      this.handleNationalIdentityError(res?.message);
+    }
+    this.isLoadingCheckNationalIdentity = false;
+    this.cdr.detectChanges();
+  }
+  private handleNationalIdentityError(err: any): any {
+    this.nationalIdentityNotAvailable = false;
+    this.isLoadingCheckNationalIdentity = false;
+    this.handleError(err);
+  }
+  // End Check If National Identity Unique
+
+  editInput(name: string): void {
+    if (name == 'fullName') {
+      this.isFullNameReadOnly = false;
+    }
+    if (name == 'identity') {
+      this.isIdentityReadOnly = false;
     }
     if (name == 'email') {
       this.isEmailReadOnly = false;
     }
-    if (name == 'gender') {
-      this.isGenderReadOnly = false;
-    }
     if (name == 'phoneNumber') {
       this.isPhoneNumberReadOnly = false;
     }
-    // if (name == 'birthDate') {
-    //   this.isBirthDateReadOnly = false;
-    // }
+    if (name == 'birthDate') {
+      this.isBirthDateReadOnly = false;
+    }
   }
 
   submit(): void {
@@ -153,13 +186,12 @@ export class PersonalInformationComponent {
         return;
       }
       this.publicService.showGlobalLoader.next(true);
-      let genderValue: any = this.personalInfoForm?.value?.gender;
       let data = {
-        first_name: this.personalInfoForm?.value?.firstName,
-        last_name: this.personalInfoForm?.value?.lastName,
-        email: this.personalInfoForm?.value?.email,
-        phone: this.personalInfoForm?.value?.phoneNumber,
-        gender: genderValue?.value
+        // fullName: this.personalInfoForm?.value?.fullName,
+        // email: this.personalInfoForm?.value?.email,
+        identity: this.personalInfoForm?.value?.nationalIdentity.toString(),
+        phoneNumber: this.personalInfoForm?.value?.phoneNumber.toString(),
+        birthDate: this.personalInfoForm?.value?.birthDate,
       };
       const updateProfileSubscription: any = this.authService?.updateProfile(data)?.pipe(
         tap(res => this.handleUpdateProfileResponse(res)),
@@ -174,12 +206,11 @@ export class PersonalInformationComponent {
       this.publicService.showGlobalLoader.next(false);
       return;
     }
-    this.isFirstNameReadOnly = true;
-    this.isLastNameReadOnly = true;
+    this.isFullNameReadOnly = true;
+    this.isIdentityReadOnly = true;
     this.isPhoneNumberReadOnly = true;
     this.isEmailReadOnly = true;
     this.isBirthDateReadOnly = true;
-    this.isGenderReadOnly = true;
     this.publicService.recallProfileDataFuntion.next(true);
     this.handleSuccess(res?.message);
   }
