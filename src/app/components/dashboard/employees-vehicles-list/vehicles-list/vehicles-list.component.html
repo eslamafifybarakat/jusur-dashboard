@@ -125,7 +125,8 @@
         (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch"
         [arrayChildKey]="'operatingCard'" [enableFilterDriverStatus]="true"
         [addBtnText]="'dashboard.vehicles.addVehicle'" (addHandler)="addEditItem()"
-        [showAddBtn]="!onlyPreview&&showAddBtn"></dynamic-table>
+        [showAddBtn]="!onlyPreview&&showAddBtn" (suspendHandler)="suspendVehicleAccount($event)" [showActivate]="true"
+        (activateHandler)="activateVehicleAccount($event)"></dynamic-table>
     </ng-container>
     <!-- Card -->
     <ng-container *ngIf="dataStyleType=='grid'">
@@ -140,7 +141,9 @@
           <ng-container *ngIf="vehiclesList.length>0; else noVehicles">
             <ng-container *ngFor="let card of vehiclesList; let i=index">
               <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <vehicle-card [item]="card" (itemDetailsHandler)="addEditItem($event,'edit')"></vehicle-card>
+                <vehicle-card [item]="card" (itemDetailsHandler)="addEditItem($event,'edit')"
+                  (activateHandlerEmit)="activateVehicleAccount($event)"
+                  (suspendHandlerEmit)="suspendVehicleAccount($event)"></vehicle-card>
               </div>
             </ng-container>
           </ng-container>
@@ -182,7 +185,9 @@
         <ng-container *ngIf="vehiclesList.length>0; else noVehicles2">
           <ng-container *ngFor="let card of vehiclesList; let i=index">
             <div class="col-xl-3 col-lg-4 col-sm-6 mb-4">
-              <vehicle-card (itemDetailsHandler)="addEditItem($event,'edit')" [item]="card"></vehicle-card>
+              <vehicle-card (itemDetailsHandler)="addEditItem($event,'edit')" [item]="card"
+                (activateHandlerEmit)="activateVehicleAccount($event)"
+                (suspendHandlerEmit)="suspendVehicleAccount($event)"></vehicle-card>
             </div>
           </ng-container>
         </ng-container>

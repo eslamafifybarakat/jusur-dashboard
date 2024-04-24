@@ -39,6 +39,7 @@ import { Subscription, catchError, tap } from 'rxjs';
 })
 export class AddEditEmployeeComponent {
   private subscriptions: Subscription[] = [];
+  currentLanguage: string;
 
   residencePhotoFile: any;
   residencePhoto: string;
@@ -61,6 +62,8 @@ export class AddEditEmployeeComponent {
   ) { }
 
   ngOnInit(): void {
+    this.currentLanguage = this.publicService.getCurrentLanguage();
+
     let data = this.config.data;
     if (data.type == 'edit') {
       this.isEdit = true;
@@ -83,6 +86,11 @@ export class AddEditEmployeeComponent {
 
   modalForm = this.fb?.group(
     {
+      isActive: [false, {
+        validators: [
+          Validators.required
+        ]
+      }],
       fullName: ['', {
         validators: [
           Validators.required,

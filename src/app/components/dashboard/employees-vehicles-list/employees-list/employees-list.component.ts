@@ -9,8 +9,8 @@ import { DynamicTableLocalActionsComponent } from './../../../../shared/componen
 import { DynamicTableComponent } from './../../../../shared/components/dynamic-table/dynamic-table.component';
 import { DynamicSvgComponent } from 'src/app/shared/components/icons/dynamic-svg/dynamic-svg.component';
 import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
-import { FilterEmployeesComponent } from './filter-employees/filter-employees.component';
 import { AddEditEmployeeComponent } from './add-edit-employee/add-edit-employee.component';
+import { FilterEmployeesComponent } from './filter-employees/filter-employees.component';
 import { EmployeeCardComponent } from './employee-card/employee-card.component';
 
 //Services
@@ -18,11 +18,12 @@ import { EmployeesListApiResponse, EmployeesListingItem } from './../../../../in
 import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
 import { MetaDetails, MetadataService } from './../../../../services/generic/metadata.service';
 import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
+import { Component, ChangeDetectorRef, Input, ViewChild } from '@angular/core';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
 import { EmployeesService } from '../../services/employees.service';
-import { Component, ChangeDetectorRef, Input, ViewChild } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmationService } from 'primeng/api';
 import { Router } from '@angular/router';
 
 
@@ -95,8 +96,9 @@ export class EmployeesListComponent {
 
   constructor(
     private localizationLanguageService: LocalizationLanguageService,
-    private metadataService: MetadataService,
+    private confirmationService: ConfirmationService,
     private employeesService: EmployeesService,
+    private metadataService: MetadataService,
     private publicService: PublicService,
     private dialogService: DialogService,
     private alertsService: AlertsService,
@@ -276,6 +278,10 @@ export class EmployeesListComponent {
       this.employeesCount = response?.result?.totalCount;
       this.pagesCount = Math.ceil(this.employeesCount / this.perPage);
       this.employeesList = response?.result?.items;
+      this.employeesList.forEach((item: EmployeesListingItem) => {
+        item['isLoadingActive'] = false;
+        item['active'] = false;
+      });
       this.publicService.employeesLength.next(this.employeesCount);
     } else {
       this.handleError(response.error);
@@ -285,6 +291,7 @@ export class EmployeesListComponent {
   private finalizeEmployeeListLoading(): void {
     this.isLoadingEmployeesList = false;
     this.publicService.isLoadingSearchEmployees.next(false);
+    this.publicService.isLoadingEmployees.next(false);
     this.isLoadingSearch = false;
     this.enableSortFilter = false;
     this.publicService.showSearchLoader.next(false);
@@ -372,6 +379,54 @@ export class EmployeesListComponent {
       }
     });
   }
+
+  // Start Activate Or Suspend Employee Functions
+  suspendEmployeeAccount(item: any): void {
+    this.confirmationService.confirm({
+      message: this.publicService.translateTextFromJson('dashboard.customers.areYouSureToSuspend') + ' ' + item?.name + ' ' + this.publicService.translateTextFromJson('dashboard.customers.account'),
+      header: this.publicService.translateTextFromJson('dashboard.employees.suspendEmployee'),
+      icon: 'pi pi-exclamation-triangle',
+
+      accept: () => {
+        this.toggleActivationEmployeeAccount(item, item?.id);
+      }
+    });
+  }
+  activateEmployeeAccount(item: any): void {
+    this.confirmationService.confirm({
+      message: this.publicService.translateTextFromJson('dashboard.customers.areYouSureToActivate') + ' ' + item.name + ' ' + this.publicService.translateTextFromJson('dashboard.customers.account'),
+      header: this.publicService.translateTextFromJson('dashboard.employees.activateEmployee'),
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.toggleActivationEmployeeAccount(item, item?.id);
+      }
+    });
+  }
+  // End Activate Or Suspend Employee Functions
+
+  // Start Toggle Activate Employee Functions
+  toggleActivationEmployeeAccount(item: any, employeeId: number | string): void {
+    item.isLoadingActive = true;
+    this.publicService.showGlobalLoader.next(true);
+    this.employeesService?.toggleActivateEmployeeAccount(employeeId)?.pipe(
+      tap((res: any) => this.processToggleActivateResponse(res)),
+      catchError(err => this.handleError(err)),
+      finalize(() => {
+        item.isLoadingActive = false;
+        this.publicService.showGlobalLoader.next(false);
+        this.cdr.detectChanges();
+      })
+    ).subscribe();
+  }
+  private processToggleActivateResponse(res: any): void {
+    if (res?.success) {
+      this.handleSuccess(res?.message);
+      this.getAllEmployees();
+    } else {
+      this.handleError(res?.message);
+    }
+  }
+  // End Toggle Activate Employee Functions
 
   //Start Delete Employee Functions
   deleteItem(item: any): void {
@@ -509,14 +564,19 @@ export class EmployeesListComponent {
   // End Pagination
 
   /* --- Handle api requests error messages --- */
-  private handleError(err: any): any {
-    this.setErrorMessage(err || this.publicService.translateTextFromJson('general.errorOccur'));
+  private handleSuccess(Msg: any): void {
+    this.setMessage(Msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
   }
-  private setErrorMessage(message: string): void {
-    this.alertsService.openToast('error', 'error', message);
+
+  private handleError(err: any): any {
+    this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
+  }
+  private setMessage(message: string, type: string): void {
+    this.alertsService.openToast(type, type, message);
     this.publicService.showGlobalLoader.next(false);
     this.finalizeEmployeeListLoading();
   }
+
 
   // Hide dropdown to not make action when keypress on keyboard arrows
   hide(): void {

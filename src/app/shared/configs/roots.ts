@@ -54,12 +54,14 @@ export const roots = {
       getEmployees: 'Employee/AllEmployees',
       addEmployee: 'Employee/AddEmployee',
       editEmployee: 'Employee/UpdateEmployee',
-      deleteEmployee: 'Employee/DeleteEmployee'
+      deleteEmployee: 'Employee/DeleteEmployee',
+      toggleActivateEmployeeAccount: 'Employee/ToggleActivation'
     },
     vehicles: {
       getVehicles: 'Car/AllCars',
       addVehicle: 'Car/AddCar',
-      editVehicle: 'Car/UpdateCar'
+      editVehicle: 'Car/UpdateCar',
+      toggleActivateCarAccount: 'Car/ToggleActivation'
     }
   }
 }

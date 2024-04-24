@@ -51,4 +51,12 @@ export class EmployeesService {
     }
     return this.http.delete<any>(`${this.baseUrl}${roots?.dashboard.employees.deleteEmployee}`, { params: params });
   }
+
+  toggleActivateEmployeeAccount(employeeId: number | string): Observable<any> {
+    let params = new HttpParams();
+    if (employeeId) {
+      params = params.append("employee_id", employeeId);
+    }
+    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.employees?.toggleActivateEmployeeAccount}`, { params: params })
+  }
 }

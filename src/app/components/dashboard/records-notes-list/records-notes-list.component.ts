@@ -85,6 +85,7 @@ export class RecordsNotesListComponent {
         this.isLoadingSearch = false;
       }
     });
+    this.tabType == 'records' ? this.publicService.toggleFilterRecordDataType.next(this.dataStyleType) : '';
   }
   // Toggle data type records or notes
   showTabItems(type: string): void {
@@ -92,6 +93,7 @@ export class RecordsNotesListComponent {
     this.tabType = type;
     this.searchKeyword = null;
     this.dataStyleType = 'list';
+    this.tabType == 'records' ? this.publicService.toggleFilterRecordDataType.next(this.dataStyleType) : '';
   }
 
   //Check if Filteration

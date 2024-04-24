@@ -1,3 +1,4 @@
+import { ConfirmationService } from 'primeng/api';
 // Modules
 import { Paginator, PaginatorModule } from 'primeng/paginator';
 import { TranslateModule } from '@ngx-translate/core';
@@ -93,6 +94,7 @@ export class VehiclesListComponent {
 
   constructor(
     private localizationLanguageService: LocalizationLanguageService,
+    private confirmationService: ConfirmationService,
     private metadataService: MetadataService,
     private vehiclesService: VehiclesService,
     private publicService: PublicService,
@@ -115,10 +117,6 @@ export class VehiclesListComponent {
       { field: 'expiryDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date' },
       { field: 'insuranceExpiryDate', header: 'dashboard.tableHeader.insuranceExpiryDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.insuranceExpiryDate'), type: 'date' },
       { field: 'formImage', header: 'dashboard.tableHeader.formPhoto', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.formPhoto'), type: 'img' },
-      // { field: 'workPermitCard', header: 'dashboard.tableHeader.operatingCard', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.operatingCard'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
-      // { field: 'expiryDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
-      // { field: 'insuranceExpiryDate', header: 'dashboard.tableHeader.insuranceExpiryDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.insuranceExpiryDate'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
-      // { field: 'formImage', header: 'dashboard.tableHeader.formPhoto', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.formPhoto'), type: 'img' },
     ];
   }
   private setupSubscriptions(): void {
@@ -206,6 +204,10 @@ export class VehiclesListComponent {
       this.publicService.VehicleLength.next(this.vehiclesCount);
       this.pagesCount = Math.ceil(this.vehiclesCount / this.perPage);
       this.vehiclesList = response?.result?.items;
+      this.vehiclesList.forEach((item: VehiclesListingItem) => {
+        item['isLoadingActive'] = false;
+        item['active'] = false;
+      });
       this.publicService.VehicleLength.next(this.vehiclesCount);
     } else {
       this.handleError(response.error);
@@ -216,6 +218,7 @@ export class VehiclesListComponent {
     this.isLoadingVehiclesList = false;
     this.isLoadingSearch = false;
     this.publicService.isLoadingSearchVehicles.next(false);
+    this.publicService.isLoadingVehicles.next(false);
     this.enableSortFilter = false;
     this.publicService.showSearchLoader.next(false);
     setTimeout(() => {
@@ -301,6 +304,55 @@ export class VehiclesListComponent {
       }
     });
   }
+
+  // Start Activate Or Suspend Vehicle Functions
+  suspendVehicleAccount(item: any): void {
+    this.confirmationService.confirm({
+      message: this.publicService.translateTextFromJson('dashboard.customers.areYouSureToSuspend') + ' ' + item?.workPermitCard + ' ' + this.publicService.translateTextFromJson('dashboard.customers.account'),
+      header: this.publicService.translateTextFromJson('dashboard.vehicles.suspendVehicle'),
+      icon: 'pi pi-exclamation-triangle',
+
+      accept: () => {
+        this.toggleActivationVehicleAccount(item, item?.id);
+      }
+    });
+  }
+  activateVehicleAccount(item: any): void {
+    this.confirmationService.confirm({
+      message: this.publicService.translateTextFromJson('dashboard.customers.areYouSureToActivate') + ' ' + item.workPermitCard + ' ' + this.publicService.translateTextFromJson('dashboard.customers.account'),
+      header: this.publicService.translateTextFromJson('dashboard.vehicles.activateVehicle'),
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.toggleActivationVehicleAccount(item, item?.id);
+      }
+    });
+  }
+  // End Activate Or Suspend Vehicle Functions
+
+  // Start Toggle Activate Vehicle Functions
+  toggleActivationVehicleAccount(item: any, vehicleId: number | string): void {
+    item.isLoadingActive = true;
+    this.publicService.showGlobalLoader.next(true);
+    this.vehiclesService?.toggleActivateVehicleAccount(vehicleId)?.pipe(
+      tap((res: any) => this.processToggleActivateResponse(res)),
+      catchError(err => this.handleError(err)),
+      finalize(() => {
+        item.isLoadingActive = false;
+        this.publicService.showGlobalLoader.next(false);
+        this.cdr.detectChanges();
+      })
+    ).subscribe();
+  }
+  private processToggleActivateResponse(res: any): void {
+    if (res?.success) {
+      this.handleSuccess(res?.message);
+      this.getAllVehicles();
+    } else {
+      this.handleError(res?.message);
+    }
+  }
+  // End Toggle Activate Vehicle Functions
+
   //Start Delete Vehicle Functions
   deleteItem(item: any): void {
     if (!item?.confirmed) {
@@ -451,14 +503,19 @@ export class VehiclesListComponent {
   // End Pagination
 
   /* --- Handle api requests error messages --- */
-  private handleError(err: any): any {
-    this.setErrorMessage(err || this.publicService.translateTextFromJson('general.errorOccur'));
+  private handleSuccess(Msg: any): void {
+    this.setMessage(Msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
   }
-  private setErrorMessage(message: string): void {
-    this.alertsService.openToast('error', 'error', message);
+
+  private handleError(err: any): any {
+    this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
+  }
+  private setMessage(message: string, type: string): void {
+    this.alertsService.openToast(type, type, message);
     this.publicService.showGlobalLoader.next(false);
     this.finalizeVehicleListLoading();
   }
+
 
   // Hide dropdown to not make action when keypress on keyboard arrows
   hide(): void {

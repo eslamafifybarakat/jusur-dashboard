@@ -77,6 +77,7 @@ export const appRoutes: Routes = [
   // },
   {
     path: 'Profile',
+    canActivate: [AuthGuard], // Apply the guard here
     loadComponent: () =>
       import('./components/personal-profile/personal-profile.component').then(
         (c) => c.PersonalProfileComponent
@@ -85,6 +86,7 @@ export const appRoutes: Routes = [
   },
   {
     path: ':lang/Profile',
+    canActivate: [AuthGuard], // Apply the guard here
     loadComponent: () =>
       import('./components/personal-profile/personal-profile.component').then(
         (c) => c.PersonalProfileComponent

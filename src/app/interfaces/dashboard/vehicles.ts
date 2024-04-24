@@ -14,5 +14,7 @@ export interface VehiclesListingItem {
   workPermitCard: string | null;
   expiryDate: Date | null;
   insuranceExpiryDate: Date | null;
-  formImage: string
+  formImage: string;
+  active?: boolean;
+  isLoadingActive?: boolean;
 }

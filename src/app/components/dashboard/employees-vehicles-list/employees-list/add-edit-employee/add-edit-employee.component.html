@@ -2,6 +2,22 @@
   <form [formGroup]="modalForm" (ngSubmit)="submit()" aria-label="add-employee-form">
     <div class="form-content">
       <div class="row m-0">
+        <div class="col-md-12 d-flex align-items-center gap-2 justify-content-between mb-2">
+          <label for="isActive" class="required fs-5-1">
+            {{'labels.isActive'|translate}}
+          </label>
+          <div>
+            <div class="btn-container">
+              <label class="switch btn-color-mode-switch">
+                <input formControlName="isActive" id="color_mode" name="color_mode" type="checkbox">
+                <label *ngIf="currentLanguage=='en'" class="btn-color-mode-switch-inner" data-off="No" data-on="Yes"
+                  for="color_mode"></label>
+                <label *ngIf="currentLanguage=='ar'" class="btn-color-mode-switch-inner" data-off="لا" data-on="نعم"
+                  for="color_mode"></label>
+              </label>
+            </div>
+          </div>
+        </div>
         <div class="col-md-6">
           <div class="mb-3">
             <label for="fullName" class="mb-2 required">{{'labels.fullName'|translate}}</label>

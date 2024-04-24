@@ -178,15 +178,19 @@
     "employees": {
       "employees": "الموظفين",
       "addEmployee": "إضافة موظف",
-      "editEmployee": "تعديل الموظف"
+      "editEmployee": "تعديل الموظف",
+      "activateEmployee":"تفعيل حساب الموظف",
+      "suspendEmployee":"تعليق حساب الموظف"
     },
     "vehicles": {
       "vehicles": "المركبات",
       "addVehicle": "إضافة مركبة",
-      "editVehicle": "تعديل المركبة"
+      "editVehicle": "تعديل المركبة",
+      "activateVehicle":"تفعيل المركبة",
+      "suspendVehicle":"تعليق المركبة"
     }
-  },
-  "auth": {
+    },
+    "auth": {
     "send": "إرسال",
     "welcomeBack": "مرحبا بك مجدداً، لقد أفتقدناك",
     "start": "أبدأ",

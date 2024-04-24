@@ -35,6 +35,7 @@ import { Subscription, catchError, tap } from 'rxjs';
 })
 export class AddEditVehicleComponent {
   private subscriptions: Subscription[] = [];
+  currentLanguage: string;
 
   formPhotoFile: any;
   formPhoto: any = null;
@@ -57,6 +58,7 @@ export class AddEditVehicleComponent {
   ) { }
 
   ngOnInit(): void {
+    this.currentLanguage = this.publicService.getCurrentLanguage();
     let data = this.config.data;
     if (data.type == 'edit') {
       this.isEdit = true;
@@ -66,6 +68,11 @@ export class AddEditVehicleComponent {
 
   modalForm = this.fb?.group(
     {
+      isActive: [false, {
+        validators: [
+          Validators.required
+        ]
+      }],
       operatingCard: ['', {
         validators: [
           Validators.required], updateOn: "blur"

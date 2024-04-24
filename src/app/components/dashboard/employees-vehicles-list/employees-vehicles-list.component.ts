@@ -105,6 +105,7 @@ export class EmployeesVehiclesListComponent {
         this.isLoadingSearch = false;
       }
     });
+    this.tabType == 'employee' ? this.publicService.toggleFilterEmployeeDataType.next(this.dataStyleType) : this.publicService.toggleFilterVehicleDataType.next(this.dataStyleType);
   }
   // Toggle data type employees or vehicles
   showTabItems(type: string): void {
@@ -112,6 +113,7 @@ export class EmployeesVehiclesListComponent {
     this.tabType = type;
     this.searchKeyword = null;
     this.dataStyleType = 'list';
+    this.tabType == 'employee' ? this.publicService.toggleFilterEmployeeDataType.next(this.dataStyleType) : this.publicService.toggleFilterVehicleDataType.next(this.dataStyleType);
   }
 
   //Check if Filteration

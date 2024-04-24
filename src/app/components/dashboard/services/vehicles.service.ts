@@ -51,4 +51,12 @@ export class VehiclesService {
     }
     return this.http.delete<any>(`${this.baseUrl}${roots?.dashboard.vehicles}/delete/` + id, { params: params });
   }
+
+  toggleActivateVehicleAccount(carId: number | string): Observable<any> {
+    let params = new HttpParams();
+    if (carId) {
+      params = params.append("car_id", carId);
+    }
+    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.vehicles?.toggleActivateCarAccount}`, { params: params })
+  }
 }

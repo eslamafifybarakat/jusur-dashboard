@@ -270,7 +270,7 @@ export class ClientsListComponent {
   }
   activateClientAccount(item: any): void {
     this.confirmationService.confirm({
-      message: this.publicService.translateTextFromJson('dashboard.customers.areYouSureToActivate') + this.publicService.translateTextFromJson('dashboard.customers.account'),
+      message: this.publicService.translateTextFromJson('dashboard.customers.areYouSureToActivate') + ' ' + item.name + ' ' + this.publicService.translateTextFromJson('dashboard.customers.account'),
       header: this.publicService.translateTextFromJson('dashboard.customers.activateClient'),
       icon: 'pi pi-exclamation-triangle',
       accept: () => {

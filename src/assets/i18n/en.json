@@ -179,12 +179,16 @@
     "employees": {
       "employees": "Employees",
       "addEmployee": "Add Employee",
-      "editEmployee": "Edit Employee"
+      "editEmployee": "Edit Employee",
+      "activateEmployee":"Activate Employee Account",
+      "suspendEmployee":"Suspend Employee Account"
     },
     "vehicles": {
       "vehicles": "Vehicles",
       "addVehicle": "Add Vehicle",
-      "editVehicle": "Edit Vehicle"
+      "editVehicle": "Edit Vehicle",
+      "activateVehicle":"Activate Vehicle Account",
+      "suspendVehicle":"Suspend Vehicle Account"
     }
   },
   "auth": {

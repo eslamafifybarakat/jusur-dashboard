@@ -20,5 +20,8 @@ export interface EmployeesListingItem {
   createdAt: string;
   updatedAt: string;
   clientHistory_id: number;
+  active?: boolean;
+  isLoadingActive?: boolean;
+
 }
 
