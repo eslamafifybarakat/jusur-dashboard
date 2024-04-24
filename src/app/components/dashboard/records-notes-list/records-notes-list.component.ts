@@ -146,7 +146,7 @@ export class RecordsNotesListComponent {
 
   // Clear table
   clearTable(): void {
-    this.tabType == 'records' ? this.publicService.resetRecordsData.next(true) : this.publicService.resetVehiclesData.next(true);
+    this.tabType == 'records' ? this.publicService.resetRecordsData.next(true) : this.publicService.resetRecordsData.next(true);
   }
 
   ngOnDestroy(): void {

@@ -16,6 +16,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
 import { MaxDigitsDirective } from '../../directives/max-digits.directive';
+import { DateService } from '../../../../services/generic/date.service';
 import { patterns } from './../../../../shared/configs/patterns';
 import { ClientsService } from '../../services/clients.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
@@ -115,6 +116,7 @@ export class EditClientComponent {
     private activatedRoute: ActivatedRoute,
     private alertsService: AlertsService,
     public publicService: PublicService,
+    private dateService: DateService,
     private cdr: ChangeDetectorRef,
     private fb: FormBuilder,
     private router: Router
@@ -334,20 +336,21 @@ export class EditClientComponent {
 
   // Start Edit Client
   submit(): void {
-    console.log(this.editClientForm.value);
     if (this.editClientForm?.valid) {
-      const formData = this.extractFormData();
+      const formData: FormData = this.extractFormData();
       this.editClient(formData);
     } else {
       this.publicService?.validateAllFormFields(this.editClientForm);
     }
   }
   private extractFormData(): any {
+    let adjustedDate: Date = this.dateService.dateWithCorrectTimeZone(this.editClientForm?.value?.birthDate);
+
     return {
       name: this.editClientForm?.value?.fullName,
       email: this.editClientForm?.value?.email,
       identity: this.editClientForm?.value?.nationalIdentity?.toString(),
-      birthDate: this.editClientForm?.value?.birthDate,
+      birthDate: adjustedDate,
       countryCode: "+966",
       phoneNumber: this.editClientForm?.value?.phoneNumber?.toString()
     };
@@ -376,7 +379,7 @@ export class EditClientComponent {
   }
   // End Edit Client
 
-  cancel():void {
+  cancel(): void {
     this.patchValue();
     this.router.navigate(['/Dashboard/Clients/List']);
   }

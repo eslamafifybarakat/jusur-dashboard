@@ -12,6 +12,7 @@ import { MetaDetails, MetadataService } from 'src/app/services/generic/metadata.
 import { AlertsService } from '../../../../services/generic/alerts.service';
 import { PublicService } from '../../../../services/generic/public.service';
 import { MaxDigitsDirective } from '../../directives/max-digits.directive';
+import { DateService } from 'src/app/services/generic/date.service';
 import { ClientsService } from '../../services/clients.service';
 import { patterns } from '../../../../shared/configs/patterns';
 import { ChangeDetectorRef, Component } from '@angular/core';
@@ -92,6 +93,7 @@ export class AddClientComponent {
     private clientsService: ClientsService,
     private alertsService: AlertsService,
     public publicService: PublicService,
+    private dateService:DateService,
     private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
     private fb: FormBuilder
@@ -244,11 +246,13 @@ export class AddClientComponent {
     }
   }
   private extractFormData(): any {
+    let adjustedDate: Date = this.dateService.dateWithCorrectTimeZone(this.addClientForm?.value?.birthDate);
+
     return {
       name: this.addClientForm?.value?.fullName,
       email: this.addClientForm?.value?.email,
       identity: this.addClientForm?.value?.nationalIdentity?.toString(),
-      birthDate: this.addClientForm?.value?.birthDate,
+      birthDate: adjustedDate,
       countryCode: "+966",
       phoneNumber: this.addClientForm?.value?.phoneNumber?.toString()
     };

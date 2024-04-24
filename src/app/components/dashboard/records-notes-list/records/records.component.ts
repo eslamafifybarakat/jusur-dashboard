@@ -129,6 +129,8 @@ export class RecordsComponent {
     });
 
     this.publicService.resetRecordsData.subscribe(res => {
+      console.log(res);
+      
       if (res) {
         this.clearTable();
       }
@@ -275,8 +277,13 @@ export class RecordsComponent {
     });
     ref.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
-        this.page = 1;
-        this.publicService?.changePageSub?.next({ page: this.page });
+        console.log('success');
+        if (this.recordsCount==0) {
+          this.getAllRecords();
+        }else{
+          this.page = 1;
+          this.publicService?.changePageSub?.next({ page: this.page });
+        }
         this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
         this.dataStyleType == 'grid' ? this.getAllRecords() : '';
       }

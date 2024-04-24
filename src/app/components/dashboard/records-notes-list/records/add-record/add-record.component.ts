@@ -11,6 +11,7 @@ import { PublicService } from './../../../../../services/generic/public.service'
 import { AlertsService } from './../../../../../services/generic/alerts.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { RecordsService } from './../../../services/records.service';
+import { DateService } from 'src/app/services/generic/date.service';
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { Subscription, catchError, tap } from 'rxjs';
 
@@ -62,6 +63,7 @@ export class AddRecordComponent {
     private alertsService: AlertsService,
     private config: DynamicDialogConfig,
     public publicService: PublicService,
+    private dateService:DateService,
     private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
@@ -146,11 +148,12 @@ export class AddRecordComponent {
     }
   }
   private extractFormData(): any {
+    let adjustedDate: Date = this.dateService.dateWithCorrectTimeZone(this.modalForm?.value?.endDate);
+
     return {
       name: this.modalForm?.value?.recordName,
       number: this.modalForm?.value?.recordNumber.toString(),
-      expireDate: this.modalForm?.value?.endDate,
-      licenseFile: "assets/images/license.jpg"
+      expireDate: adjustedDate
     };
   }
   private addRecord(formData: any): void {

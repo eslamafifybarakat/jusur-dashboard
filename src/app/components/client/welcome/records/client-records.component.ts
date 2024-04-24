@@ -123,7 +123,7 @@ export class ClientRecordsComponent {
   }
 
   loadPageData(): void {
-    this.updateMetaTagsForSEO();
+    // this.updateMetaTagsForSEO();
     this.getAllRecords(false);
     this.searchSubject.pipe(debounceTime(500)) // Throttle time in milliseconds (1 seconds)
       .subscribe(event => { this.searchHandler(event); });
