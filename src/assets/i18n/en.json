@@ -242,6 +242,7 @@
     "joinNow": "Join now"
   },
   "labels": {
+    "isActive":"Is Active",
     "currentPassword": "Current Password",
     "gender":"Gender",
     "changePassword": "Change Password",

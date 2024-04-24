@@ -60,6 +60,11 @@ export class AddClientComponent {
 
   addClientForm = this.fb?.group(
     {
+      isActive: [false, {
+        validators: [
+          Validators.required
+        ]
+      }],
       fullName: ['', {
         validators: [
           Validators.required,
@@ -93,7 +98,7 @@ export class AddClientComponent {
     private clientsService: ClientsService,
     private alertsService: AlertsService,
     public publicService: PublicService,
-    private dateService:DateService,
+    private dateService: DateService,
     private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
     private fb: FormBuilder
@@ -249,6 +254,7 @@ export class AddClientComponent {
     let adjustedDate: Date = this.dateService.dateWithCorrectTimeZone(this.addClientForm?.value?.birthDate);
 
     return {
+      // isActive: this.addClientForm?.value?.isActive,
       name: this.addClientForm?.value?.fullName,
       email: this.addClientForm?.value?.email,
       identity: this.addClientForm?.value?.nationalIdentity?.toString(),

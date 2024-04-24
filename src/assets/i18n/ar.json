@@ -243,6 +243,7 @@
     "joinNow": "انضم الأن"
   },
   "labels": {
+    "isActive":"تفعيل",
     "gender": "النوع",
     "changePassword": "تغيير كلمة المرور",
     "personalInformation": "المعلومات الشخصية",
