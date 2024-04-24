@@ -10,7 +10,10 @@
             <div class="btn-container">
               <label class="switch btn-color-mode-switch">
                 <input formControlName="isActive" id="color_mode" name="color_mode" type="checkbox">
-                <label class="btn-color-mode-switch-inner" data-off="No" data-on="Yes" for="color_mode"></label>
+                <label *ngIf="currentLanguage=='en'" class="btn-color-mode-switch-inner" data-off="No" data-on="Yes"
+                  for="color_mode"></label>
+                <label *ngIf="currentLanguage=='ar'" class="btn-color-mode-switch-inner" data-off="لا" data-on="نعم"
+                  for="color_mode"></label>
               </label>
             </div>
           </div>

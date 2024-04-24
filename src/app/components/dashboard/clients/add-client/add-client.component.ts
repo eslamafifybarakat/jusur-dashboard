@@ -41,6 +41,7 @@ import { Subscription } from 'rxjs';
 })
 export class AddClientComponent {
   private subscriptions: Subscription[] = [];
+  currentLanguage: string;
 
   // Check National Identity Variables
   isLoadingCheckNationalIdentity: Boolean = false;
@@ -107,6 +108,7 @@ export class AddClientComponent {
   }
 
   ngOnInit(): void {
+    this.currentLanguage = this.publicService.getCurrentLanguage();
     this.updateMetaTagsForSEO();
   }
   private updateMetaTagsForSEO(): void {
