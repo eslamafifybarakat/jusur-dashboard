@@ -3,9 +3,9 @@ import { ErrorsComponent } from "../errors/errors.component";
 import { ClientRecordDetailsComponent } from "./welcome/records/client-record-details/client-record-details.component";
 
 export const clientChildrenRoutes: any[] = [
-  { path: '', redirectTo: '', pathMatch: 'full' },
+  { path: '', redirectTo: '/Client/Welcome', pathMatch: 'full' },
   {
-    path: '',
+    path: 'Welcome',
     component: WelcomeComponent,
     pathMatch: 'full'
   },

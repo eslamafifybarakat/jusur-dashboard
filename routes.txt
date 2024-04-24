@@ -28,3 +28,10 @@
 /Client
 /en/Client
 /ar/Client
+/Client/Welcome
+/en/Client/Welcome
+/ar/Client/Welcome
+/Client/History-Details
+/en/Client/History-Details
+/ar/Client/History-Details
+
