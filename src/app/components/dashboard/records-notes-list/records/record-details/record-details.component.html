@@ -12,7 +12,7 @@
             </svg>
             <span>{{'general.edit'|translate}}</span>
           </button>
-          <button (click)="cancel()" class="btn btn-outline-main d-flex align-items-center gap-2 me-auto">
+          <button type="button" (click)="cancel()" class="btn btn-outline-main d-flex align-items-center gap-2 me-auto">
             <i class="pi pi-times-circle"></i>
             <span>{{'general.cancel'|translate}}</span>
           </button>
@@ -312,7 +312,7 @@
                     </ng-container>
                   </div>
                 </div>
-                <app-file-upload (uploadHandler)="uploadCertificateFile($event)" [isEdit]="isEditLicenseFile"
+                <app-file-upload (uploadHandler)="uploadCertificateFile($event)" [isEdit]="isEditCertificateFile"
                   [imageSrc]="certificateFile" [showPreview]="true"></app-file-upload>
               </div>
             </div>

@@ -65,10 +65,10 @@
         </span>
       </div>
       <div class="d-flex gap-2">
-        <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addItem()">
+        <!-- <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addItem()">
           <i class="pi pi-plus"></i>
           <span>{{'dashboard.records.addRecord'|translate}}</span>
-        </button>
+        </button> -->
         <!-- Filter Button -->
         <!-- <button [class.disabled-actions]="isLoadingNotesList"
           *ngIf="(notesList.length>0||ifFilteration())&&showFilter"
@@ -148,8 +148,8 @@
         </ng-container>
         <ng-template #noSearch2>
           <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
-          <button (click)="addItem()"
-            class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.records.addRecord'|translate}}</button>
+          <!-- <button (click)="addItem()"
+            class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.records.addRecord'|translate}}</button> -->
         </ng-template>
       </div>
     </ng-template>

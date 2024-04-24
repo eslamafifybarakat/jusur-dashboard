@@ -112,8 +112,9 @@ export class ClientsListComponent {
     this.tableHeaders = [
       { field: 'name', header: 'dashboard.tableHeader.fullName', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.fullName'), type: 'text' },
       { field: 'identity', header: 'dashboard.tableHeader.id', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.id'), type: 'text' },
-      { field: 'birthDate', header: 'dashboard.tableHeader.date', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), type: 'date' },
-      { field: 'phoneNumber', header: 'dashboard.tableHeader.mobilePhone', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), type: 'text' }
+      { field: 'email', header: 'dashboard.tableHeader.email', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.email'), type: 'text' },
+      { field: 'phoneNumber', header: 'dashboard.tableHeader.mobilePhone', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), type: 'text' },
+      { field: 'birthDate', header: 'dashboard.tableHeader.birthDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.birthDate'), type: 'date' },
       // { field: 'name', header: 'dashboard.tableHeader.name', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true },
       // { field: 'identity', header: 'dashboard.tableHeader.id', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.id'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true },
       // { field: 'birthDate', header: 'dashboard.tableHeader.date', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true },
@@ -211,10 +212,14 @@ export class ClientsListComponent {
     });
     ref.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
-        this.page = 1;
-        this.publicService?.changePageSub?.next({ page: this.page });
-        this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
-        this.dataStyleType == 'grid' ? this.getAllClients() : '';
+        if (this.clientsCount == 0) {
+          this.getAllClients();
+        } else {
+          this.page = 1;
+          this.publicService?.changePageSub?.next({ page: this.page });
+          this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
+          this.dataStyleType == 'grid' ? this.getAllClients() : '';
+        }
       }
     });
   }

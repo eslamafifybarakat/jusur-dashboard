@@ -11,6 +11,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { PublicService } from '../../../../../services/generic/public.service';
 import { AlertsService } from '../../../../../services/generic/alerts.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DateService } from './../../../../../services/generic/date.service';
 import { VehiclesService } from '../../../services/vehicles.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Subscription, catchError, tap } from 'rxjs';
@@ -49,6 +50,7 @@ export class AddEditVehicleComponent {
     private alertsService: AlertsService,
     public publicService: PublicService,
     private config: DynamicDialogConfig,
+    private dateService: DateService,
     private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
@@ -151,13 +153,15 @@ export class AddEditVehicleComponent {
     }
   }
   private extractFormData(): any {
+    let adjustedDate: any = this.dateService.dateWithCorrectTimeZone(this.modalForm?.value?.endDate);
+    let adjustedInsuranceExpiryDate: any = this.dateService.dateWithCorrectTimeZone(this.modalForm?.value?.insuranceExpiryDate);
     const formData = new FormData();
     if (this.isEdit) {
       formData.append('id', this.vehicleId);
     }
     formData.append('workPermitCard', this.modalForm?.value?.operatingCard);
-    formData.append('expiryDate', this.modalForm?.value?.endDate);
-    formData.append('insuranceExpiryDate', this.modalForm?.value?.insuranceExpiryDate);
+    formData.append('expiryDate', adjustedDate);
+    formData.append('insuranceExpiryDate', adjustedInsuranceExpiryDate);
     formData.append('clientHistory_id', this.config?.data?.item?.clientHistory_id);
     if (this.isEdit) {
       let photo: any = this.modalForm?.value?.formPhotoFile;
@@ -167,8 +171,8 @@ export class AddEditVehicleComponent {
     }
     let dataObj: any = {
       "workPermitCard": this.modalForm?.value?.operatingCard,
-      "expiryDate": this.modalForm?.value?.endDate,
-      "insuranceExpiryDate": this.modalForm?.value?.insuranceExpiryDate,
+      "expiryDate": adjustedDate,
+      "insuranceExpiryDate": adjustedInsuranceExpiryDate,
       "clientHistory_id": this.config?.data?.item?.clientHistory_id
     };
     if (this.isEdit) {

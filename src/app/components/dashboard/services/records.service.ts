@@ -39,9 +39,9 @@ export class RecordsService {
     }
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.records.getRecords}`, { params: params });
   }
-  getSingleHistory(clientHistory_id: any): Observable<any> {
+  getSingleHistory(clientHistory_id: any, client_id?: any): Observable<any> {
     let params = new HttpParams();
-    params = params?.append("client_id", 1);
+    params = params?.append("client_id", client_id);
     if (clientHistory_id) {
       params = params?.append("clientHistory_id", clientHistory_id);
     }

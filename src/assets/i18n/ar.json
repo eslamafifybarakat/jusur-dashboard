@@ -113,6 +113,8 @@
     },
     "hello": "مرحبًا",
     "tableHeader": {
+      "email": "البريد الإلكتروني",
+      "birthDate": "تاريخ الميلاد",
       "time": "الوقت",
       "location": "الموقع",
       "address": "العنوان",

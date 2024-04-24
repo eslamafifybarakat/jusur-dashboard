@@ -130,7 +130,7 @@ export class RecordsComponent {
 
     this.publicService.resetRecordsData.subscribe(res => {
       console.log(res);
-      
+
       if (res) {
         this.clearTable();
       }
@@ -138,7 +138,11 @@ export class RecordsComponent {
 
     this.publicService.searchRecordsData.subscribe(res => {
       if (res) {
-        this.searchHandler(res);
+        if (res == 'empty') {
+          this.searchHandler(null);
+        } else {
+          this.searchHandler(res);
+        }
       }
     });
 
@@ -259,7 +263,7 @@ export class RecordsComponent {
 
   // Record Details
   itemDetails(item?: any): void {
-    this.router.navigate(['Dashboard/Clients/RecordDetails', item?.id]);
+    this.router.navigate(['Dashboard/Clients/RecordDetails', item?.id, { clientId: this.clientId }]);
   }
   // Add Record
   addItem(item?: any, type?: any): void {
@@ -276,11 +280,11 @@ export class RecordsComponent {
       styleClass: 'custom-modal',
     });
     ref.onClose.subscribe((res: any) => {
+      this.publicService.addRecordItem.next(false);
       if (res?.listChanged) {
-        console.log('success');
-        if (this.recordsCount==0) {
+        if (this.recordsCount == 0) {
           this.getAllRecords();
-        }else{
+        } else {
           this.page = 1;
           this.publicService?.changePageSub?.next({ page: this.page });
         }

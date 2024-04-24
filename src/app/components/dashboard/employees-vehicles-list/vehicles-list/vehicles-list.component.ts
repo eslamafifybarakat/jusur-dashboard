@@ -140,7 +140,11 @@ export class VehiclesListComponent {
     });
     this.publicService.searchVehiclesData.subscribe(res => {
       if (res) {
-        this.searchHandler(res);
+        if (res == 'empty') {
+          this.searchHandler(null);
+        } else {
+          this.searchHandler(res);
+        }
       }
     });
     this.publicService.filterVehiclesData.subscribe(res => {
@@ -264,11 +268,16 @@ export class VehiclesListComponent {
       styleClass: 'custom-modal',
     });
     ref.onClose.subscribe((res: any) => {
+      this.publicService.addVehicleItem.next(false);
       if (res?.listChanged) {
-        this.page = 1;
-        this.publicService?.changePageSub?.next({ page: this.page });
-        this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
-        this.dataStyleType == 'grid' ? this.getAllVehicles() : '';
+        if (this.vehiclesCount == 0) {
+          this.getAllVehicles();
+        } else {
+          this.page = 1;
+          this.publicService?.changePageSub?.next({ page: this.page });
+          this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
+          this.dataStyleType == 'grid' ? this.getAllVehicles() : '';
+        }
       }
     });
   }

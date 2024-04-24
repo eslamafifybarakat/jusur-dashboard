@@ -130,7 +130,7 @@ export class RecordsNotesListComponent {
   }
   clearSearch(search: any): void {
     search.value = null;
-    this.tabType == 'records' ? this.publicService.searchRecordsData.next(null) : '';
+    this.tabType == 'records' ? this.publicService.searchRecordsData.next('empty') : '';
   }
   // End Search
 

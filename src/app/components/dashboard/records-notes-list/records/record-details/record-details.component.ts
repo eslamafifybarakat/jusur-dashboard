@@ -1,5 +1,5 @@
 // Modules
-import { CommonModule,Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
 
@@ -146,6 +146,7 @@ export class RecordDetailsComponent {
     this.updateMetaTagsForSEO();
     this.activatedRoute.params.subscribe((params) => {
       this.recordId = params['id'];
+      this.clientId = params['clientId'];
       if (this.recordId) {
         this.getRecordById(this.recordId);
         // this.fullPageUrl = environment.publicUrl + this.localizationLanguageService.getFullURL();
@@ -164,7 +165,7 @@ export class RecordDetailsComponent {
   // Start Get Record By Client Id
   getRecordById(recordId: number | string, preventLoading?: boolean): void {
     preventLoading ? '' : this.isLoadingRecordDetails = true;
-    let subscribeGetRecord: Subscription = this.recordsService?.getSingleHistory(recordId).pipe(
+    let subscribeGetRecord: Subscription = this.recordsService?.getSingleHistory(recordId, this.clientId).pipe(
       tap(res => this.handleGetRecordSuccess(res)),
       catchError(err => this.handleError(err))
     ).subscribe();
@@ -201,6 +202,7 @@ export class RecordDetailsComponent {
     let prepeareDetails = {
       registrationFile: 'assets/images/home/sidebar-bg.webp',
       licenseFile: this.recordDetails?.licenseFile || 'assets/images/home/sidebar-bg.webp',
+      certificateFile: this.recordDetails?.certificateFile
     };
     this.certificateFile = this.recordDetails.certificateFile,
       this.certificateFile ? this.isEditCertificateFile = true : '';
@@ -217,12 +219,12 @@ export class RecordDetailsComponent {
       businessLicenseNumber: this.recordDetails?.businessLicenseNumber,
       businessLicense: this.recordDetails?.businessLicense,
     })
-    // this.isEditRegistrationFile = true;
-    // this.registrationFile = prepeareDetails.registrationFile;
-    // this.isEditLicenseFile = true;
-    // this.licenseFile = prepeareDetails.licenseFile;
-    // this.isEditCertificateFile = true;
-    // this.certificateFile = prepeareDetails.certificateFile;
+    this.recordDetails.registrationFile ? this.isEditRegistrationFile = true : '';
+    this.registrationFile = this.recordDetails.registrationFile;
+    this.recordDetails.licenseFile ? this.isEditLicenseFile = true : '';
+    this.licenseFile = this.recordDetails.licenseFile;
+    this.recordDetails.certificateFile ? this.isEditCertificateFile = true : '';
+    this.certificateFile = this.recordDetails.certificateFile;
   }
   editInput(name: string): void {
     if (name == 'recordName') {
@@ -344,7 +346,7 @@ export class RecordDetailsComponent {
   }
   // End Submit Edit Record
 
-  cancel():void {
+  cancel(): void {
     this.patchValue();
     this.location.back();
   }

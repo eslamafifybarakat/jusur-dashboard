@@ -150,7 +150,7 @@ export class EmployeesVehiclesListComponent {
   }
   clearSearch(search: any): void {
     search.value = null;
-    this.tabType == 'employee' ? this.publicService.searchEmployeesData.next(null) : this.publicService.searchVehiclesData.next(null);
+    this.tabType == 'employee' ? this.publicService.searchEmployeesData.next('empty') : this.publicService.searchVehiclesData.next('empty');
   }
   // End Search
 

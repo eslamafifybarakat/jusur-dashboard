@@ -12,6 +12,7 @@ import { PublicService } from '../../../../../services/generic/public.service';
 import { AlertsService } from '../../../../../services/generic/alerts.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MaxDigitsDirective } from '../../../directives/max-digits.directive';
+import { DateService } from './../../../../../services/generic/date.service';
 import { EmployeesService } from '../../../services/employees.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Subscription, catchError, tap } from 'rxjs';
@@ -53,6 +54,7 @@ export class AddEditEmployeeComponent {
     private alertsService: AlertsService,
     public publicService: PublicService,
     private config: DynamicDialogConfig,
+    private dateService: DateService,
     private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
@@ -159,13 +161,14 @@ export class AddEditEmployeeComponent {
     }
   }
   private extractFormData(): any {
+    let adjustedDate: any = this.dateService.dateWithCorrectTimeZone(this.modalForm?.value?.endDate);
     const formData = new FormData();
     if (this.isEdit) {
       formData.append('id', this.employeeId);
     }
     formData.append('name', this.modalForm?.value?.fullName);
     formData.append('identity', this.modalForm?.value?.residencyNumber?.toString());
-    formData.append('expiryDate', this.modalForm?.value?.endDate);
+    formData.append('expiryDate', adjustedDate);
     formData.append('healthCertificate', this.modalForm?.value?.healthCertificate);
     if (this.isEdit) {
       let photo: any = this.modalForm?.value?.residencePhoto;
@@ -177,7 +180,7 @@ export class AddEditEmployeeComponent {
     let dataObj: any = {
       "name": this.modalForm?.value?.fullName,
       "healthCertificate": this.modalForm?.value?.healthCertificate,
-      "expiryDate": this.modalForm?.value?.endDate,
+      "expiryDate": adjustedDate,
       "identity": this.modalForm?.value?.residencyNumber?.toString(),
       "clientHistory_id": this.config?.data?.item?.clientHistory_id
     };

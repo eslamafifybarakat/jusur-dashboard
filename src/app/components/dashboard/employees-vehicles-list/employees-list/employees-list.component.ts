@@ -210,7 +210,11 @@ export class EmployeesListComponent {
 
     this.publicService.searchEmployeesData.subscribe(res => {
       if (res) {
-        this.searchHandler(res);
+        if (res == 'empty') {
+          this.searchHandler(null);
+        } else {
+          this.searchHandler(res);
+        }
       }
     });
 
@@ -341,8 +345,6 @@ export class EmployeesListComponent {
 
   // Add Or Edit Employee
   addEditEmployeeItem(item?: any, type?: any): void {
-    console.log(this.dataStyleType);
-
     const ref = this.dialogService?.open(AddEditEmployeeComponent, {
       data: {
         item: {
@@ -357,11 +359,16 @@ export class EmployeesListComponent {
       styleClass: 'custom-modal',
     });
     ref.onClose.subscribe((res: any) => {
+      this.publicService.addEmployeeItem.next(false);
       if (res?.listChanged) {
-        this.page = 1;
-        this.publicService?.changePageSub?.next({ page: this.page });
-        this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
-        this.dataStyleType == 'grid' ? this.getAllEmployees() : '';
+        if (this.employeesCount == 0) {
+          this.getAllEmployees();
+        } else {
+          this.page = 1;
+          this.publicService?.changePageSub?.next({ page: this.page });
+          this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
+          this.dataStyleType == 'grid' ? this.getAllEmployees() : '';
+        }
       }
     });
   }

@@ -63,13 +63,15 @@ export class AddRecordComponent {
     private alertsService: AlertsService,
     private config: DynamicDialogConfig,
     public publicService: PublicService,
-    private dateService:DateService,
+    private dateService: DateService,
     private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
   ) { }
 
   ngOnInit(): void {
+    console.log(this.config?.data?.item?.id);
+
   }
 
   modalForm = this.fb?.group(
@@ -158,8 +160,8 @@ export class AddRecordComponent {
   }
   private addRecord(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);
-    let id = this.config?.data?.item?.id;
-    let subscribeAddRecord: Subscription = this.recordsService?.addRecord(formData, id ? id : null).pipe(
+    let clientId = this.config?.data?.item?.id;
+    let subscribeAddRecord: Subscription = this.recordsService?.addRecord(formData, clientId ? clientId : null).pipe(
       tap(res => this.handleAddRecordSuccess(res)),
       catchError(err => this.handleError(err))
     ).subscribe();
