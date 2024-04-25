@@ -151,8 +151,8 @@
               <ng-container *ngFor="let card of clientsList; let i=index">
                 <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
                   <client-card [item]="card" (itemDetailsHandler)="itemDetails($event)"
-                    (activateHandlerEmit)="activateClientAccount($event)"
-                    (suspendHandlerEmit)="suspendClientAccount($event)"></client-card>
+                    (activateHandler)="activateClientAccount($event)"
+                    (suspendHandler)="suspendClientAccount($event)"></client-card>
                 </div>
               </ng-container>
             </ng-container>
@@ -206,8 +206,8 @@
             <ng-container *ngFor="let card of clientsList; let i=index">
               <div class="col-xl-3 col-lg-4 col-sm-6 mb-4">
                 <client-card (itemDetailsHandler)="itemDetails($event)" [item]="card"
-                  (activateHandlerEmit)="activateClientAccount($event)"
-                  (suspendHandlerEmit)="suspendClientAccount($event)"></client-card>
+                  (activateHandler)="activateClientAccount($event)"
+                  (suspendHandler)="suspendClientAccount($event)"></client-card>
               </div>
             </ng-container>
           </ng-container>
