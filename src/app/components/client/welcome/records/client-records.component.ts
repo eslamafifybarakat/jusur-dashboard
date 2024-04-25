@@ -169,7 +169,7 @@ export class ClientRecordsComponent {
   // Start Records List Functions
   getAllRecords(isFiltering?: boolean): void {
     isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingRecordsList = true;
-    this.recordsService?.getRecordsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null, this.clientId)
+    this.recordsService?.getRecordsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null)
       .pipe(
         tap((res: RecordsListApiResponse) => this.processRecordsListResponse(res)),
         catchError(err => this.handleError(err)),

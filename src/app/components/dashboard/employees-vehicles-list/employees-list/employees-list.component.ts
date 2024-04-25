@@ -366,7 +366,6 @@ export class EmployeesListComponent {
       styleClass: 'custom-modal',
     });
     ref.onClose.subscribe((res: any) => {
-      this.publicService.addEmployeeItem.next(false);
       if (res?.listChanged) {
         if (this.employeesCount == 0) {
           this.getAllEmployees();
@@ -377,6 +376,7 @@ export class EmployeesListComponent {
           this.dataStyleType == 'grid' ? this.getAllEmployees() : '';
         }
       }
+      this.publicService.addEmployeeItem.next(false);
     });
   }
 
