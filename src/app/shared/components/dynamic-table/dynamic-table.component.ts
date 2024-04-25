@@ -229,8 +229,10 @@ export class DynamicTableComponent {
     // Clear table
     this.publicService?.resetTable?.subscribe((res: any) => {
       if (res == true) {
-        this.dt.clear();
-        this.clear();
+        if (this.tableData.length > 0) {
+          this.dt.clear();
+          this.clear();
+        }
       }
     });
     // url

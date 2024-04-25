@@ -143,12 +143,12 @@ export class RecordsNotesListComponent {
 
   // Filter Item Modal
   filterItemModal(): void {
-    this.tabType == 'records' ? this.publicService.filterRecordsData.next(true) : this.publicService.filterVehiclesData.next(true);
+    this.tabType == 'records' ? this.publicService.filterRecordsData.next(true) : '';
   }
 
   // Clear table
   clearTable(): void {
-    this.tabType == 'records' ? this.publicService.resetRecordsData.next(true) : this.publicService.resetVehiclesData.next(true);
+    this.tabType == 'records' ? this.publicService.resetRecordsData.next(true) : '';
   }
 
   ngOnDestroy(): void {

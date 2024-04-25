@@ -123,15 +123,13 @@ export class RecordsComponent {
     });
 
     this.publicService.addRecordItem.subscribe(res => {
-      if (res) {
+      if (res == true) {
         this.addItem();
       }
     });
 
     this.publicService.resetRecordsData.subscribe(res => {
-      console.log(res);
-
-      if (res) {
+      if (res == true) {
         this.clearTable();
       }
     });

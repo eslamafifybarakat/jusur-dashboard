@@ -127,12 +127,12 @@ export class VehiclesListComponent {
       }
     });
     this.publicService.addVehicleItem.subscribe(res => {
-      if (res) {
+      if (res == true) {
         this.addEditItem();
       }
     });
     this.publicService.resetVehiclesData.subscribe(res => {
-      if (res) {
+      if (res == true) {
         this.clearTable();
       }
     });

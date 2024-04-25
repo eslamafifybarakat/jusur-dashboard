@@ -199,13 +199,13 @@ export class EmployeesListComponent {
     });
 
     this.publicService.addEmployeeItem.subscribe(res => {
-      if (res) {
+      if (res == true) {
         this.addEditEmployeeItem();
       }
     });
 
     this.publicService.resetEmployeesData.subscribe(res => {
-      if (res) {
+      if (res == true) {
         this.clearTable();
       }
     });
