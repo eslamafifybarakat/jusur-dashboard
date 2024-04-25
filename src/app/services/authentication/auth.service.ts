@@ -110,7 +110,7 @@ export class AuthService {
     return this.http.get<any>(`${this.baseUrl}${roots.auth.profileData}`);
   }
   changePassword(data: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}${roots.auth.changePassword}`, data);
+    return this.http.put<any>(`${this.baseUrl}${roots.auth.changePassword}`, data);
   }
 
   signOut(): any {

@@ -75,6 +75,7 @@ export class AddEditEmployeeComponent {
     let convertedEndDate: any = new Date(data?.item?.details?.expiryDate);
     this.employeeId = data?.item?.details?.id;
     this.modalForm.patchValue({
+      // isActive: data?.item?.details?.active,
       fullName: data?.item?.details?.name,
       residencyNumber: convertedResidencyNumber,
       endDate: convertedEndDate,
@@ -175,6 +176,7 @@ export class AddEditEmployeeComponent {
       formData.append('id', this.employeeId);
     }
     formData.append('name', this.modalForm?.value?.fullName);
+    // formData.append('active', this.modalForm?.value?.isActive);
     formData.append('identity', this.modalForm?.value?.residencyNumber?.toString());
     formData.append('expiryDate', adjustedDate);
     formData.append('healthCertificate', this.modalForm?.value?.healthCertificate);
@@ -186,6 +188,7 @@ export class AddEditEmployeeComponent {
     }
     formData.append('clientHistory_id', this.config?.data?.item?.clientHistory_id);
     let dataObj: any = {
+      // "active": this.modalForm?.value?.isActive,
       "name": this.modalForm?.value?.fullName,
       "healthCertificate": this.modalForm?.value?.healthCertificate,
       "expiryDate": adjustedDate,

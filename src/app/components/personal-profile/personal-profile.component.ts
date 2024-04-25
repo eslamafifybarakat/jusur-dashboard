@@ -54,7 +54,7 @@ export class PersonalProfileComponent implements OnInit {
   ngOnInit(): void {
     this.publicService.recallProfileDataFuntion.subscribe((res: boolean) => {
       if (res == true) {
-        this.getProfileData();
+        this.getCurrentUserInformation();
       }
     });
     this.loadLoginInformation();
@@ -140,35 +140,33 @@ export class PersonalProfileComponent implements OnInit {
     // this.authFirebaseService.logout();
   }
 
-  // Start Profile Data Functions
-  getProfileData(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      const resetSubscription: any = this.authService?.profileData()?.pipe(
-        tap(res => this.handleProfileDataResponse(res)),
-        catchError(async (err) => this.handleError(err))
-      ).subscribe();
-      this.subscriptions.push(resetSubscription);
+  // Start Current User Information Functions
+  private getCurrentUserInformation(): void {
+    let loginSubscription: Subscription = this.authService?.getCurrentUserInformation()?.pipe(
+      tap(res => this.handleSuccessCuurentUserInformation(res)),
+      catchError(err => this.handleError(err))
+    ).subscribe();
+    this.subscriptions.push(loginSubscription);
+  }
+  private handleSuccessCuurentUserInformation(res: any): void {
+    if (res?.success == true) {
+      this.authService.saveCurrentUserInformation(res?.result);
+      this.publicService.showGlobalLoader.next(false);
+      this.publicService.recallProfileDataFuntion.next(false);
+    } else {
+      this.handleError(res?.error?.message || this.publicService.translateTextFromJson('general.errorOccur'));
     }
   }
-  handleProfileDataResponse(res: any) {
-    if (res?.code !== 200) {
-      this.handleError(res?.message);
-      return;
-    }
-    localStorage.setItem(keys.profileData, JSON.stringify(res.data));
-
-    this.publicService.userAuthenicationChanged.next(true);
-  }
-  // End Profile Data Functions
+  // End Current User Information Functions
 
   // Handle Api Errors Or Success
-  private handleError(error: any): void {
-    error ? this.alertsService?.openToast('error', 'error', error || this.publicService.translateTextFromJson('general.errorOccur')) : '';
-    this.publicService.showGlobalLoader.next(false);
+  private handleError(err: any): any {
+    this.setErrorMessage(err || this.publicService.translateTextFromJson('general.errorOccur'));
   }
-  private handleSuccess(msg: any): void {
-    msg ? this.alertsService?.openToast('success', 'success', msg) : '';
+  private setErrorMessage(message: string): void {
+    this.alertsService.openToast('error', 'error', message);
     this.publicService.showGlobalLoader.next(false);
+    this.router.navigate(['/Dashboard']);
   }
 
   ngOnDestroy(): void {

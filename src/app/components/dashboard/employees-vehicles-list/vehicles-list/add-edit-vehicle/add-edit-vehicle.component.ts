@@ -143,6 +143,7 @@ export class AddEditVehicleComponent {
     let convertedEndDate: any = new Date(data?.item?.details?.expiryDate);
     let convertedInsuranceExpiryDate: any = new Date(data?.item?.details?.insuranceExpiryDate);
     this.modalForm.patchValue({
+      // isActive: data?.item?.details?.active,
       operatingCard: data?.item?.details?.workPermitCard,
       endDate: convertedEndDate,
       insuranceExpiryDate: convertedInsuranceExpiryDate
@@ -166,6 +167,7 @@ export class AddEditVehicleComponent {
     if (this.isEdit) {
       formData.append('id', this.vehicleId);
     }
+    // formData.append('active', this.modalForm?.value?.isActive);
     formData.append('workPermitCard', this.modalForm?.value?.operatingCard);
     formData.append('expiryDate', adjustedDate);
     formData.append('insuranceExpiryDate', adjustedInsuranceExpiryDate);
@@ -177,6 +179,7 @@ export class AddEditVehicleComponent {
       formData.append('formImage', 'https://example.com/iqama.jpg');
     }
     let dataObj: any = {
+      // "active": this.modalForm?.value?.isActive,
       "workPermitCard": this.modalForm?.value?.operatingCard,
       "expiryDate": adjustedDate,
       "insuranceExpiryDate": adjustedInsuranceExpiryDate,

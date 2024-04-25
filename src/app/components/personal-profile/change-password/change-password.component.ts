@@ -34,9 +34,9 @@ export class ChangePasswordComponent {
   isPasswordChange: boolean = false;
 
   changePasswordForm = this.fb?.group({
-    currentPassword: ['', { validators: [Validators.required, Validators.pattern(patterns?.password)], updateOn: 'blur' }],
-    password: ['', { validators: [Validators.required, Validators.pattern(patterns?.password)], updateOn: 'blur' }],
-    confirmPassword: ['', { validators: [Validators.required, Validators.pattern(patterns?.password)], updateOn: 'blur' }],
+    currentPassword: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    password: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    confirmPassword: ['', { validators: [Validators.required], updateOn: 'blur' }],
   },
     {
       validator: ConfirmPasswordValidator.MatchPassword
@@ -89,13 +89,15 @@ export class ChangePasswordComponent {
     }
   }
   handleChangePasswordResponse(res: any) {
-    if (res?.code !== 200) {
+    if (res?.success !== true) {
       this.handleError(res?.message);
       this.publicService.showGlobalLoader.next(false);
       return;
     }
-
-    this.logOut(res?.message);
+    this.handleSuccess(res.message);
+    this.authService.signOut();
+    this.ref.close();
+    this.router.navigate(['/Auth/Login']);
   }
 
   logOut(succesMsg: any): void {
@@ -116,7 +118,7 @@ export class ChangePasswordComponent {
       this.ref.close();
       this.handleSuccess(succesMsg);
       this.performLocalLogout();
-      this.router.navigate(['/home']);
+      this.router.navigate(['/Login']);
     } else {
       const errorMessage = res.message || '';
       if (errorMessage) {

@@ -44,6 +44,7 @@ export class AsideMenuComponent {
   rotated: boolean = false;
   menuListItems: MenuItem[] = [];
   currentLanguage: string = 'en';
+  url: string;
 
   @Input() showCollapseBtn: boolean = true;
   @Output() onToggleSideNav: EventEmitter<any> = new EventEmitter();
@@ -58,6 +59,7 @@ export class AsideMenuComponent {
   ) { }
 
   ngOnInit(): void {
+    this.url = this.router.url;
     this.getMenuItems();
     this.screenWidth = window?.innerWidth;
   }

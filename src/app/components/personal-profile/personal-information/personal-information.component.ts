@@ -93,26 +93,23 @@ export class PersonalInformationComponent {
   }
 
   ngOnInit(): void {
-    this.translate.onLangChange.subscribe(() => {
-      this.loadPageData();
-    });
+    this.loadPageData();
   }
 
   private loadPageData(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      if (JSON.parse(window?.localStorage?.getItem(keys?.currentUserInformation) || '{}')) {
-        this.currentLoginInformation = JSON.parse(window?.localStorage?.getItem(keys?.currentUserInformation) || '{}');
-        this.patchValues();
-      }
-    }
+    this.currentLoginInformation = this.authService.getCurrentUserInformationLocally();
+    console.log(this.currentLoginInformation);
+
+    this.currentLoginInformation ? this.patchValues() : '';
   }
   patchValues(): void {
+    let convertedBirthDate: any = new Date(this.currentLoginInformation.birthDate);
     this.personalInfoForm.patchValue({
-      fullName: this.currentLoginInformation.role.name,
+      fullName: this.currentLoginInformation.name,
       nationalIdentity: this.currentLoginInformation.identity,
-      birthDate: this.currentLoginInformation.birthDate,
+      birthDate: convertedBirthDate,
       email: this.currentLoginInformation.email,
-      phoneNumber: this.currentLoginInformation.phone
+      phoneNumber: this.currentLoginInformation.phoneNumber
     });
   }
 
@@ -201,7 +198,7 @@ export class PersonalInformationComponent {
     }
   }
   handleUpdateProfileResponse(res: any) {
-    if (res?.code !== 200) {
+    if (res?.success !== true) {
       this.handleError(res?.message);
       this.publicService.showGlobalLoader.next(false);
       return;

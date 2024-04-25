@@ -355,9 +355,19 @@
                     </ng-container>
                     <ng-template #normalRecord>
                       <ng-container *ngIf="(col?.addedText);else noAddText">
-                  <td><span [class.truncate-text]="col?.type=='text'" *ngIf="item && item[col.field]">
-                      {{col?.text}}{{ item[col.field] }}
-                    </span></td>
+                  <td>
+                    <span [class.truncate-text]="col?.type=='text'" *ngIf="item && item[col.field]" class="py-2">
+                      <span class="position-relative">
+                        {{ item[col.field] }}
+                        <span *ngIf="col.enableStatus" class="position-absolute status-icon">
+                          <i *ngIf="item[col.statusName]==true" class="pi pi-verified text-success-color
+                        "></i>
+                          <i *ngIf="item[col.statusName]==false" class="pi pi-ban text-danger-color
+                        "></i>
+                        </span>
+                      </span>
+                    </span>
+                  </td>
               </ng-container>
               <ng-template #noAddText>
                 <span [class.truncate-text]="col?.type=='text'" *ngIf="item && item[col.field]">

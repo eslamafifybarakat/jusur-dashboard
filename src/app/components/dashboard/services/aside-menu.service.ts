@@ -25,7 +25,7 @@ export class AsideMenuService {
   getAsideMenuItem(): any {
     let menuListItems: MenuItem[] = [
       {
-        id: 'statistics',
+        id: 'Statistics',
         text: this.publicService.translateTextFromJson('dashboard.sideMenu.statistics'),
         icon: `<svg width="29" height="29" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <mask id="mask0_192_85" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32">
@@ -37,11 +37,11 @@ export class AsideMenuService {
 </g></svg>`,
         routerLink: '/Dashboard/Statistics',
         state: false, //Opened Or Closed
-        permission: this.checkPermissionService.hasPermission('Pages.Statistics'),
-        // permission: true,
+        // permission: this.checkPermissionService.hasPermission('Pages.Statistics'),
+        permission: true,
       },
       {
-        id: 'clients',
+        id: 'Clients',
         text: this.publicService.translateTextFromJson('dashboard.sideMenu.clients'),
         icon: `
     <svg width="31" height="32" viewBox="0 0 34 35" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
