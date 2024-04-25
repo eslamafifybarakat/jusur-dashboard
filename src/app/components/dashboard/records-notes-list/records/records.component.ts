@@ -39,7 +39,7 @@ import { Router } from '@angular/router';
     DynamicTableComponent,
     DynamicSvgComponent,
     RecordCardComponent,
-    SkeletonComponent,
+    SkeletonComponent
   ],
   selector: 'records',
   templateUrl: './records.component.html',
@@ -117,23 +117,21 @@ export class RecordsComponent {
 
     // Start Behavior Subject Actions
     this.publicService.toggleFilterRecordDataType.subscribe((res: any) => {
+      // Call Record List at first initialization
       if (res) {
         this.changeDateStyle(res);
       }
     });
-
     this.publicService.addRecordItem.subscribe(res => {
       if (res == true) {
         this.addItem();
       }
     });
-
     this.publicService.resetRecordsData.subscribe(res => {
       if (res == true) {
         this.clearTable();
       }
     });
-
     this.publicService.searchRecordsData.subscribe(res => {
       if (res) {
         if (res == 'empty') {
@@ -143,7 +141,6 @@ export class RecordsComponent {
         }
       }
     });
-
     this.publicService.filterRecordsData.subscribe(res => {
       if (res) {
         this.filterItemModal();
@@ -158,10 +155,10 @@ export class RecordsComponent {
       { field: 'expireDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date' },
     ];
   }
-  loadPageData(): void {
+  private loadPageData(): void {
     this.updateMetaTagsForSEO();
-    this.getAllRecords(false);
-    this.searchSubject.pipe(debounceTime(500)) // Throttle time in milliseconds (1 seconds)
+    // this.getAllRecords(false);
+    this.searchSubject.pipe(debounceTime(800)) // Throttle time in milliseconds (1 seconds)
       .subscribe(event => { this.searchHandler(event); });
   }
   private updateMetaTagsForSEO(): void {
@@ -171,7 +168,6 @@ export class RecordsComponent {
       image: 'https://ik.imagekit.io/2cvha6t2l9/Carousel%20card.svg?updatedAt=1713227892043'
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
-
   }
 
   //Check if Filteration
@@ -205,12 +201,13 @@ export class RecordsComponent {
   // Start Records List Functions
   getAllRecords(isFiltering?: boolean): void {
     isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingRecordsList = true;
-    this.recordsService?.getRecordsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null, this.clientId)
+    let recordsSubscription: Subscription = this.recordsService?.getRecordsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null, this.clientId)
       .pipe(
         tap((res: RecordsListApiResponse) => this.processRecordsListResponse(res)),
         catchError(err => this.handleError(err)),
         finalize(() => this.finalizeRecordListLoading())
       ).subscribe();
+    this.subscriptions.push(recordsSubscription);
   }
   private processRecordsListResponse(response: any): void {
     if (response) {
@@ -230,7 +227,10 @@ export class RecordsComponent {
     this.isLoadingSearch = false;
     this.enableSortFilter = false;
     this.publicService.showSearchLoader.next(false);
-
+    this.publicService.showGlobalLoader.next(false);
+    setTimeout(() => {
+      this.enableSortFilter = true;
+    }, 200);
   }
   // End Records List Functions
 
@@ -315,7 +315,6 @@ export class RecordsComponent {
       }
     });
   }
-
   //Start Delete Record
   deleteItem(item: any): void {
     if (!item?.confirmed) {
@@ -325,32 +324,21 @@ export class RecordsComponent {
     const data = {
       name: item?.item?.title
     };
-
     this.publicService.showGlobalLoader.next(true);
-    this.recordsService?.deleteRecordById(item?.item?.id, data)?.subscribe(
-      (res: any) => {
-        this.processDeleteResponse(res);
-      },
-      (err) => {
-        this.handleErrorDelete(err);
-      }
-    ).add(() => {
-      this.publicService.showGlobalLoader.next(false);
-      this.cdr.detectChanges();
-    });
+    let deleteRecordSubscription: Subscription = this.recordsService?.deleteRecordById(item?.item?.id, data)
+      ?.pipe(
+        tap(res => this.processDeleteRecordResponse(res)),
+        catchError(err => this.handleError(err))
+      ).subscribe();
+    this.subscriptions.push(deleteRecordSubscription);
   }
-  private processDeleteResponse(res: any): void {
-    const messageType = res?.code === 200 ? 'success' : 'error';
-    const message = res?.message || '';
-
-    this.alertsService.openToast(messageType, messageType, message);
-    if (messageType === 'success') {
+  private processDeleteRecordResponse(res: any): void {
+    if (res?.success) {
+      this.handleSuccess(res?.message);
       this.getAllRecords();
+    } else {
+      this.handleError(res?.message);
     }
-  }
-  private handleErrorDelete(err: any): void {
-    const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
-    this.alertsService.openToast('error', 'error', errorMessage);
   }
   //End Delete Record
 
@@ -365,7 +353,6 @@ export class RecordsComponent {
     // this.publicService?.changePageSub?.next({ page: this.page });
     this.getAllRecords();
   }
-
   // Sort Table
   sortItems(event: any): void {
     if (event?.order == 1) {
@@ -382,7 +369,6 @@ export class RecordsComponent {
       this.getAllRecords();
     }
   }
-
   // filter Table
   filterItems(event: any): void {
     this.filtersArray = [];
@@ -463,21 +449,23 @@ export class RecordsComponent {
   changePageActiveNumber(number: number): void {
     this.paginator?.changePage(number - 1);
   }
-  // End Pagination
-
-  /* --- Handle api requests error messages --- */
-  private handleError(err: any): any {
-    this.setErrorMessage(err || this.publicService.translateTextFromJson('general.errorOccur'));
-  }
-  private setErrorMessage(message: string): void {
-    this.alertsService.openToast('error', 'error', message);
-    this.publicService.showGlobalLoader.next(false);
-    this.finalizeRecordListLoading();
-  }
-
   // Hide dropdown to not make action when keypress on keyboard arrows
   hide(): void {
     this.dropdown?.accessibleViewChild?.nativeElement?.blur();
+  }
+  // End Pagination
+
+  /* --- Handle api requests messages --- */
+  private handleSuccess(Msg: any): void {
+    this.setMessage(Msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
+  }
+  private handleError(err: any): any {
+    this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
+  }
+  private setMessage(message: string, type: string): void {
+    this.alertsService.openToast(type, type, message);
+    this.publicService.showGlobalLoader.next(false);
+    this.finalizeRecordListLoading();
   }
 
   ngOnDestroy(): void {

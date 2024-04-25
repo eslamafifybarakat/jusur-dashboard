@@ -502,7 +502,7 @@ export class VehiclesListComponent {
   }
   // End Pagination
 
-  /* --- Handle api requests error messages --- */
+  /* --- Handle api requests messages --- */
   private handleSuccess(Msg: any): void {
     this.setMessage(Msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
   }
