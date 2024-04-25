@@ -6,15 +6,15 @@ import { CommonModule } from '@angular/common';
 // Components
 import { DynamicTableLocalActionsComponent } from './../../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
 import { DynamicTableComponent } from './../../../../shared/components/dynamic-table/dynamic-table.component';
-import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
 import { DynamicSvgComponent } from 'src/app/shared/components/icons/dynamic-svg/dynamic-svg.component';
-import { AddClientComponent } from '../add-client/add-client.component';
+import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
 import { FilterClientsComponent } from '../filter-clients/filter-clients.component';
 import { ClientCardComponent } from './../client-card/client-card.component';
+import { AddClientComponent } from '../add-client/add-client.component';
 
 //Services
-import { ClientListingItem, ClientsListApiResponse } from './../../../../interfaces/dashboard/clients';
 import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
+import { ClientListingItem, ClientsListApiResponse } from './../../../../interfaces/dashboard/clients';
 import { MetaDetails, MetadataService } from './../../../../services/generic/metadata.service';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
@@ -105,7 +105,7 @@ export class ClientsListComponent {
   ngOnInit(): void {
     this.loadData();
     this.searchSubject.pipe(
-      debounceTime(500) // Throttle time in milliseconds (1 seconds)
+      debounceTime(800) // Throttle time in milliseconds (1 seconds)
     ).subscribe(event => { this.searchHandler(event) });
   }
   private loadData(): void {
@@ -125,7 +125,7 @@ export class ClientsListComponent {
   }
   private updateMetaTagsForSEO(): void {
     let metaData: MetaDetails = {
-      title: 'العملاء',
+      title: 'العملاء  |  جسور',
       description: 'الوصف',
       image: 'https://ik.imagekit.io/2cvha6t2l9/Carousel%20card.svg?updatedAt=1713227892043'
     }
@@ -163,15 +163,16 @@ export class ClientsListComponent {
   // Start Clients List Functions
   getAllClients(isFiltering?: boolean): void {
     isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingClientsList = true;
-    this.clientsService?.getClientsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null)
+    let clientsListSubscription: Subscription = this.clientsService?.getClientsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null)
       .pipe(
         tap((res: ClientsListApiResponse) => this.processClientsListResponse(res)),
         catchError(err => this.handleError(err)),
         finalize(() => this.finalizeClientListLoading())
       ).subscribe();
+    this.subscriptions.push(clientsListSubscription);
   }
   private processClientsListResponse(response: any): void {
-    if (response) {
+    if (response.success == true) {
       this.clientsCount = response?.result?.totalCount;
       this.pagesCount = Math.ceil(this.clientsCount / this.perPage);
       this.clientsList = response?.result?.items;
@@ -236,22 +237,22 @@ export class ClientsListComponent {
       name: item?.item?.title
     };
     this.publicService.showGlobalLoader.next(true);
-    this.clientsService?.deleteClientById(item?.item?.id, data)?.pipe(
-      tap((res: ClientsListApiResponse) => this.processDeleteResponse(res)),
+    let deleteClientSubscription: Subscription = this.clientsService?.deleteClientById(item?.item?.id, data)?.pipe(
+      tap((res: ClientsListApiResponse) => this.processDeleteClientResponse(res)),
       catchError(err => this.handleError(err)),
       finalize(() => {
         this.publicService.showGlobalLoader.next(false);
         this.cdr.detectChanges();
       })
     ).subscribe();
+    this.subscriptions.push(deleteClientSubscription);
   }
-  private processDeleteResponse(res: any): void {
-    const messageType = res?.code === 200 ? 'success' : 'error';
-    const message = res?.message || '';
-
-    this.alertsService.openToast(messageType, messageType, message);
-    if (messageType === 'success') {
+  private processDeleteClientResponse(res: any): void {
+    if (res?.success) {
+      this.handleSuccess(res?.message);
       this.getAllClients();
+    } else {
+      this.handleError(res?.message);
     }
   }
   //End Delete Client Functions
@@ -284,7 +285,7 @@ export class ClientsListComponent {
   toggleActivationClientAccount(item: any, clientId: number | string): void {
     item.isLoadingActive = true;
     this.publicService.showGlobalLoader.next(true);
-    this.clientsService?.toggleActivateClientAccount(clientId)?.pipe(
+    let toggleActivationClientAccountSubscription: Subscription = this.clientsService?.toggleActivateClientAccount(clientId)?.pipe(
       tap((res: any) => this.processToggleActivateResponse(res)),
       catchError(err => this.handleError(err)),
       finalize(() => {
@@ -293,6 +294,7 @@ export class ClientsListComponent {
         this.cdr.detectChanges();
       })
     ).subscribe();
+    this.subscriptions.push(toggleActivationClientAccountSubscription);
   }
   private processToggleActivateResponse(res: any): void {
     if (res?.success) {
@@ -452,13 +454,16 @@ export class ClientsListComponent {
   changePageActiveNumber(number: number): void {
     this.paginator?.changePage(number - 1);
   }
+  // Hide dropdown to not make action when keypress on keyboard arrows
+  hide(): void {
+    this.dropdown?.accessibleViewChild?.nativeElement?.blur();
+  }
   // End Pagination Functions
 
-  /* --- Handle api requests error messages --- */
+  /* --- Handle api requests messages --- */
   private handleSuccess(Msg: any): void {
     this.setMessage(Msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
   }
-
   private handleError(err: any): any {
     this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
   }
@@ -466,11 +471,6 @@ export class ClientsListComponent {
     this.alertsService.openToast(type, type, message);
     this.publicService.showGlobalLoader.next(false);
     this.finalizeClientListLoading();
-  }
-
-  // Hide dropdown to not make action when keypress on keyboard arrows
-  hide(): void {
-    this.dropdown?.accessibleViewChild?.nativeElement?.blur();
   }
 
   ngOnDestroy(): void {

@@ -109,12 +109,12 @@ export class AddClientComponent {
 
   ngOnInit(): void {
     this.currentLanguage = this.publicService.getCurrentLanguage();
-    this.updateMetaTagsForSEO();
+    // this.updateMetaTagsForSEO();
   }
   private updateMetaTagsForSEO(): void {
     let metaData: MetaDetails = {
-      title: 'العملاء',
-      description: 'العملاء',
+      title: 'إضافة عميل | جسور',
+      description: 'إضافة عميل | جسور',
       image: 'https://ik.imagekit.io/2cvha6t2l9/Carousel%20card.svg?updatedAt=1713227892043'
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
@@ -242,7 +242,6 @@ export class AddClientComponent {
   }
   // End Check If Phone Unique
 
-
   // Start Add New Client
   submit(): void {
     if (this.addClientForm?.valid) {
@@ -256,7 +255,7 @@ export class AddClientComponent {
     let adjustedDate: Date = this.dateService.dateWithCorrectTimeZone(this.addClientForm?.value?.birthDate);
 
     return {
-      // active: this.addClientForm?.value?.isActive,
+      active: this.addClientForm?.value?.isActive,
       name: this.addClientForm?.value?.fullName,
       email: this.addClientForm?.value?.email,
       identity: this.addClientForm?.value?.nationalIdentity?.toString(),
@@ -276,7 +275,7 @@ export class AddClientComponent {
   private handleAddClientSuccess(response: any): void {
     this.publicService?.showGlobalLoader?.next(false);
     if (response?.success) {
-      this.ref.close({ listChanged: true, item: response?.data });
+      this.ref?.close({ listChanged: true, item: response?.data });
       this.handleSuccess(response?.message);
     } else {
       this.handleError(response?.message);
