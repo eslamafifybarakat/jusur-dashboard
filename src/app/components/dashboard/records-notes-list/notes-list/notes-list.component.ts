@@ -16,7 +16,7 @@ import { NoteCardComponent } from './note-card/note-card.component';
 import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
 import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
 import { MetadataService } from './../../../../services/generic/metadata.service';
-import { ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
 import { NotesService } from '../../services/notes.service';
@@ -47,6 +47,9 @@ export class NotesListComponent {
   private subscriptions: Subscription[] = [];
 
   @Input() clientId: number | string;
+  @Output() showTabItemsHandler = new EventEmitter();
+
+  tabType: string;
 
   dataStyleType: string = 'list';
 
@@ -102,6 +105,7 @@ export class NotesListComponent {
   }
 
   ngOnInit(): void {
+    this.tabType = 'notes';
     this.loadPageData();
   }
   loadPageData(): void {
@@ -114,6 +118,9 @@ export class NotesListComponent {
 
   }
 
+  showTabItems(type: string): void {
+    this.showTabItemsHandler.emit('records');
+  }
   //Check if Filteration
   ifFilteration(): boolean {
     if (this.hasValue(this.searchKeyword) || this.isArrayNotEmpty(this.filtersArray) || this.isObjectNotEmpty(this.sortObj)) {
@@ -154,7 +161,7 @@ export class NotesListComponent {
   }
   private processNotesListResponse(response: any): void {
     if (response.success) {
-      this.notesCount = response?.result?.totalCount||response?.result?.items?.length;
+      this.notesCount = response?.result?.totalCount || response?.result?.items?.length;
       this.pagesCount = Math.ceil(this.notesCount / this.perPage);
       this.notesList = response?.result?.items;
     } else {

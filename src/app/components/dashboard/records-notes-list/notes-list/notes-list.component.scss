@@ -1,4 +1,14 @@
 #notes {
+  .tab {
+    color: #777777;
+    cursor: pointer;
+    &.active {
+      background-color: #ddeeee;
+      color: var(--text-main-color);
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+    }
+  }
   .btn {
     height: 2.9rem;
     padding: 1rem;

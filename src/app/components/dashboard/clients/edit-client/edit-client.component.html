@@ -261,7 +261,13 @@
       </ng-template>
     </form>
     <div class="mt-4">
-      <app-records-notes-list [clientId]="clientId"></app-records-notes-list>
+      <ng-container *ngIf="tabType=='records'">
+        <records [clientId]="clientId" (showTabItemsHandler)="showTabItems($event)"></records>
+      </ng-container>
+      <ng-container *ngIf="tabType=='notes'">
+        <notes-list [clientId]="clientId" (showTabItemsHandler)="showTabItems($event)"></notes-list>
+      </ng-container>
+      <!-- <app-records-notes-list [clientId]="clientId"></app-records-notes-list> -->
     </div>
   </div>
 </div>

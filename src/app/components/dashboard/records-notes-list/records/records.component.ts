@@ -18,7 +18,7 @@ import { LocalizationLanguageService } from './../../../../services/generic/loca
 import { RecordsListApiResponse, RecordsListingItem } from './../../../../interfaces/dashboard/records';
 import { MetaDetails, MetadataService } from './../../../../services/generic/metadata.service';
 import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
-import { ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
 import { RecordsService } from '../../services/records.service';
@@ -57,7 +57,9 @@ export class RecordsComponent {
   @Input() showReset: boolean = true;
   @Input() changeTitleStyle: boolean = false;
   @Input() isClientHistory: boolean = false;
+  @Output() showTabItemsHandler = new EventEmitter();
 
+  tabType: string = 'records';
   dataStyleType: string = 'list';
 
   isLoadingSearch: boolean = false;
@@ -116,36 +118,43 @@ export class RecordsComponent {
     this.loadPageData();
 
     // Start Behavior Subject Actions
-    this.publicService.toggleFilterRecordDataType.subscribe((res: any) => {
-      // Call Record List at first initialization
-      if (res) {
-        this.changeDateStyle(res);
-      }
-    });
-    this.publicService.addRecordItem.subscribe(res => {
-      if (res == true) {
-        this.addItem();
-      }
-    });
-    this.publicService.resetRecordsData.subscribe(res => {
-      if (res == true) {
-        this.clearTable();
-      }
-    });
-    this.publicService.searchRecordsData.subscribe(res => {
-      if (res) {
-        if (res == 'empty') {
-          this.searchHandler(null);
-        } else {
-          this.searchHandler(res);
-        }
-      }
-    });
-    this.publicService.filterRecordsData.subscribe(res => {
-      if (res) {
-        this.filterItemModal();
-      }
-    });
+    // this.publicService.toggleFilterRecordDataType.subscribe((res: any) => {
+    //   // Call Record List at first initialization
+    //   if (res.isChanged == true) {
+    //     console.log('toggleFilter');
+    //     this.changeDateStyle(res.type);
+    //   }
+    // });
+    // this.publicService.addRecordItem.subscribe(res => {
+    //   if (res == true) {
+    //     console.log('add');
+    //     this.addItem();
+    //   }
+    // });
+    // this.publicService.resetRecordsData.subscribe(res => {
+    //   if (res == true) {
+    //     console.log('clear');
+    //     this.clearTable();
+    //   }
+    // });
+    // this.publicService.searchRecordsData.subscribe((res: any) => {
+    //   console.log(res);
+    //   console.log('search');
+    //   if (res.isChanged == true) {
+    //     console.log('searc11h');
+    //     if (res.key == 'empty') {
+    //       this.searchHandler(null);
+    //     } else {
+    //       this.searchHandler(res.key);
+    //     }
+    //   }
+    // });
+    // this.publicService.filterRecordsData.subscribe(res => {
+    //   if (res) {
+    //     console.log('filter');
+    //     this.filterItemModal();
+    //   }
+    // });
     // End Behavior Subject Actions
   }
   private initializeTableHeaders(): void {
@@ -156,6 +165,7 @@ export class RecordsComponent {
     ];
   }
   private loadPageData(): void {
+    this.getAllRecords();
     this.updateMetaTagsForSEO();
     // this.getAllRecords(false);
     this.searchSubject.pipe(debounceTime(800)) // Throttle time in milliseconds (1 seconds)
@@ -168,6 +178,10 @@ export class RecordsComponent {
       image: 'https://ik.imagekit.io/2cvha6t2l9/Carousel%20card.svg?updatedAt=1713227892043'
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
+  }
+
+  showTabItems(type: string): void {
+    this.showTabItemsHandler.emit('notes');
   }
 
   //Check if Filteration
@@ -214,7 +228,7 @@ export class RecordsComponent {
       this.recordsCount = response?.result?.totalCount;
       this.pagesCount = Math.ceil(this.recordsCount / this.perPage);
       this.recordsList = response?.result?.items;
-      this.publicService.recordsLength.next(this.recordsList);
+      // this.publicService.recordsLength.next({ length: this.recordsList, isChanged: true });
     } else {
       this.handleError(response.error);
       return;
@@ -224,6 +238,9 @@ export class RecordsComponent {
     this.isLoadingRecordsList = false;
     this.publicService.isLoadingSearchRecords.next(false);
     this.publicService.isLoadingRecords.next(false);
+    // this.publicService.searchRecordsData.next({ key: null, isChanged: false });
+    // this.publicService.toggleFilterRecordDataType.next({ type: null, isChanged: false });
+    // this.publicService.recordsLength.next({ length: null, isChanged: false });
     this.isLoadingSearch = false;
     this.enableSortFilter = false;
     this.publicService.showSearchLoader.next(false);
@@ -350,8 +367,7 @@ export class RecordsComponent {
     this.page = 1;
     this.dataStyleType == 'list' ? this.publicService.resetTable.next(true) : '';
     this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
-    // this.publicService?.changePageSub?.next({ page: this.page });
-    this.getAllRecords();
+    this.publicService?.changePageSub?.next({ page: this.page });
   }
   // Sort Table
   sortItems(event: any): void {

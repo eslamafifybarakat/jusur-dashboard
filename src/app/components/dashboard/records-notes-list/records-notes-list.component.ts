@@ -72,8 +72,8 @@ export class RecordsNotesListComponent {
       this.isLoadingList = res;
     });
     this.publicService.recordsLength.subscribe((res: any) => {
-      if (res) {
-        this.list = res;
+      if (res.isChanged) {
+        this.list = res.length;
       } else {
         this.list = 0;
       }
@@ -85,7 +85,7 @@ export class RecordsNotesListComponent {
         this.isLoadingSearch = false;
       }
     });
-    this.tabType == 'records' ? this.publicService.toggleFilterRecordDataType.next(this.dataStyleType) : '';
+    // this.changeDateStyle('list');
   }
   // Toggle data type records or notes
   showTabItems(type: string): void {
@@ -93,7 +93,7 @@ export class RecordsNotesListComponent {
     this.tabType = type;
     this.searchKeyword = null;
     this.dataStyleType = 'list';
-    this.tabType == 'records' ? this.publicService.toggleFilterRecordDataType.next(this.dataStyleType) : '';
+    this.tabType == 'records' ? this.publicService.toggleFilterRecordDataType.next({ type: this.dataStyleType, isChanged: true }) : '';
   }
 
   //Check if Filteration
@@ -120,7 +120,7 @@ export class RecordsNotesListComponent {
   // Toggle data style table or card
   changeDateStyle(type: string): void {
     this.dataStyleType = type;
-    this.tabType == 'records' ? this.publicService.toggleFilterRecordDataType.next(type) : '';
+    this.tabType == 'records' ? this.publicService.toggleFilterRecordDataType.next({ type: type, isChanged: true }) : '';
   }
 
   // Start Search
@@ -128,11 +128,13 @@ export class RecordsNotesListComponent {
     this.searchSubject.next(event);
   }
   searchHandler(keyWord: any): void {
-    this.tabType == 'records' ? this.publicService.searchRecordsData.next(keyWord) : '';
+    console.log('ss');
+    this.tabType == 'records' ? this.publicService.searchRecordsData.next({ key: keyWord, isChanged: true }) : '';
+
   }
   clearSearch(search: any): void {
     search.value = null;
-    this.tabType == 'records' ? this.publicService.searchRecordsData.next('empty') : '';
+    this.tabType == 'records' ? this.publicService.searchRecordsData.next({ key: 'empty', isChanged: true }) : '';
   }
   // End Search
 

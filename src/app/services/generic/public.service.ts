@@ -47,12 +47,12 @@ export class PublicService {
   // ====Start Records actions=========
   isLoadingRecords = new BehaviorSubject<boolean>(false);
   isLoadingSearchRecords = new BehaviorSubject<boolean>(false);
-  recordsLength = new BehaviorSubject<{}>(null);
+  recordsLength = new BehaviorSubject<{}>({ length: null, isChanged: false });
   addRecordItem = new BehaviorSubject<boolean>(false);
   resetRecordsData = new BehaviorSubject<boolean>(false);
   filterRecordsData = new BehaviorSubject<boolean>(false);
-  searchRecordsData = new BehaviorSubject<{}>(null);
-  toggleFilterRecordDataType = new BehaviorSubject<{}>(null);
+  searchRecordsData = new BehaviorSubject<{}>({ key: null, isChanged: false });
+  toggleFilterRecordDataType = new BehaviorSubject<{}>({ type: null, isChanged: false });
   // ====End Records actions=========
 
   constructor(

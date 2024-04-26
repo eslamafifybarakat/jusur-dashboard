@@ -1,3 +1,4 @@
+import { RecordsComponent } from './../../records-notes-list/records/records.component';
 // Modules
 import { TranslateModule } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
@@ -22,6 +23,7 @@ import { ClientsService } from '../../services/clients.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, catchError, tap } from 'rxjs';
+import { NotesListComponent } from '../../records-notes-list/notes-list/notes-list.component';
 
 @Component({
   standalone: true,
@@ -36,6 +38,8 @@ import { Subscription, catchError, tap } from 'rxjs';
     // Components
     UploadMultiFilesComponent,
     RecordsNotesListComponent,
+    RecordsComponent,
+    NotesListComponent,
     DynamicSvgComponent,
     SkeletonComponent,
 
@@ -52,6 +56,7 @@ export class EditClientComponent {
   clientId: number;
   isLoadingClientDetails: boolean = false;
   clientDetails: any;
+  tabType: string;
 
   isFullNameReadOnly: boolean = true;
   isNationalIdentityReadOnly: boolean = true;
@@ -125,6 +130,7 @@ export class EditClientComponent {
   }
 
   ngOnInit(): void {
+    this.tabType = 'records';
     this.loadPageData();
   }
   loadPageData(): void {
@@ -151,6 +157,10 @@ export class EditClientComponent {
   //   console.log(e.files);
 
   // }
+  showTabItems(item: any) {
+    this.tabType = item;
+  }
+
   patchValue(): void {
     let convertPhoneNumber: any = parseInt(this.clientDetails?.phoneNumber);
     let convertNationalIdentity: any = parseInt(this.clientDetails?.identity);
