@@ -16,9 +16,9 @@ import { EmployeeCardComponent } from './employee-card/employee-card.component';
 //Services
 import { EmployeesListApiResponse, EmployeesListingItem } from './../../../../interfaces/dashboard/employees';
 import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
+import { Component, ChangeDetectorRef, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MetaDetails, MetadataService } from './../../../../services/generic/metadata.service';
 import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
-import { Component, ChangeDetectorRef, Input, ViewChild } from '@angular/core';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
 import { EmployeesService } from '../../services/employees.service';
@@ -51,10 +51,13 @@ import { Router } from '@angular/router';
 export class EmployeesListComponent {
   private subscriptions: Subscription[] = [];
 
+  tabType: string = "employees";
   dataStyleType: string = 'list';
+
   @Input() recordId: number | string;
   @Input() onlyPreview: boolean = false;
   @Input() showAddBtn: boolean = true;
+  @Output() showTabItemsHandler = new EventEmitter();
 
   isLoadingSearch: boolean = false;
   isSearch: boolean = false;
@@ -191,40 +194,6 @@ export class EmployeesListComponent {
   }
   private setupSubscriptions(): void {
     this.searchSubject.pipe(debounceTime(500)).subscribe(event => this.searchHandler(event));
-
-    this.publicService.toggleFilterEmployeeDataType.subscribe((res: any) => {
-      if (res) {
-        this.changeDateStyle(res);
-      }
-    });
-
-    this.publicService.addEmployeeItem.subscribe(res => {
-      if (res == true) {
-        this.addEditEmployeeItem();
-      }
-    });
-
-    this.publicService.resetEmployeesData.subscribe(res => {
-      if (res == true) {
-        this.clearTable();
-      }
-    });
-
-    this.publicService.searchEmployeesData.subscribe(res => {
-      if (res) {
-        if (res == 'empty') {
-          this.searchHandler(null);
-        } else {
-          this.searchHandler(res);
-        }
-      }
-    });
-
-    this.publicService.filterEmployeesData.subscribe(res => {
-      if (res) {
-        this.filterItemModal();
-      }
-    });
   }
   private updateMetaTagsForSEO(): void {
     let metaData: MetaDetails = {
@@ -256,6 +225,10 @@ export class EmployeesListComponent {
     return this.hasValue(obj) && Object.keys(obj).length > 0;
   }
 
+  showTabItems(type: string): void {
+    this.showTabItemsHandler.emit('vehicles');
+  }
+
   // Toggle data style table or card
   changeDateStyle(type: string): void {
     type == 'grid' ? this.perPage = 8 : this.perPage = 5;
@@ -266,12 +239,14 @@ export class EmployeesListComponent {
   // Start Employees List Functions
   getAllEmployees(isFiltering?: boolean): void {
     isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingEmployeesList = true;
-    this.employeesService?.getEmployeesList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null, this.recordId)
+    let employeesSubscription = this.employeesService?.getEmployeesList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null, this.recordId)
       .pipe(
         tap((res: EmployeesListApiResponse) => this.processEmployeesListResponse(res)),
         catchError(err => this.handleError(err)),
         finalize(() => this.finalizeEmployeeListLoading())
       ).subscribe();
+    this.subscriptions.push(employeesSubscription);
+
   }
   private processEmployeesListResponse(response: any): void {
     if (response) {
@@ -408,7 +383,7 @@ export class EmployeesListComponent {
   toggleActivationEmployeeAccount(item: any, employeeId: number | string): void {
     item.isLoadingActive = true;
     this.publicService.showGlobalLoader.next(true);
-    this.employeesService?.toggleActivateEmployeeAccount(employeeId)?.pipe(
+    let toggleActivationSubscription = this.employeesService?.toggleActivateEmployeeAccount(employeeId)?.pipe(
       tap((res: any) => this.processToggleActivateResponse(res)),
       catchError(err => this.handleError(err)),
       finalize(() => {
@@ -417,6 +392,7 @@ export class EmployeesListComponent {
         this.cdr.detectChanges();
       })
     ).subscribe();
+    this.subscriptions.push(toggleActivationSubscription);
   }
   private processToggleActivateResponse(res: any): void {
     if (res?.success) {
@@ -434,7 +410,7 @@ export class EmployeesListComponent {
       return;
     }
     this.publicService.showGlobalLoader.next(true);
-    this.employeesService?.deleteEmployeeById(item?.item?.id)?.pipe(
+    let deleteEmployeesSubscription = this.employeesService?.deleteEmployeeById(item?.item?.id)?.pipe(
       tap((res: EmployeesListApiResponse) => this.processDeleteResponse(res)),
       catchError(err => this.handleError(err)),
       finalize(() => {
@@ -442,6 +418,7 @@ export class EmployeesListComponent {
         this.cdr.detectChanges();
       })
     ).subscribe();
+    this.subscriptions.push(deleteEmployeesSubscription);
   }
   private processDeleteResponse(res: any): void {
     const messageType = res?.code === 200 ? 'success' : 'error';
@@ -461,9 +438,8 @@ export class EmployeesListComponent {
     this.filtersArray = [];
     this.page = 1;
     this.dataStyleType == 'list' ? this.publicService.resetTable.next(true) : '';
-    // this.publicService?.changePageSub?.next({ page: this.page });
+    this.dataStyleType == 'list' ? this.publicService?.changePageSub?.next({ page: this.page }) : '';
     this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
-    this.getAllEmployees();
   }
   // Sort table
   sortItems(event: any): void {

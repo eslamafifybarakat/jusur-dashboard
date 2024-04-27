@@ -7,6 +7,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { UploadMultiFilesComponent } from '../../../../../shared/components/upload-files/upload-multi-files/upload-multi-files.component';
 import { FileUploadComponent } from '../../../../../shared/components/upload-files/file-upload/file-upload.component';
 import { EmployeesVehiclesListComponent } from '../../../employees-vehicles-list/employees-vehicles-list.component';
+import { EmployeesListComponent } from '../../../employees-vehicles-list/employees-list/employees-list.component';
+import { VehiclesListComponent } from '../../../employees-vehicles-list/vehicles-list/vehicles-list.component';
 import { SkeletonComponent } from './../../../../../shared/skeleton/skeleton/skeleton.component';
 
 //Services
@@ -34,6 +36,8 @@ import { Subscription, catchError, tap } from 'rxjs';
     // Components
     EmployeesVehiclesListComponent,
     UploadMultiFilesComponent,
+    EmployeesListComponent,
+    VehiclesListComponent,
     FileUploadComponent,
     SkeletonComponent,
 
@@ -46,6 +50,7 @@ import { Subscription, catchError, tap } from 'rxjs';
 })
 export class RecordDetailsComponent {
   private subscriptions: Subscription[] = [];
+  tabType: string;
 
   isRecordNameReadOnly: boolean = true;
   isRegistrationNumberReadOnly: boolean = true;
@@ -140,8 +145,10 @@ export class RecordDetailsComponent {
   }
 
   ngOnInit(): void {
+    this.tabType = 'employees';
     this.loadPageData();
   }
+
   loadPageData(): void {
     this.updateMetaTagsForSEO();
     this.activatedRoute.params.subscribe((params) => {
@@ -160,6 +167,10 @@ export class RecordDetailsComponent {
       image: 'https://ik.imagekit.io/2cvha6t2l9/Carousel%20card.svg?updatedAt=1713227892043'
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
+  }
+
+  showTabItems(item: any) {
+    this.tabType = item;
   }
 
   // Start Get Record By Client Id
@@ -184,13 +195,13 @@ export class RecordDetailsComponent {
 
   // Start Upload Files
   uploadRecordFile(event: any): void {
-    console.log(event);
+    this.registrationFile = event.file;
   }
   uploadLicenseFile(event: any): void {
-    console.log(event);
+    this.licenseFile = event.file;
   }
   uploadCertificateFile(event: any): void {
-    console.log(event);
+    this.certificateFile = event.file;
   }
   // End Upload Files
 

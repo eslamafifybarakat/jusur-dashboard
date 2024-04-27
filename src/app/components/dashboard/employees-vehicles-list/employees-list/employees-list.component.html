@@ -1,15 +1,25 @@
 <div id="employees">
   <div class="d-md-flex d-none justify-content-between align-items-center flex-wrap gap-3">
-    <div class="d-flex align-items-center gap-3 p-0">
-      <h5 class="mb-0">
-        {{'dashboard.employees.employees'|translate}}
-      </h5>
-      <!-- <h4 class="mb-0 text-capitalize">{{'dashboard.employees.employees'|translate}}</h4>
-      <span class="badge badge-main text-main-color d-flex justify-content-center align-items-center">
-        {{employeesCount}}
-      </span> -->
-    </div>
-    <div class="d-none gap-3 flex-lg-nowrap flex-wrap">
+    <ul class="d-flex align-items-center gap-3 p-0">
+      <li class="d-flex align-items-center gap-2 tab" [class.active]="tabType=='employees'">
+        <span>
+          <app-dynamic-svg [name]="'employee'"></app-dynamic-svg>
+        </span>
+        <p class="mb-0 fs-5-2">
+          {{'dashboard.employees.employees'|translate}}
+        </p>
+      </li>
+      <li class="d-flex align-items-center gap-2 tab" [class.active]="tabType=='vehicles'"
+        (click)="showTabItems('vehicles')">
+        <span>
+          <app-dynamic-svg [name]="'vehicle'"></app-dynamic-svg>
+        </span>
+        <p class="mb-0 fs-5-2">
+          {{'dashboard.vehicles.vehicles'|translate}}
+        </p>
+      </li>
+    </ul>
+    <div class="d-flex gap-3 flex-lg-nowrap flex-wrap">
       <!-- Add Customer -->
       <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addEditEmployeeItem()">
         <i class="pi pi-plus"></i>
@@ -57,14 +67,27 @@
       </button>
     </div>
   </div>
-  <div class="d-none d-block">
+  <div class="d-md-none d-block">
     <div class="d-flex justify-content-between gap-3 flex-wrap title-header">
-      <div class="d-flex align-items-center gap-2">
-        <h4 class="mb-0 text-capitalize">{{'dashboard.customers.customers'|translate}}</h4>
-        <span class="badge badge-main text-main-color d-flex justify-content-center align-items-center">
-          {{employeesCount}}
-        </span>
-      </div>
+      <ul class="d-flex align-items-center gap-3 p-0">
+        <li class="d-flex align-items-center gap-2 tab" [class.active]="tabType=='employees'">
+          <span>
+            <app-dynamic-svg [name]="'employee'"></app-dynamic-svg>
+          </span>
+          <p class="mb-0 fs-5-2">
+            {{'dashboard.employees.employees'|translate}}
+          </p>
+        </li>
+        <li class="d-flex align-items-center gap-2 tab" [class.active]="tabType=='vehicles'"
+          (click)="showTabItems('vehicles')">
+          <span>
+            <app-dynamic-svg [name]="'vehicle'"></app-dynamic-svg>
+          </span>
+          <p class="mb-0 fs-5-2">
+            {{'dashboard.vehicles.vehicles'|translate}}
+          </p>
+        </li>
+      </ul>
       <div class="d-flex gap-2">
         <button *ngIf="showAddBtn" class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap"
           (click)="addEditEmployeeItem()">
@@ -72,10 +95,10 @@
           <span>{{'dashboard.employees.addEmployee'|translate}}</span>
         </button>
         <!-- Filter Button -->
-        <button [class.disabled-actions]="isLoadingEmployeesList" *ngIf="employeesList.length>0||ifFilteration()"
+        <!-- <button [class.disabled-actions]="isLoadingEmployeesList" *ngIf="employeesList.length>0||ifFilteration()"
           class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItemModal()">
           <i class="pi pi-filter"></i>
-        </button>
+        </button> -->
       </div>
     </div>
     <div class="row mt-3 mx-0" [class.disabled-actions]="isLoadingEmployeesList"
@@ -108,49 +131,107 @@
     </div>
   </div>
 
-  <div class="d-md-block d-none">
-    <!-- Table -->
-    <ng-container *ngIf="dataStyleType=='list'">
-      <!-- Table List -->
-      <dynamic-table [isLoading]="isLoadingEmployeesList" [showHeader]="false" [showClear]="false" [showSearch]="false"
-        [isLoadingSearch]="isLoadingSearch" [showActionsButtons]="true"
-        (clearHandler)="enableSortFilter?clearTable():''" [tableHeaders]="tableHeaders" [tableData]="employeesList"
-        [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="true" [showEdit]="false"
-        [showDelete]="false" (deleteHandler)="deleteItem($event)" [showDetails]="true"
-        (detailsHandler)="addEditEmployeeItem($event,'edit')" (editHandler)="addEditEmployeeItem($event,'edit')"
-        (customSortHandler)="enableSortFilter?sortItems($event):''"
-        (filterHandler)="enableSortFilter?filterItems($event):''" [results]="employeesCount" [paginatorRows]="perPage"
-        [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
-        [enableConfirmDeleteDialog]="true" [keyDelete]="'fullName'"
-        (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
-        [enableFilterDriverStatus]="true" [addBtnText]="'dashboard.employees.addEmployee'"
-        (addHandler)="addEditEmployeeItem()" [showAddBtn]="!onlyPreview&&showAddBtn" [showSuspend]="true"
-        (suspendHandler)="suspendEmployeeAccount($event)" [showActivate]="true"
-        (activateHandler)="activateEmployeeAccount($event)"></dynamic-table>
-    </ng-container>
-    <!-- Card -->
-    <ng-container *ngIf="dataStyleType=='grid'">
+  <div class="global-card p-4 mt-4">
+    <h5 class="mb-0">
+      {{'dashboard.employees.employees'|translate}}
+    </h5>
+    <div class="d-md-block d-none">
+      <!-- Table -->
+      <ng-container *ngIf="dataStyleType=='list'">
+        <!-- Table List -->
+        <dynamic-table [isLoading]="isLoadingEmployeesList" [showHeader]="false" [showClear]="false"
+          [showSearch]="false" [isLoadingSearch]="isLoadingSearch" [showActionsButtons]="true"
+          (clearHandler)="enableSortFilter?clearTable():''" [tableHeaders]="tableHeaders" [tableData]="employeesList"
+          [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="true" [showEdit]="false"
+          [showDelete]="false" (deleteHandler)="deleteItem($event)" [showDetails]="true"
+          (detailsHandler)="addEditEmployeeItem($event,'edit')" (editHandler)="addEditEmployeeItem($event,'edit')"
+          (customSortHandler)="enableSortFilter?sortItems($event):''"
+          (filterHandler)="enableSortFilter?filterItems($event):''" [results]="employeesCount" [paginatorRows]="perPage"
+          [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
+          [enableConfirmDeleteDialog]="true" [keyDelete]="'fullName'"
+          (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
+          [enableFilterDriverStatus]="true" [addBtnText]="'dashboard.employees.addEmployee'"
+          (addHandler)="addEditEmployeeItem()" [showAddBtn]="!onlyPreview&&showAddBtn" [showSuspend]="true"
+          (suspendHandler)="suspendEmployeeAccount($event)" [showActivate]="true"
+          (activateHandler)="activateEmployeeAccount($event)"></dynamic-table>
+      </ng-container>
+      <!-- Card -->
+      <ng-container *ngIf="dataStyleType=='grid'">
+        <div class="row pt-4">
+          <!-- Loading Cards -->
+          <ng-container *ngIf="isLoadingEmployeesList; else noLoadingCards">
+            <skeleton type="clientsList"></skeleton>
+          </ng-container>
+
+          <!-- Cards List -->
+          <ng-template #noLoadingCards>
+            <ng-container *ngIf="employeesList.length>0; else noEmployees">
+              <ng-container *ngFor="let card of employeesList; let i=index">
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                  <employee-card [item]="card" (itemDetailsHandler)="addEditEmployeeItem($event,'edit')"
+                    (activateHandlerEmit)="activateEmployeeAccount($event)"
+                    (suspendHandlerEmit)="suspendEmployeeAccount($event)"></employee-card>
+                </div>
+              </ng-container>
+            </ng-container>
+          </ng-template>
+
+        </div>
+        <ng-template #noEmployees>
+          <div class="d-flex flex-column justify-content-center align-items-center">
+            <div>
+              <app-dynamic-svg [name]="'noRecords'"></app-dynamic-svg>
+            </div>
+            <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
+            <button (click)="addEditEmployeeItem()" *ngIf="!onlyPreview&&showAddBtn"
+              class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.employees.addEmployee'|translate}}</button>
+          </div>
+        </ng-template>
+        <!-- Pagination Card -->
+        <ng-container *ngIf="employeesList?.length>0 || ifFilteration()">
+          <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingEmployeesList">
+            <p-paginator #paginator [rows]="perPage" [totalRecords]="employeesCount" [showPageLinks]="true"
+              [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>
+            <div class="d-flex align-items-center gap-3">
+              <p-dropdown [styleClass]="'paginator-options-dropdown'" [dropdownIcon]="'fas fa-caret-down'" #dropdown
+                [options]="rowsOptions" (onChange)="onPaginatorOptionsChange($event)" (onHide)="hide()"></p-dropdown>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+    <!-- Show Cards in tablet and mobile -->
+    <div class="d-md-none d-block">
       <div class="row pt-4">
         <!-- Loading Cards -->
         <ng-container *ngIf="isLoadingEmployeesList; else noLoadingCards">
           <skeleton type="clientsList"></skeleton>
         </ng-container>
-
         <!-- Cards List -->
         <ng-template #noLoadingCards>
-          <ng-container *ngIf="employeesList.length>0; else noEmployees">
+          <ng-container *ngIf="employeesList.length>0; else noEmployees2">
             <ng-container *ngFor="let card of employeesList; let i=index">
-              <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <employee-card [item]="card" (itemDetailsHandler)="addEditEmployeeItem($event,'edit')"
+              <div class="col-xl-3 col-lg-4 col-sm-6 mb-4">
+                <employee-card (itemDetailsHandler)="addEditEmployeeItem($event,'edit')" [item]="card"
                   (activateHandlerEmit)="activateEmployeeAccount($event)"
                   (suspendHandlerEmit)="suspendEmployeeAccount($event)"></employee-card>
               </div>
             </ng-container>
           </ng-container>
         </ng-template>
-
+        <!-- Pagination Card -->
+        <ng-container *ngIf="employeesList?.length>0 || ifFilteration()">
+          <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingEmployeesList">
+            <p-paginator #paginator [rows]="perPage" [totalRecords]="employeesCount" [showPageLinks]="true"
+              [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>
+            <div class="d-flex align-items-center gap-3">
+              <p-dropdown [styleClass]="'paginator-options-dropdown'" [dropdownIcon]="'fas fa-caret-down'" #dropdown
+                [options]="rowsOptions" (onChange)="onPaginatorOptionsChange($event)" (onHide)="hide()"></p-dropdown>
+            </div>
+          </div>
+        </ng-container>
       </div>
-      <ng-template #noEmployees>
+      <ng-template #noEmployees2>
         <div class="d-flex flex-column justify-content-center align-items-center">
           <div>
             <app-dynamic-svg [name]="'noRecords'"></app-dynamic-svg>
@@ -160,60 +241,7 @@
             class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.employees.addEmployee'|translate}}</button>
         </div>
       </ng-template>
-      <!-- Pagination Card -->
-      <ng-container *ngIf="employeesList?.length>0 || ifFilteration()">
-        <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingEmployeesList">
-          <p-paginator #paginator [rows]="perPage" [totalRecords]="employeesCount" [showPageLinks]="true"
-            [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>
-          <div class="d-flex align-items-center gap-3">
-            <p-dropdown [styleClass]="'paginator-options-dropdown'" [dropdownIcon]="'fas fa-caret-down'" #dropdown
-              [options]="rowsOptions" (onChange)="onPaginatorOptionsChange($event)" (onHide)="hide()"></p-dropdown>
-          </div>
-        </div>
-      </ng-container>
-    </ng-container>
-  </div>
-  <!-- Show Cards in tablet and mobile -->
-  <div class="d-md-none d-block">
-    <div class="row pt-4">
-      <!-- Loading Cards -->
-      <ng-container *ngIf="isLoadingEmployeesList; else noLoadingCards">
-        <skeleton type="clientsList"></skeleton>
-      </ng-container>
-      <!-- Cards List -->
-      <ng-template #noLoadingCards>
-        <ng-container *ngIf="employeesList.length>0; else noEmployees2">
-          <ng-container *ngFor="let card of employeesList; let i=index">
-            <div class="col-xl-3 col-lg-4 col-sm-6 mb-4">
-              <employee-card (itemDetailsHandler)="addEditEmployeeItem($event,'edit')" [item]="card"
-                (activateHandlerEmit)="activateEmployeeAccount($event)"
-                (suspendHandlerEmit)="suspendEmployeeAccount($event)"></employee-card>
-            </div>
-          </ng-container>
-        </ng-container>
-      </ng-template>
-      <!-- Pagination Card -->
-      <ng-container *ngIf="employeesList?.length>0 || ifFilteration()">
-        <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingEmployeesList">
-          <p-paginator #paginator [rows]="perPage" [totalRecords]="employeesCount" [showPageLinks]="true"
-            [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>
-          <div class="d-flex align-items-center gap-3">
-            <p-dropdown [styleClass]="'paginator-options-dropdown'" [dropdownIcon]="'fas fa-caret-down'" #dropdown
-              [options]="rowsOptions" (onChange)="onPaginatorOptionsChange($event)" (onHide)="hide()"></p-dropdown>
-          </div>
-        </div>
-      </ng-container>
     </div>
-    <ng-template #noEmployees2>
-      <div class="d-flex flex-column justify-content-center align-items-center">
-        <div>
-          <app-dynamic-svg [name]="'noRecords'"></app-dynamic-svg>
-        </div>
-        <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
-        <button (click)="addEditEmployeeItem()" *ngIf="!onlyPreview&&showAddBtn"
-          class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.employees.addEmployee'|translate}}</button>
-      </div>
-    </ng-template>
   </div>
 
 </div>

@@ -69,10 +69,7 @@ export class AddRecordComponent {
     private fb: FormBuilder,
   ) { }
 
-  ngOnInit(): void {
-    console.log(this.config?.data?.item?.id);
-
-  }
+  ngOnInit(): void { }
 
   modalForm = this.fb?.group(
     {

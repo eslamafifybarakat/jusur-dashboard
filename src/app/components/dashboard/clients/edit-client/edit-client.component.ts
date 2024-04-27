@@ -154,8 +154,6 @@ export class EditClientComponent {
   // Upload Gallery imgs
   // uploadFiles(e: any): void {
   //   this.filesNames = e.files;
-  //   console.log(e.files);
-
   // }
   showTabItems(item: any) {
     this.tabType = item;

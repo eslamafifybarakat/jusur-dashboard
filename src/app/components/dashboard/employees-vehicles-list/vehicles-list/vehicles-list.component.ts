@@ -17,9 +17,9 @@ import { VehicleCardComponent } from './vehicle-card/vehicle-card.component';
 //Services
 import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
 import { VehiclesListApiResponse, VehiclesListingItem } from './../../../../interfaces/dashboard/vehicles';
+import { Component, ChangeDetectorRef, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MetaDetails, MetadataService } from './../../../../services/generic/metadata.service';
 import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
-import { Component, ChangeDetectorRef, Input, ViewChild } from '@angular/core';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
 import { VehiclesService } from './../../services/vehicles.service';
@@ -48,10 +48,13 @@ import { Router } from '@angular/router';
 export class VehiclesListComponent {
   private subscriptions: Subscription[] = [];
 
+  tabType: string;
   dataStyleType: string = 'list';
+
   @Input() recordId: number | string;
   @Input() onlyPreview: boolean = false;
   @Input() showAddBtn: boolean = true;
+  @Output() showTabItemsHandler = new EventEmitter();
 
   isLoadingSearch: boolean = false;
   isSearch: boolean = false;
@@ -107,6 +110,8 @@ export class VehiclesListComponent {
   }
 
   ngOnInit(): void {
+    this.tabType = 'vehicles';
+
     this.initializeTableHeaders();
     this.setupSubscriptions();
     this.getAllVehicles(false);
@@ -121,35 +126,6 @@ export class VehiclesListComponent {
   }
   private setupSubscriptions(): void {
     this.searchSubject.pipe(debounceTime(500)).subscribe(event => this.searchHandler(event));
-    this.publicService.toggleFilterVehicleDataType.subscribe((res: any) => {
-      if (res) {
-        this.changeDateStyle(res);
-      }
-    });
-    this.publicService.addVehicleItem.subscribe(res => {
-      if (res == true) {
-        this.addEditItem();
-      }
-    });
-    this.publicService.resetVehiclesData.subscribe(res => {
-      if (res == true) {
-        this.clearTable();
-      }
-    });
-    this.publicService.searchVehiclesData.subscribe(res => {
-      if (res) {
-        if (res == 'empty') {
-          this.searchHandler(null);
-        } else {
-          this.searchHandler(res);
-        }
-      }
-    });
-    this.publicService.filterVehiclesData.subscribe(res => {
-      if (res) {
-        this.filterItem();
-      }
-    });
   }
   private updateMetaTagsForSEO(): void {
     let metaData: MetaDetails = {
@@ -160,6 +136,9 @@ export class VehiclesListComponent {
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
 
+  showTabItems(type: string): void {
+    this.showTabItemsHandler.emit('employees');
+  }
   //Check if Filteration
   ifFilteration(): boolean {
     if (this.hasValue(this.searchKeyword) || this.isArrayNotEmpty(this.filtersArray) || this.isObjectNotEmpty(this.sortObj)) {
@@ -191,12 +170,13 @@ export class VehiclesListComponent {
   // Start Vehicles List Functions
   getAllVehicles(isFiltering?: boolean): void {
     isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingVehiclesList = true;
-    this.vehiclesService?.getVehiclesList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null, this.recordId)
+    let vehiclesSubscription = this.vehiclesService?.getVehiclesList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null, this.recordId)
       .pipe(
         tap((res: VehiclesListApiResponse) => this.processVehiclesListResponse(res)),
         catchError(err => this.handleError(err)),
         finalize(() => this.finalizeVehicleListLoading())
       ).subscribe();
+    this.subscriptions.push(vehiclesSubscription);
   }
   private processVehiclesListResponse(response: any): void {
     if (response) {
@@ -333,7 +313,7 @@ export class VehiclesListComponent {
   toggleActivationVehicleAccount(item: any, vehicleId: number | string): void {
     item.isLoadingActive = true;
     this.publicService.showGlobalLoader.next(true);
-    this.vehiclesService?.toggleActivateVehicleAccount(vehicleId)?.pipe(
+    let toggleActivationSubscription = this.vehiclesService?.toggleActivateVehicleAccount(vehicleId)?.pipe(
       tap((res: any) => this.processToggleActivateResponse(res)),
       catchError(err => this.handleError(err)),
       finalize(() => {
@@ -342,6 +322,7 @@ export class VehiclesListComponent {
         this.cdr.detectChanges();
       })
     ).subscribe();
+    this.subscriptions.push(toggleActivationSubscription);
   }
   private processToggleActivateResponse(res: any): void {
     if (res?.success) {
@@ -399,10 +380,8 @@ export class VehiclesListComponent {
     this.filtersArray = [];
     this.page = 1;
     this.dataStyleType == 'list' ? this.publicService.resetTable.next(true) : '';
-    this.publicService?.changePageSub?.next({ page: this.page });
+    this.dataStyleType == 'list' ? this.publicService?.changePageSub?.next({ page: this.page }) : '';
     this.dataStyleType == 'grid' ? this.changePageActiveNumber(1) : '';
-    this.dataStyleType == 'grid' ? this.getAllVehicles() : '';
-    // this.getAllVehicles();
   }
   // Sort Table
   sortItems(event: any): void {

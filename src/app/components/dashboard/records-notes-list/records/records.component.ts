@@ -16,9 +16,9 @@ import { AddRecordComponent } from './add-record/add-record.component';
 //Services
 import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
 import { RecordsListApiResponse, RecordsListingItem } from './../../../../interfaces/dashboard/records';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MetaDetails, MetadataService } from './../../../../services/generic/metadata.service';
 import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
 import { RecordsService } from '../../services/records.service';
@@ -116,52 +116,15 @@ export class RecordsComponent {
   ngOnInit(): void {
     this.initializeTableHeaders();
     this.loadPageData();
-
-    // Start Behavior Subject Actions
-    // this.publicService.toggleFilterRecordDataType.subscribe((res: any) => {
-    //   // Call Record List at first initialization
-    //   if (res.isChanged == true) {
-    //     console.log('toggleFilter');
-    //     this.changeDateStyle(res.type);
-    //   }
-    // });
-    // this.publicService.addRecordItem.subscribe(res => {
-    //   if (res == true) {
-    //     console.log('add');
-    //     this.addItem();
-    //   }
-    // });
-    // this.publicService.resetRecordsData.subscribe(res => {
-    //   if (res == true) {
-    //     console.log('clear');
-    //     this.clearTable();
-    //   }
-    // });
-    // this.publicService.searchRecordsData.subscribe((res: any) => {
-    //   console.log(res);
-    //   console.log('search');
-    //   if (res.isChanged == true) {
-    //     console.log('searc11h');
-    //     if (res.key == 'empty') {
-    //       this.searchHandler(null);
-    //     } else {
-    //       this.searchHandler(res.key);
-    //     }
-    //   }
-    // });
-    // this.publicService.filterRecordsData.subscribe(res => {
-    //   if (res) {
-    //     console.log('filter');
-    //     this.filterItemModal();
-    //   }
-    // });
-    // End Behavior Subject Actions
   }
   private initializeTableHeaders(): void {
     this.tableHeaders = [
       { field: 'name', header: 'dashboard.tableHeader.recordName', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordName'), type: 'text' },
       { field: 'number', header: 'dashboard.tableHeader.recordNumber', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordNumber'), type: 'numeric' },
       { field: 'expireDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date' },
+      // { field: 'name', header: 'dashboard.tableHeader.recordName', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordName'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true },
+      // { field: 'number', header: 'dashboard.tableHeader.recordNumber', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordNumber'), type: 'numeric', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true },
+      // { field: 'expireDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true },
     ];
   }
   private loadPageData(): void {

@@ -46,7 +46,6 @@ export class UploadMultiFilesComponent {
     this.filesNames.forEach((file: any, index: any) => {
       file['img'] = this.filesSrc[index].img;
     });
-    console.log(this.filesNames);
 
     this.uploadHandler?.emit({ files: this.filesNames });
   }

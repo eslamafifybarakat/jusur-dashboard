@@ -128,7 +128,6 @@ export class RecordsNotesListComponent {
     this.searchSubject.next(event);
   }
   searchHandler(keyWord: any): void {
-    console.log('ss');
     this.tabType == 'records' ? this.publicService.searchRecordsData.next({ key: keyWord, isChanged: true }) : '';
 
   }

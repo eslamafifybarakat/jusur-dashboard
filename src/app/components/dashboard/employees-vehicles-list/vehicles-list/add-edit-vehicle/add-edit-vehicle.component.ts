@@ -139,7 +139,6 @@ export class AddEditVehicleComponent {
   }
   patchValue(data: any): void {
     this.vehicleId = data.item.details.id;
-    console.log(data);
     let convertedEndDate: any = new Date(data?.item?.details?.expiryDate);
     let convertedInsuranceExpiryDate: any = new Date(data?.item?.details?.insuranceExpiryDate);
     this.modalForm.patchValue({

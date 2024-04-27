@@ -439,6 +439,19 @@ body:dir(rtl) {
     padding-right: 0.7rem;
     background-position: left calc(0.375em + 0.1875rem) center;
   }
+  .p-inputnumber-button-group {
+    .p-inputnumber-button-up {
+      border-radius: 5px 0 0 0 !important;
+    }
+    .p-inputnumber-button-down {
+      border-radius: 0 0 0 5px !important;
+    }
+  }
+  .p-inputnumber {
+    .p-inputtext {
+      border-radius: 0 5px 5px 0 !important;
+    }
+  }
 }
 
 .border-red {
@@ -450,5 +463,25 @@ body:dir(rtl) {
   .p-dropdown,
   .form-control {
     border: 0 !important;
+  }
+}
+.p-inputnumber-button-group {
+  .p-inputnumber-button-up {
+    background-color: var(--bg-main-color);
+    border-radius: 0 5px 0 0;
+    border-color: var(--bg-main-color);
+  }
+  .p-inputnumber-button-down {
+    background-color: var(--bg-main-color);
+    border-radius: 0 0 5px 0;
+    border-color: var(--bg-main-color);
+  }
+  :dir(rtl) {
+    .p-inputnumber-button-up {
+      border-radius: 5px 0 0 0 !important;
+    }
+    .p-inputnumber-button-down {
+      border-radius: 0 0 0 5px !important;
+    }
   }
 }

@@ -67,33 +67,27 @@
       </button>
     </div>
   </div>
-  <div class="d-md-none d-flex">
+  <div class="d-md-none d-block">
     <div class="d-flex justify-content-between gap-3 flex-wrap title-header">
-      <div class="d-flex align-items-center gap-2">
-        <ul class="d-flex align-items-center gap-3 p-0">
-          <li class="d-flex align-items-center gap-2 tab" [class.active]="tabType=='records'">
-            <span>
-              <app-dynamic-svg [name]="'records'"></app-dynamic-svg>
-            </span>
-            <p class="mb-0 fs-5-2">
-              {{'dashboard.records.records'|translate}}
-            </p>
-          </li>
-          <li class="d-flex align-items-center gap-2 tab" [class.active]="tabType=='notes'"
-            (click)="showTabItems('notes')">
-            <span>
-              <app-dynamic-svg [name]="'notes'"></app-dynamic-svg>
-            </span>
-            <p class="mb-0 fs-5-2">
-              {{'dashboard.notes.notes'|translate}}
-            </p>
-          </li>
-        </ul>
-        <span *ngIf="showRecordCount"
-          class="badge badge-main text-main-color d-flex justify-content-center align-items-center">
-          {{recordsCount}}
-        </span>
-      </div>
+      <ul class="d-flex align-items-center gap-3 p-0">
+        <li class="d-flex align-items-center gap-2 tab" [class.active]="tabType=='records'">
+          <span>
+            <app-dynamic-svg [name]="'records'"></app-dynamic-svg>
+          </span>
+          <p class="mb-0 fs-5-2">
+            {{'dashboard.records.records'|translate}}
+          </p>
+        </li>
+        <li class="d-flex align-items-center gap-2 tab" [class.active]="tabType=='notes'"
+          (click)="showTabItems('notes')">
+          <span>
+            <app-dynamic-svg [name]="'notes'"></app-dynamic-svg>
+          </span>
+          <p class="mb-0 fs-5-2">
+            {{'dashboard.notes.notes'|translate}}
+          </p>
+        </li>
+      </ul>
       <div class="d-flex gap-2">
         <button *ngIf="showAddBtn" class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap"
           (click)="addItem()">

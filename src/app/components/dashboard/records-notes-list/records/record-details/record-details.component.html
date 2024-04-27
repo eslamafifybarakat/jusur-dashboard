@@ -472,9 +472,13 @@
     </form>
 
     <div class="mt-4">
-      <div>
-        <employees-vehicles-list [recordId]="recordId"></employees-vehicles-list>
-      </div>
+      <ng-container *ngIf="tabType=='employees'">
+        <employees-list [recordId]="recordId" (showTabItemsHandler)="showTabItems($event)"></employees-list>
+      </ng-container>
+      <ng-container *ngIf="tabType=='vehicles'">
+        <vehicles-list [recordId]="recordId" (showTabItemsHandler)="showTabItems($event)"></vehicles-list>
+      </ng-container>
+      <!-- <employees-vehicles-list [recordId]="recordId"></employees-vehicles-list> -->
     </div>
   </div>
 </div>

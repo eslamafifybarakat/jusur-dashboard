@@ -471,15 +471,9 @@ export class DynamicTableLocalActionsComponent {
     this.paginator?.changePage(number - 1);
   }
   onPaginatorPageChange(event: any) {
-    // console.log('lkkkk');
 
     // const currentRowsPerPage = event.rows;
     // const rowsPerPageOptionsDropdown: any = document.querySelector('.p-dropdown-items');
-    // console.log(rowsPerPageOptionsDropdown);
-    // console.log(rowsPerPageOptionsDropdown?.nativeElement);
-    // console.log(rowsPerPageOptionsDropdown?.nativeElement.children);
-    // console.log(rowsPerPageOptionsDropdown?.children.blur());
-    // console.log(rowsPerPageOptionsDropdown.nativeElement);
 
     // rowsPerPageOptionsDropdown.value = currentRowsPerPage;
   }
@@ -579,7 +573,6 @@ export class DynamicTableLocalActionsComponent {
           operator: 'and', type: 'time'
         }];
     }
-    // console.log(this.filtersTable);
     this.filterHandler?.emit(this.filtersTable);
   }
   clearTime(): void {

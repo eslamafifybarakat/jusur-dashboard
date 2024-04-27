@@ -98,8 +98,6 @@ export class PersonalInformationComponent {
 
   private loadPageData(): void {
     this.currentLoginInformation = this.authService.getCurrentUserInformationLocally();
-    console.log(this.currentLoginInformation);
-
     this.currentLoginInformation ? this.patchValues() : '';
   }
   patchValues(): void {
