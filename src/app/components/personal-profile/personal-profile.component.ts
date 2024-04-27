@@ -142,11 +142,11 @@ export class PersonalProfileComponent implements OnInit {
 
   // Start Current User Information Functions
   private getCurrentUserInformation(): void {
-    let loginSubscription: Subscription = this.authService?.getCurrentUserInformation()?.pipe(
+    let currentInfoSubscription: Subscription = this.authService?.getCurrentUserInformation()?.pipe(
       tap(res => this.handleSuccessCuurentUserInformation(res)),
       catchError(err => this.handleError(err))
     ).subscribe();
-    this.subscriptions.push(loginSubscription);
+    this.subscriptions.push(currentInfoSubscription);
   }
   private handleSuccessCuurentUserInformation(res: any): void {
     if (res?.success == true) {

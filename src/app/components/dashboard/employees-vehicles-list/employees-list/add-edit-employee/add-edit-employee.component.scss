@@ -44,7 +44,7 @@ label {
 
 .btn-color-mode-switch > label.btn-color-mode-switch-inner {
   margin: 0px;
-  width: 140px;
+  width: 108px;
   height: 30px;
   background: var(--bg-main-color);
   border-radius: 26px;
@@ -67,7 +67,7 @@ label {
 
 .btn-color-mode-switch > label.btn-color-mode-switch-inner:after {
   content: attr(data-off);
-  width: 70px;
+  width: 55px;
   height: 25px;
   background: #fff;
   color: var(--text-main-color);
