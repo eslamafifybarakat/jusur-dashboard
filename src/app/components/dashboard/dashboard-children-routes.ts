@@ -5,6 +5,7 @@ import { EditClientComponent } from "./clients/edit-client/edit-client.component
 import { clientsChildrenRoutes } from "./clients/clients-children-routes";
 import { StatisticsComponent } from "./statistics/statistics.component";
 import { ErrorsComponent } from "../errors/errors.component";
+import { profileChildrenRoutes } from '../personal-profile/profile-children-routes';
 
 export const dashBoardChildrenRoutes: any[] = [
   { path: '', redirectTo: 'Statistics', pathMatch: 'full' },
@@ -20,6 +21,14 @@ export const dashBoardChildrenRoutes: any[] = [
         (c) => c.ClientsComponent
       ),
     children: clientsChildrenRoutes
+  },
+  {
+    path: 'Profile',
+    loadComponent: () =>
+      import('../personal-profile/personal-profile.component').then(
+        (c) => c.PersonalProfileComponent
+      ),
+    children: profileChildrenRoutes
   },
   {
     path: 'Statistics',

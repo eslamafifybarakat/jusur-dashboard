@@ -4,7 +4,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { ConfirmationService } from 'primeng/api';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 @Component({
@@ -18,14 +18,18 @@ export class UserInfoComponent {
   phone: string = '295768795';
   currentUserInfo: any;
   currentLanguage: string = '';
+  url: string;
 
   constructor(
     private confirmationService: ConfirmationService,
     private publicService: PublicService,
     private authService: AuthService,
     public sanitizer: DomSanitizer,
+    private router: Router
   ) { }
+
   ngOnInit(): void {
+    this.url = this.router.url;
     this.getCurrentUserInfo();
     this.currentLanguage = this.publicService.getCurrentLanguage();
   }
