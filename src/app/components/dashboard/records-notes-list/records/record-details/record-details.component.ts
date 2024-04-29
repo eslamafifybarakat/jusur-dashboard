@@ -320,7 +320,23 @@ export class RecordDetailsComponent {
     }
   }
   private extractFormData(): any {
-    return {
+    const formData:any = new FormData();
+    formData.append('active', true);
+    formData.append('name', this.modalForm?.value?.recordName);
+    formData.append('number', this.modalForm?.value?.registrationNumber);
+    formData.append('expireDate', this.modalForm?.value?.recordDate);
+    formData.append('licenseNumber', this.modalForm?.value?.licenseNumber);
+    formData.append('licenseDate', this.modalForm?.value?.licenseDate);
+    formData.append('certificateNumber', this.modalForm?.value?.certificateNumber);
+    formData.append('certificateDate', this.modalForm?.value?.certificateDate);
+    formData.append('medicalInsuranceNumber', this.modalForm?.value?.medicalInsuranceNumber);
+    formData.append('medicalInsuranceDate', this.modalForm?.value?.medicalInsuranceDate);
+    formData.append('businessLicenseNumber', this.modalForm?.value?.businessLicenseNumber);
+    formData.append('businessLicense', this.modalForm?.value?.businessLicense);
+    formData.append('registrationFile', this.registrationFile);
+    formData.append('licenseFile', this.licenseFile);
+    formData.append('certificateFile', this.certificateFile);
+    let data:any={
       active: true,
       name: this.modalForm.value?.recordName,
       number: this.modalForm.value?.registrationNumber,
@@ -337,6 +353,7 @@ export class RecordDetailsComponent {
       licenseFile: this.licenseFile,
       certificateFile: this.licenseFile,
     };
+    return data;
   }
   private editRecord(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);

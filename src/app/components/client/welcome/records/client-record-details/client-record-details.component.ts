@@ -1,20 +1,20 @@
-import { DynamicSvgComponent } from 'src/app/shared/components/icons/dynamic-svg/dynamic-svg.component';
-import { SkeletonComponent } from './../../../../../shared/skeleton/skeleton/skeleton.component';
-import { PublicService } from 'src/app/services/generic/public.service';
-import { EmployeesVehiclesListComponent } from './../../../../dashboard/employees-vehicles-list/employees-vehicles-list.component';
-import { RecordsService } from './../../../../dashboard/services/records.service';
-import { MetaDetails, MetadataService } from './../../../../../services/generic/metadata.service';
-import { LocalizationLanguageService } from './../../../../../services/generic/localization-language.service';
 // Modules
 import { TranslateModule } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
 
 // Components
+import { EmployeesVehiclesListComponent } from './../../../../dashboard/employees-vehicles-list/employees-vehicles-list.component';
+import { DynamicSvgComponent } from 'src/app/shared/components/icons/dynamic-svg/dynamic-svg.component';
+import { SkeletonComponent } from './../../../../../shared/skeleton/skeleton/skeleton.component';
 
 
 //Services
+import { LocalizationLanguageService } from './../../../../../services/generic/localization-language.service';
+import { MetaDetails, MetadataService } from './../../../../../services/generic/metadata.service';
+import { RecordsService } from './../../../../dashboard/services/records.service';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PublicService } from 'src/app/services/generic/public.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, catchError, tap } from 'rxjs';

@@ -164,19 +164,17 @@ export class AddEditVehicleComponent {
     let adjustedInsuranceExpiryDate: any = this.dateService.dateWithCorrectTimeZone(this.modalForm?.value?.insuranceExpiryDate);
     const formData = new FormData();
     if (this.isEdit) {
-      formData.append('id', this.vehicleId);
+      // formData.append('id', this.vehicleId);
+      let photo: any = this.modalForm?.value?.formPhotoFile;
+      photo?.name != null ? formData.append('formImage', this.formPhotoFile) : '';
+    }else {
+      formData.append('formImage', this.formPhotoFile);
     }
     // formData.append('active', this.modalForm?.value?.isActive);
     formData.append('workPermitCard', this.modalForm?.value?.operatingCard);
-    formData.append('expiryDate', adjustedDate);
-    formData.append('insuranceExpiryDate', adjustedInsuranceExpiryDate);
+    formData.append('expiryDate', adjustedDate.toISOString());
+    formData.append('insuranceExpiryDate', adjustedInsuranceExpiryDate.toISOString());
     formData.append('clientHistory_id', this.config?.data?.item?.clientHistory_id);
-    if (this.isEdit) {
-      let photo: any = this.modalForm?.value?.formPhotoFile;
-      photo?.name != null ? formData.append('formImage', 'https://example.com/iqama.jpg') : '';
-    } else {
-      formData.append('formImage', 'https://example.com/iqama.jpg');
-    }
     let dataObj: any = {
       // "active": this.modalForm?.value?.isActive,
       "workPermitCard": this.modalForm?.value?.operatingCard,
@@ -190,7 +188,7 @@ export class AddEditVehicleComponent {
     } else {
       dataObj['formImage'] = 'https://example.com/iqama.jpg'
     }
-    return dataObj;
+    return formData;
   }
   private addEditVehicle(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);
