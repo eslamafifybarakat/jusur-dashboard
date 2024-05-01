@@ -172,36 +172,20 @@ export class AddEditEmployeeComponent {
   private extractFormData(): any {
     let adjustedDate: any = this.dateService.dateWithCorrectTimeZone(this.modalForm?.value?.endDate);
     const formData = new FormData();
-    if (this.isEdit) {
-      formData.append('id', this.employeeId);
-    }
     formData.append('name', this.modalForm?.value?.fullName);
     // formData.append('active', this.modalForm?.value?.isActive);
-    formData.append('identity', this.modalForm?.value?.residencyNumber?.toString());
-    formData.append('expiryDate', adjustedDate);
+    formData.append('identity', this.modalForm?.value?.residencyNumber);
+    formData.append('expiryDate', adjustedDate.toISOString());
     formData.append('healthCertificate', this.modalForm?.value?.healthCertificate);
+    formData.append('clientHistory_id', this.config.data?.item?.clientHistory_id);
     if (this.isEdit) {
       let photo: any = this.modalForm?.value?.residencePhoto;
-      photo?.name != null ? formData.append('iqamaImage', 'https://example.com/iqama.jpg') : '';
+      photo?.name != null ? formData.append('iqamaImage', this.residencePhotoFile) : '';
     } else {
-      formData.append('iqamaImage', 'https://example.com/iqama.jpg');
+      formData.append('iqamaImage', this.residencePhotoFile);
     }
-    formData.append('clientHistory_id', this.config?.data?.item?.clientHistory_id);
-    let dataObj: any = {
-      // "active": this.modalForm?.value?.isActive,
-      "name": this.modalForm?.value?.fullName,
-      "healthCertificate": this.modalForm?.value?.healthCertificate,
-      "expiryDate": adjustedDate,
-      "identity": this.modalForm?.value?.residencyNumber?.toString(),
-      "clientHistory_id": this.config?.data?.item?.clientHistory_id
-    };
-    if (this.isEdit) {
-      let photo: any = this.modalForm?.value?.residencePhoto;
-      photo?.name != null ? dataObj['iqamaImage'] = 'https://example.com/iqama.jpg' : '';
-    } else {
-      dataObj['iqamaImage'] = 'https://example.com/iqama.jpg'
-    }
-    return dataObj;
+    
+    return formData;
   }
   private addEditEmployee(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);

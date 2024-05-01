@@ -18,6 +18,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { AlertsService } from './../../../../../services/generic/alerts.service';
 import { PublicService } from '../../../../../services/generic/public.service';
 import { MaxDigitsDirective } from '../../../directives/max-digits.directive';
+import { DateService } from 'src/app/services/generic/date.service';
 import { RecordsService } from '../../../services/records.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -136,6 +137,7 @@ export class RecordDetailsComponent {
     private activatedRoute: ActivatedRoute,
     private alertsService: AlertsService,
     public publicService: PublicService,
+    private dateService: DateService,
     private cdr: ChangeDetectorRef,
     private location: Location,
     private fb: FormBuilder,
@@ -320,40 +322,27 @@ export class RecordDetailsComponent {
     }
   }
   private extractFormData(): any {
-    const formData:any = new FormData();
+    let adjusteExpireDate: any = this.modalForm?.value?.recordDate ? this.dateService.dateWithCorrectTimeZone(this.modalForm?.value?.recordDate) : null;
+    let adjustedLicenseDate: any = this.modalForm?.value?.licenseDate ? this.dateService.dateWithCorrectTimeZone(this.modalForm?.value?.licenseDate) : null;
+    let adjustedCrtificateDate: any = this.modalForm?.value?.certificateDate ? this.dateService.dateWithCorrectTimeZone(this.modalForm?.value?.certificateDate) : null;
+    let adjustedMedicalInsuranceDate: any = this.modalForm?.value?.medicalInsuranceDate ? this.dateService.dateWithCorrectTimeZone(this.modalForm?.value?.medicalInsuranceDate) : null;
+    const formData: any = new FormData();
     formData.append('active', true);
     formData.append('name', this.modalForm?.value?.recordName);
     formData.append('number', this.modalForm?.value?.registrationNumber);
-    formData.append('expireDate', this.modalForm?.value?.recordDate);
+    formData.append('expireDate', adjusteExpireDate ? adjusteExpireDate.toISOString() : null);
     formData.append('licenseNumber', this.modalForm?.value?.licenseNumber);
-    formData.append('licenseDate', this.modalForm?.value?.licenseDate);
+    formData.append('licenseDate', adjustedLicenseDate ? adjustedLicenseDate.toISOString() : null);
     formData.append('certificateNumber', this.modalForm?.value?.certificateNumber);
-    formData.append('certificateDate', this.modalForm?.value?.certificateDate);
+    formData.append('certificateDate', adjustedCrtificateDate ? adjustedCrtificateDate.toISOString() : null);
     formData.append('medicalInsuranceNumber', this.modalForm?.value?.medicalInsuranceNumber);
     formData.append('medicalInsuranceDate', this.modalForm?.value?.medicalInsuranceDate);
-    formData.append('businessLicenseNumber', this.modalForm?.value?.businessLicenseNumber);
+    formData.append('businessLicenseNumber', adjustedMedicalInsuranceDate ? adjustedMedicalInsuranceDate.toISOString() : null);
     formData.append('businessLicense', this.modalForm?.value?.businessLicense);
     formData.append('registrationFile', this.registrationFile);
     formData.append('licenseFile', this.licenseFile);
     formData.append('certificateFile', this.certificateFile);
-    let data:any={
-      active: true,
-      name: this.modalForm.value?.recordName,
-      number: this.modalForm.value?.registrationNumber,
-      expireDate: this.modalForm.value?.recordDate,
-      licenseNumber: this.modalForm.value?.licenseNumber,
-      licenseDate: this.modalForm.value?.licenseDate,
-      certificateNumber: this.modalForm.value?.certificateNumber,
-      certificateDate: this.modalForm.value?.certificateDate,
-      medicalInsuranceNumber: this.modalForm.value?.medicalInsuranceNumber,
-      medicalInsuranceDate: this.modalForm.value?.medicalInsuranceDate,
-      businessLicenseNumber: this.modalForm.value?.businessLicenseNumber,
-      businessLicense: this.modalForm.value?.businessLicense,
-      registrationFile: this.registrationFile,
-      licenseFile: this.licenseFile,
-      certificateFile: this.licenseFile,
-    };
-    return data;
+    return formData;
   }
   private editRecord(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);
