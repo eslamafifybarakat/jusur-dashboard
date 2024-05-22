@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: "https://breakable-mite-pantsuit.cyclic.app/api/v1",
+  apiUrl: "https://starter-express-api-o1lq.onrender.com/api/v1",
   publicUrl: "https://breakable-mite-pantsuit.cyclic.app",
   imageBaseUrl: "https://breakable-mite-pantsuit.cyclic.app",
   chatGptApi: "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",
