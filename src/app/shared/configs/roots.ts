@@ -37,7 +37,7 @@ export const roots = {
       getClients: 'Client/AllClients',
       getSingleClient: 'Client/GetSingleClient',
       addClient: 'Client/AddClient',
-      editClient: '/Client/UpdateClient',
+      editClient: 'Client/UpdateClient',
       deleteClients: '/deleteClients',
       toggleActivateClientAccount: 'Client/ToggleActivation'
     },
