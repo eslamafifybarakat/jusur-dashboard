@@ -384,10 +384,35 @@
     <ng-container *ngIf="col?.type=='img'">
       <td>
         <div class="image">
-          <p-image class="shadow" [src]="item[col.field]" [previewImageSrc]="item[col.field]" alt="Image" width="70"
-            [preview]="item[col.showPreview]?item[col.showPreview]:true"
-            (onImageError)="onImageError(item,col.field)"></p-image>
+          <ng-container *ngIf="item[col.field] && item[col.field]!==''; else elseNoImage">
+            <p-image class="shadow" [src]="item[col.field]" [previewImageSrc]="item[col.field]" alt="Image" width="70"
+              [preview]="item[col.showPreview]?item[col.showPreview]:true"
+              (onImageError)="onImageError(item,col.field)"></p-image>
+          </ng-container>
+          <ng-template #elseNoImage>
+            <img class="shadow" [src]="'assets/images/not-found/no-img.webp'"
+              onerror="src='assets/images/not-found/no-img.webp'" alt="Image" />
+          </ng-template>
         </div>
+      </td>
+    </ng-container>
+    <ng-container *ngIf="col?.type=='document'">
+      <td>
+        <a [href]="item[col.field]" target="_blank">
+          <ng-container *ngIf="item[col.field]?.includes('image')">
+            <img class="document" src="assets/images/not-found/no-img.webp"
+              onerror="this.src='assets/images/not-found/no-img.webp'" alt="PDF Thumbnail" />
+          </ng-container>
+          <ng-container *ngIf="item[col.field]?.includes('pdf')">
+            <img class="document" src="assets/images/icons/pdf.svg"
+              onerror="this.src='assets/images/not-found/no-img.webp'" alt="PDF Thumbnail" />
+          </ng-container>
+          <ng-container
+            *ngIf="item[col.field]?.includes('.docx') ||item[col.field]?.includes('doc') || item[col.field]?.includes('document') || item[col.field]?.includes('application/msword')">
+            <img class="document" src="assets/images/icons/word.png"
+              onerror="this.src='assets/images/not-found/no-img.webp'" alt="PDF Thumbnail" />
+          </ng-container>
+        </a>
       </td>
     </ng-container>
     </ng-template>

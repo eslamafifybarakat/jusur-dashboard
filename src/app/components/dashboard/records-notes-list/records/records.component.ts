@@ -59,6 +59,9 @@ export class RecordsComponent {
   @Input() isClientHistory: boolean = false;
   @Output() showTabItemsHandler = new EventEmitter();
 
+  // Delete variables
+  @Input() showDeleteBtn: boolean = false;
+
   tabType: string = 'records';
   dataStyleType: string = 'list';
 
@@ -302,7 +305,7 @@ export class RecordsComponent {
     }
 
     const data = {
-      name: item?.item?.title
+      id: item?.item?.id
     };
     this.publicService.showGlobalLoader.next(true);
     let deleteRecordSubscription: Subscription = this.recordsService?.deleteRecordById(item?.item?.id, data)

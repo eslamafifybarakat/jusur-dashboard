@@ -336,40 +336,32 @@ export class VehiclesListComponent {
 
   //Start Delete Vehicle Functions
   deleteItem(item: any): void {
+    console.log(item);
+    
     if (!item?.confirmed) {
       return;
     }
-
     const data = {
-      name: item?.item?.title
+      id: item?.item?.id
     };
-
-    // this.publicService.showGlobalLoader.next(true);
-
-    // this.clientsService?.deleteClientById(item?.item?.id, data)?.subscribe(
-    //   (res: any) => {
-    //     this.processDeleteResponse(res);
-    //   },
-    //   (err) => {
-    //     this.handleErrorDelete(err);
-    //   }
-    // ).add(() => {
-    //   this.publicService.showGlobalLoader.next(false);
-    //   this.cdr.detectChanges();
-    // });
+    this.publicService.showGlobalLoader.next(true);
+    let deleteClientSubscription: Subscription = this.vehiclesService?.deleteVehicleById(item?.item?.id, data)?.pipe(
+      tap((res: any) => this.processDeleteVehiclesResponse(res)),
+      catchError(err => this.handleError(err)),
+      finalize(() => {
+        this.publicService.showGlobalLoader.next(false);
+        this.cdr.detectChanges();
+      })
+    ).subscribe();
+    this.subscriptions.push(deleteClientSubscription);
   }
-  private processDeleteResponse(res: any): void {
-    const messageType = res?.code === 200 ? 'success' : 'error';
-    const message = res?.message || '';
-
-    this.alertsService.openToast(messageType, messageType, message);
-    if (messageType === 'success') {
+  private processDeleteVehiclesResponse(res: any): void {
+    if (res?.success) {
+      this.handleSuccess(res?.message);
       this.getAllVehicles();
+    } else {
+      this.handleError(res?.message);
     }
-  }
-  private handleErrorDelete(err: any): void {
-    const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
-    this.alertsService.openToast('error', 'error', errorMessage);
   }
   //End Delete Vehicle Functions
 

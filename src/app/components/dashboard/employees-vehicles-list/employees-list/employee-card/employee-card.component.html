@@ -49,6 +49,11 @@
         (click)="itemDetails(item)">
         {{'general.details'|translate}}
       </button>
+      <ng-container *ngIf="showDeleteBtn">
+        <button class="badge-btn badge-delete" (click)="deleteHandlerEmit(item)">
+          {{'general.delete'|translate}}
+        </button>
+      </ng-container>
       <!-- <button (click)="editItem(item)" class="details-btn d-flex align-items-center justify-content-center">
         {{'general.edit'|translate}}
       </button> -->

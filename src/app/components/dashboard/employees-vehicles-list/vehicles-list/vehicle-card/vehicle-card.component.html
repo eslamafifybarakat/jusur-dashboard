@@ -35,9 +35,14 @@
   <div>
     <hr>
     <div class="d-flex justify-content-end gap-3 flex-wrap">
-      <button class="badge-btn d-flex align-items-center justify-content-center" (click)="itemDetails(item)">
+      <button class="badge-btn details-btn d-flex align-items-center justify-content-center" (click)="itemDetails(item)">
         {{'general.details'|translate}}
       </button>
+      <ng-container *ngIf="showDeleteBtn">
+        <button class="badge-btn badge-delete" (click)="deleteHandlerEmit(item)">
+          {{'general.delete'|translate}}
+        </button>
+      </ng-container>
       <!-- <button (click)="editItem(item)" class="badge-btn d-flex align-items-center justify-content-center">
         {{'general.edit'|translate}}
       </button> -->

@@ -1,0 +1,89 @@
+<div class="uploader row w-100 d-flex justify-content-center align-items-center m-auto"
+  [class.justify-content-between]="showImage" (dragover)="handleDragOver($event)" (dragenter)="handleDragEnter()"
+  (dragleave)="handleDragLeave()" (drop)="handleDrop($event)">
+  <ng-container>
+    <label class="w-100 d-flex align-items-center justify-content-center p-0" ondragover="return false;"
+      [class.loaded]="loaded">
+      <input #inputFile type="file" name="file" [accept]="accept" (change)="handleInputChange($event)" hidden />
+      <div class="pb-2 w-100">
+        <a class="fw-bold text-dark-color d-flex justify-content-center align-items-center gap-2 upload-content w-100">
+          <i class="pi pi-cloud-upload fs-5"></i>
+          <p class="fw-500 mb-0">{{'general.clickToUpload'|translate}}</p>
+        </a>
+        <small class="text-desc-color">{{'general.supports'|translate}} {{accept}} -
+          {{'general.maxSize'|translate}}: 5
+          MB</small>
+      </div>
+    </label>
+  </ng-container>
+  <ng-container *ngIf="isMulti; else single">
+    <ng-container *ngIf="allFiles?.length>0">
+      <div class="all-files rounded p-2">
+        <div class="files-content px-2">
+          <ng-container *ngFor="let item of allFiles;let i=index">
+            <!-- [class.border-bottom]="i<allFiles?.length-1" -->
+            <div class="d-flex justify-content-between">
+              <div class="d-flex gap-3">
+                <ng-container *ngIf="item?.type?.includes('image')">
+                  <img class="fit-object-cover loaded shadow-sm" [src]="imageNames[i]?.img" (load)="handleImageLoad()"
+                    onerror="src='assets/images/not-found/no-img.webp'" alt="image" />
+                </ng-container>
+                <ng-container *ngIf="item?.type?.includes('pdf')">
+                  <img class="fit-object-cover loaded" src="assets/images/icons/pdf.svg" />
+                </ng-container>
+                <ng-container
+                  *ngIf="item?.type?.includes('doc')||item?.type?.includes('document')||item?.type?.includes('application/msword')||item?.name?.includes('.doc')">
+                  <img class="fit-object-cover loaded" src="assets/images/icons/word.png" />
+                </ng-container>
+                <div>
+                  <p class="fw-500 mb-0">{{item?.name}}</p>
+                  <p class="mb-0 text-desc-color">{{formatSizeUnits(item?.size)}}</p>
+                </div>
+
+              </div>
+              <button class="btn-card badge-danger d-flex align-items-center
+              justify-content-center" (click)="removeImgFromFiles(item)">
+                <img src="assets/images/icons/delete.svg" alt="delete" />
+              </button>
+            </div>
+            <hr class="my-2" *ngIf="i<allFiles?.length-1">
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+  <ng-template #single>
+    <ng-container *ngIf="showImage && !isLoading">
+      <div class="border p-2 rounded d-flex justify-content-between gap-2">
+        <div class="d-flex justify-content-between gap-3">
+          <ng-container *ngIf=" type?.includes('image')">
+            <img class="fit-object-cover shadow-sm loaded" [src]="isEdit?image:imageName" (load)="handleImageLoad()"
+              onerror="src='assets/images/not-found/no-img.webp'" alt="image" />
+          </ng-container>
+          <ng-container *ngIf="type?.includes('pdf')">
+            <img class="fit-object-cover loaded" src="assets/images/icons/pdf.svg" />
+          </ng-container>
+          <ng-container
+            *ngIf="name?.includes('.docx') ||type?.includes('doc') || type?.includes('document') || type?.includes('application/msword')">
+            <img class="fit-object-cover loaded" src="assets/images/icons/word.png" />
+          </ng-container>
+          <div class="">
+            <p class="fw-500 mb-0">{{name}}</p>
+            <p class="mb-0 text-desc-color">{{imageSize}}</p>
+          </div>
+
+        </div>
+        <button class="btn-card badge-danger d-flex align-items-center
+        gap-2 justify-content-center" (click)="removeImg()">
+          <img src="assets/images/icons/delete.svg" alt="delete" />
+        </button>
+      </div>
+    </ng-container>
+  </ng-template>
+
+
+  <ng-container *ngIf="showImage && isLoading">
+    <i class="pi pi-spinner m-auto"></i>
+    <!-- <app-list-skeleton [type]="'uploadImage'"></app-list-skeleton> -->
+  </ng-container>
+</div>

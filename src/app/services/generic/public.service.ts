@@ -14,7 +14,8 @@ import { Injectable } from '@angular/core'
   providedIn: 'root'
 })
 export class PublicService {
-  private readonly baseUrl = environment?.apiUrl
+  private readonly baseUrl = environment?.apiUrl;
+  removeUploadImg = new BehaviorSubject<boolean>(false);
 
   showGlobalLoader = new Subject<boolean>();
   showSearchLoader = new Subject<boolean>();

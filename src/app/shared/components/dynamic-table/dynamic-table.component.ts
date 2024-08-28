@@ -102,7 +102,7 @@ export class DynamicTableComponent {
 
   // Delete variables
   @Input() enableConfirmDeleteDialog: boolean = false;
-  @Input() keyDelete: string = '';
+  @Input() keyDelete: string | number | null = null;
   @Input() enableConfirmedByShowInput: boolean = false;
 
   // Not found image or text default value
@@ -230,7 +230,7 @@ export class DynamicTableComponent {
     this.publicService?.resetTable?.subscribe((res: any) => {
       if (res == true) {
         if (this.tableData.length > 0) {
-          this.dt.clear();
+          this.dt?.clear();
           this.clear();
         }
       }
@@ -361,6 +361,8 @@ export class DynamicTableComponent {
     this.resetPasswordHandler.emit(item);
   }
   deleteHandlerEmit(item: any): void {
+    console.log(item);
+    
     if (this.enableConfirmDeleteDialog) {
       const ref = this.dialogService.open(ConfirmDeleteComponent, {
         data: {

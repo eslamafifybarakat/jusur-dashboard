@@ -143,12 +143,12 @@
           [showSearch]="false" [isLoadingSearch]="isLoadingSearch" [showActionsButtons]="true"
           (clearHandler)="enableSortFilter?clearTable():''" [tableHeaders]="tableHeaders" [tableData]="employeesList"
           [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="true" [showEdit]="false"
-          [showDelete]="false" (deleteHandler)="deleteItem($event)" [showDetails]="true"
+          [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
           (detailsHandler)="addEditEmployeeItem($event,'edit')" (editHandler)="addEditEmployeeItem($event,'edit')"
           (customSortHandler)="enableSortFilter?sortItems($event):''"
           (filterHandler)="enableSortFilter?filterItems($event):''" [results]="employeesCount" [paginatorRows]="perPage"
           [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
-          [enableConfirmDeleteDialog]="true" [keyDelete]="'fullName'"
+          [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
           (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
           [enableFilterDriverStatus]="true" [addBtnText]="'dashboard.employees.addEmployee'"
           (addHandler)="addEditEmployeeItem()" [showAddBtn]="!onlyPreview&&showAddBtn" [showSuspend]="true"
@@ -169,7 +169,8 @@
               <ng-container *ngFor="let card of employeesList; let i=index">
                 <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
                   <employee-card [item]="card" (itemDetailsHandler)="addEditEmployeeItem($event,'edit')"
-                    (activateHandlerEmit)="activateEmployeeAccount($event)"
+                    [showDeleteBtn]="true" [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
+                    (deleteHandler)="deleteItem($event)" (activateHandlerEmit)="activateEmployeeAccount($event)"
                     (suspendHandlerEmit)="suspendEmployeeAccount($event)"></employee-card>
                 </div>
               </ng-container>
@@ -213,7 +214,8 @@
             <ng-container *ngFor="let card of employeesList; let i=index">
               <div class="col-xl-3 col-lg-4 col-sm-6 mb-4">
                 <employee-card (itemDetailsHandler)="addEditEmployeeItem($event,'edit')" [item]="card"
-                  (activateHandlerEmit)="activateEmployeeAccount($event)"
+                  [showDeleteBtn]="true" [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
+                  (deleteHandler)="deleteItem($event)" (activateHandlerEmit)="activateEmployeeAccount($event)"
                   (suspendHandlerEmit)="suspendEmployeeAccount($event)"></employee-card>
               </div>
             </ng-container>

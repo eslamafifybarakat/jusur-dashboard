@@ -4,6 +4,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
 
 // Components
+import { UploadFileInputComponent } from 'src/app/shared/components/upload-files/upload-file-input/upload-file-input.component';
 import { FileUploadComponent } from '../../../../../shared/components/upload-files/file-upload/file-upload.component';
 
 //Services
@@ -28,6 +29,7 @@ import { Subscription, catchError, tap } from 'rxjs';
     FormsModule,
 
     // Components
+    UploadFileInputComponent,
     FileUploadComponent,
 
     // Directives
@@ -45,6 +47,9 @@ export class AddEditEmployeeComponent {
   residencePhoto: string;
   isEdit: boolean = false;
   employeeId: any;
+
+  contractImageFile: any;
+  contractImage: any = null;
 
   // Check National Identity Variables
   isLoadingCheckResidencyNumber: Boolean = false;
@@ -83,6 +88,8 @@ export class AddEditEmployeeComponent {
     });
     this.residencePhoto = data?.item?.details?.iqamaImage;
     this.formControls.residencePhoto.setValue(this.residencePhoto);
+    this.contractImage = data?.item?.details?.contractImage;
+    this.formControls.contractImage.setValue(this.contractImage);
   }
 
   modalForm = this.fb?.group(
@@ -110,6 +117,10 @@ export class AddEditEmployeeComponent {
           Validators.required], updateOn: "blur"
       }],
       residencePhoto: [null, {
+        validators: [
+          Validators.required]
+      }],
+      contractImage: [null, {
         validators: [
           Validators.required]
       }],
@@ -160,6 +171,11 @@ export class AddEditEmployeeComponent {
     this.residencePhotoFile = event.file;
     this.formControls.residencePhoto.setValue(this.residencePhotoFile);
   }
+
+  uploadContractImage(e: any): void {
+    this.contractImageFile = e?.image;
+    this.formControls.contractImage.setValue(this.contractImageFile);
+  }
   // Start Add Or Edit Employee Functions
   submit(): void {
     if (this.modalForm?.valid) {
@@ -181,10 +197,12 @@ export class AddEditEmployeeComponent {
     if (this.isEdit) {
       let photo: any = this.modalForm?.value?.residencePhoto;
       photo?.name != null ? formData.append('iqamaImage', this.residencePhotoFile) : '';
+      let contractImage: any = this.modalForm?.value?.contractImage;
+      contractImage?.name != null ? formData.append('contractImage', this.contractImageFile) : '';
     } else {
       formData.append('iqamaImage', this.residencePhotoFile);
+      formData.append('contractImage', this.contractImageFile);
     }
-    
     return formData;
   }
   private addEditEmployee(formData: any): void {

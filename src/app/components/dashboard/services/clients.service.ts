@@ -44,10 +44,10 @@ export class ClientsService {
   }
   deleteClientById(id: number, data: any): Observable<any> {
     let params = new HttpParams();
-    if (data?.name) {
-      params = params.append("name", data?.name);
+    if (data?.id) {
+      params = params.append("id", data?.id);
     }
-    return this.http.delete<any>(`${this.baseUrl}${roots?.dashboard.clients.deleteClients}/delete/` + id, { params: params });
+    return this.http.delete<any>(`${this.baseUrl}/${roots?.dashboard.clients.deleteClients}`, { params: params });
   }
 
   toggleActivateClientAccount(clientId: number| string): Observable<any> {

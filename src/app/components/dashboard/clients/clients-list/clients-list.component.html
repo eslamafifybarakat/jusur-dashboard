@@ -126,12 +126,12 @@
           [isLoadingSearch]="isLoadingSearch" [showActionsButtons]="true"
           (clearHandler)="enableSortFilter?clearTable():''" [tableHeaders]="tableHeaders" [tableData]="clientsList"
           [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="true" [showEdit]="false"
-          [showDelete]="false" (deleteHandler)="deleteItem($event)" [showDetails]="true"
+          [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
           (detailsHandler)="itemDetails($event)" (editHandler)="editItem($event)"
           (customSortHandler)="enableSortFilter?sortItems($event):''"
           (filterHandler)="enableSortFilter?filterItemsTable($event):''" [results]="clientsCount"
           [paginatorRows]="perPage" [pages]="pagesCount" (paginateHandler)="onPageChange($event)"
-          [rowsPerPageOptions]="rowsOptions" [enableConfirmDeleteDialog]="true" [keyDelete]="'fullName'"
+          [rowsPerPageOptions]="rowsOptions" [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
           (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
           [enableFilterDriverStatus]="true" [addBtnText]="'dashboard.customers.addCustomer'" (addHandler)="addItem()"
           [showSuspend]="true" (suspendHandler)="suspendClientAccount($event)" [showActivate]="true"
@@ -150,7 +150,8 @@
             <ng-container *ngIf="clientsList.length>0; else noClients">
               <ng-container *ngFor="let card of clientsList; let i=index">
                 <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                  <client-card [item]="card" (itemDetailsHandler)="itemDetails($event)"
+                  <client-card [item]="card" (itemDetailsHandler)="itemDetails($event)" [showDeleteBtn]="true"
+                    [enableConfirmDeleteDialog]="true" [keyDelete]="'name'" (deleteHandler)="deleteItem($event)"
                     (activateHandler)="activateClientAccount($event)"
                     (suspendHandler)="suspendClientAccount($event)"></client-card>
                 </div>
@@ -205,8 +206,9 @@
           <ng-container *ngIf="clientsList.length>0; else noClients2">
             <ng-container *ngFor="let card of clientsList; let i=index">
               <div class="col-xl-3 col-lg-4 col-sm-6 mb-4">
-                <client-card (itemDetailsHandler)="itemDetails($event)" [item]="card"
-                  (activateHandler)="activateClientAccount($event)"
+                <client-card (itemDetailsHandler)="itemDetails($event)" [item]="card" [showDeleteBtn]="true"
+                  (activateHandler)="activateClientAccount($event)" [enableConfirmDeleteDialog]="true"
+                  [keyDelete]="'name'" (deleteHandler)="deleteItem($event)"
                   (suspendHandler)="suspendClientAccount($event)"></client-card>
               </div>
             </ng-container>

@@ -126,10 +126,25 @@
           </div>
         </div>
         <div class="col-xl-6">
+          <label for="contractImage" class="mb-2 required">{{'labels.contractImage'|translate}}</label>
+          <app-upload-file-input class="w-100" [isEdit]="isEdit" [fileSrc]="contractImage"
+            (uploadHandler)="uploadContractImage($event)" [isMulti]="false"
+            [accept]="'.doc, .docx, .pdf'"></app-upload-file-input>
+          <ng-container *ngIf="formControls?.contractImage?.touched || formControls?.contractImage?.dirty">
+            <div class="mb-2">
+              <ng-container *ngIf="formControls?.contractImage?.errors?.required">
+                <span class="text-danger fs-8">
+                  {{'validations.requiredField' | translate}}
+                </span>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+        <div class="col-xl-6">
           <div class="mb-3">
             <label for="residencePhoto" class="mb-2 required">{{'labels.residencePhoto'|translate}}</label>
             <div class="global-card p-3">
-              <p class="text-capitalize">{{'placeholders.residencePhoto'|translate}}</p>
+              <!-- <p class="text-capitalize">{{'placeholders.residencePhoto'|translate}}</p> -->
               <app-file-upload (uploadHandler)="uploadResidencePhoto($event)" [isEdit]="isEdit"
                 [imageSrc]="residencePhoto"></app-file-upload>
             </div>
@@ -145,6 +160,25 @@
             </div>
           </div>
         </div>
+        <!-- <div class="col-xl-6">
+          <div class="mb-3">
+            <label for="contractImage" class="mb-2 required">{{'labels.contractImage'|translate}}</label>
+            <div class="global-card p-3">
+              <app-file-upload (uploadHandler)="uploadContractImage($event)" [isEdit]="isEdit"
+                [imageSrc]="contractImage"></app-file-upload>
+            </div>
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.contractImage?.invalid && (formControls?.contractImage?.dirty || formControls?.contractImage?.touched)">
+                <ng-container *ngIf="formControls?.contractImage?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div> -->
       </div>
     </div>
     <div class="d-flex justify-content-end gap-3 flex-wrap mt-4">

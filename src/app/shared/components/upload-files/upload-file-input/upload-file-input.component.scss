@@ -1,0 +1,37 @@
+.upload-content {
+  background: #f2f7fa;
+  border: 1px solid #284a6f36;
+  border-radius: 7px;
+  min-height: 3.5rem;
+}
+.loaded {
+  height: 45px;
+  width: 45px;
+  border-radius: 5px !important;
+  object-fit: cover !important;
+  // box-shadow: 0 0.125rem 0.25rem !important;
+}
+.badge-info {
+  background-color: #284a6f10;
+  color: var(--text-main-color);
+}
+.badge-danger {
+  background-color: #e5555530;
+  color: #e55555;
+}
+
+.btn-card {
+  min-width: 40px;
+  height: 40px;
+  line-height: 0;
+  border-radius: 10px;
+  padding: 0 12px;
+  border: none;
+}
+.all-files {
+  border: 1px solid #ccc;
+}
+.files-content {
+  max-height: 10rem;
+  overflow: auto;
+}

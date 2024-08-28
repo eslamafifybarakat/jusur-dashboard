@@ -13,13 +13,13 @@
     "allResults": "All Results",
     "advancedSearch": "Advanced Search"
   },
-  "metaText":{
-"client":"Client",
-"clients":"Clients",
-"history":"History",
-"employees":"Employees",
-"vehicles":"Vehicles",
-"description":"Description"
+  "metaText": {
+    "client": "Client",
+    "clients": "Clients",
+    "history": "History",
+    "employees": "Employees",
+    "vehicles": "Vehicles",
+    "description": "Description"
   },
   "nav": {
     "home": "Home",
@@ -47,6 +47,7 @@
     "profile": "Personal Profile"
   },
   "general": {
+    "maxSize": "Max size",
     "backToHome": "Back to home",
     "moreDetails": "More Details",
     "location": "Location",
@@ -77,9 +78,9 @@
     "dataNotEditable": "This data is not editable",
     "except": "Except through the competent authority",
     "recordedData": "Your recorded data",
-    "noSearchResult":"There are no results for your search",
-    "activate":"Activate",
-    "suspend":"Suspend"
+    "noSearchResult": "There are no results for your search",
+    "activate": "Activate",
+    "suspend": "Suspend"
   },
   "summary": {
     "faster": "Faster",
@@ -134,6 +135,7 @@
       "residencyNumber": "Residency number",
       "healthCertificate": "health certificate",
       "residencePhoto": "residence photo",
+      "contractImage": "Contract Image",
       "operatingCard": "Operating card",
       "insuranceExpiryDate": "Insurance expiry date",
       "formPhoto": "form photo"
@@ -162,37 +164,37 @@
       "medicalDetails": "Medical insurance details",
       "fileDetails": "Labor office file details",
       "customerDataDetails": "Client data details",
-      "activateClient":"Activate Client Account",
-      "suspendClient":"Suspend Client Account",
-      "areYouSureToActivate":"Are you sure you want to activate",
-      "areYouSureToSuspend":"Are you sure you want to suspend",
-      "account":"account?"
+      "activateClient": "Activate Client Account",
+      "suspendClient": "Suspend Client Account",
+      "areYouSureToActivate": "Are you sure you want to activate",
+      "areYouSureToSuspend": "Are you sure you want to suspend",
+      "account": "account?"
     },
     "records": {
       "records": "History",
       "addRecord": "Add History"
     },
-    "notes":{
-    "notes":"Notes",
-    "addNote": "Add Note"
+    "notes": {
+      "notes": "Notes",
+      "addNote": "Add Note"
     },
     "employees": {
       "employees": "Employees",
       "addEmployee": "Add Employee",
       "editEmployee": "Edit Employee",
-      "activateEmployee":"Activate Employee Account",
-      "suspendEmployee":"Suspend Employee Account"
+      "activateEmployee": "Activate Employee Account",
+      "suspendEmployee": "Suspend Employee Account"
     },
     "vehicles": {
       "vehicles": "Vehicles",
       "addVehicle": "Add Vehicle",
       "editVehicle": "Edit Vehicle",
-      "activateVehicle":"Activate Vehicle Account",
-      "suspendVehicle":"Suspend Vehicle Account"
+      "activateVehicle": "Activate Vehicle Account",
+      "suspendVehicle": "Suspend Vehicle Account"
     }
   },
   "auth": {
-    "send":"Send",
+    "send": "Send",
     "welcomeBack": "Welcome back, we missed you",
     "start": "Start",
     "logInToGetPermissions": "Log in to get the permissions you want",
@@ -246,13 +248,14 @@
     "joinNow": "Join now"
   },
   "labels": {
-    "isActive":"Is Active",
+    "contractImage": "Contract Image",
+    "isActive": "Is Active",
     "currentPassword": "Current Password",
-    "gender":"Gender",
+    "gender": "Gender",
     "changePassword": "Change Password",
     "personalInformation": "Personal Information",
     "conatctInformation": "Contact Information",
-    "addNote":"Add a note",
+    "addNote": "Add a note",
     "apply": "Apply",
     "cancelClassification": "Reset",
     "total": "Total",
@@ -300,8 +303,8 @@
   },
   "placeholders": {
     "currentPassword": "Enter current password",
-    "select":"Select",
-    "tellUs":"Tell us what you want...",
+    "select": "Select",
+    "tellUs": "Tell us what you want...",
     "searchEstkdam": "Find the employment you want",
     "username": "Enter username",
     "password": "Enter password",
@@ -348,7 +351,7 @@
     "emailRequired": "Email Address is required",
     "firstNameRequired": "First Name is required",
     "lastNameRequired": "Last Name is required",
-    "residencyNumberLength":"Residency number must be 10 digits",
+    "residencyNumberLength": "Residency number must be 10 digits",
     "username": "Username is required",
     "password": "Password is required",
     "email": "Email is required",

@@ -230,11 +230,13 @@ export class ClientsListComponent {
   }
   //Start Delete Client Functions
   deleteItem(item: any): void {
+    console.log(item);
+    
     if (!item?.confirmed) {
       return;
     }
     const data = {
-      name: item?.item?.title
+      id: item?.item?.id
     };
     this.publicService.showGlobalLoader.next(true);
     let deleteClientSubscription: Subscription = this.clientsService?.deleteClientById(item?.item?.id, data)?.pipe(

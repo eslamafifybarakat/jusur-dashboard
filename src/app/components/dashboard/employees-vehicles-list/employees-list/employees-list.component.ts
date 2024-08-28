@@ -148,6 +148,12 @@ export class EmployeesListComponent {
         title: this.publicService?.translateTextFromJson('dashboard.tableHeader.residencePhoto'),
         type: 'img',
       },
+      {
+        field: 'contractImage',
+        header: 'dashboard.tableHeader.contractImage',
+        title: this.publicService?.translateTextFromJson('dashboard.tableHeader.contractImage'),
+        type: 'document',
+      },
       // {
       //   field: 'name',
       //   header: 'dashboard.tableHeader.fullName',
@@ -249,18 +255,22 @@ export class EmployeesListComponent {
 
   }
   private processEmployeesListResponse(response: any): void {
-    if (response) {
+    if (response?.success) {
       this.employeesCount = response?.result?.totalCount;
       this.pagesCount = Math.ceil(this.employeesCount / this.perPage);
       this.employeesList = response?.result?.items;
-      this.employeesList.forEach((item: EmployeesListingItem) => {
+
+      this.employeesList?.forEach((item: EmployeesListingItem) => {
         item['isLoadingActive'] = false;
+        // Replace with a real PDF link
+        item['contractImage'] = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
+        // Replace with a real Word file link
+        // item['contractImage'] = 'https://file-examples.com/wp-content/uploads/2017/02/file-sample_100kB.doc';
         item['active'] = false;
       });
       this.publicService.employeesLength.next(this.employeesCount);
     } else {
       this.handleError(response.error);
-      return;
     }
   }
   private finalizeEmployeeListLoading(): void {
@@ -409,6 +419,9 @@ export class EmployeesListComponent {
     if (!item?.confirmed) {
       return;
     }
+    const data = {
+      id: item?.item?.id
+    };
     this.publicService.showGlobalLoader.next(true);
     let deleteEmployeesSubscription = this.employeesService?.deleteEmployeeById(item?.item?.id)?.pipe(
       tap((res: EmployeesListApiResponse) => this.processDeleteResponse(res)),
@@ -421,12 +434,11 @@ export class EmployeesListComponent {
     this.subscriptions.push(deleteEmployeesSubscription);
   }
   private processDeleteResponse(res: any): void {
-    const messageType = res?.code === 200 ? 'success' : 'error';
-    const message = res?.message || '';
-
-    this.alertsService.openToast(messageType, messageType, message);
-    if (messageType === 'success') {
+    if (res?.success) {
+      this.handleSuccess(res?.message);
       this.getAllEmployees();
+    } else {
+      this.handleError(res?.message);
     }
   }
   //End Delete Employee Functions

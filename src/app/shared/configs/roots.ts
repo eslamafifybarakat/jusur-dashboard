@@ -38,13 +38,14 @@ export const roots = {
       getSingleClient: 'Client/GetSingleClient',
       addClient: 'Client/AddClient',
       editClient: 'Client/UpdateClient',
-      deleteClients: '/deleteClients',
+      deleteClients: 'Client/DeleteClients',
       toggleActivateClientAccount: 'Client/ToggleActivation'
     },
     records: {
       getRecords: 'ClientHistory/AllClientHistorys',
       getSingleHistory: 'ClientHistory/GetSingleHistory',
       addRecords: 'ClientHistory/AddClientHistory',
+      deleteRecords: 'ClientHistory/DeleteClientHistory',
       editRecords: 'ClientHistory/UpdateClientHistory'
     },
     notes: {
@@ -61,6 +62,7 @@ export const roots = {
       getVehicles: 'Car/AllCars',
       addVehicle: 'Car/AddCar',
       editVehicle: 'Car/UpdateCar',
+      deleteVehicle: 'Car/DeleteCar',
       toggleActivateCarAccount: 'Car/ToggleActivation'
     }
   }

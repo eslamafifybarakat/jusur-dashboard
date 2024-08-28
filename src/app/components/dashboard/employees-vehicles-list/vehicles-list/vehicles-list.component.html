@@ -143,12 +143,12 @@
           [isLoadingSearch]="isLoadingSearch" [showActionsButtons]="true"
           (clearHandler)="enableSortFilter?clearTable():''" [tableHeaders]="tableHeaders" [tableData]="vehiclesList"
           [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="true" [showEdit]="false"
-          [showDelete]="false" (deleteHandler)="deleteItem($event)" [showDetails]="true"
+          [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
           (detailsHandler)="addEditItem($event,'edit')" (editHandler)="addEditItem($event,'edit')"
           (customSortHandler)="enableSortFilter?sortItems($event):''"
           (filterHandler)="enableSortFilter?filterItems($event):''" [results]="vehiclesCount" [paginatorRows]="perPage"
           [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
-          [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
+          [enableConfirmDeleteDialog]="true" [keyDelete]="'workPermitCard'"
           (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch"
           [arrayChildKey]="'operatingCard'" [enableFilterDriverStatus]="true"
           [addBtnText]="'dashboard.vehicles.addVehicle'" (addHandler)="addEditItem()"
@@ -168,8 +168,9 @@
             <ng-container *ngIf="vehiclesList.length>0; else noVehicles">
               <ng-container *ngFor="let card of vehiclesList; let i=index">
                 <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                  <vehicle-card [item]="card" (itemDetailsHandler)="addEditItem($event,'edit')"
-                    (activateHandlerEmit)="activateVehicleAccount($event)"
+                  <vehicle-card [item]="card" (itemDetailsHandler)="addEditItem($event,'edit')" [showDeleteBtn]="true"
+                    [enableConfirmDeleteDialog]="true" [keyDelete]="'workPermitCard'"
+                    (deleteHandler)="deleteItem($event)" (activateHandlerEmit)="activateVehicleAccount($event)"
                     (suspendHandlerEmit)="suspendVehicleAccount($event)"></vehicle-card>
                 </div>
               </ng-container>
@@ -212,7 +213,8 @@
           <ng-container *ngIf="vehiclesList.length>0; else noVehicles2">
             <ng-container *ngFor="let card of vehiclesList; let i=index">
               <div class="col-xl-3 col-lg-4 col-sm-6 mb-4">
-                <vehicle-card (itemDetailsHandler)="addEditItem($event,'edit')" [item]="card"
+                <vehicle-card (itemDetailsHandler)="addEditItem($event,'edit')" [item]="card" [showDeleteBtn]="true"
+                  [enableConfirmDeleteDialog]="true" [keyDelete]="'workPermitCard'" (deleteHandler)="deleteItem($event)"
                   (activateHandlerEmit)="activateVehicleAccount($event)"
                   (suspendHandlerEmit)="suspendVehicleAccount($event)"></vehicle-card>
               </div>
