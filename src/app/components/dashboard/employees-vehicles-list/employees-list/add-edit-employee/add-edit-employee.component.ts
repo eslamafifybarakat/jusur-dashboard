@@ -198,10 +198,10 @@ export class AddEditEmployeeComponent {
       let photo: any = this.modalForm?.value?.residencePhoto;
       photo?.name != null ? formData.append('iqamaImage', this.residencePhotoFile) : '';
       let contractImage: any = this.modalForm?.value?.contractImage;
-      contractImage?.name != null ? formData.append('contractImage', this.contractImageFile) : '';
+      // contractImage?.name != null ? formData.append('contractImage', this.contractImageFile) : '';
     } else {
       formData.append('iqamaImage', this.residencePhotoFile);
-      formData.append('contractImage', this.contractImageFile);
+      // formData.append('contractImage', this.contractImageFile);
     }
     return formData;
   }

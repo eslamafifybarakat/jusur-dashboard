@@ -191,9 +191,10 @@ export class RecordsComponent {
   }
   private processRecordsListResponse(response: any): void {
     if (response) {
-      this.recordsCount = response?.result?.totalCount;
       this.pagesCount = Math.ceil(this.recordsCount / this.perPage);
-      this.recordsList = response?.result?.items;
+      this.recordsList = response?.result?.items.filter((item: any) => !item.isDeleted);
+      this.recordsCount = response?.result?.totalCount;
+      // this.recordsList = response?.result?.items.filter((item: any) => !item.isDeleted);
       // this.publicService.recordsLength.next({ length: this.recordsList, isChanged: true });
     } else {
       this.handleError(response.error);

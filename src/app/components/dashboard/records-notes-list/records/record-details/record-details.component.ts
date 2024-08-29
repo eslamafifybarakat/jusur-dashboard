@@ -197,13 +197,13 @@ export class RecordDetailsComponent {
 
   // Start Upload Files
   uploadRecordFile(event: any): void {
-    this.registrationFile = event.file;
+    this.registrationFile = event?.file;
   }
   uploadLicenseFile(event: any): void {
-    this.licenseFile = event.file;
+    this.licenseFile = event?.file;
   }
   uploadCertificateFile(event: any): void {
-    this.certificateFile = event.file;
+    this.certificateFile = event?.file;
   }
   // End Upload Files
 
@@ -217,7 +217,7 @@ export class RecordDetailsComponent {
       licenseFile: this.recordDetails?.licenseFile || 'assets/images/home/sidebar-bg.webp',
       certificateFile: this.recordDetails?.certificateFile
     };
-    this.certificateFile = this.recordDetails.certificateFile,
+    this.certificateFile = this.recordDetails?.certificateFile,
       this.certificateFile ? this.isEditCertificateFile = true : '';
     this.modalForm?.patchValue({
       recordName: this.recordDetails?.name,
@@ -237,7 +237,7 @@ export class RecordDetailsComponent {
     this.recordDetails.licenseFile ? this.isEditLicenseFile = true : '';
     this.licenseFile = this.recordDetails.licenseFile;
     this.recordDetails.certificateFile ? this.isEditCertificateFile = true : '';
-    this.certificateFile = this.recordDetails.certificateFile;
+    this.certificateFile = this.recordDetails?.certificateFile;
   }
   editInput(name: string): void {
     if (name == 'recordName') {

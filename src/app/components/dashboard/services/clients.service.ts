@@ -47,14 +47,14 @@ export class ClientsService {
     if (data?.id) {
       params = params.append("id", data?.id);
     }
-    return this.http.delete<any>(`${this.baseUrl}/${roots?.dashboard.clients.deleteClients}`, { params: params });
+    return this.http.put<any>(`${this.baseUrl}/${roots?.dashboard.clients.deleteClients}`, {}, { params: params });
   }
 
-  toggleActivateClientAccount(clientId: number| string): Observable<any> {
+  toggleActivateClientAccount(clientId: number | string): Observable<any> {
     let params = new HttpParams();
     if (clientId) {
       params = params.append("client_id", clientId);
     }
-    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.clients?.toggleActivateClientAccount}`, {params:params})
+    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.clients?.toggleActivateClientAccount}`, { params: params })
   }
 }

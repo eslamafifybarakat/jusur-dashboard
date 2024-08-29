@@ -230,8 +230,6 @@ export class ClientsListComponent {
   }
   //Start Delete Client Functions
   deleteItem(item: any): void {
-    console.log(item);
-    
     if (!item?.confirmed) {
       return;
     }
@@ -252,6 +250,8 @@ export class ClientsListComponent {
   private processDeleteClientResponse(res: any): void {
     if (res?.success) {
       this.handleSuccess(res?.message);
+      this.page = 1;
+      this.perPage = 5;
       this.getAllClients();
     } else {
       this.handleError(res?.message);

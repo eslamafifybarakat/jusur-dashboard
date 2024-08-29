@@ -67,6 +67,6 @@ export class RecordsService {
     if (data?.id) {
       params = params.append("id", data?.id);
     }
-    return this.http.delete<any>(`${this.baseUrl}/${roots?.dashboard.records.deleteRecords}`, { params: params });
+    return this.http.put<any>(`${this.baseUrl}/${roots?.dashboard.records.deleteRecords}`, {}, { params: params });
   }
 }

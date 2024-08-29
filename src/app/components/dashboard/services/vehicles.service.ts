@@ -49,7 +49,7 @@ export class VehiclesService {
     if (data?.id) {
       params = params.append("id", data?.id);
     }
-    return this.http.delete<any>(`${this.baseUrl}/${roots?.dashboard.vehicles.deleteVehicle}`, { params: params });
+    return this.http.put<any>(`${this.baseUrl}/${roots?.dashboard.vehicles.deleteVehicle}`, {}, { params: params });
   }
 
   toggleActivateVehicleAccount(carId: number | string): Observable<any> {
