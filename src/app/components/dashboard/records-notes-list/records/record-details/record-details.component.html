@@ -18,14 +18,16 @@
           </button>
         </div>
       </div>
-      <ng-container *ngIf="isLoadingRecordDetails; else noLoading">
-        <div class="mt-4">
-          <skeleton [type]="'recordDetails'"></skeleton>
-        </div>
-      </ng-container>
-      <ng-template #noLoading>
-        <div class="row mt-4">
-          <div class="col-md-6 mb-3">
+    </form>
+    <ng-container *ngIf="isLoadingRecordDetails; else noLoading">
+      <div class="mt-4">
+        <skeleton [type]="'recordDetails'"></skeleton>
+      </div>
+    </ng-container>
+    <ng-template #noLoading>
+      <form [formGroup]="modalForm">
+        <div class="row g-3 mt-4">
+          <div class="col-md-6">
             <div class="global-card overflow-hidden h-100">
               <div class="bg-main-color header">
                 <h6 class="fs-5-1 text-white-color mb-0">
@@ -157,7 +159,10 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 mb-3">
+          <div class="col-md-6 col-0">
+
+          </div>
+          <div class="col-md-6">
             <div class="global-card overflow-hidden h-100">
               <div class="bg-main-color header">
                 <h6 class="fs-5-1 text-white-color mb-0">
@@ -238,7 +243,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 mb-3">
+          <div class="col-md-6">
             <div class="global-card overflow-hidden">
               <div class="bg-main-color header">
                 <h6 class="fs-5-1 text-white-color mb-0">
@@ -317,59 +322,28 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="global-card overflow-hidden mb-3">
-              <div class="bg-main-color header">
-                <h6 class="fs-5-1 text-white-color mb-0">
-                  {{'dashboard.customers.medicalDetails'|translate}}
-                </h6>
-              </div>
-              <div class="p-3">
-                <div class="mb-3">
-                  <label for="medicalInsuranceNumber" class="mb-2">{{'labels.medicalInsuranceNumber'|translate}}</label>
-                  <div class="input-group bg-white-color d-flex flex-nowrap">
-                    <input type="text" class="form-control" [class.prevent-click]="isMedicalInsuranceNumberReadOnly"
-                      formControlName="medicalInsuranceNumber" autocomplete="cc-name" [min]="0"
-                      (input)="publicService?.clearValidationErrors(formControls?.medicalInsuranceNumber)"
-                      [class.border-red]="formControls?.medicalInsuranceNumber?.invalid && (formControls?.medicalInsuranceNumber?.dirty || formControls?.medicalInsuranceNumber?.touched)"
-                      placeholder="{{'placeholders.medicalInsuranceNumber'|translate}}">
-                    <span class="input-group-text bg-white-color p-1" id="basic-addon1">
-                      <a *ngIf="isMedicalInsuranceNumberReadOnly"
-                        class="edit-input d-flex justify-content-center align-items-center"
-                        (click)="editInput('medicalInsuranceNumber')">
-                        <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
-                            fill="#359A9C" />
-                        </svg>
-                      </a>
-                    </span>
-                  </div>
-                  <div class="mt-2">
-                    <ng-container
-                      *ngIf="formControls?.medicalInsuranceNumber?.invalid && (formControls?.medicalInsuranceNumber?.dirty || formControls?.medicalInsuranceNumber?.touched)">
-                      <ng-container *ngIf="formControls?.medicalInsuranceNumber?.errors?.['required']">
-                        <span class="text-danger fs-8">
-                          {{'validations.requiredField'|translate}}
-                        </span>
-                      </ng-container>
-                    </ng-container>
-                  </div>
+          <ng-container *ngIf="viewMedicalDetails">
+            <div class="col-md-6">
+              <div class="global-card overflow-hidden">
+                <div class="bg-main-color header">
+                  <h6 class="fs-5-1 text-white-color mb-0">
+                    {{'dashboard.customers.medicalDetails'|translate}}
+                  </h6>
                 </div>
-                <div class="">
-                  <label for="medicalInsuranceDate" class="mb-2">{{'labels.medicalInsuranceDate'|translate}}</label>
-                  <div
-                    [class.border-red]="formControls?.medicalInsuranceDate?.invalid && (formControls?.medicalInsuranceDate?.dirty || formControls?.medicalInsuranceDate?.touched)">
+                <div class="p-3">
+                  <div class="mb-3">
+                    <label for="medicalInsuranceNumber"
+                      class="mb-2">{{'labels.medicalInsuranceNumber'|translate}}</label>
                     <div class="input-group bg-white-color d-flex flex-nowrap">
-                      <p-calendar [class.prevent-click]="isMedicalInsuranceDateReadOnly" class="w-100"
-                        formControlName="medicalInsuranceDate" appendTo="body" [showIcon]="true" inputId="icon"
-                        [readonlyInput]="true" [styleClass]="'date-picker'"
-                        placeholder="{{'placeholders.dateFormat'|translate}}" [showButtonBar]="true"
-                        [todayButtonStyleClass]="'d-none'" dateFormat="yy/mm/dd" hourFormat="12"></p-calendar>
+                      <input type="text" class="form-control" [class.prevent-click]="isMedicalInsuranceNumberReadOnly"
+                        formControlName="medicalInsuranceNumber" autocomplete="cc-name" [min]="0"
+                        (input)="publicService?.clearValidationErrors(formControls?.medicalInsuranceNumber)"
+                        [class.border-red]="formControls?.medicalInsuranceNumber?.invalid && (formControls?.medicalInsuranceNumber?.dirty || formControls?.medicalInsuranceNumber?.touched)"
+                        placeholder="{{'placeholders.medicalInsuranceNumber'|translate}}">
                       <span class="input-group-text bg-white-color p-1" id="basic-addon1">
-                        <a *ngIf="isMedicalInsuranceDateReadOnly"
+                        <a *ngIf="isMedicalInsuranceNumberReadOnly"
                           class="edit-input d-flex justify-content-center align-items-center"
-                          (click)="editInput('medicalInsuranceDate')">
+                          (click)="editInput('medicalInsuranceNumber')">
                           <svg width="22" height="20" viewBox="0 0 25 23" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -379,97 +353,157 @@
                         </a>
                       </span>
                     </div>
-                  </div>
-                  <div class="mt-2">
-                    <ng-container
-                      *ngIf="formControls?.medicalInsuranceDate?.invalid && (formControls?.medicalInsuranceDate?.dirty || formControls?.medicalInsuranceDate?.touched)">
-                      <ng-container *ngIf="formControls?.medicalInsuranceDate?.errors?.['required']">
-                        <span class="text-danger fs-8">
-                          {{'validations.requiredField'|translate}}
-                        </span>
+                    <div class="mt-2">
+                      <ng-container
+                        *ngIf="formControls?.medicalInsuranceNumber?.invalid && (formControls?.medicalInsuranceNumber?.dirty || formControls?.medicalInsuranceNumber?.touched)">
+                        <ng-container *ngIf="formControls?.medicalInsuranceNumber?.errors?.['required']">
+                          <span class="text-danger fs-8">
+                            {{'validations.requiredField'|translate}}
+                          </span>
+                        </ng-container>
                       </ng-container>
-                    </ng-container>
+                    </div>
+                  </div>
+                  <div class="">
+                    <label for="medicalInsuranceDate" class="mb-2">{{'labels.medicalInsuranceDate'|translate}}</label>
+                    <div
+                      [class.border-red]="formControls?.medicalInsuranceDate?.invalid && (formControls?.medicalInsuranceDate?.dirty || formControls?.medicalInsuranceDate?.touched)">
+                      <div class="input-group bg-white-color d-flex flex-nowrap">
+                        <p-calendar [class.prevent-click]="isMedicalInsuranceDateReadOnly" class="w-100"
+                          formControlName="medicalInsuranceDate" appendTo="body" [showIcon]="true" inputId="icon"
+                          [readonlyInput]="true" [styleClass]="'date-picker'"
+                          placeholder="{{'placeholders.dateFormat'|translate}}" [showButtonBar]="true"
+                          [todayButtonStyleClass]="'d-none'" dateFormat="yy/mm/dd" hourFormat="12"></p-calendar>
+                        <span class="input-group-text bg-white-color p-1" id="basic-addon1">
+                          <a *ngIf="isMedicalInsuranceDateReadOnly"
+                            class="edit-input d-flex justify-content-center align-items-center"
+                            (click)="editInput('medicalInsuranceDate')">
+                            <svg width="22" height="20" viewBox="0 0 25 23" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                                fill="#359A9C" />
+                            </svg>
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="mt-2">
+                      <ng-container
+                        *ngIf="formControls?.medicalInsuranceDate?.invalid && (formControls?.medicalInsuranceDate?.dirty || formControls?.medicalInsuranceDate?.touched)">
+                        <ng-container *ngIf="formControls?.medicalInsuranceDate?.errors?.['required']">
+                          <span class="text-danger fs-8">
+                            {{'validations.requiredField'|translate}}
+                          </span>
+                        </ng-container>
+                      </ng-container>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="global-card overflow-hidden mb-3">
-              <div class="bg-main-color header">
-                <h6 class="fs-5-1 text-white-color mb-0">
-                  {{'dashboard.customers.fileDetails'|translate}}
-                </h6>
-              </div>
-              <div class="p-3">
-                <div class="mb-3">
-                  <label for="businessLicense" class="mb-2">{{'labels.businessLicense'|translate}}</label>
-                  <div class="input-group bg-white-color d-flex flex-nowrap">
-                    <input type="text" class="form-control" [class.prevent-click]="isBusinessLicenseReadOnly"
-                      formControlName="businessLicense" autocomplete="cc-name" [min]="0"
-                      (input)="publicService?.clearValidationErrors(formControls?.businessLicense)"
-                      [class.border-red]="formControls?.businessLicense?.invalid && (formControls?.businessLicense?.dirty || formControls?.businessLicense?.touched)"
-                      placeholder="{{'placeholders.businessLicense'|translate}}">
-                    <span class="input-group-text bg-white-color p-1" id="basic-addon1">
-                      <a *ngIf="isBusinessLicenseReadOnly"
-                        class="edit-input d-flex justify-content-center align-items-center"
-                        (click)="editInput('businessLicense')">
-                        <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
-                            fill="#359A9C" />
-                        </svg>
-                      </a>
-                    </span>
-                  </div>
-                  <div class="mt-2">
-                    <ng-container
-                      *ngIf="formControls?.businessLicense?.invalid && (formControls?.businessLicense?.dirty || formControls?.businessLicense?.touched)">
-                      <ng-container *ngIf="formControls?.businessLicense?.errors?.['required']">
-                        <span class="text-danger fs-8">
-                          {{'validations.requiredField'|translate}}
-                        </span>
-                      </ng-container>
-                    </ng-container>
-                  </div>
+          </ng-container>
+          <ng-container *ngIf="viewFileDetails">
+            <div class="col-md-6">
+              <div class="global-card overflow-hidden">
+                <div class="bg-main-color header">
+                  <h6 class="fs-5-1 text-white-color mb-0">
+                    {{'dashboard.customers.fileDetails'|translate}}
+                  </h6>
                 </div>
-                <div>
-                  <label for="businessLicenseNumber" class="mb-2">
-                    {{'labels.businessLicenseNumber'|translate}}
-                  </label>
-                  <div class="input-group bg-white-color d-flex flex-nowrap">
-                    <input type="text" class="form-control" [class.prevent-click]="isBusinessLicenseNumberReadOnly"
-                      formControlName="businessLicenseNumber" autocomplete="cc-name" [min]="0"
-                      (input)="publicService?.clearValidationErrors(formControls?.businessLicenseNumber)"
-                      [class.border-red]="formControls?.businessLicenseNumber?.invalid && (formControls?.businessLicenseNumber?.dirty || formControls?.businessLicenseNumber?.touched)"
-                      placeholder="{{'placeholders.businessLicenseNumber'|translate}}">
-                    <span class="input-group-text bg-white-color p-1" id="basic-addon1">
-                      <a *ngIf="isBusinessLicenseNumberReadOnly"
-                        class="edit-input d-flex justify-content-center align-items-center"
-                        (click)="editInput('businessLicenseNumber')">
-                        <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
-                            fill="#359A9C" />
-                        </svg>
-                      </a>
-                    </span>
-                  </div>
-                  <div class="mt-2">
-                    <ng-container
-                      *ngIf="formControls?.businessLicenseNumber?.invalid && (formControls?.businessLicenseNumber?.dirty || formControls?.businessLicenseNumber?.touched)">
-                      <ng-container *ngIf="formControls?.businessLicenseNumber?.errors?.['required']">
-                        <span class="text-danger fs-8">
-                          {{'validations.requiredField'|translate}}
-                        </span>
+                <div class="p-3">
+                  <div class="mb-3">
+                    <label for="businessLicense" class="mb-2">{{'labels.businessLicense'|translate}}</label>
+                    <div class="input-group bg-white-color d-flex flex-nowrap">
+                      <input type="text" class="form-control" [class.prevent-click]="isBusinessLicenseReadOnly"
+                        formControlName="businessLicense" autocomplete="cc-name" [min]="0"
+                        (input)="publicService?.clearValidationErrors(formControls?.businessLicense)"
+                        [class.border-red]="formControls?.businessLicense?.invalid && (formControls?.businessLicense?.dirty || formControls?.businessLicense?.touched)"
+                        placeholder="{{'placeholders.businessLicense'|translate}}">
+                      <span class="input-group-text bg-white-color p-1" id="basic-addon1">
+                        <a *ngIf="isBusinessLicenseReadOnly"
+                          class="edit-input d-flex justify-content-center align-items-center"
+                          (click)="editInput('businessLicense')">
+                          <svg width="22" height="20" viewBox="0 0 25 23" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                              fill="#359A9C" />
+                          </svg>
+                        </a>
+                      </span>
+                    </div>
+                    <div class="mt-2">
+                      <ng-container
+                        *ngIf="formControls?.businessLicense?.invalid && (formControls?.businessLicense?.dirty || formControls?.businessLicense?.touched)">
+                        <ng-container *ngIf="formControls?.businessLicense?.errors?.['required']">
+                          <span class="text-danger fs-8">
+                            {{'validations.requiredField'|translate}}
+                          </span>
+                        </ng-container>
                       </ng-container>
-                    </ng-container>
+                    </div>
+                  </div>
+                  <div>
+                    <label for="businessLicenseNumber" class="mb-2">
+                      {{'labels.businessLicenseNumber'|translate}}
+                    </label>
+                    <div class="input-group bg-white-color d-flex flex-nowrap">
+                      <input type="text" class="form-control" [class.prevent-click]="isBusinessLicenseNumberReadOnly"
+                        formControlName="businessLicenseNumber" autocomplete="cc-name" [min]="0"
+                        (input)="publicService?.clearValidationErrors(formControls?.businessLicenseNumber)"
+                        [class.border-red]="formControls?.businessLicenseNumber?.invalid && (formControls?.businessLicenseNumber?.dirty || formControls?.businessLicenseNumber?.touched)"
+                        placeholder="{{'placeholders.businessLicenseNumber'|translate}}">
+                      <span class="input-group-text bg-white-color p-1" id="basic-addon1">
+                        <a *ngIf="isBusinessLicenseNumberReadOnly"
+                          class="edit-input d-flex justify-content-center align-items-center"
+                          (click)="editInput('businessLicenseNumber')">
+                          <svg width="22" height="20" viewBox="0 0 25 23" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                              fill="#359A9C" />
+                          </svg>
+                        </a>
+                      </span>
+                    </div>
+                    <div class="mt-2">
+                      <ng-container
+                        *ngIf="formControls?.businessLicenseNumber?.invalid && (formControls?.businessLicenseNumber?.dirty || formControls?.businessLicenseNumber?.touched)">
+                        <ng-container *ngIf="formControls?.businessLicenseNumber?.errors?.['required']">
+                          <span class="text-danger fs-8">
+                            {{'validations.requiredField'|translate}}
+                          </span>
+                        </ng-container>
+                      </ng-container>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+          </ng-container>
+        </div>
+      </form>
+      <div class="row g-3 mt-4">
+        <div class="col-md-6">
+          <div class="view-record-items my-md-4 my-3 p-3">
+            <label for="certificateNumber" class="mb-2 fw-bold">
+              {{'labels.otherAttchmentDetails'|translate}}
+            </label>
+            <span class="p-input-icon-right select-loading d-block">
+              <span class="p-input-icon-right select-loading d-block">
+                <p-multiSelect appendTo="body" [options]="recordOtherItems" display="chip" [virtualScroll]="true"
+                  [showClear]="true" [virtualScrollItemSize]="38" [dropdownIcon]="'fas fa-caret-down'"
+                  scrollHeight="200px" defaultLabel="{{'placeholders.select'|translate}}" [showToggleAll]="false"
+                  [optionLabel]="'name'" [(ngModel)]="selectedItems" (onChange)="selectedValuesChanged($event)"
+                  (onClear)="selectedValuesChanged([])">
+                </p-multiSelect>
+              </span>
+            </span>
           </div>
         </div>
-      </ng-template>
-    </form>
+      </div>
+    </ng-template>
 
     <div class="mt-4">
       <ng-container *ngIf="tabType=='employees'">

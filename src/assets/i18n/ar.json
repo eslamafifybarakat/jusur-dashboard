@@ -249,6 +249,7 @@
     "joinNow": "انضم الأن"
   },
   "labels": {
+    "otherAttchmentDetails":"تفاصيل المرفقات الأخرى",
     "contractImage": "صورة العقد",
     "isActive":"تفعيل",
     "gender": "النوع",

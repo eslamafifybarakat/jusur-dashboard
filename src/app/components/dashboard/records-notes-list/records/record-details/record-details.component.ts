@@ -1,5 +1,6 @@
 // Modules
 import { CommonModule, Location } from '@angular/common';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { TranslateModule } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
 
@@ -23,12 +24,14 @@ import { RecordsService } from '../../../services/records.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, catchError, tap } from 'rxjs';
+import { keys } from 'src/app/shared/configs/localstorage-key';
 
 @Component({
   standalone: true,
   imports: [
     // Modules
     ReactiveFormsModule,
+    MultiSelectModule,
     TranslateModule,
     CalendarModule,
     CommonModule,
@@ -51,6 +54,7 @@ import { Subscription, catchError, tap } from 'rxjs';
 })
 export class RecordDetailsComponent {
   private subscriptions: Subscription[] = [];
+  currentLanguage: string | null = null;
   tabType: string;
 
   isRecordNameReadOnly: boolean = true;
@@ -85,6 +89,12 @@ export class RecordDetailsComponent {
   // check record number variable
   isLoadingCheckRecordNum: Boolean = false;
   recordNumNotAvailable: Boolean = false;
+
+  //Record Other Items
+  recordOtherItems: any = [];
+  selectedItems: any[] = [];
+  viewMedicalDetails: boolean = false;
+  viewFileDetails: boolean = false;
 
   modalForm = this.fb?.group(
     {
@@ -152,6 +162,30 @@ export class RecordDetailsComponent {
   }
 
   loadPageData(): void {
+    this.currentLanguage = window.localStorage.getItem(keys.language);
+    if (this.currentLanguage == 'ar') {
+      this.recordOtherItems = [
+        {
+          id: 1,
+          name: 'تفاصيل التأمين الطبي'
+        },
+        {
+          id: 2,
+          name: 'تفاصيل ملف مكتب العمل'
+        }
+      ];
+    } else {
+      this.recordOtherItems = [
+        {
+          id: 1,
+          name: 'Medical insurance details'
+        },
+        {
+          id: 2,
+          name: 'Labor office file details'
+        }
+      ];
+    }
     this.updateMetaTagsForSEO();
     this.activatedRoute.params.subscribe((params) => {
       this.recordId = params['id'];
@@ -169,6 +203,21 @@ export class RecordDetailsComponent {
       image: 'https://ik.imagekit.io/2cvha6t2l9/Carousel%20card.svg?updatedAt=1713227892043'
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
+  }
+
+  selectedValuesChanged(selectedValues: any): void {
+    this.viewMedicalDetails = false;
+    this.viewFileDetails = false;
+    this.selectedItems = selectedValues?.value;
+    this.selectedItems?.forEach(element => {
+      if (element?.id == 1) {
+        this.viewMedicalDetails = true;
+      }
+      if (element?.id == 2) {
+        this.viewFileDetails = true;
+      }
+    });
+    // Handle your logic here when the selection changes
   }
 
   showTabItems(item: any) {
@@ -208,10 +257,10 @@ export class RecordDetailsComponent {
   // End Upload Files
 
   patchValue(): void {
-    let convertedRecordDate: any = this.recordDetails?.expireDate ? new Date(this.recordDetails?.expireDate) : null;
-    let convertedLicenseDate: any = this.recordDetails?.licenseDate ? new Date(this.recordDetails?.licenseDate) : null;
-    let convertedCertificateDate: any = this.recordDetails?.certificateDate ? new Date(this.recordDetails?.certificateDate) : null;
-    let convertedMedicalInsuranceDate: any = this.recordDetails?.medicalInsuranceDate ? new Date(this.recordDetails?.medicalInsuranceDate) : null;
+    let convertedRecordDate: any = this.recordDetails?.expireDate && this.recordDetails?.expireDate !== 'null' ? new Date(this.recordDetails?.expireDate) : null;
+    let convertedLicenseDate: any = this.recordDetails?.licenseDate && this.recordDetails?.licenseDate !== 'null' ? new Date(this.recordDetails?.licenseDate) : null;
+    let convertedCertificateDate: any = this.recordDetails?.certificateDate && this.recordDetails?.certificateDate !== 'null' ? new Date(this.recordDetails?.certificateDate) : null;
+    let convertedMedicalInsuranceDate: any = this.recordDetails?.medicalInsuranceDate && this.recordDetails?.medicalInsuranceDate !== 'null' ? new Date(this.recordDetails?.medicalInsuranceDate) : null;
     let prepeareDetails = {
       registrationFile: 'assets/images/home/sidebar-bg.webp',
       licenseFile: this.recordDetails?.licenseFile || 'assets/images/home/sidebar-bg.webp',

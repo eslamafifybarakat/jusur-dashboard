@@ -248,6 +248,7 @@
     "joinNow": "Join now"
   },
   "labels": {
+    "otherAttchmentDetails": "Other Attachment Details",
     "contractImage": "Contract Image",
     "isActive": "Is Active",
     "currentPassword": "Current Password",
