@@ -125,6 +125,7 @@ export class RecordsComponent {
       { field: 'name', header: 'dashboard.tableHeader.recordName', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordName'), type: 'text' },
       { field: 'number', header: 'dashboard.tableHeader.recordNumber', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordNumber'), type: 'numeric' },
       { field: 'expireDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date' },
+      { field: 'remaningDaysLabel', header: 'dashboard.tableHeader.remaningDays', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.remaningDays'), type: 'status' },
       // { field: 'name', header: 'dashboard.tableHeader.recordName', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordName'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true },
       // { field: 'number', header: 'dashboard.tableHeader.recordNumber', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordNumber'), type: 'numeric', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true },
       // { field: 'expireDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true },
@@ -192,7 +193,16 @@ export class RecordsComponent {
   private processRecordsListResponse(response: any): void {
     if (response) {
       this.pagesCount = Math.ceil(this.recordsCount / this.perPage);
-      this.recordsList = response?.result?.items.filter((item: any) => !item.isDeleted);
+      this.recordsList = response?.result?.items;
+      this.recordsList?.forEach((element: any) => {
+        if (element?.remaningDays <= 30) {
+          element['remaningDaysLabel'] = element?.remaningDays + ' ' + this.publicService.translateTextFromJson('labels.remaningDays');
+          element['labelStatus'] = 'danger';
+        } else {
+          element['remaningDaysLabel'] = this.publicService.translateTextFromJson('labels.remaningMore30Days');
+          element['labelStatus'] = 'success';
+        }
+      });
       this.recordsCount = response?.result?.totalCount;
       // this.recordsList = response?.result?.items.filter((item: any) => !item.isDeleted);
       // this.publicService.recordsLength.next({ length: this.recordsList, isChanged: true });

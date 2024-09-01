@@ -121,6 +121,7 @@ export class VehiclesListComponent {
       { field: 'workPermitCard', header: 'dashboard.tableHeader.operatingCard', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.operatingCard'), type: 'text' },
       { field: 'expiryDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date' },
       { field: 'insuranceExpiryDate', header: 'dashboard.tableHeader.insuranceExpiryDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.insuranceExpiryDate'), type: 'date' },
+      { field: 'remaningDaysLabel', header: 'dashboard.tableHeader.remaningDays', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.remaningDays'), type: 'status' },
       { field: 'formImage', header: 'dashboard.tableHeader.formPhoto', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.formPhoto'), type: 'img' },
     ];
   }
@@ -184,9 +185,16 @@ export class VehiclesListComponent {
       this.publicService.VehicleLength.next(this.vehiclesCount);
       this.pagesCount = Math.ceil(this.vehiclesCount / this.perPage);
       this.vehiclesList = response?.result?.items;
-      this.vehiclesList.forEach((item: VehiclesListingItem) => {
+      this.vehiclesList.forEach((item: any) => {
         item['isLoadingActive'] = false;
         item['active'] = false;
+        if (item?.remaningDays <= 30) {
+          item['remaningDaysLabel'] = item?.remaningDays + ' ' + this.publicService.translateTextFromJson('labels.remaningDays');
+          item['labelStatus'] = 'danger';
+        } else {
+          item['remaningDaysLabel'] = this.publicService.translateTextFromJson('labels.remaningMore30Days');
+          item['labelStatus'] = 'success';
+        }
       });
       this.publicService.VehicleLength.next(this.vehiclesCount);
     } else {

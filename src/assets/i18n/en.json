@@ -113,6 +113,7 @@
       "settings": "Settings"
     },
     "tableHeader": {
+      "remaningDays":"Remaning Days",
       "time": "Time",
       "location": "Location",
       "address": "Address",
@@ -248,6 +249,8 @@
     "joinNow": "Join now"
   },
   "labels": {
+    "remaningMore30Days": "Remaing > 30 Days",
+    "remaningDays": "Remaning Days",
     "otherAttchmentDetails": "Other Attachment Details",
     "contractImage": "Contract Image",
     "isActive": "Is Active",

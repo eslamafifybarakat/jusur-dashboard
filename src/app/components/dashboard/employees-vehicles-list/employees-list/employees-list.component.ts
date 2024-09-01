@@ -136,6 +136,7 @@ export class EmployeesListComponent {
         title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'),
         type: 'date',
       },
+      { field: 'remaningDaysLabel', header: 'dashboard.tableHeader.remaningDays', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.remaningDays'), type: 'status' },
       {
         field: 'healthCertificate',
         header: 'dashboard.tableHeader.healthCertificate',
@@ -259,8 +260,14 @@ export class EmployeesListComponent {
       this.employeesCount = response?.result?.totalCount;
       this.pagesCount = Math.ceil(this.employeesCount / this.perPage);
       this.employeesList = response?.result?.items;
-
-      this.employeesList?.forEach((item: EmployeesListingItem) => {
+      this.employeesList?.forEach((item: any) => {
+        if (item?.remaningDays <= 30) {
+          item['remaningDaysLabel'] = item?.remaningDays + ' ' + this.publicService.translateTextFromJson('labels.remaningDays');
+          item['labelStatus'] = 'danger';
+        } else {
+          item['remaningDaysLabel'] = this.publicService.translateTextFromJson('labels.remaningMore30Days');
+          item['labelStatus'] = 'success';
+        }
         item['isLoadingActive'] = false;
         // Replace with a real PDF link
         item['contractImage'] = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';

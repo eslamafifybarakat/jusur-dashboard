@@ -114,6 +114,7 @@
     },
     "hello": "مرحبًا",
     "tableHeader": {
+      "remaningDays":"يوم متبقي",
       "email": "البريد الإلكتروني",
       "birthDate": "تاريخ الميلاد",
       "time": "الوقت",
@@ -249,6 +250,8 @@
     "joinNow": "انضم الأن"
   },
   "labels": {
+    "remaningMore30Days":"متبقي > 30 يوم",
+    "remaningDays":"يوم متبقي",
     "otherAttchmentDetails":"تفاصيل المرفقات الأخرى",
     "contractImage": "صورة العقد",
     "isActive":"تفعيل",
