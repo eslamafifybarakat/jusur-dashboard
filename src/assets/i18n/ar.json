@@ -153,6 +153,8 @@
       "customerSatisfactio": "رضا العملاء"
     },
     "customers": {
+      "nationalAddressDetails": "تفاصيل العنوان الوطني",
+      "licenseDataDetails": "تفاصيل التراخيص",
       "customers": "العملاء",
       "addCustomer": "إضافة عميل",
       "editCustomer": "تعديل العميل",
@@ -250,6 +252,7 @@
     "joinNow": "انضم الأن"
   },
   "labels": {
+    "number": "الرقم",
     "remaningMore30Days":"متبقي > 30 يوم",
     "remaningDays":"يوم متبقي",
     "otherAttchmentDetails":"تفاصيل المرفقات الأخرى",
@@ -307,6 +310,8 @@
     "currentPassword": "كلمة المرور الحالية"
   },
   "placeholders": {
+    "licenseDataNumber":"أدخل رقم الترخيص",
+    "nationalAddressDate":"أدخل تاريخ انتهاء الترخيص",
     "currentPassword": "أدخل كلمة المرور الحالية",
     "select": "اختر",
     "tellUs": "اخبرنا بما تريد...",

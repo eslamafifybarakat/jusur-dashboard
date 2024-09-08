@@ -155,7 +155,7 @@
                   </div>
                 </div>
                 <app-file-upload (uploadHandler)="uploadRecordFile($event)" [isEdit]="isEditRegistrationFile"
-                  [imageSrc]="registrationFile" [showPreview]="true"></app-file-upload>
+                  [imageSrc]="registrationFile?registrationFile:''" [showPreview]="true"></app-file-upload>
               </div>
             </div>
           </div>
@@ -471,6 +471,166 @@
                       <ng-container
                         *ngIf="formControls?.businessLicenseNumber?.invalid && (formControls?.businessLicenseNumber?.dirty || formControls?.businessLicenseNumber?.touched)">
                         <ng-container *ngIf="formControls?.businessLicenseNumber?.errors?.['required']">
+                          <span class="text-danger fs-8">
+                            {{'validations.requiredField'|translate}}
+                          </span>
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="viewLicenseDetails">
+            <div class="col-md-6">
+              <div class="global-card overflow-hidden">
+                <div class="bg-main-color header">
+                  <h6 class="fs-5-1 text-white-color mb-0">
+                    {{'dashboard.customers.licenseDataDetails'|translate}}
+                  </h6>
+                </div>
+                <div class="p-3">
+                  <div class="mb-3">
+                    <label for="licenseDataNumber" class="mb-2">{{'labels.number'|translate}}</label>
+                    <div class="input-group bg-white-color d-flex flex-nowrap">
+                      <input type="text" class="form-control" [class.prevent-click]="isLicenseDataNumberReadOnly"
+                        formControlName="licenseDataNumber" autocomplete="cc-name" [min]="0"
+                        (input)="publicService?.clearValidationErrors(formControls?.licenseDataNumber)"
+                        [class.border-red]="formControls?.licenseDataNumber?.invalid && (formControls?.licenseDataNumber?.dirty || formControls?.licenseDataNumber?.touched)"
+                        placeholder="{{'labels.number'|translate}}">
+                      <span class="input-group-text bg-white-color p-1" id="basic-addon1">
+                        <a *ngIf="isLicenseDataNumberReadOnly"
+                          class="edit-input d-flex justify-content-center align-items-center"
+                          (click)="editInput('licenseDataNumber')">
+                          <svg width="22" height="20" viewBox="0 0 25 23" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                              fill="#359A9C" />
+                          </svg>
+                        </a>
+                      </span>
+                    </div>
+                    <div class="mt-2">
+                      <ng-container
+                        *ngIf="formControls?.licenseDataNumber?.invalid && (formControls?.licenseDataNumber?.dirty || formControls?.licenseDataNumber?.touched)">
+                        <ng-container *ngIf="formControls?.licenseDataNumber?.errors?.['required']">
+                          <span class="text-danger fs-8">
+                            {{'validations.requiredField'|translate}}
+                          </span>
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <div class="">
+                    <label for="licenseEndDate" class="mb-2">{{'labels.endDate'|translate}}</label>
+                    <div
+                      [class.border-red]="formControls?.licenseEndDate?.invalid && (formControls?.licenseEndDate?.dirty || formControls?.licenseEndDate?.touched)">
+                      <div class="input-group bg-white-color d-flex flex-nowrap">
+                        <p-calendar [class.prevent-click]="isLicenseEndDateReadOnly" class="w-100"
+                          formControlName="licenseEndDate" appendTo="body" [showIcon]="true" inputId="icon"
+                          [readonlyInput]="true" [styleClass]="'date-picker'"
+                          placeholder="{{'placeholders.dateFormat'|translate}}" [showButtonBar]="true"
+                          [todayButtonStyleClass]="'d-none'" dateFormat="yy/mm/dd" hourFormat="12"></p-calendar>
+                        <span class="input-group-text bg-white-color p-1" id="basic-addon1">
+                          <a *ngIf="isLicenseEndDateReadOnly"
+                            class="edit-input d-flex justify-content-center align-items-center"
+                            (click)="editInput('licenseEndDate')">
+                            <svg width="22" height="20" viewBox="0 0 25 23" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                                fill="#359A9C" />
+                            </svg>
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="mt-2">
+                      <ng-container
+                        *ngIf="formControls?.licenseEndDate?.invalid && (formControls?.licenseEndDate?.dirty || formControls?.licenseEndDate?.touched)">
+                        <ng-container *ngIf="formControls?.licenseEndDate?.errors?.['required']">
+                          <span class="text-danger fs-8">
+                            {{'validations.requiredField'|translate}}
+                          </span>
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="viewNationalDetails">
+            <div class="col-md-6">
+              <div class="global-card overflow-hidden">
+                <div class="bg-main-color header">
+                  <h6 class="fs-5-1 text-white-color mb-0">
+                    {{'dashboard.customers.nationalAddressDetails'|translate}}
+                  </h6>
+                </div>
+                <div class="p-3">
+                  <div class="mb-3">
+                    <label for="nationalAddressNumber" class="mb-2">{{'labels.number'|translate}}</label>
+                    <div class="input-group bg-white-color d-flex flex-nowrap">
+                      <input type="text" class="form-control" [class.prevent-click]="isNationalAddressNumberReadOnly"
+                        formControlName="nationalAddressNumber" autocomplete="cc-name" [min]="0"
+                        (input)="publicService?.clearValidationErrors(formControls?.nationalAddressNumber)"
+                        [class.border-red]="formControls?.nationalAddressNumber?.invalid && (formControls?.nationalAddressNumber?.dirty || formControls?.nationalAddressNumber?.touched)"
+                        placeholder="{{'placeholders.nationalAddressDate'|translate}}">
+                      <span class="input-group-text bg-white-color p-1" id="basic-addon1">
+                        <a *ngIf="isNationalAddressNumberReadOnly"
+                          class="edit-input d-flex justify-content-center align-items-center"
+                          (click)="editInput('nationalAddressNumber')">
+                          <svg width="22" height="20" viewBox="0 0 25 23" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                              fill="#359A9C" />
+                          </svg>
+                        </a>
+                      </span>
+                    </div>
+                    <div class="mt-2">
+                      <ng-container
+                        *ngIf="formControls?.nationalAddressNumber?.invalid && (formControls?.nationalAddressNumber?.dirty || formControls?.nationalAddressNumber?.touched)">
+                        <ng-container *ngIf="formControls?.nationalAddressNumber?.errors?.['required']">
+                          <span class="text-danger fs-8">
+                            {{'validations.requiredField'|translate}}
+                          </span>
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <div class="">
+                    <label for="nationalAddressEndDate" class="mb-2">{{'labels.endDate'|translate}}</label>
+                    <div
+                      [class.border-red]="formControls?.nationalAddressEndDate?.invalid && (formControls?.nationalAddressEndDate?.dirty || formControls?.nationalAddressEndDate?.touched)">
+                      <div class="input-group bg-white-color d-flex flex-nowrap">
+                        <p-calendar [class.prevent-click]="isNationalAddressEndDateReadOnly" class="w-100"
+                          formControlName="nationalAddressEndDate" appendTo="body" [showIcon]="true" inputId="icon"
+                          [readonlyInput]="true" [styleClass]="'date-picker'"
+                          placeholder="{{'placeholders.dateFormat'|translate}}" [showButtonBar]="true"
+                          [todayButtonStyleClass]="'d-none'" dateFormat="yy/mm/dd" hourFormat="12"></p-calendar>
+                        <span class="input-group-text bg-white-color p-1" id="basic-addon1">
+                          <a *ngIf="isNationalAddressEndDateReadOnly"
+                            class="edit-input d-flex justify-content-center align-items-center"
+                            (click)="editInput('nationalAddressEndDate')">
+                            <svg width="22" height="20" viewBox="0 0 25 23" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                                fill="#359A9C" />
+                            </svg>
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="mt-2">
+                      <ng-container
+                        *ngIf="formControls?.nationalAddressEndDate?.invalid && (formControls?.nationalAddressEndDate?.dirty || formControls?.nationalAddressEndDate?.touched)">
+                        <ng-container *ngIf="formControls?.nationalAddressEndDate?.errors?.['required']">
                           <span class="text-danger fs-8">
                             {{'validations.requiredField'|translate}}
                           </span>

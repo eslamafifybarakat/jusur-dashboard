@@ -154,6 +154,8 @@
       "customerSatisfactio": "Customer Satisfactio"
     },
     "customers": {
+      "nationalAddressDetails": "National Address Details",
+      "licenseDataDetails": "License Details",
       "customers": "Clients",
       "addCustomer": "Add Client",
       "editCustomer": "Edit Client",
@@ -249,6 +251,7 @@
     "joinNow": "Join now"
   },
   "labels": {
+    "number": "Number",
     "remaningMore30Days": "Remaing > 30 Days",
     "remaningDays": "Remaning Days",
     "otherAttchmentDetails": "Other Attachment Details",
@@ -306,6 +309,8 @@
     "formPhoto": "form photo"
   },
   "placeholders": {
+    "licenseDataNumber":"Enter license number",
+    "nationalAddressDate":"Enter license end date",
     "currentPassword": "Enter current password",
     "select": "Select",
     "tellUs": "Tell us what you want...",
