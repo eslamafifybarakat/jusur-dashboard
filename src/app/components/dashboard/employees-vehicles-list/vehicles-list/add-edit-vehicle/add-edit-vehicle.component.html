@@ -108,7 +108,7 @@
             <label for="formPhoto" class="mb-2 required">{{'labels.formPhoto'|translate}}</label>
             <div class="global-card p-3">
               <p class="text-capitalize">{{'placeholders.formPhoto'|translate}}</p>
-              <app-file-upload (uploadHandler)="uploadFormPhoto($event)" [isEdit]="isEdit"
+              <app-file-upload (uploadHandler)="uploadFormPhoto($event)" [accept]="'.pdf, .png, .jpg, application/pdf, image/png, image/jpeg'" [isEdit]="isEdit"
                 [imageSrc]="formPhoto"></app-file-upload>
             </div>
             <div class="mt-2">
