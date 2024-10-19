@@ -154,13 +154,15 @@
                     </ng-container>
                   </div>
                 </div>
-                <app-file-upload (uploadHandler)="uploadRecordFile($event)" [isEdit]="isEditRegistrationFile"
-                  [imageSrc]="registrationFile?registrationFile:''" [showPreview]="true"></app-file-upload>
+                <app-file-upload (uploadHandler)="uploadRecordFile($event)"
+                  [accept]="'.pdf, .png, .jpg, application/pdf, image/png, image/jpeg'"
+                  [isEdit]="isEditRegistrationFile" [imageSrc]="registrationFile?registrationFile:''"
+                  [showPreview]="true"></app-file-upload>
               </div>
             </div>
           </div>
           <div class="col-md-6 col-0">
-
+            <img class="d-md-block d-none w-100 p-5" src="assets/images/dashboard/statistics/welcome-img.svg" alt="welcome">
           </div>
           <div class="col-md-6">
             <div class="global-card overflow-hidden h-100">
@@ -238,7 +240,8 @@
                     </ng-container>
                   </div>
                 </div>
-                <app-file-upload (uploadHandler)="uploadLicenseFile($event)" [isEdit]="isEditLicenseFile"
+                <app-file-upload (uploadHandler)="uploadLicenseFile($event)"
+                  [accept]="'.pdf, .png, .jpg, application/pdf, image/png, image/jpeg'" [isEdit]="isEditLicenseFile"
                   [imageSrc]="licenseFile" [showPreview]="true"></app-file-upload>
               </div>
             </div>
@@ -317,7 +320,8 @@
                     </ng-container>
                   </div>
                 </div>
-                <app-file-upload (uploadHandler)="uploadCertificateFile($event)" [isEdit]="isEditCertificateFile"
+                <app-file-upload (uploadHandler)="uploadCertificateFile($event)"
+                  [accept]="'.pdf, .png, .jpg, application/pdf, image/png, image/jpeg'" [isEdit]="isEditCertificateFile"
                   [imageSrc]="certificateFile" [showPreview]="true"></app-file-upload>
               </div>
             </div>

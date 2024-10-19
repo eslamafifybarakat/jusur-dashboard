@@ -145,7 +145,7 @@
             <label for="residencePhoto" class="mb-2 required">{{'labels.residencePhoto'|translate}}</label>
             <div class="global-card p-3">
               <!-- <p class="text-capitalize">{{'placeholders.residencePhoto'|translate}}</p> -->
-              <app-file-upload (uploadHandler)="uploadResidencePhoto($event)" [isEdit]="isEdit"
+              <app-file-upload (uploadHandler)="uploadResidencePhoto($event)" [accept]="'.pdf, .png, .jpg, application/pdf, image/png, image/jpeg'" [isEdit]="isEdit"
                 [imageSrc]="residencePhoto"></app-file-upload>
             </div>
             <div class="mt-2">
@@ -164,7 +164,7 @@
           <div class="mb-3">
             <label for="contractImage" class="mb-2 required">{{'labels.contractImage'|translate}}</label>
             <div class="global-card p-3">
-              <app-file-upload (uploadHandler)="uploadContractImage($event)" [isEdit]="isEdit"
+              <app-file-upload (uploadHandler)="uploadContractImage($event)" [accept]="'.pdf, .png, .jpg, application/pdf, image/png, image/jpeg'" [isEdit]="isEdit"
                 [imageSrc]="contractImage"></app-file-upload>
             </div>
             <div class="mt-2">

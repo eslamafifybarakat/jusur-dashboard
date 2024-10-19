@@ -18,7 +18,7 @@ export class FileUploadComponent implements OnInit {
   @Input() showPreview: boolean = false;
   @Input() accept: string = 'image/*';
   @Input() imageSrc: string = '';
-  @Input() supports: string = 'PNG, JPG, GIF up to 10MB';
+  @Input() supports: string = 'PDF, PNG, JPG,up to 4MB';
 
   @Output() uploadHandler: EventEmitter<any> = new EventEmitter();
 

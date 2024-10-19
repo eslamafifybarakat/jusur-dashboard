@@ -4,14 +4,12 @@
   <ng-container *ngIf="showFile && !isLoading">
     <div class="col-sm-6 p-0">
       <div class="d-flex align-items-center gap-3 p-2">
-        <ng-container *ngIf="name?.includes('xlsx')||name?.includes('csv')">
-          <img class="fit-object-cover" src="assets/image/icons/xls.svg" />
-        </ng-container>
         <ng-container *ngIf="type?.includes('pdf')">
-          <img class="fit-object-cover" src="assets/image/icons/pdf.svg" />
+          <img class="fit-object-cover loaded" src="assets/images/icons/pdf.svg" />
         </ng-container>
-        <ng-container *ngIf="name?.includes('doc')">
-          <img class="fit-object-cover" src="assets/image/icons/doc.svg" />
+        <ng-container
+          *ngIf="type?.includes('doc')||type?.includes('document')||type?.includes('application/msword')||name?.includes('.doc')">
+          <img class="fit-object-cover loaded" src="assets/images/icons/word.png" />
         </ng-container>
         <ng-container *ngIf="type?.includes('image')">
           <p-image class="shadow" [src]="imageSrc" [previewImageSrc]="imageSrc" alt="Image" width="70"
