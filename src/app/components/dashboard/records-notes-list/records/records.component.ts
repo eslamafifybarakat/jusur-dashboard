@@ -195,12 +195,34 @@ export class RecordsComponent {
       this.pagesCount = Math.ceil(this.recordsCount / this.perPage);
       this.recordsList = response?.result?.items;
       this.recordsList?.forEach((element: any) => {
-        if (element?.remaningDays <= 30) {
-          element['remaningDaysLabel'] = element?.remaningDays + ' ' + this.publicService.translateTextFromJson('labels.remaningDays');
-          element['labelStatus'] = 'danger';
+        if (element?.expireDate) {
+          // Parse the expire date (assuming element.expireDate is in a valid date string format)
+          const expireDate = new Date(element.expireDate);
+          const today = new Date();
+
+          // Calculate the difference in milliseconds and convert it to days
+          const timeDifference = expireDate.getTime() - today.getTime();
+          const remainingDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+
+          element['remaningDays'] = remainingDays;
+
+          if (remainingDays <= 30) {
+            if (remainingDays >= 0) {
+              element['remaningDaysLabel'] =
+                `${remainingDays} ${this.publicService.translateTextFromJson('labels.remaningDays')}`;
+              element['labelStatus'] = 'danger';
+            } else {
+              element['remaningDaysLabel'] =
+                `${remainingDays} ${this.publicService.translateTextFromJson('labels.pastDays')}`;
+              element['labelStatus'] = 'danger';
+            }
+          } else {
+            element['remaningDaysLabel'] =
+              this.publicService.translateTextFromJson('labels.remaningMore30Days');
+            element['labelStatus'] = 'success';
+          }
         } else {
-          element['remaningDaysLabel'] = this.publicService.translateTextFromJson('labels.remaningMore30Days');
-          element['labelStatus'] = 'success';
+          console.warn('Expire date is missing for:', element);
         }
       });
       this.recordsCount = response?.result?.totalCount;

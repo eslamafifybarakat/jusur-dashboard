@@ -185,15 +185,35 @@ export class VehiclesListComponent {
       this.publicService.VehicleLength.next(this.vehiclesCount);
       this.pagesCount = Math.ceil(this.vehiclesCount / this.perPage);
       this.vehiclesList = response?.result?.items;
-      this.vehiclesList.forEach((item: any) => {
-        item['isLoadingActive'] = false;
-        item['active'] = false;
-        if (item?.remaningDays <= 30) {
-          item['remaningDaysLabel'] = item?.remaningDays + ' ' + this.publicService.translateTextFromJson('labels.remaningDays');
-          item['labelStatus'] = 'danger';
+      this.vehiclesList?.forEach((element: any) => {
+        if (element?.expiryDate) {
+          // Parse the expire date (assuming element.expireDate is in a valid date string format)
+          const expireDate = new Date(element.expiryDate);
+          const today = new Date();
+
+          // Calculate the difference in milliseconds and convert it to days
+          const timeDifference = expireDate.getTime() - today.getTime();
+          const remainingDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+
+          element['remaningDays'] = remainingDays;
+
+          if (remainingDays <= 30) {
+            if (remainingDays >= 0) {
+              element['remaningDaysLabel'] =
+                `${remainingDays} ${this.publicService.translateTextFromJson('labels.remaningDays')}`;
+              element['labelStatus'] = 'danger';
+            } else {
+              element['remaningDaysLabel'] =
+                `${remainingDays} ${this.publicService.translateTextFromJson('labels.pastDays')}`;
+              element['labelStatus'] = 'danger';
+            }
+          } else {
+            element['remaningDaysLabel'] =
+              this.publicService.translateTextFromJson('labels.remaningMore30Days');
+            element['labelStatus'] = 'success';
+          }
         } else {
-          item['remaningDaysLabel'] = this.publicService.translateTextFromJson('labels.remaningMore30Days');
-          item['labelStatus'] = 'success';
+          console.warn('Expire date is missing for:', element);
         }
       });
       this.publicService.VehicleLength.next(this.vehiclesCount);
