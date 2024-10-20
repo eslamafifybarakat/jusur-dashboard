@@ -260,20 +260,42 @@ export class EmployeesListComponent {
       this.employeesCount = response?.result?.totalCount;
       this.pagesCount = Math.ceil(this.employeesCount / this.perPage);
       this.employeesList = response?.result?.items;
-      this.employeesList?.forEach((item: any) => {
-        if (item?.remaningDays <= 30) {
-          item['remaningDaysLabel'] = item?.remaningDays + ' ' + this.publicService.translateTextFromJson('labels.remaningDays');
-          item['labelStatus'] = 'danger';
+      this.employeesList?.forEach((element: any) => {
+        if (element?.expiryDate) {
+          // Parse the expire date (assuming element.expireDate is in a valid date string format)
+          const expireDate = new Date(element.expiryDate);
+          const today = new Date();
+
+          // Calculate the difference in milliseconds and convert it to days
+          const timeDifference = expireDate.getTime() - today.getTime();
+          const remainingDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+
+          element['remaningDays'] = remainingDays;
+
+          if (remainingDays <= 30) {
+            if (remainingDays >= 0) {
+              element['remaningDaysLabel'] =
+                `${remainingDays} ${this.publicService.translateTextFromJson('labels.remaningDays')}`;
+              element['labelStatus'] = 'danger';
+            } else {
+              element['remaningDaysLabel'] =
+                `${remainingDays} ${this.publicService.translateTextFromJson('labels.pastDays')}`;
+              element['labelStatus'] = 'danger';
+            }
+          } else {
+            element['remaningDaysLabel'] =
+              this.publicService.translateTextFromJson('labels.remaningMore30Days');
+            element['labelStatus'] = 'success';
+          }
         } else {
-          item['remaningDaysLabel'] = this.publicService.translateTextFromJson('labels.remaningMore30Days');
-          item['labelStatus'] = 'success';
+          console.warn('Expire date is missing for:', element);
         }
-        item['isLoadingActive'] = false;
+        element['isLoadingActive'] = false;
         // Replace with a real PDF link
-        item['contractImage'] = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
+        element['contractImage'] = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
         // Replace with a real Word file link
         // item['contractImage'] = 'https://file-examples.com/wp-content/uploads/2017/02/file-sample_100kB.doc';
-        item['active'] = false;
+        element['active'] = false;
       });
       this.publicService.employeesLength.next(this.employeesCount);
     } else {
