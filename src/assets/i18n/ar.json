@@ -302,6 +302,7 @@
     "recordName": "اسم السجل",
     "recordNumber": "رقم السجل",
     "endDate": "تاريخ الإنتهاء",
+    "licenseType":"نوع الترخيص",
     "residencyNumber": "رقم الإقامة",
     "healthCertificate": "الشهادة الصحية",
     "residencePhoto": "صورة الإقامة",
@@ -356,7 +357,8 @@
     "operatingCard": "أدخل كارت التشغيل",
     "insuranceExpiryDate": "أدخل تاريخ إنتهاء التأمين",
     "formPhoto": "أدخل صورة الإستمارة",
-    "dateFormat": "شهر / يوم / سنه"
+    "dateFormat": "شهر / يوم / سنه",
+    "licenseType":"نوع الترخيص"
   },
   "validations": {
     "emailRequired": "البريد الإلكتروني مطلوب",

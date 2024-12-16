@@ -31,8 +31,25 @@
     border-radius: var(--border-radius-card);
   }
 }
+.expire-border{
+  border: 1px solid #dc3545;
+  border-radius: var(--border-input-radius);
+  overflow: hidden;
+}
 
 :host::ng-deep {
+  .text-danger {
+    input{
+    color: rgba(var(--bs-danger-rgb), var(--bs-text-opacity))  !important;
+  }
+    .p-datepicker-trigger {
+      svg, i { 
+        color: rgba(var(--bs-danger-rgb), var(--bs-text-opacity)) !important; 
+        fill: rgba(var(--bs-danger-rgb), var(--bs-text-opacity)) !important;  
+      }
+    }
+  }
+
 
   /* Component SCSS or global styles.scss */
   .p-multiselect .p-multiselect-token .p-multiselect-token-icon {
@@ -43,6 +60,17 @@
   #edit-client {
     .input-group {
 
+      .p-dropdown{
+        height: 3rem !important;
+        border: 1px solid var(--second-border-color) !important;
+        border-right: 0 !important;
+        border-radius: var(--border-input-radius) 0 0 var(--border-input-radius);
+
+        overflow: hidden;
+        .p-dropdown-label{
+          color: #7d7b7baa;
+        }
+      }
       .form-control,
       .p-calendar-w-btn .p-inputtext {
         height: 3rem !important;
@@ -70,6 +98,7 @@
       }
 
       &:dir(rtl) {
+        
         .form-control {
           border-right: 1px solid var(--second-border-color);
           border-left: 0;
@@ -80,6 +109,12 @@
           border-left: 1px solid var(--second-border-color);
           border-right: 0;
           border-radius: var(--border-input-radius) 0 0 var(--border-input-radius);
+        }
+        .p-dropdown{
+          border-right: 1px solid var(--second-border-color) !important;
+          border-left: 0 !important;
+          border-radius: 0 var(--border-input-radius) var(--border-input-radius) 0;
+          overflow: hidden;
         }
       }
     }

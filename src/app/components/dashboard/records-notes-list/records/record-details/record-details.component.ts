@@ -1,7 +1,7 @@
 // Modules
 import { CommonModule, Location } from '@angular/common';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
 
 // Components
@@ -25,6 +25,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, catchError, tap } from 'rxjs';
 import { keys } from 'src/app/shared/configs/localstorage-key';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   standalone: true,
@@ -36,6 +37,7 @@ import { keys } from 'src/app/shared/configs/localstorage-key';
     CalendarModule,
     CommonModule,
     FormsModule,
+    DropdownModule,
 
     // Components
     EmployeesVehiclesListComponent,
@@ -71,6 +73,8 @@ export class RecordDetailsComponent {
 
   isLicenseDataNumberReadOnly: boolean = true;
   isLicenseEndDateReadOnly: boolean = true;
+  isLicenseTypeReadOnly: boolean = true;
+
 
   isNationalAddressNumberReadOnly: boolean = true;
   isNationalAddressEndDateReadOnly: boolean = true;
@@ -92,6 +96,23 @@ export class RecordDetailsComponent {
   isEditCertificateFile: boolean = false;
   certificateFile: string = '';
 
+  // Medical File variable
+  isEditMedicalFile: boolean = false;
+  medicalFile: string = '';
+
+  // Labor File variable
+  isEditLaborFile: boolean = false;
+  laborFile: string = '';
+
+  // license Data File variable
+  isEditLicenseDataFile: boolean = false;
+  licenseDataFile: string = '';
+  licenseTypes:any;
+
+  // National Address Data File variable
+  isEditNationalAddressFile: boolean = false;
+  nationalAddressFile: string = '';
+  
   // check record number variable
   isLoadingCheckRecordNum: Boolean = false;
   recordNumNotAvailable: Boolean = false;
@@ -149,6 +170,9 @@ export class RecordDetailsComponent {
       licenseEndDate: [null, {
         validators: []
       }],
+      licenseType:['', {
+        validators: [], updateOn: "blur"
+      }],
 
       nationalAddressNumber: ['', {
         validators: [], updateOn: "blur"
@@ -173,7 +197,8 @@ export class RecordDetailsComponent {
     private cdr: ChangeDetectorRef,
     private location: Location,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService
   ) {
     localizationLanguageService.updatePathAccordingLang();
   }
@@ -300,6 +325,20 @@ export class RecordDetailsComponent {
   uploadCertificateFile(event: any): void {
     this.certificateFile = event?.file;
   }
+  uploadMedicalFile(event: any): void{
+    this.medicalFile = event?.file;
+  }
+  uploadLaborFile(event: any): void{
+    this.laborFile=event?.file;
+  }
+  uploadLicenseDataFile(event: any): void{
+    this.licenseDataFile=event?.file;
+    console.log(this.licenseDataFile)
+  }
+  uploadNationalAddressFile(event: any): void{
+    this.nationalAddressFile=event?.file;
+    console.log(this.nationalAddressFile)
+  }
   // End Upload Files
 
   patchValue(): void {
@@ -312,7 +351,11 @@ export class RecordDetailsComponent {
     let prepeareDetails = {
       registrationFile: 'assets/images/home/sidebar-bg.webp',
       licenseFile: this.recordDetails?.licenseFile || 'assets/images/home/sidebar-bg.webp',
-      certificateFile: this.recordDetails?.certificateFile
+      certificateFile: this.recordDetails?.certificateFile,
+      medicalFile: this.recordDetails?.medicalFile,
+      laborFile: this.recordDetails?.laborFile,
+      licenseDataFile: this.recordDetails?.licenseDataFile,
+      nationalAddressFile: this.recordDetails?.nationalAddressFile
     };
     this.certificateFile = this.recordDetails?.certificateFile,
       this.certificateFile ? this.isEditCertificateFile = true : '';
@@ -331,16 +374,33 @@ export class RecordDetailsComponent {
 
       licenseDataNumber: this.recordDetails?.licenseDataNumber,
       licenseEndDate: convertedLicenseEndDate,
+      licenseType:this.recordDetails?.licenseType,
 
       nationalAddressNumber: this.recordDetails?.nationalAddressNumber,
       nationalAddressEndDate: convertedNationalAddressEndDate,
     })
+    this.medicalFile=this.recordDetails?.medicalFile,
+    this.medicalFile ? this.isEditMedicalFile =true : '';
+    this.laborFile=this.recordDetails?.laborFile,
+    this.laborFile ? this.isEditLaborFile =true : '';
+    this.licenseDataFile=this.recordDetails?.licenseDataFile,
+    this.licenseDataFile ? this.isEditLicenseDataFile =true : '';
+    this.nationalAddressFile=this.recordDetails?.nationalAddressFile,
+    this.nationalAddressFile ? this.isEditNationalAddressFile =true : '';
     this.recordDetails?.registrationFile ? this.isEditRegistrationFile = true : '';
     this.registrationFile = this.recordDetails?.registrationFile;
     this.recordDetails?.licenseFile ? this.isEditLicenseFile = true : '';
     this.licenseFile = this.recordDetails?.licenseFile;
     this.recordDetails?.certificateFile ? this.isEditCertificateFile = true : '';
     this.certificateFile = this.recordDetails?.certificateFile;
+    this.recordDetails?.medicalFile ? this.isEditMedicalFile = true : '';
+    this.medicalFile = this.recordDetails?.medicalFile;
+    this.recordDetails?.laborFile ? this.isEditLaborFile = true : '';
+    this.laborFile = this.recordDetails?.laborFile;
+    this.recordDetails?.licenseDataFile ? this.isEditLicenseDataFile = true : '';
+    this.licenseDataFile = this.recordDetails?.licenseDataFile;
+    this.recordDetails?.nationalAddressFile ? this.isEditNationalAddressFile = true : '';
+    this.nationalAddressFile = this.recordDetails?.nationalAddressFile;
   }
   editInput(name: string): void {
     if (name == 'recordName') {
@@ -384,6 +444,9 @@ export class RecordDetailsComponent {
     }
     if (name == 'licenseEndDate') {
       this.isLicenseEndDateReadOnly = false;
+    }
+    if (name == 'licenseType') {
+      this.isLicenseTypeReadOnly = false;
     }
     if (name == 'nationalAddressNumber') {
       this.isNationalAddressNumberReadOnly = false;
@@ -462,15 +525,21 @@ export class RecordDetailsComponent {
     formData.append('registrationFile', (this.registrationFile && this.registrationFile !== null && this.registrationFile !== 'null' && this.registrationFile !== undefined && this.registrationFile !== 'undefined') ? this.registrationFile : null);
     formData.append('licenseFile', (this.licenseFile && this.licenseFile !== null && this.licenseFile !== 'null' && this.licenseFile !== undefined && this.licenseFile !== 'undefined') ? this.licenseFile : null);
     formData.append('certificateFile', (this.certificateFile && this.certificateFile !== null && this.certificateFile !== 'null' && this.certificateFile !== undefined && this.certificateFile !== 'undefined') ? this.certificateFile : null);
+    // formData.append('medicalFile', (this.medicalFile && this.medicalFile !== null && this.medicalFile !== 'null' && this.medicalFile !== undefined && this.medicalFile !== 'undefined') ? this.medicalFile : null);
+    // formData.append('laborFile', (this.laborFile && this.laborFile !== null && this.laborFile !== 'null' && this.laborFile !== undefined && this.laborFile !== 'undefined') ? this.laborFile : null);
+    // formData.append('licenseDataFile', (this.licenseDataFile && this.licenseDataFile !== null && this.licenseDataFile !== 'null' && this.licenseDataFile !== undefined && this.licenseDataFile !== 'undefined') ? this.licenseDataFile : null);
+    // formData.append('nationalAddressFile', (this.nationalAddressFile && this.nationalAddressFile !== null && this.nationalAddressFile !== 'null' && this.nationalAddressFile !== undefined && this.nationalAddressFile !== 'undefined') ? this.nationalAddressFile : null);
 
     formData.append('licenseDataNumber', this.modalForm?.value?.licenseDataNumber);
     formData.append('licenseEndDate', adjustedLicenseEndDate ? adjustedLicenseEndDate.toISOString() : null);
+    // formData.append('licenseType',this.modalForm?.value?.licenseType)
 
     formData.append('nationalAddressNumber', this.modalForm?.value?.nationalAddressNumber);
     formData.append('nationalAddressEndDate', adjustedNationalAddressEndDate ? adjustedNationalAddressEndDate.toISOString() : null);
 
     return formData;
   }
+
   private editRecord(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);
     let subscribeEditRecord = this.recordsService?.editRecord(formData, this.recordId)?.pipe(
@@ -490,6 +559,14 @@ export class RecordDetailsComponent {
   }
   // End Submit Edit Record
 
+    
+  // Checks if the form control has a value different from the placeholder.
+  hasValue(controlName: string): boolean {
+    const control = this.formControls?.[controlName];
+    const placeholder = this.translate.instant('placeholders.dateFormat'); 
+    return control?.value && control.value !== placeholder;
+  }
+  
   cancel(): void {
     this.patchValue();
     this.location.back();

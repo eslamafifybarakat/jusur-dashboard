@@ -457,6 +457,7 @@ body:dir(rtl) {
 .border-red {
   border: 1px solid #dc3545 !important;
   border-radius: var(--border-input-radius);
+  overflow: hidden;
   .ng-select-container {
     border: 0 !important;
   }

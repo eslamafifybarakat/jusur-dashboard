@@ -1,7 +1,7 @@
 <div class="uploader row w-100 d-flex justify-content-center align-items-center m-auto"
   [class.justify-content-between]="showFile">
   <!-- Show Img -->
-  <ng-container *ngIf="showFile && !isLoading">
+  <ng-container *ngIf="showFile && !isLoading && name !='null'">
     <div class="col-sm-6 p-0">
       <div class="d-flex align-items-center gap-3 p-2">
         <ng-container *ngIf="type?.includes('pdf')">
@@ -11,7 +11,7 @@
           *ngIf="type?.includes('doc')||type?.includes('document')||type?.includes('application/msword')||name?.includes('.doc')">
           <img class="fit-object-cover loaded" src="assets/images/icons/word.png" />
         </ng-container>
-        <ng-container *ngIf="type?.includes('image')">
+        <ng-container *ngIf="type?.includes('image') && !type?.includes('pdf') && !type?.includes('doc') && !type?.includes('document') && !type?.includes('application/msword') &&! name?.includes('.doc')">
           <p-image class="shadow" [src]="imageSrc" [previewImageSrc]="imageSrc" alt="Image" width="70"
             [preview]="showPreview" (onImageError)="onImageError(imageSrc)"></p-image>
         </ng-container>
@@ -61,7 +61,7 @@
     </div>
   </ng-container>
   <!-- Upload Img  -->
-  <ng-container *ngIf="!showFile">
+  <ng-container *ngIf="!showFile || name=='null'">
     <label class="w-100 d-flex align-items-center justify-content-center" ondragover="return false;"
       [class.loaded]="loaded" (dragenter)="handleDragEnter()" (dragleave)="handleDragLeave()"
       (drop)="handleDrop($event)">

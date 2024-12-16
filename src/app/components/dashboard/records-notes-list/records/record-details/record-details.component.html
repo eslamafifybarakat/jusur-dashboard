@@ -117,13 +117,13 @@
                   </div>
                 </div>
                 <div class="mb-4">
-                  <label for="recordDate" class="mb-2 required">
+                  <label for="recordDate" class="mb-2 required" [ngClass]="{ 'text-danger': hasValue('recordDate') }">
                     {{'labels.recordDate'|translate}}
                   </label>
                   <div
                     [class.border-red]="formControls?.recordDate?.invalid && (formControls?.recordDate?.dirty || formControls?.recordDate?.touched)"
                     class="recordDate">
-                    <div class="input-group bg-white-color d-flex flex-nowrap">
+                    <div class="input-group bg-white-color d-flex flex-nowrap" [ngClass]="{ 'expire-border': hasValue('recordDate'), 'text-danger': hasValue('recordDate') }">
                       <p-calendar [class.prevent-click]="isRecordDateReadOnly" class="w-100"
                         formControlName="recordDate" appendTo="body" [showIcon]="true" inputId="icon"
                         [readonlyInput]="true" [styleClass]="'date-picker'"
@@ -162,7 +162,8 @@
             </div>
           </div>
           <div class="col-md-6 col-0">
-            <img class="d-md-block d-none w-100 p-5" src="assets/images/dashboard/statistics/welcome-img.svg" alt="welcome">
+            <img class="d-md-block d-none w-100 p-5" src="assets/images/dashboard/statistics/welcome-img.svg"
+              alt="welcome">
           </div>
           <div class="col-md-6">
             <div class="global-card overflow-hidden h-100">
@@ -206,10 +207,10 @@
                   </div>
                 </div>
                 <div class="mb-4">
-                  <label for="licenseDate" class="mb-2">{{'labels.licenseDate'|translate}}</label>
+                  <label for="licenseDate" class="mb-2" [ngClass]="{ 'text-danger': hasValue('licenseDate')}">{{'labels.licenseDate'|translate}}</label>
                   <div
                     [class.border-red]="formControls?.licenseDate?.invalid && (formControls?.licenseDate?.dirty || formControls?.licenseDate?.touched)">
-                    <div class="input-group bg-white-color d-flex flex-nowrap">
+                    <div class="input-group bg-white-color d-flex flex-nowrap" [ngClass]="{ 'expire-border': hasValue('licenseDate'), 'text-danger': hasValue('licenseDate') }">
                       <p-calendar [class.prevent-click]="isLicenseDateReadOnly" class="w-100"
                         formControlName="licenseDate" appendTo="body" [showIcon]="true" inputId="icon"
                         [readonlyInput]="true" [styleClass]="'date-picker'"
@@ -286,10 +287,10 @@
                   </div>
                 </div>
                 <div class="mb-4">
-                  <label for="certificateDate" class="mb-2">{{'labels.certificateDate'|translate}}</label>
+                  <label for="certificateDate" class="mb-2" [ngClass]="{ 'text-danger': hasValue('certificateDate')}">{{'labels.certificateDate'|translate}}</label>
                   <div
                     [class.border-red]="formControls?.certificateDate?.invalid && (formControls?.certificateDate?.dirty || formControls?.certificateDate?.touched)">
-                    <div class="input-group bg-white-color d-flex flex-nowrap">
+                    <div class="input-group bg-white-color d-flex flex-nowrap" [ngClass]="{ 'expire-border': hasValue('certificateDate'), 'text-danger': hasValue('certificateDate') }">
                       <p-calendar [class.prevent-click]="isCertificateDateReadOnly" class="w-100"
                         formControlName="certificateDate" appendTo="body" [showIcon]="true" inputId="icon"
                         [readonlyInput]="true" [styleClass]="'date-picker'"
@@ -369,10 +370,10 @@
                     </div>
                   </div>
                   <div class="">
-                    <label for="medicalInsuranceDate" class="mb-2">{{'labels.medicalInsuranceDate'|translate}}</label>
+                    <label for="medicalInsuranceDate" class="mb-2" [ngClass]="{ 'text-danger': hasValue('medicalInsuranceDate')}">{{'labels.medicalInsuranceDate'|translate}}</label>
                     <div
                       [class.border-red]="formControls?.medicalInsuranceDate?.invalid && (formControls?.medicalInsuranceDate?.dirty || formControls?.medicalInsuranceDate?.touched)">
-                      <div class="input-group bg-white-color d-flex flex-nowrap">
+                      <div class="input-group bg-white-color d-flex flex-nowrap" [ngClass]="{ 'expire-border': hasValue('medicalInsuranceDate'), 'text-danger': hasValue('medicalInsuranceDate') }">
                         <p-calendar [class.prevent-click]="isMedicalInsuranceDateReadOnly" class="w-100"
                           formControlName="medicalInsuranceDate" appendTo="body" [showIcon]="true" inputId="icon"
                           [readonlyInput]="true" [styleClass]="'date-picker'"
@@ -403,6 +404,9 @@
                       </ng-container>
                     </div>
                   </div>
+                  <app-file-upload (uploadHandler)="uploadMedicalFile($event)"
+                    [accept]="'.pdf, .png, .jpg, application/pdf, image/png, image/jpeg'" [isEdit]="isEditMedicalFile"
+                    [imageSrc]="medicalFile" [showPreview]="true"></app-file-upload>
                 </div>
               </div>
             </div>
@@ -482,6 +486,9 @@
                       </ng-container>
                     </div>
                   </div>
+                  <app-file-upload (uploadHandler)="uploadLaborFile($event)"
+                    [accept]="'.pdf, .png, .jpg, application/pdf, image/png, image/jpeg'" [isEdit]="isEditLaborFile"
+                    [imageSrc]="laborFile" [showPreview]="true"></app-file-upload>
                 </div>
               </div>
             </div>
@@ -528,10 +535,10 @@
                     </div>
                   </div>
                   <div class="">
-                    <label for="licenseEndDate" class="mb-2">{{'labels.endDate'|translate}}</label>
+                    <label for="licenseEndDate" class="mb-2" [ngClass]="{ 'text-danger': hasValue('licenseEndDate')}">{{'labels.endDate'|translate}}</label>
                     <div
                       [class.border-red]="formControls?.licenseEndDate?.invalid && (formControls?.licenseEndDate?.dirty || formControls?.licenseEndDate?.touched)">
-                      <div class="input-group bg-white-color d-flex flex-nowrap">
+                      <div class="input-group bg-white-color d-flex flex-nowrap" [ngClass]="{ 'expire-border': hasValue('licenseEndDate'), 'text-danger': hasValue('licenseEndDate') }">
                         <p-calendar [class.prevent-click]="isLicenseEndDateReadOnly" class="w-100"
                           formControlName="licenseEndDate" appendTo="body" [showIcon]="true" inputId="icon"
                           [readonlyInput]="true" [styleClass]="'date-picker'"
@@ -562,6 +569,34 @@
                       </ng-container>
                     </div>
                   </div>
+                  <div class="mb-2">
+                    <label for="licenseType" class="mb-2" >{{'labels.licenseType'|translate}}</label>
+                    <div
+                      [class.border-red]="formControls?.licenseType?.invalid && (formControls?.licenseType?.dirty || formControls?.licenseType?.touched)">
+                      <div class="input-group bg-white-color d-flex flex-nowrap">
+                      <input type="text" class="form-control" [class.prevent-click]="isLicenseTypeReadOnly"
+                      formControlName="licenseType" autocomplete="cc-name" [min]="0"
+                      (input)="publicService?.clearValidationErrors(formControls?.licenseType)"
+                      placeholder="{{'placeholders.licenseType'|translate}}">
+                      <span class="input-group-text bg-white-color p-1" id="basic-addon1">
+                        <a *ngIf="isLicenseTypeReadOnly"
+                          class="edit-input d-flex justify-content-center align-items-center"
+                          (click)="editInput('licenseType')">
+                          <svg width="22" height="20" viewBox="0 0 25 23" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M0.6875 20.9375H24.3125V22.625H0.6875V20.9375ZM20.4312 6.59375C21.1062 5.91875 21.1062 4.90625 20.4312 4.23125L17.3937 1.19375C16.7188 0.51875 15.7063 0.51875 15.0312 1.19375L2.375 13.85V19.25H7.775L20.4312 6.59375ZM16.2125 2.375L19.25 5.4125L16.7188 7.94375L13.6812 4.90625L16.2125 2.375ZM4.0625 17.5625V14.525L12.5 6.0875L15.5375 9.125L7.1 17.5625H4.0625Z"
+                              fill="#359A9C" />
+                          </svg>
+                        </a>
+                      </span>
+                      </div>
+                    </div>
+                  </div>
+                  <app-file-upload (uploadHandler)="uploadLicenseDataFile($event)"
+                    [accept]="'.pdf, .png, .jpg, application/pdf, image/png, image/jpeg'"
+                    [isEdit]="isEditLicenseDataFile" [imageSrc]="licenseDataFile"
+                    [showPreview]="true"></app-file-upload>
                 </div>
               </div>
             </div>
@@ -608,10 +643,10 @@
                     </div>
                   </div>
                   <div class="">
-                    <label for="nationalAddressEndDate" class="mb-2">{{'labels.endDate'|translate}}</label>
+                    <label for="nationalAddressEndDate" class="mb-2" [ngClass]="{'text-danger': hasValue('nationalAddressEndDate')}">{{'labels.endDate'|translate}}</label>
                     <div
                       [class.border-red]="formControls?.nationalAddressEndDate?.invalid && (formControls?.nationalAddressEndDate?.dirty || formControls?.nationalAddressEndDate?.touched)">
-                      <div class="input-group bg-white-color d-flex flex-nowrap">
+                      <div class="input-group bg-white-color d-flex flex-nowrap" [ngClass]="{ 'expire-border': hasValue('nationalAddressEndDate'), 'text-danger': hasValue('nationalAddressEndDate') }">
                         <p-calendar [class.prevent-click]="isNationalAddressEndDateReadOnly" class="w-100"
                           formControlName="nationalAddressEndDate" appendTo="body" [showIcon]="true" inputId="icon"
                           [readonlyInput]="true" [styleClass]="'date-picker'"
@@ -642,6 +677,10 @@
                       </ng-container>
                     </div>
                   </div>
+                  <app-file-upload (uploadHandler)="uploadNationalAddressFile($event)"
+                    [accept]="'.pdf, .png, .jpg, application/pdf, image/png, image/jpeg'"
+                    [isEdit]="isEditNationalAddressFile" [imageSrc]="nationalAddressFile"
+                    [showPreview]="true"></app-file-upload>
                 </div>
               </div>
             </div>

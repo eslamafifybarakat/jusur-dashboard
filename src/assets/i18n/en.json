@@ -161,12 +161,12 @@
       "editCustomer": "Edit Client",
       "search": "Search by client name or mobile number",
       "customerDetails": "Client records details",
-      "recordDetails": "History details",
-      "licenseDetails": "Municipality license details",
-      "certificateDetails": "Safety certificate details",
-      "medicalDetails": "Medical insurance details",
-      "fileDetails": "Labor office file details",
-      "customerDataDetails": "Client data details",
+      "recordDetails": "History Details",
+      "licenseDetails": "Municipality License Details",
+      "certificateDetails": "Safety Certificate Details",
+      "medicalDetails": "Medical Insurance Details",
+      "fileDetails": "Labor Office File Details",
+      "customerDataDetails": "Client Data Details",
       "activateClient": "Activate Client Account",
       "suspendClient": "Suspend Client Account",
       "areYouSureToActivate": "Are you sure you want to activate",
@@ -302,6 +302,7 @@
     "recordName": "History Name",
     "recordNumber": "History Number",
     "endDate": "End Date",
+    "licenseType":"License Type",
     "residencyNumber": "Residency number",
     "healthCertificate": "health certificate",
     "residencePhoto": "residence photo",
@@ -355,7 +356,9 @@
     "operatingCard": "Enter operating card",
     "insuranceExpiryDate": "Enter insurance expiry date",
     "formPhoto": "Enter form photo",
-    "dateFormat": "mm/dd/yy"
+    "dateFormat": "mm/dd/yy",
+    "licenseType":"License type"
+
   },
   "validations": {
     "emailRequired": "Email Address is required",
