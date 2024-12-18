@@ -60,17 +60,6 @@
   #edit-client {
     .input-group {
 
-      .p-dropdown{
-        height: 3rem !important;
-        border: 1px solid var(--second-border-color) !important;
-        border-right: 0 !important;
-        border-radius: var(--border-input-radius) 0 0 var(--border-input-radius);
-
-        overflow: hidden;
-        .p-dropdown-label{
-          color: #7d7b7baa;
-        }
-      }
       .form-control,
       .p-calendar-w-btn .p-inputtext {
         height: 3rem !important;
@@ -78,7 +67,14 @@
         color: #696969;
         border-radius: var(--border-input-radius) 0 0 var(--border-input-radius);
       }
-
+      .p-calendar:not(.p-calendar-disabled).p-focus > .p-inputtext {
+        box-shadow: 0 0 0 0rem transparent;
+        border-color: transparent !important;
+      }
+      .p-calendar:not(.p-calendar-disabled):hover > .p-inputtext {
+        box-shadow: 0 0 0 0rem transparent;
+        border-color: transparent !important;
+      }
       .p-calendar-w-btn .p-inputtext {
         border-left: 0;
         border-radius: 0 !important;

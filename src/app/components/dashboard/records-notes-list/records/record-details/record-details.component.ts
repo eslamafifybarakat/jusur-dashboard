@@ -26,6 +26,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, catchError, tap } from 'rxjs';
 import { keys } from 'src/app/shared/configs/localstorage-key';
 import { DropdownModule } from 'primeng/dropdown';
+import { sanitizeValue } from 'src/app/common/functions/sanitizeValue';
 
 @Component({
   standalone: true,
@@ -267,7 +268,6 @@ export class RecordDetailsComponent {
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
-
   selectedValuesChanged(selectedValues: any): void {
     this.viewMedicalDetails = false;
     this.viewFileDetails = false;
@@ -360,23 +360,23 @@ export class RecordDetailsComponent {
     this.certificateFile = this.recordDetails?.certificateFile,
       this.certificateFile ? this.isEditCertificateFile = true : '';
     this.modalForm?.patchValue({
-      recordName: this.recordDetails?.name,
-      registrationNumber: this.recordDetails?.number,
+      recordName: sanitizeValue(this.recordDetails?.name),
+      registrationNumber: sanitizeValue(this.recordDetails?.number),
       recordDate: convertedRecordDate,
-      licenseNumber: this.recordDetails?.licenseNumber,
+      licenseNumber: sanitizeValue(this.recordDetails?.licenseNumber),
       licenseDate: convertedLicenseDate,
-      certificateNumber: this.recordDetails?.certificateNumber,
+      certificateNumber: sanitizeValue(this.recordDetails?.certificateNumber),
       certificateDate: convertedCertificateDate,
-      medicalInsuranceNumber: this.recordDetails?.medicalInsuranceNumber,
+      medicalInsuranceNumber: sanitizeValue(this.recordDetails?.medicalInsuranceNumber),
       medicalInsuranceDate: convertedMedicalInsuranceDate,
-      businessLicenseNumber: this.recordDetails?.businessLicenseNumber,
-      businessLicense: this.recordDetails?.businessLicense,
+      businessLicenseNumber: sanitizeValue(this.recordDetails?.businessLicenseNumber),
+      businessLicense: sanitizeValue(this.recordDetails?.businessLicense),
 
-      licenseDataNumber: this.recordDetails?.licenseDataNumber,
+      licenseDataNumber: sanitizeValue(this.recordDetails?.licenseDataNumber),
       licenseEndDate: convertedLicenseEndDate,
-      licenseType:this.recordDetails?.licenseType,
+      licenseType: sanitizeValue(this.recordDetails?.licenseType),
 
-      nationalAddressNumber: this.recordDetails?.nationalAddressNumber,
+      nationalAddressNumber: sanitizeValue(this.recordDetails?.nationalAddressNumber),
       nationalAddressEndDate: convertedNationalAddressEndDate,
     })
     this.medicalFile=this.recordDetails?.medicalFile,
